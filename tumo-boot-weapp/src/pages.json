@@ -1,0 +1,73 @@
+{
+  "globalStyle": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#07c160",
+    "navigationBarTitleText": "Template",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#fafafa",
+    "backgroundColorTop": "#fafafa",
+    "backgroundColorBottom": "#fafafa"
+  },
+  "tabBar": {
+    "color": "#666666",
+    "selectedColor": "#07c160",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/tabbar/index/index",
+        "text": "首页",
+        "iconPath": "static/images/tabbar/home.png",
+        "selectedIconPath": "static/images/tabbar/home_active.png"
+      },
+      {
+        "pagePath": "pages/tabbar/extend/index",
+        "text": "探索",
+        "iconPath": "static/images/tabbar/browse.png",
+        "selectedIconPath": "static/images/tabbar/browse_active.png"
+      },
+      {
+        "pagePath": "pages/tabbar/plus/index",
+        "text": "更多",
+        "iconPath": "static/images/tabbar/adjust.png",
+        "selectedIconPath": "static/images/tabbar/adjust_active.png"
+      }
+    ]
+  },
+  "pages": [
+    {
+      "path": "pages/tabbar/index/index",
+      "style": {
+        "titleNView": false,
+        "navigationBarTitleText": "首页",
+        "app-plus": {
+          "bounce": "vertical"
+        }
+      }
+    },
+    {
+      "path": "pages/tabbar/extend/index",
+      "style": {
+        "titleNView": false,
+        "disableScroll": true,
+        "navigationBarTitleText": "探索"
+      }
+    },
+    {
+      "path": "pages/tabbar/plus/index",
+      "style": {
+        "titleNView": false,
+        "disableScroll": true,
+        "navigationBarTitleText": "更多"
+      }
+    },
+    {
+      "path": "pages/common/login/index",
+      "style": {
+        "titleNView": false,
+        "disableScroll": true,
+        "navigationBarTitleText": "登录"
+      }
+    }
+  ]
+}

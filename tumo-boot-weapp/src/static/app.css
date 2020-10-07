@@ -1,0 +1,17 @@
+page {
+  background-color: #f0f3f6;
+}
+
+label {
+  color: rgba(69, 90, 100, 0.6)
+}
+
+h1 h2 h3 h4 h5 {
+  color: rgba(69, 90, 100, 0.6)
+}
+
+.font-size-13 {
+  font-size: 13px;
+}
+
+
