@@ -12,7 +12,7 @@
 
 ## Docs
 
-在线文档：[http://docs.boot.tycoding.cn/#/](http://docs.boot.tycoding.cn/#/)
+在线文档：[http://docs.boot.tycoding.cn](http://docs.boot.tycoding.cn)
 
 
 ## License
