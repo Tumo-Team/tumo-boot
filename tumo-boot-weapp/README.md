@@ -1,4 +1,4 @@
-# wechat-app
+# Tumo Boot WeApp
 
 ## Component
 
