@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Ant Design Vue Pro',
+  title: 'Tumo Boot Admin',
 
   // 是否展示左侧设置按钮
   showSettings: true,

@@ -17,7 +17,7 @@ cd Tumo-Boot/tumo-boot-admin
 npm install
 
 # develop
-npm run dev
+npm run serve
 ```
 
 This will automatically open http://localhost:9527

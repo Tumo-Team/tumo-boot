@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: Tumo Boot
+    name: Tumo-Boot
   profiles:
     active: dev
 
