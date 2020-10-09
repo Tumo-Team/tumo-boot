@@ -1,0 +1,75 @@
+##引入自定义全局变量
+$!tumo-boot-define
+
+##定义初始变量
+#set($tableName = $tool.append($tableInfo.name, "ServiceImpl"))
+##设置回调
+$!callback.setFileName($tool.append($tableName, ".java"))
+$!callback.setSavePath($tool.append($tableInfo.savePath, "/service/impl"))
+
+##拿到主键
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $tableInfo.pkColumn.get(0))
+#end
+
+#if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}service.impl;
+
+import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
+import $!{tableInfo.savePackageName}.dao.$!{tableInfo.name}Dao;
+import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
+import cn.tycoding.boot.common.api.QueryPage;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ * $!{tableInfo.comment}($!{tableInfo.name})表服务实现类
+ *
+ * @author $!author
+ * @since $!time.currTime()
+ */
+@Service
+@AllArgsConstructor
+public class $!{tableName} extends ServiceImpl<$!{TumoBootDao}, $!{TumoBootEntity}> implements $!{TumoBootService} {
+
+    private final $!{TumoBootDao} $!{TumoBootLowerCaseDao};
+
+    @Override
+    public List<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        LambdaQueryWrapper<$!{TumoBootEntity}> queryWrapper = new LambdaQueryWrapper<>();
+        return baseMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public IPage<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+        IPage<$!{TumoBootEntity}> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
+        LambdaQueryWrapper<$!{TumoBootEntity}> queryWrapper = new LambdaQueryWrapper<>();
+        //queryWrapper.like(StringUtils.isNotBlank($!{TumoBootLowerCaseEntity}.getName()), $!{TumoBootEntity}::getName, $!{TumoBootLowerCaseEntity}.getName());
+        return baseMapper.selectPage(page, queryWrapper);
+    }
+
+    @Override
+    @Transactional
+    public void add($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        baseMapper.insert($!{TumoBootLowerCaseEntity});
+    }
+
+    @Override
+    @Transactional
+    public void update($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        baseMapper.updateById($!{TumoBootLowerCaseEntity});
+    }
+
+    @Override
+    @Transactional
+    public void delete($!pk.shortType id) {
+        baseMapper.deleteById(id);
+    }
+}

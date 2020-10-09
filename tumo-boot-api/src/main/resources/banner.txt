@@ -1,0 +1,15 @@
+${AnsiColor.BLUE}    ___       ___       ___       ___            ___       ___       ___       ___
+${AnsiColor.BLUE}   /\  \     /\__\     /\__\     /\  \          /\  \     /\  \     /\  \     /\  \
+${AnsiColor.BLUE}   \:\  \   /:/ _/_   /::L_L_   /::\  \        /::\  \   /::\  \   /::\  \    \:\  \
+${AnsiColor.BLUE}   /::\__\ /:/_/\__\ /:/L:\__\ /:/\:\__\      /::\:\__\ /:/\:\__\ /:/\:\__\   /::\__\
+${AnsiColor.BLUE}  /:/\/__/ \:\/:/  / \/_/:/  / \:\/:/  /      \:\::/  / \:\/:/  / \:\/:/  /  /:/\/__/
+${AnsiColor.BLUE}  \/__/     \::/  /    /:/  /   \::/  /        \::/  /   \::/  /   \::/  /   \/__/
+${AnsiColor.BLUE}             \/__/     \/__/     \/__/          \/__/     \/__/     \/__/
+
+${AnsiColor.BLUE} Tumo-Boot :: ${AnsiColor.CYAN} Running SpringBoot ${spring-boot.version} ${AnsiColor.RED} :: Port: ${server.port} :: ${AnsiColor.WHITE}
+
+   开发、使用文档：http://docs.boot.tycoding.cn/
+   Blog: http://tycoding.cn
+   Github: https://github.com/tycoding
+   QQ group: 671017003
+

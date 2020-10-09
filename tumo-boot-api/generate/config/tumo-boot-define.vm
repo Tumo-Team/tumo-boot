@@ -1,0 +1,16 @@
+##自定义一些全局变量。引用方式，直接在code中用`$!define`方式引入即可
+
+##定义Entity名称
+#set($TumoBootEntity = $tableInfo.name)
+##定义首字母小写Entity名称
+#set($TumoBootLowerCaseEntity = $!tool.firstLowerCase($tableInfo.name))
+
+##定义Service名称
+#set($TumoBootService = $!{tableInfo.name} + "Service")
+##定义首字母小写Service名称
+#set($TumoBootLowerCaseService = $!tool.firstLowerCase($tableInfo.name) + "Service")
+
+##定义Dao名称
+#set($TumoBootDao = $!{tableInfo.name} + "Dao")
+##定义首字母小写Dao名称
+#set($TumoBootLowerCaseDao = $!tool.firstLowerCase($tableInfo.name) + "Dao")

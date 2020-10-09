@@ -1,0 +1,88 @@
+##引入自定义全局变量
+$!tumo-boot-define
+
+##定义初始变量
+#set($tableName = $tool.append($tableInfo.name, "Controller"))
+##设置回调
+$!callback.setFileName($tool.append($tableName, ".java"))
+$!callback.setSavePath($tool.append($tableInfo.savePath, "/controller"))
+##拿到主键
+#if(!$tableInfo.pkColumn.isEmpty())
+    #set($pk = $tableInfo.pkColumn.get(0))
+#end
+
+#if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}controller;
+
+import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
+import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
+import cn.tycoding.boot.common.controller.BaseController;
+import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.api.R;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+/**
+ * $!{tableInfo.comment}($!{tableInfo.name})表控制层
+ *
+ * @author $!author
+ * @since $!time.currTime()
+ */
+@RestController
+@AllArgsConstructor
+@RequestMapping("/${TumoBootLowerCaseEntity}")
+public class $!{tableName} extends BaseController {
+
+    private final $!{TumoBootService} $!{TumoBootLowerCaseService};
+
+    /**
+    * 条件查询
+    */
+    @PostMapping("/filter/list")
+    public R list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        return new R<>($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
+    }
+
+    /**
+    * 分页、条件查询
+    */
+    @PostMapping("/list")
+    public R list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+        return new R<>(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
+    }
+
+    /**
+    * 根据ID查询
+    */
+    @GetMapping("/{id}")
+    public R findById(@PathVariable $!pk.shortType id) {
+        return new R<>($!{TumoBootLowerCaseService}.getById(id));
+    }
+
+    /**
+    * 新增
+    */
+    @PostMapping
+    public R save(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
+        return new R();
+    }
+
+    /**
+    * 修改
+    */
+    @PutMapping
+    public R update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        $!{TumoBootLowerCaseService}.update($!{TumoBootLowerCaseEntity});
+        return new R();
+    }
+
+    /**
+    * 根据ID删除
+    */
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable $!pk.shortType id) {
+        $!{TumoBootLowerCaseService}.delete(id);
+        return new R();
+    }
+}
