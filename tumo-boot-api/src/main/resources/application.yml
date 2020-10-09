@@ -4,6 +4,8 @@ server:
     uri-encoding: utf-8
 
 spring:
+  application:
+    name: Tumo Boot
   profiles:
     active: dev
 
@@ -18,7 +20,7 @@ spring:
       max-request-size: 100MB
 
 mybatis-plus:
-  type-aliases-package: cn.tycoding.boot.modules.*.entity
+  type-aliases-package: cn.tycoding.boot.modules.**.entity
   mapper-locations: classpath:mapper/*.xml
   configuration:
     jdbc-type-for-null: null

@@ -22,6 +22,9 @@ import cn.tycoding.boot.common.api.R;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * $!{tableInfo.comment}($!{tableInfo.name})表控制层
  *
@@ -39,7 +42,7 @@ public class $!{tableName} extends BaseController {
     * 条件查询
     */
     @PostMapping("/filter/list")
-    public R list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R<List<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         return new R<>($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
     }
 
@@ -47,7 +50,7 @@ public class $!{tableName} extends BaseController {
     * 分页、条件查询
     */
     @PostMapping("/list")
-    public R list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+    public R<Map<String, Object>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
         return new R<>(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
     }
 
@@ -55,7 +58,7 @@ public class $!{tableName} extends BaseController {
     * 根据ID查询
     */
     @GetMapping("/{id}")
-    public R findById(@PathVariable $!pk.shortType id) {
+    public R<$!{TumoBootEntity}> findById(@PathVariable $!pk.shortType id) {
         return new R<>($!{TumoBootLowerCaseService}.getById(id));
     }
 

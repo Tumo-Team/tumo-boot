@@ -1,7 +1,7 @@
-package cn.tycoding.boot.modules.service;
+package cn.tycoding.boot.modules.system.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.modules.entity.SysUser;
+import cn.tycoding.boot.modules.system.entity.SysUser;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * 用户表(SysUser)表服务接口
  *
  * @author tycoding
- * @since 2020-10-09 14:55:18
+ * @since 2020-10-09 16:37:46
  */
 public interface SysUserService extends IService<SysUser> {
 

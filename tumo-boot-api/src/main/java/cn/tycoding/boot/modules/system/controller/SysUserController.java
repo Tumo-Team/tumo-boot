@@ -1,18 +1,21 @@
-package cn.tycoding.boot.modules.controller;
+package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.controller.BaseController;
-import cn.tycoding.boot.modules.entity.SysUser;
-import cn.tycoding.boot.modules.service.SysUserService;
+import cn.tycoding.boot.modules.system.entity.SysUser;
+import cn.tycoding.boot.modules.system.service.SysUserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 用户表(SysUser)表控制层
  *
  * @author tycoding
- * @since 2020-10-09 14:55:19
+ * @since 2020-10-09 16:37:47
  */
 @RestController
 @AllArgsConstructor
@@ -25,7 +28,7 @@ public class SysUserController extends BaseController {
      * 条件查询
      */
     @PostMapping("/filter/list")
-    public R list(@RequestBody SysUser sysUser) {
+    public R<List<SysUser>> list(@RequestBody SysUser sysUser) {
         return new R<>(sysUserService.list(sysUser));
     }
 
@@ -33,7 +36,7 @@ public class SysUserController extends BaseController {
      * 分页、条件查询
      */
     @PostMapping("/list")
-    public R list(@RequestBody SysUser sysUser, QueryPage queryPage) {
+    public R<Map<String, Object>> list(@RequestBody SysUser sysUser, QueryPage queryPage) {
         return new R<>(super.getData(sysUserService.list(sysUser, queryPage)));
     }
 
@@ -41,7 +44,7 @@ public class SysUserController extends BaseController {
      * 根据ID查询
      */
     @GetMapping("/{id}")
-    public R findById(@PathVariable Long id) {
+    public R<SysUser> findById(@PathVariable Long id) {
         return new R<>(sysUserService.getById(id));
     }
 

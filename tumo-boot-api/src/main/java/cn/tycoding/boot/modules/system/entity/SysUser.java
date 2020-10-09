@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.entity;
+package cn.tycoding.boot.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -12,12 +12,12 @@ import java.util.Date;
  * 用户表(SysUser)实体类
  *
  * @author tycoding
- * @since 2020-10-09 14:55:17
+ * @since 2020-10-09 16:37:44
  */
 @Data
 @TableName("sys_user")
 public class SysUser implements Serializable {
-    private static final long serialVersionUID = -20285777133358109L;
+    private static final long serialVersionUID = -31873319540754776L;
 
     /**
      * 主键

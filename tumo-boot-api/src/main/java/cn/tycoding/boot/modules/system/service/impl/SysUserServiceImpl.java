@@ -1,9 +1,9 @@
-package cn.tycoding.boot.modules.service.impl;
+package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.modules.dao.SysUserDao;
-import cn.tycoding.boot.modules.entity.SysUser;
-import cn.tycoding.boot.modules.service.SysUserService;
+import cn.tycoding.boot.modules.system.dao.SysUserDao;
+import cn.tycoding.boot.modules.system.entity.SysUser;
+import cn.tycoding.boot.modules.system.service.SysUserService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,7 +18,7 @@ import java.util.List;
  * 用户表(SysUser)表服务实现类
  *
  * @author tycoding
- * @since 2020-10-09 14:55:19
+ * @since 2020-10-09 16:37:46
  */
 @Service
 @AllArgsConstructor

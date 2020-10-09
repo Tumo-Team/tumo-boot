@@ -1,6 +1,7 @@
 package cn.tycoding.boot.common.api;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
  * @author tycoding
  * @since 2020/10/9
  */
+@Data
 public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
