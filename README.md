@@ -3,13 +3,13 @@
 </p>
 <p align="center">
     <a href="https://github.com/Tumo-Team/Tumo-Boot" target="_blank">
-        <strong>Tumo Team —— Tumo-Boot</strong>
+        🚀🎉🎉 <strong>Tumo Team —— Tumo-Boot</strong>
     </a>
 </p>
 
 # Tumo Boot
 
-> 手摸手带你学习基于SpringBoot（后端）、Ant Design Vue（前端）、Uni-App（小程序端）的项目开发。
+> 手摸手带你学习基于SpringBoot（后端）、Ant Design Vue（前端）、Uni-App（微信小程序端）的项目开发。
 
 ```
 .
@@ -28,4 +28,4 @@
 
 [MIT](https://github.com/Tumo-Team/Tumo-Boot/blob/master/LICENSE)
 
-Copyright (c) 2017-present TyCoding
+Copyright (c) 2020-present TyCoding
