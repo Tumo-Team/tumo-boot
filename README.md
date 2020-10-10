@@ -3,7 +3,7 @@
 </p>
 <p align="center">
     <a href="https://github.com/Tumo-Team/Tumo-Boot" target="_blank">
-        🚀🎉🎉 <strong>Tumo Team —— Tumo-Boot</strong>
+        🚀 🎉 🎉 <strong>Tumo Team —— Tumo-Boot</strong>
     </a>
 </p>
 
