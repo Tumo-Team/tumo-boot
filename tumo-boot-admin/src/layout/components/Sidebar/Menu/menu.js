@@ -134,7 +134,7 @@ export default {
       // 判断Menu是否隐藏
       if (!menu.hidden) {
         // 判断Menu是否只有一层，或者children只有一层，都渲染为一层节点
-        if (this.hasOneShowingChild(menu.children, menu) && (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren) && !menu.alwaysShow) {
+        if (this.hasOneShowingChild(menu.children, menu) && (!this.onlyOneChild.children || this.onlyOneChild.noShowingChildren)) {
           return this.renderMenuItem(parentPath, this.onlyOneChild)
         }
         // 包含子节点

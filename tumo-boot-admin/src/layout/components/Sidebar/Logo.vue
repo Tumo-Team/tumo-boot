@@ -2,11 +2,11 @@
   <div class="sidebar-logo-container" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <svg-icon v-if="logo" icon-class="logo" style="width: 32px;height: 32px;" class="sidebar-logo" />
+        <svg-icon v-if="logo" icon-class="tumo-team" style="width: 32px;height: 32px;" class="sidebar-logo" />
         <h1 v-else :class="'sidebar-title ' + theme">{{ title }} </h1>
       </router-link>
       <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <svg-icon v-if="logo" icon-class="logo" style="width: 32px;height: 32px;" class="sidebar-logo" />
+        <svg-icon v-if="logo" icon-class="tumo-team" style="width: 32px;height: 32px;" class="sidebar-logo" />
         <h1 :class="'sidebar-title ' + theme">{{ title }} </h1>
       </router-link>
     </transition>
@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      title: 'Ant Design Pro',
+      title: 'Tumo Boot Admin',
       logo: '/logo.png'
     }
   }

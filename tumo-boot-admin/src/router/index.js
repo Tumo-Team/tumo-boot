@@ -7,13 +7,14 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
+import tumoBootRouter from './modules/tumo-boot'
 import nestedRouter from './modules/nested'
 
 /**
- * Note: sub-menu only appear when route children.length >= 1
- * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
+ * 注意：`sub-menu` 仅仅在route children.length >= 1 的时候才显示，否则仅作为一级路由展示
+ * 详细: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  *
- * hidden: true                   if set true, item will not show in the sidebar(default is false)
+ * hidden: true                   是否隐藏，如果为true隐藏就不会渲染到sidebar侧边栏中，否则就渲染
  * alwaysShow: true               if set true, will always show the root menu
  *                                if not set alwaysShow, when item has more than one children route,
  *                                it will becomes nested mode, otherwise not show the root menu
@@ -31,9 +32,7 @@ import nestedRouter from './modules/nested'
  */
 
 /**
- * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * 路由常量对象
  */
 export const constantRoutes = [
   {
@@ -138,11 +137,11 @@ export const constantRoutes = [
 ]
 
 /**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
+ * 异步加载路由，其定义在./modules文件夹中
  */
 export const asyncRoutes = [
 
+  tumoBootRouter,
   nestedRouter,
 
   // 404 page must be placed at the end !!!

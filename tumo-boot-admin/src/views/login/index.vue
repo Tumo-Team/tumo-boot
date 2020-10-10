@@ -2,7 +2,7 @@
   <div class="login-container">
     <div class="login-weaper animated bounceInDown">
       <div class="login-logo">
-        <svg-icon icon-class="logo" style="width: 74px;height: 77px;" />
+        <svg-icon icon-class="tumo-team" style="width: 74px;height: 77px;" />
       </div>
       <div class="login-tip">
         Tumo Boot Admin

@@ -1,9 +1,9 @@
-<div style="text-align: center">
-    <img src="http://cdn.tycoding.cn/MIK-YMmzrq.png" />
-    <p>Tumo Team</p>
-</div>
-
-
+<p align="center">
+    <img src="http://cdn.tycoding.cn/MIK-WxRzP9.png" />
+</p>
+<p align="center">
+    Tumo Team
+</p>
 
 # Tumo Boot
 
