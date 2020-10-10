@@ -2,7 +2,9 @@
     <img src="http://cdn.tycoding.cn/MIK-WxRzP9.png" />
 </p>
 <p align="center">
-    Tumo Team
+    <a href="https://github.com/Tumo-Team/Tumo-Boot" target="_blank">
+        <strong>Tumo Team —— Tumo-Boot</strong>
+    </a>
 </p>
 
 # Tumo Boot Admin
@@ -40,3 +42,9 @@ npm run build:prod
 ```
 
 ## Preview
+
+## License
+
+[MIT](https://github.com/Tumo-Team/Tumo-Boot/blob/master/LICENSE)
+
+Copyright (c) 2020-present TyCoding

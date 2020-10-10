@@ -2,7 +2,9 @@
     <img src="http://cdn.tycoding.cn/MIK-WxRzP9.png" />
 </p>
 <p align="center">
-    Tumo Team
+    <a href="https://github.com/Tumo-Team/Tumo-Boot" target="_blank">
+        <strong>Tumo Team —— Tumo-Boot</strong>
+    </a>
 </p>
 
 # 代码生成
