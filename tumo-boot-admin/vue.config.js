@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'Ant Design Vue Pro' // page title
+const name = defaultSettings.title || 'vue Element Admin' // page title
 
 // If your port is set to 80,
 // use administrator privileges to execute the command line.
@@ -15,7 +15,7 @@ const name = defaultSettings.title || 'Ant Design Vue Pro' // page title
 // port = 9527 npm run dev OR npm run dev --port = 9527
 const port = process.env.port || process.env.npm_config_port || 9527 // dev port
 
-// All configuration item explanations can be find in `https://cli.vuejs.org/config/
+// All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   /**
    * You will need to set publicPath if you plan to deploy your site under a sub path,
@@ -83,15 +83,6 @@ module.exports = {
       })
       .end()
 
-    config.module
-      .rule('js')
-      .test(/\.js$/)
-      .include.add(resolve('src')).add(resolve('test'))
-      .end()
-      .use('babel-loader')
-      .loader('babel-loader')
-      .end()
-
     config
       .when(process.env.NODE_ENV !== 'development',
         config => {
@@ -99,7 +90,7 @@ module.exports = {
             .plugin('ScriptExtHtmlWebpackPlugin')
             .after('html')
             .use('script-ext-html-webpack-plugin', [{
-            // `runtime` must same as runtimeChunk name. default is `runtime`
+              // `runtime` must same as runtimeChunk name. default is `runtime`
               inline: /runtime\..*\.js$/
             }])
             .end()
@@ -114,9 +105,9 @@ module.exports = {
                   chunks: 'initial' // only package third parties that are initially dependent
                 },
                 elementUI: {
-                  name: 'chunk-elementUI', // split elementUI into a single package
+                  name: 'chunk-antdv', // split elementUI into a single package
                   priority: 20, // the weight needs to be larger than libs and app or it will be packaged into libs or app
-                  test: /[\\/]node_modules[\\/]_?element-ui(.*)/ // in order to adapt to cnpm
+                  test: /[\\/]node_modules[\\/]_?ant-design-vue(.*)/ // in order to adapt to cnpm
                 },
                 commons: {
                   name: 'chunk-commons',

@@ -22,3 +22,10 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function userList(query) {
+  return request({
+    url: `/user/list?page=${query.page}&size=${query.size}`,
+    method: 'post'
+  })
+}

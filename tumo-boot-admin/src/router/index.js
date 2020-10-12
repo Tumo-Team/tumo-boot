@@ -15,9 +15,6 @@ import nestedRouter from './modules/nested'
  * 详细: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
  *
  * hidden: true                   是否隐藏，如果为true隐藏就不会渲染到sidebar侧边栏中，否则就渲染
- * alwaysShow: true               if set true, will always show the root menu
- *                                if not set alwaysShow, when item has more than one children route,
- *                                it will becomes nested mode, otherwise not show the root menu
  * redirect: noRedirect           if set noRedirect will no redirect in the breadcrumb
  * name:'router-name'             the name is used by <keep-alive> (must set!!!)
  * meta : {
@@ -70,15 +67,6 @@ export const constantRoutes = [
     ]
   },
   {
-    path: 'external-link',
-    children: [
-      {
-        path: 'https://github.com/Tumo-Team/T-AntV',
-        meta: { title: 'External Link', icon: 'link' }
-      }
-    ]
-  },
-  {
     path: '/profile',
     component: Layout,
     hidden: true,
@@ -104,7 +92,17 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
+  }
+]
+
+/**
+ * 异步加载路由，其定义在./modules文件夹中
+ */
+export const asyncRoutes = [
+
+  tumoBootRouter,
+  nestedRouter,
+
   {
     path: '/error',
     component: Layout,
@@ -133,16 +131,17 @@ export const constantRoutes = [
         meta: { title: '500' }
       }
     ]
-  }
-]
+  },
 
-/**
- * 异步加载路由，其定义在./modules文件夹中
- */
-export const asyncRoutes = [
-
-  tumoBootRouter,
-  nestedRouter,
+  {
+    path: 'external-link',
+    children: [
+      {
+        path: 'https://github.com/Tumo-Team/Tumo-Boot',
+        meta: { title: 'External Link', icon: 'link' }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

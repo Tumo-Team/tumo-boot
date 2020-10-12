@@ -3,35 +3,25 @@
 import Layout from '@/layout'
 
 const tumoBootRouter = {
-  path: '/nested',
+  path: '/system',
   component: Layout,
-  redirect: '/nested/menu1/menu1-1',
-  name: 'Nested',
+  name: '系统模块',
   meta: {
-    title: 'Nested Routes',
+    title: '系统模块',
     icon: 'alert'
   },
   children: [
     {
-      path: 'menu1',
-      component: () => import('@/views/nested/menu1/index'), // Parent router-view
-      name: 'Menu1',
-      meta: { icon: 'alert', title: 'Menu 1' },
-      redirect: '/nested/menu1/menu1-1',
-      children: [
-        {
-          path: 'menu1-1',
-          component: () => import('@/views/nested/menu1/menu1-1'),
-          name: 'Menu1-1',
-          meta: { title: 'Menu 1-1', icon: 'alert' }
-        }
-      ]
+      path: 'user',
+      name: '用户管理',
+      component: () => import('@/views/modules/system/user/index'),
+      meta: { title: '用户管理', icon: 'alert' }
     },
     {
-      path: 'menu2',
-      name: 'Menu2',
-      component: () => import('@/views/nested/menu2/index'),
-      meta: { title: 'Menu 2', icon: 'alert' }
+      path: 'log',
+      name: '日志模块',
+      component: () => import('@/views/modules/system/user/index'),
+      meta: { title: '日志模块', icon: 'alert' }
     }
   ]
 }
