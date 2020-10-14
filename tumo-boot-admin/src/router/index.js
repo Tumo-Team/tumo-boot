@@ -112,7 +112,7 @@ export const asyncRoutes = [
     redirect: 'noRedirect',
     meta: {
       title: 'Error Page',
-      icon: 'frown'
+      icon: 'bug'
     },
     children: [
       {

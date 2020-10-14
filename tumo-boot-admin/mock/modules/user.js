@@ -47,7 +47,7 @@ module.exports = [
         data: {
           username: 'Super Admin',
           phone: '193813283928',
-          roles: ["ADMIN"],
+          roles: ['ADMIN'],
           status: '激活',
           avatar: 'https://tycoding.cn/images/avatar.jpg'
         }
@@ -75,30 +75,34 @@ module.exports = [
       return {
         code: 200,
         data: {
-          total: 3,
+          total: 4,
           rows: [
             {
               id: 1,
               username: 'admin',
               avatar: 'https://tycoding.cn/images/avatar.jpg',
+              roles: ['管理员', '架构师'],
               sex: '男'
             },
             {
               id: 2,
               username: '涂陌',
               avatar: 'https://tycoding.cn/images/avatar.jpg',
+              roles: ['管理员', '架构师'],
               sex: '男'
             },
             {
               id: 3,
               username: 'TyCoding',
               avatar: 'https://tycoding.cn/images/avatar.jpg',
+              roles: ['管理员', '架构师'],
               sex: '男'
             },
             {
               id: 4,
               username: 'TyCoding2',
               avatar: 'https://tycoding.cn/images/avatar.jpg',
+              roles: ['管理员', '架构师'],
               sex: '男'
             }
           ]

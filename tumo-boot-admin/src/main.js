@@ -5,6 +5,8 @@ import Cookies from 'js-cookie'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 
+import '@/styles/index.less' // global css
+
 import App from './App'
 import store from './store'
 import router from './router'
@@ -28,7 +30,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 Vue.use(Antd, {
-  size: Cookies.get('size') || 'medium' // set element-ui default size
+  size: Cookies.get('size') || 'medium' // set default size
 })
 
 // register global utility filters

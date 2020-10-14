@@ -10,7 +10,7 @@
 ##定义首字母小写Service名称
 #set($TumoBootLowerCaseService = $!tool.firstLowerCase($tableInfo.name) + "Service")
 
-##定义Dao名称
-#set($TumoBootDao = $!{tableInfo.name} + "Dao")
-##定义首字母小写Dao名称
-#set($TumoBootLowerCaseDao = $!tool.firstLowerCase($tableInfo.name) + "Dao")
+##定义Mapper名称
+#set($TumoBootMapper = $!{tableInfo.name} + "Mapper")
+##定义首字母小写Mapper名称
+#set($TumoBootLowerCaseMapper = $!tool.firstLowerCase($tableInfo.name) + "Mapper")

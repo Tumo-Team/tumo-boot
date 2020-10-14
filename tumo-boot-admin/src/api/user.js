@@ -25,7 +25,7 @@ export function logout() {
 
 export function userList(query) {
   return request({
-    url: `/user/list?page=${query.page}&size=${query.size}`,
+    url: `/user/list?page=${query.page}&limit=${query.limit}`,
     method: 'post'
   })
 }
