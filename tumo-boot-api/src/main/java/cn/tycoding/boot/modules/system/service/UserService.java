@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.system.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -14,6 +15,11 @@ import java.util.List;
  * @since 2020-10-14 14:32:27
  */
 public interface UserService extends IService<User> {
+
+    /**
+     * 根据用户名封装：用户信息、角色、部门、权限
+     */
+    UserInfo info(String username);
 
     /**
      * 条件查询
