@@ -9,15 +9,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户表(SysUser)实体类
+ * 分类表(SysCategory)实体类
  *
  * @author tycoding
- * @since 2020-10-13 11:13:38
+ * @since 2020-10-13 11:12:40
  */
 @Data
-@TableName("sys_user")
-public class SysUser implements Serializable {
-    private static final long serialVersionUID = -81925601139044351L;
+@TableName("sys_category")
+public class SysCategory implements Serializable {
+    private static final long serialVersionUID = -45444667122539648L;
 
     /**
      * 主键
@@ -26,29 +26,14 @@ public class SysUser implements Serializable {
     private Long id;
 
     /**
-     * 用户名
+     * 分类名称
      */
-    private String username;
+    private String name;
 
     /**
-     * 密码
+     * 分类描述
      */
-    private String password;
-
-    /**
-     * 头像
-     */
-    private String avatar;
-
-    /**
-     * 手机
-     */
-    private String phone;
-
-    /**
-     * 状态 0锁定 1有效
-     */
-    private Boolean status;
+    private String des;
 
     /**
      * 创建时间

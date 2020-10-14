@@ -5,8 +5,6 @@ import Cookies from 'js-cookie'
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.less'
 
-import '@/styles/index.less' // global css
-
 import App from './App'
 import store from './store'
 import router from './router'

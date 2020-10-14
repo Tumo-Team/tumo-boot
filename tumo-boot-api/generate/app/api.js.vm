@@ -1,0 +1,70 @@
+##引入自定义全局变量
+$!tumo-boot-define
+##设置文件后缀名
+$!callback.setFileName("$!{TumoBootLowerCaseEntity}.js")
+
+import request from '@/utils/request'
+
+/**
+ * 分页、条件查询
+ */
+export function $!{TumoBootLowerCaseEntity}List(pagination, query) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}/list?page=${pagination.page}&size=${pagination.size}`,
+        method: 'post',
+        query
+    })
+}
+
+/**
+ * 条件查询
+ */
+export function $!{TumoBootLowerCaseEntity}FilterList(data) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}/filter/list`,
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 根据ID查询
+ */
+export function findBy$!{TumoBootEntity}Id(id) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}/${id}`,
+        method: 'get'
+    })
+}
+
+/**
+ * 新增
+ */
+export function add$!{TumoBootEntity}(data) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}`,
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 修改
+ */
+export function update$!{TumoBootEntity}(data) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}`,
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * 删除
+ */
+export function delete$!{TumoBootEntity}(id) {
+    return request({
+        url: `/$!{TumoBootLowerCaseEntity}/${id}`,
+        method: 'delete'
+    })
+}

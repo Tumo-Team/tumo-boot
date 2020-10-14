@@ -1,39 +1,39 @@
 package cn.tycoding.boot.modules.system.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.modules.system.entity.SysUser;
+import cn.tycoding.boot.modules.system.entity.SysCategory;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
 /**
- * 用户表(SysUser)表服务接口
+ * 分类表(SysCategory)表服务接口
  *
  * @author tycoding
- * @since 2020-10-13 11:13:39
+ * @since 2020-10-13 11:12:41
  */
-public interface SysUserService extends IService<SysUser> {
+public interface SysCategoryService extends IService<SysCategory> {
 
     /**
      * 条件查询
      */
-    List<SysUser> list(SysUser sysUser);
+    List<SysCategory> list(SysCategory sysCategory);
 
     /**
      * 分页、条件查询
      */
-    IPage<SysUser> list(SysUser sysUser, QueryPage queryPage);
+    IPage<SysCategory> list(SysCategory sysCategory, QueryPage queryPage);
 
     /**
      * 新增
      */
-    void add(SysUser sysUser);
+    void add(SysCategory sysCategory);
 
     /**
      * 修改
      */
-    void update(SysUser sysUser);
+    void update(SysCategory sysCategory);
 
     /**
      * 删除

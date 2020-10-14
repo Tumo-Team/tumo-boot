@@ -33,7 +33,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/${TumoBootLowerCaseEntity}")
+@RequestMapping("/$!{TumoBootLowerCaseEntity}")
 public class $!{tableName} extends BaseController {
 
     private final $!{TumoBootService} $!{TumoBootLowerCaseService};
@@ -66,7 +66,7 @@ public class $!{tableName} extends BaseController {
     * 新增
     */
     @PostMapping
-    public R save(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
         return new R();
     }

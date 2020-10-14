@@ -15,7 +15,7 @@ import java.util.Map;
  * 用户表(SysUser)表控制层
  *
  * @author tycoding
- * @since 2020-10-09 16:37:47
+ * @since 2020-10-13 11:13:41
  */
 @RestController
 @AllArgsConstructor
@@ -52,7 +52,7 @@ public class SysUserController extends BaseController {
      * 新增
      */
     @PostMapping
-    public R save(@RequestBody SysUser sysUser) {
+    public R add(@RequestBody SysUser sysUser) {
         sysUserService.add(sysUser);
         return new R();
     }

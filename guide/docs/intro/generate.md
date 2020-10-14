@@ -257,7 +257,7 @@ public class $!{tableName} extends BaseController {
     * 新增
     */
     @PostMapping
-    public R save(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
         return new R();
     }

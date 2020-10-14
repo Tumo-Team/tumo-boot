@@ -9,15 +9,15 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 用户表(SysUser)实体类
+ * 评论表(SysComment)实体类
  *
  * @author tycoding
- * @since 2020-10-13 11:13:38
+ * @since 2020-10-13 11:12:59
  */
 @Data
-@TableName("sys_user")
-public class SysUser implements Serializable {
-    private static final long serialVersionUID = -81925601139044351L;
+@TableName("sys_comment")
+public class SysComment implements Serializable {
+    private static final long serialVersionUID = -71178454150228410L;
 
     /**
      * 主键
@@ -26,29 +26,34 @@ public class SysUser implements Serializable {
     private Long id;
 
     /**
-     * 用户名
+     * 文章ID
      */
-    private String username;
+    private Long articleId;
 
     /**
-     * 密码
+     * 文章标题
      */
-    private String password;
+    private Long articleTitle;
 
     /**
-     * 头像
+     * 父级ID
      */
-    private String avatar;
+    private Long pid;
 
     /**
-     * 手机
+     * 评论人名称
      */
-    private String phone;
+    private String name;
 
     /**
-     * 状态 0锁定 1有效
+     * 评论人邮箱
      */
-    private Boolean status;
+    private String email;
+
+    /**
+     * 评论内容
+     */
+    private String content;
 
     /**
      * 创建时间

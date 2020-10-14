@@ -57,9 +57,10 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
+    meta: { title: 'Dashboard', icon: 'home', affix: true },
     children: [
       {
-        path: 'dashboard',
+        path: '/dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
         meta: { title: 'Dashboard', icon: 'home', affix: true }
@@ -100,7 +101,9 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
 
-  tumoBootRouter,
+  // 自定义路由，[]集合
+  ...tumoBootRouter,
+
   nestedRouter,
 
   {
