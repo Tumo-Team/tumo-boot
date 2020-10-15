@@ -17,34 +17,34 @@ import java.util.Date;
  * @since 2020-10-14 14:45:22
  */
 @Data
-@TableName("sys_role" )
-@ApiModel(value = "角色表实体" )
+@TableName("sys_role")
+@ApiModel(value = "角色表实体")
 public class Role implements Serializable {
     private static final long serialVersionUID = 547891924677981054L;
 
     /**
      * 主键
      */
-    @ApiModelProperty(value = "角色ID" )
+    @ApiModelProperty(value = "角色ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
      * 角色名称
      */
-    @ApiModelProperty(value = "角色名称" )
+    @ApiModelProperty(value = "角色名称")
     private String name;
 
     /**
      * 创建时间
      */
-    @ApiModelProperty(value = "创建时间" )
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
     /**
      * 描述
      */
-    @ApiModelProperty(value = "描述" )
+    @ApiModelProperty(value = "描述")
     private String description;
 
 }

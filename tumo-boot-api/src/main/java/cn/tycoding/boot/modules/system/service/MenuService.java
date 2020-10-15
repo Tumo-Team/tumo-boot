@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.system.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -14,6 +15,26 @@ import java.util.List;
  * @since 2020-10-14 14:45:51
  */
 public interface MenuService extends IService<Menu> {
+
+    /**
+     * 构建菜单Tree树
+     */
+    List<MenuTree<Menu>> tree();
+
+    /**
+     * 构建左侧权限菜单
+     */
+    List<MenuTree<Menu>> build();
+
+    /**
+     * 根据用户ID查询权限信息
+     */
+    List<Menu> findPermissionsByUserId(Long id);
+
+    /**
+     * 校验名称是否存在
+     */
+    boolean checkName(Menu menu);
 
     /**
      * 条件查询
@@ -39,4 +60,5 @@ public interface MenuService extends IService<Menu> {
      * 删除
      */
     void delete(Long id);
+
 }

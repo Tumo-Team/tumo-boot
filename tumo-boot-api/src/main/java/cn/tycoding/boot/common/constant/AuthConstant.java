@@ -6,5 +6,19 @@ package cn.tycoding.boot.common.constant;
  */
 public interface AuthConstant {
 
+    /**
+     * 角色前缀名
+     */
     String ROLE_PREFIX = "ROLE_";
-}l
+
+    /**
+     * 菜单类型：menu
+     */
+    String MENU_TYPE_MENU = "menu";
+
+    /**
+     * 菜单类型：button
+     */
+    String MENU_TYPE_BUTTON = "button";
+
+}

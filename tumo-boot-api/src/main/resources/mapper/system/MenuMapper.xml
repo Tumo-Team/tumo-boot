@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tycoding.boot.modules.system.mapper.MenuMapper">
+
+    <select id="findPermissionsByUserId" resultType="cn.tycoding.boot.modules.system.entity.Menu">
+        SELECT DISTINCT
+            m.*
+        FROM
+            sys_role r,
+            sys_user_role ur,
+            sys_user u,
+            sys_role_menu rm,
+            sys_menu m
+        WHERE
+            r.id = ur.role_id
+            AND ur.user_id = u.id
+            AND r.id = rm.role_id
+            AND m.id = rm.menu_id
+            AND u.id = #{id}
+    </select>
+
+    <update id="changeTopNode">
+        update sys_menu
+        set parent_id = 0
+        where id in (
+            select a.id from (
+                select id from sys_menu where parent_id = #{id}
+            ) a
+        )
+    </update>
+</mapper>

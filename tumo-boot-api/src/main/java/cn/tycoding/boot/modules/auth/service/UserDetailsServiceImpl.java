@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.auth.service;
 
 import cn.tycoding.boot.common.constant.AuthConstant;
-import cn.tycoding.boot.modules.auth.dto.TBootUser;
+import cn.tycoding.boot.modules.auth.dto.TumoBootUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.entity.Role;
 import cn.tycoding.boot.modules.system.service.UserService;
@@ -46,7 +46,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserDetails getUserDetails(UserInfo userInfo) {
         if (userInfo == null) {
-            throw new UsernameNotFoundException("用户不存在" );
+            throw new UsernameNotFoundException("用户不存在");
         }
 
         Set<String> authSet = new HashSet<>();
@@ -63,7 +63,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authSet.toString());
 
-        return new TBootUser(userInfo.getUser().getId(),
+        return new TumoBootUser(userInfo.getUser().getId(),
                 userInfo.getUser().getUsername(),
                 userInfo.getUser().getPassword(),
                 true,

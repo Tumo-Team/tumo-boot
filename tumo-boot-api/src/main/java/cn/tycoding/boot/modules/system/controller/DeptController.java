@@ -21,46 +21,46 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@Api(value = "部门表接口", tags = "部门表接口" )
-@RequestMapping("/dept" )
+@RequestMapping("/dept")
+@Api(value = "部门表接口", tags = "部门表接口")
 public class DeptController extends BaseController {
 
     private final DeptService deptService;
 
-    @PostMapping("/filter/list" )
-    @ApiOperation(value = "条件查询" )
+    @PostMapping("/filter/list")
+    @ApiOperation(value = "条件查询")
     public R<List<Dept>> list(@RequestBody Dept dept) {
         return new R<>(deptService.list(dept));
     }
 
-    @PostMapping("/list" )
-    @ApiOperation(value = "分页、条件查询" )
+    @PostMapping("/list")
+    @ApiOperation(value = "分页、条件查询")
     public R<Map<String, Object>> list(@RequestBody Dept dept, QueryPage queryPage) {
         return new R<>(super.getData(deptService.list(dept, queryPage)));
     }
 
-    @GetMapping("/{id}" )
-    @ApiOperation(value = "根据ID查询" )
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据ID查询")
     public R<Dept> findById(@PathVariable Long id) {
         return new R<>(deptService.getById(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "新增" )
+    @ApiOperation(value = "新增")
     public R add(@RequestBody Dept dept) {
         deptService.add(dept);
         return new R();
     }
 
     @PutMapping
-    @ApiOperation(value = "修改" )
+    @ApiOperation(value = "修改")
     public R update(@RequestBody Dept dept) {
         deptService.update(dept);
         return new R();
     }
 
-    @DeleteMapping("/{id}" )
-    @ApiOperation(value = "根据ID删除" )
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         deptService.delete(id);
         return new R();

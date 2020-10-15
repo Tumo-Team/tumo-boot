@@ -8,6 +8,8 @@ spring:
     name: Tumo-Boot
   profiles:
     active: dev
+  main:
+    allow-bean-definition-overriding: true
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
@@ -26,3 +28,22 @@ mybatis-plus:
     jdbc-type-for-null: null
   global-config:
     banner: false
+
+# Knife4j配置
+knife4j:
+  basic:
+    enable: true
+    username: tumo-boot
+    password: tycoding
+
+#系统自定义配置
+tumo-boot:
+  #Swagger配置
+  swagger:
+    title: Tumo Boot 项目API接口文档
+    base-package: cn.tycoding.boot.modules
+    description: 项目开源地址：https://github.com/Tumo-Team/Tumo-Boot
+    author: TyCoding
+    url: https://tycoding.cn
+    email: tycoding@sina.com
+    version: v1.0

@@ -35,8 +35,8 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@Api(value = "$!{tableInfo.comment}接口", tags = "$!{tableInfo.comment}接口")
 @RequestMapping("/$!{TumoBootLowerCaseEntity}")
+@Api(value = "$!{tableInfo.comment}接口", tags = "$!{tableInfo.comment}接口")
 public class $!{tableName} extends BaseController {
 
     private final $!{TumoBootService} $!{TumoBootLowerCaseService};
@@ -61,22 +61,22 @@ public class $!{tableName} extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "新增")
-    public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R<$!{TumoBootEntity}> add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
-        return new R();
+        return new R<>();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
-    public R update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R<$!{TumoBootEntity}> update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.update($!{TumoBootLowerCaseEntity});
-        return new R();
+        return new R<>();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
-    public R delete(@PathVariable $!pk.shortType id) {
+    public R<$!{TumoBootEntity}> delete(@PathVariable $!pk.shortType id) {
         $!{TumoBootLowerCaseService}.delete(id);
-        return new R();
+        return new R<>();
     }
 }

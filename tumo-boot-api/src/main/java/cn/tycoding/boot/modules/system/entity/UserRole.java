@@ -1,9 +1,8 @@
 package cn.tycoding.boot.modules.system.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -15,13 +14,11 @@ import java.io.Serializable;
  */
 @Data
 @TableName("sys_user_role" )
+@Accessors(chain = true)
 public class UserRole implements Serializable {
     private static final long serialVersionUID = -24775118196826771L;
 
-    /**
-     * 主键
-     */
-    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private Long userId;
 
+    private Long roleId;
 }

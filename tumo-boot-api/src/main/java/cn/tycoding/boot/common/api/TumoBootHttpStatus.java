@@ -6,7 +6,7 @@ package cn.tycoding.boot.common.api;
  * @author tycoding
  * @since 2020/10/9
  */
-public enum TBootHttpStatus {
+public enum TumoBootHttpStatus {
     SUCCESS(200, "操作成功" ),
     FAILURE(400, "业务异常" ),
     UN_AUTHORIZED(401, "请求未授权" ),
@@ -33,7 +33,7 @@ public enum TBootHttpStatus {
         return this.msg;
     }
 
-    private TBootHttpStatus(final int code, final String msg) {
+    private TumoBootHttpStatus(final int code, final String msg) {
         this.code = code;
         this.msg = msg;
     }

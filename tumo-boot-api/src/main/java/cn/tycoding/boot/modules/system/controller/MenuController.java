@@ -3,8 +3,11 @@ package cn.tycoding.boot.modules.system.controller;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.controller.BaseController;
+import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import cn.tycoding.boot.modules.system.service.MenuService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,57 +22,71 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/menu" )
+@RequestMapping("/menu")
+@Api(value = "菜单表接口", tags = "菜单表接口")
 public class MenuController extends BaseController {
 
     private final MenuService menuService;
 
+    @GetMapping("/tree")
+    @ApiOperation(value = "构建菜单Tree树", notes = "此接口将获取菜单表中所有数据")
+    public R<List<MenuTree<Menu>>> tree() {
+        return new R<>(menuService.tree());
+    }
+
+    @GetMapping("/build")
+    @ApiOperation(value = "加载系统左侧权限菜单", notes = "此接口将获取菜单中`menu`类型的数据")
+    public R<List<MenuTree<Menu>>> build() {
+        return new R<>(menuService.build());
+    }
+
     /**
-     * 条件查询
+     * 校验当前名称是否已存在
+     *
+     * @param menu id:当前修改对象的ID
+     *             name:需要校验的名称
+     * @return Boolean
      */
-    @PostMapping("/filter/list" )
+    @PostMapping("/checkName")
+    @ApiOperation(value = "校验名称是否已存在")
+    public R<Boolean> checkName(@RequestBody Menu menu) {
+        return new R<>(menuService.checkName(menu));
+    }
+
+    @ApiOperation(value = "条件查询")
+    @PostMapping("/filter/list")
     public R<List<Menu>> list(@RequestBody Menu menu) {
         return new R<>(menuService.list(menu));
     }
 
-    /**
-     * 分页、条件查询
-     */
-    @PostMapping("/list" )
+    @ApiOperation(value = "条件查询")
+    @PostMapping("/list")
     public R<Map<String, Object>> list(@RequestBody Menu menu, QueryPage queryPage) {
         return new R<>(super.getData(menuService.list(menu, queryPage)));
     }
 
-    /**
-     * 根据ID查询
-     */
-    @GetMapping("/{id}" )
+    @ApiOperation(value = "根据ID查询")
+    @GetMapping("/{id}")
     public R<Menu> findById(@PathVariable Long id) {
         return new R<>(menuService.getById(id));
     }
 
-    /**
-     * 新增
-     */
+    @ApiOperation(value = "新增")
     @PostMapping
     public R add(@RequestBody Menu menu) {
         menuService.add(menu);
         return new R();
     }
 
-    /**
-     * 修改
-     */
+    @ApiOperation(value = "修改")
     @PutMapping
     public R update(@RequestBody Menu menu) {
         menuService.update(menu);
         return new R();
     }
 
-    /**
-     * 根据ID删除
-     */
-    @DeleteMapping("/{id}" )
+    @ApiOperation(value = "根据ID删除")
+    @DeleteMapping("/{id}")
     public R delete(@PathVariable Long id) {
         menuService.delete(id);
         return new R();

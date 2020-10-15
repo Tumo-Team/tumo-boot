@@ -18,10 +18,7 @@ import java.io.Serializable;
 public class RoleMenu implements Serializable {
     private static final long serialVersionUID = 854296054659457976L;
 
-    /**
-     * 主键
-     */
-    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
     private Long roleId;
 
+    private Long menuId;
 }

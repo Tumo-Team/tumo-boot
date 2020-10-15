@@ -32,7 +32,6 @@ private static final long serialVersionUID= $!tool.serial();
 @ApiModelProperty(value = "${column.comment}")
 @TableId(value = "$tool.hump2Underline($!{column.name})", type = IdType.ASSIGN_ID)
 private $!{tool.getClsNameByFullName($column.type)} $!{column.name};
-    #break
 #end
 #foreach($column in $tableInfo.otherColumn)
 

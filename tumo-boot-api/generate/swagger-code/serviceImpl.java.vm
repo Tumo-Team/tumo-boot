@@ -56,19 +56,19 @@ public class $!{tableName} extends ServiceImpl<$!{TumoBootMapper}, $!{TumoBootEn
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void add($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         baseMapper.insert($!{TumoBootLowerCaseEntity});
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void update($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         baseMapper.updateById($!{TumoBootLowerCaseEntity});
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete($!pk.shortType id) {
         baseMapper.deleteById(id);
     }

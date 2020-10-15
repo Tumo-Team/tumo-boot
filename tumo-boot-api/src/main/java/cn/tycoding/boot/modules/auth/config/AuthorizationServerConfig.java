@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.config;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -27,16 +27,16 @@ import javax.sql.DataSource;
  */
 @Configuration
 @EnableAuthorizationServer
-@AllArgsConstructor
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    private final UserDetailsService userDetailsService;
-
-    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Bean
     @Primary
-    @ConfigurationProperties(prefix = "spring.datasource" )
+    @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
@@ -69,6 +69,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
                 .allowFormAuthenticationForClients()
-                .checkTokenAccess("permitAll()" );
+                .checkTokenAccess("permitAll()");
     }
 }
