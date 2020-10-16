@@ -19,6 +19,7 @@ import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -49,7 +50,7 @@ public class $!{tableName} extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+    public R<IPage<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
         return new R<>(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
     }
 
@@ -61,21 +62,21 @@ public class $!{tableName} extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "新增")
-    public R<$!{TumoBootEntity}> add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
         return new R<>();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
-    public R<$!{TumoBootEntity}> update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+    public R update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.update($!{TumoBootLowerCaseEntity});
         return new R<>();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
-    public R<$!{TumoBootEntity}> delete(@PathVariable $!pk.shortType id) {
+    public R delete(@PathVariable $!pk.shortType id) {
         $!{TumoBootLowerCaseService}.delete(id);
         return new R<>();
     }

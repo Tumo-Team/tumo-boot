@@ -53,40 +53,40 @@ public class MenuController extends BaseController {
         return new R<>(menuService.checkName(menu));
     }
 
-    @ApiOperation(value = "条件查询")
     @PostMapping("/filter/list")
+    @ApiOperation(value = "条件查询")
     public R<List<Menu>> list(@RequestBody Menu menu) {
         return new R<>(menuService.list(menu));
     }
 
-    @ApiOperation(value = "条件查询")
     @PostMapping("/list")
+    @ApiOperation(value = "条件查询")
     public R<Map<String, Object>> list(@RequestBody Menu menu, QueryPage queryPage) {
         return new R<>(super.getData(menuService.list(menu, queryPage)));
     }
 
-    @ApiOperation(value = "根据ID查询")
     @GetMapping("/{id}")
+    @ApiOperation(value = "根据ID查询")
     public R<Menu> findById(@PathVariable Long id) {
         return new R<>(menuService.getById(id));
     }
 
-    @ApiOperation(value = "新增")
     @PostMapping
+    @ApiOperation(value = "新增")
     public R add(@RequestBody Menu menu) {
         menuService.add(menu);
         return new R();
     }
 
-    @ApiOperation(value = "修改")
     @PutMapping
+    @ApiOperation(value = "修改")
     public R update(@RequestBody Menu menu) {
         menuService.update(menu);
         return new R();
     }
 
-    @ApiOperation(value = "根据ID删除")
     @DeleteMapping("/{id}")
+    @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         menuService.delete(id);
         return new R();
