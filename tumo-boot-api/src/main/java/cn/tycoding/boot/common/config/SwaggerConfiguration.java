@@ -1,7 +1,7 @@
 package cn.tycoding.boot.common.config;
 
 import cn.tycoding.boot.common.props.SwaggerProperties;
-import cn.tycoding.boot.common.props.TumoBootProperties;
+import cn.tycoding.boot.common.props.TumoProperties;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,7 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @AllArgsConstructor
 public class SwaggerConfiguration {
 
-    private final TumoBootProperties properties;
+    private final TumoProperties properties;
 
     @Bean
     public Docket docket() {

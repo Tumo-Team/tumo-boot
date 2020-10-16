@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @SpringBootConfiguration
 @ConfigurationProperties(prefix = "tumo-boot")
-public class TumoBootProperties {
+public class TumoProperties {
 
     private SwaggerProperties swagger = new SwaggerProperties();
 }

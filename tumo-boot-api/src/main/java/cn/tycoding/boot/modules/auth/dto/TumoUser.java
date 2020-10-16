@@ -10,14 +10,14 @@ import java.util.Collection;
  * @author tycoding
  * @since 2020/10/14
  */
-public class TumoBootUser extends User {
+public class TumoUser extends User {
 
     @Getter
     private final Long id;
 
-    public TumoBootUser(Long id, String username, String password, boolean enabled,
-                        boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
-                        Collection<? extends GrantedAuthority> authorities) {
+    public TumoUser(Long id, String username, String password, boolean enabled,
+                    boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked,
+                    Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
         this.id = id;
     }

@@ -6,11 +6,13 @@ package cn.tycoding.boot.common.api;
  * @author tycoding
  * @since 2020/10/9
  */
-public enum TumoBootHttpStatus {
+public enum TumoHttpStatus {
     SUCCESS(200, "操作成功" ),
     FAILURE(400, "业务异常" ),
     UN_AUTHORIZED(401, "请求未授权" ),
     CLIENT_UN_AUTHORIZED(401, "客户端请求未授权" ),
+    INVALID_GRANT(426, "用户名或密码错误"),
+    FORBIDDEN(403, "拒绝访问"),
     NOT_FOUND(404, "404 没找到请求" ),
     MSG_NOT_READABLE(400, "消息不能读取" ),
     METHOD_NOT_SUPPORTED(405, "不支持当前请求方法" ),
@@ -33,7 +35,7 @@ public enum TumoBootHttpStatus {
         return this.msg;
     }
 
-    private TumoBootHttpStatus(final int code, final String msg) {
+    private TumoHttpStatus(final int code, final String msg) {
         this.code = code;
         this.msg = msg;
     }
