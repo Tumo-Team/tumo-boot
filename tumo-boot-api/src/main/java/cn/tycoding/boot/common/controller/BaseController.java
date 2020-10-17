@@ -14,6 +14,12 @@ import java.util.Map;
  */
 public class BaseController {
 
+    /**
+     * 分页查询：格式化响应数据结构
+     *
+     * @param page 分页数据
+     * @return 格式化后的Map对象
+     */
     public Map<String, Object> getData(IPage<?> page) {
         Map<String, Object> data = new HashMap<>();
         data.put(CommonConstant.PAGE_ROWS, page.getRecords());

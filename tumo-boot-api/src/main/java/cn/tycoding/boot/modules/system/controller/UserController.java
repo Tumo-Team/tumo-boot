@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.common.utils.SecurityUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
@@ -23,7 +24,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping(AuthConstant.API_PATH + "/user")
 @Api(value = "用户表接口", tags = "用户表接口")
 public class UserController extends BaseController {
 

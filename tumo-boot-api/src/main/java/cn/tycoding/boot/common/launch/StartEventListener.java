@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.event.EventListener;
-import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.StringUtils;
 
 /**
@@ -19,7 +19,7 @@ public class StartEventListener {
     public StartEventListener() {
     }
 
-    @Order
+    @Async
     @EventListener({WebServerInitializedEvent.class})
     public void afterStart(WebServerInitializedEvent event) {
         Environment environment = event.getApplicationContext().getEnvironment();

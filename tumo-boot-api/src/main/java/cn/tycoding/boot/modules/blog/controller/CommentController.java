@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.blog.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.blog.entity.Comment;
 import cn.tycoding.boot.modules.blog.service.CommentService;
@@ -21,46 +22,46 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@Api(value = "评论表接口", tags = "评论表接口" )
-@RequestMapping("/comment" )
+@RequestMapping(AuthConstant.API_PATH + "/comment")
+@Api(value = "评论表接口", tags = "评论表接口")
 public class CommentController extends BaseController {
 
     private final CommentService commentService;
 
-    @PostMapping("/filter/list" )
-    @ApiOperation(value = "条件查询" )
+    @PostMapping("/filter/list")
+    @ApiOperation(value = "条件查询")
     public R<List<Comment>> list(@RequestBody Comment comment) {
         return new R<>(commentService.list(comment));
     }
 
-    @PostMapping("/list" )
-    @ApiOperation(value = "分页、条件查询" )
+    @PostMapping("/list")
+    @ApiOperation(value = "分页、条件查询")
     public R<Map<String, Object>> list(@RequestBody Comment comment, QueryPage queryPage) {
         return new R<>(super.getData(commentService.list(comment, queryPage)));
     }
 
-    @GetMapping("/{id}" )
-    @ApiOperation(value = "根据ID查询" )
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据ID查询")
     public R<Comment> findById(@PathVariable Long id) {
         return new R<>(commentService.getById(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "新增" )
+    @ApiOperation(value = "新增")
     public R add(@RequestBody Comment comment) {
         commentService.add(comment);
         return new R();
     }
 
     @PutMapping
-    @ApiOperation(value = "修改" )
+    @ApiOperation(value = "修改")
     public R update(@RequestBody Comment comment) {
         commentService.update(comment);
         return new R();
     }
 
-    @DeleteMapping("/{id}" )
-    @ApiOperation(value = "根据ID删除" )
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         commentService.delete(id);
         return new R();

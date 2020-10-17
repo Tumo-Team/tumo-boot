@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
 import cn.tycoding.boot.modules.system.entity.Role;
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/role")
+@RequestMapping(AuthConstant.API_PATH + "/role")
 @Api(value = "角色表接口", tags = "角色表接口")
 public class RoleController extends BaseController {
 

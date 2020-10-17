@@ -6,6 +6,8 @@ package cn.tycoding.boot.common.constant;
  */
 public interface AuthConstant {
 
+    String API_PATH = "/tumo-boot/api";
+
     /**
      * 角色前缀名
      */

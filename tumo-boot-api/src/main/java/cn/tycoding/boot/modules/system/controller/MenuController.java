@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.entity.Menu;
@@ -22,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/menu")
+@RequestMapping(AuthConstant.API_PATH + "/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
 public class MenuController extends BaseController {
 

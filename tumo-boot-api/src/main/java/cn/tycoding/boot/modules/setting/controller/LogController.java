@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.setting.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import cn.tycoding.boot.modules.setting.service.LogService;
@@ -21,46 +22,46 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@Api(value = "系统日志表接口", tags = "系统日志表接口" )
-@RequestMapping("/log" )
+@RequestMapping(AuthConstant.API_PATH + "/log")
+@Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class LogController extends BaseController {
 
     private final LogService logService;
 
-    @PostMapping("/filter/list" )
-    @ApiOperation(value = "条件查询" )
+    @PostMapping("/filter/list")
+    @ApiOperation(value = "条件查询")
     public R<List<Log>> list(@RequestBody Log log) {
         return new R<>(logService.list(log));
     }
 
-    @PostMapping("/list" )
-    @ApiOperation(value = "分页、条件查询" )
+    @PostMapping("/list")
+    @ApiOperation(value = "分页、条件查询")
     public R<Map<String, Object>> list(@RequestBody Log log, QueryPage queryPage) {
         return new R<>(super.getData(logService.list(log, queryPage)));
     }
 
-    @GetMapping("/{id}" )
-    @ApiOperation(value = "根据ID查询" )
+    @GetMapping("/{id}")
+    @ApiOperation(value = "根据ID查询")
     public R<Log> findById(@PathVariable Long id) {
         return new R<>(logService.getById(id));
     }
 
     @PostMapping
-    @ApiOperation(value = "新增" )
+    @ApiOperation(value = "新增")
     public R add(@RequestBody Log log) {
         logService.add(log);
         return new R();
     }
 
     @PutMapping
-    @ApiOperation(value = "修改" )
+    @ApiOperation(value = "修改")
     public R update(@RequestBody Log log) {
         logService.update(log);
         return new R();
     }
 
-    @DeleteMapping("/{id}" )
-    @ApiOperation(value = "根据ID删除" )
+    @DeleteMapping("/{id}")
+    @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         logService.delete(id);
         return new R();

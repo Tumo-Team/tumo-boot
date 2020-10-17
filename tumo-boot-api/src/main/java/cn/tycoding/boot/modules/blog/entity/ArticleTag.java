@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @since 2020-10-14 14:48:46
  */
 @Data
-@TableName("blog_article_tag" )
+@TableName("blog_article_tag")
 public class ArticleTag implements Serializable {
     private static final long serialVersionUID = 922601515359066121L;
 

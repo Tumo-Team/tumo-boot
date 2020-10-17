@@ -24,8 +24,6 @@ import java.util.List;
 @AllArgsConstructor
 public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements LogService {
 
-    private final LogMapper logMapper;
-
     @Override
     public List<Log> list(Log log) {
         LambdaQueryWrapper<Log> queryWrapper = new LambdaQueryWrapper<>();
@@ -41,19 +39,19 @@ public class LogServiceImpl extends ServiceImpl<LogMapper, Log> implements LogSe
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void add(Log log) {
         baseMapper.insert(log);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void update(Log log) {
         baseMapper.updateById(log);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         baseMapper.deleteById(id);
     }

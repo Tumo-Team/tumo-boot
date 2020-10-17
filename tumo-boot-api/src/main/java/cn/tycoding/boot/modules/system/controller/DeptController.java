@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.entity.Dept;
 import cn.tycoding.boot.modules.system.service.DeptService;
@@ -21,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping("/dept")
+@RequestMapping(AuthConstant.API_PATH + "/dept")
 @Api(value = "部门表接口", tags = "部门表接口")
 public class DeptController extends BaseController {
 
