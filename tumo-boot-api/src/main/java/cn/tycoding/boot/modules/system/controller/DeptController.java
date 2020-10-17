@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/dept")
+@RequestMapping(AuthConstant.API_PREFIX + "/dept")
 @Api(value = "部门表接口", tags = "部门表接口")
 public class DeptController extends BaseController {
 

@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/article")
+@RequestMapping(AuthConstant.API_PREFIX + "/article")
 @Api(value = "文章表接口", tags = "文章表接口")
 public class ArticleController extends BaseController {
 

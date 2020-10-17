@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/user")
+@RequestMapping(AuthConstant.API_PREFIX + "/user")
 @Api(value = "用户表接口", tags = "用户表接口")
 public class UserController extends BaseController {
 

@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/tag")
+@RequestMapping(AuthConstant.API_PREFIX + "/tag")
 @Api(value = "标签表接口", tags = "标签表接口")
 public class TagController extends BaseController {
 

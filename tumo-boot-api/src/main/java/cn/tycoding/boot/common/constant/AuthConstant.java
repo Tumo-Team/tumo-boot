@@ -6,7 +6,15 @@ package cn.tycoding.boot.common.constant;
  */
 public interface AuthConstant {
 
-    String API_PATH = "/tumo-boot/api";
+    /**
+     * API接口前缀
+     */
+    String API_PREFIX = "/tumo-boot/api";
+
+    /**
+     * Swagger Base Packages
+     */
+    String BASE_PACKAGE = "cn.tycoding.boot";
 
     /**
      * 角色前缀名

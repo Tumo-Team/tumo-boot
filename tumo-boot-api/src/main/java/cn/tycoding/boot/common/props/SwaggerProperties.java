@@ -2,7 +2,11 @@ package cn.tycoding.boot.common.props;
 
 import lombok.Data;
 
+import java.util.List;
+
 /**
+ * Swagger配置
+ *
  * @author tycoding
  * @since 2020/10/15
  */
@@ -10,9 +14,9 @@ import lombok.Data;
 public class SwaggerProperties {
 
     /**
-     * 扫描的接口package地址
+     * 扫描的接口package地址：packageName、packageUrl
      */
-    private String basePackage;
+    private List<SwaggerPackageProperties> basePackages;
 
     /**
      * 文档标题

@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/role")
+@RequestMapping(AuthConstant.API_PREFIX + "/role")
 @Api(value = "角色表接口", tags = "角色表接口")
 public class RoleController extends BaseController {
 

@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/log")
+@RequestMapping(AuthConstant.API_PREFIX + "/log")
 @Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class LogController extends BaseController {
 

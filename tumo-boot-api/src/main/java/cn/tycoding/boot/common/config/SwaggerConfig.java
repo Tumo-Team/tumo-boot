@@ -1,5 +1,6 @@
 package cn.tycoding.boot.common.config;
 
+import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.props.SwaggerProperties;
 import cn.tycoding.boot.common.props.TumoProperties;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
@@ -23,17 +24,32 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableKnife4j
 @AllArgsConstructor
-public class SwaggerConfiguration {
+public class SwaggerConfig {
 
     private final TumoProperties properties;
 
     @Bean
-    public Docket docket() {
+    public Docket authDocket() {
+        return docket("授权模块", AuthConstant.BASE_PACKAGE + ".modules.auth.endpoint");
+    }
+
+    @Bean
+    public Docket systemDocket() {
+        return docket("系统模块", AuthConstant.BASE_PACKAGE + ".modules.system.controller");
+    }
+
+    @Bean
+    public Docket blogDocket() {
+        return docket("博客模块", AuthConstant.BASE_PACKAGE + ".modules.blog.controller");
+    }
+
+    private Docket docket(String groupName, String basePackage) {
         SwaggerProperties swagger = properties.getSwagger();
         return new Docket(DocumentationType.SWAGGER_2)
+                .groupName(groupName)
                 .apiInfo(apiInfo(swagger))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage(swagger.getBasePackage()))
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build();
     }

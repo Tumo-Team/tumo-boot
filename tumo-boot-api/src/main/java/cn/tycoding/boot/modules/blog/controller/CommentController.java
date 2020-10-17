@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/comment")
+@RequestMapping(AuthConstant.API_PREFIX + "/comment")
 @Api(value = "评论表接口", tags = "评论表接口")
 public class CommentController extends BaseController {
 

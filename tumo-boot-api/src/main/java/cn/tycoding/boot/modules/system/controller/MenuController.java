@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/menu")
+@RequestMapping(AuthConstant.API_PREFIX + "/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
 public class MenuController extends BaseController {
 

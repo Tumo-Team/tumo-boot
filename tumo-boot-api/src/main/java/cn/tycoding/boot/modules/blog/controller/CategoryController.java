@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PATH + "/category")
+@RequestMapping(AuthConstant.API_PREFIX + "/category")
 @Api(value = "分类表接口", tags = "分类表接口")
 public class CategoryController extends BaseController {
 
