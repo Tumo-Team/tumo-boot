@@ -14,11 +14,6 @@ import java.util.List;
 public class SwaggerProperties {
 
     /**
-     * 扫描的接口package地址：packageName、packageUrl
-     */
-    private List<SwaggerPackageProperties> basePackages;
-
-    /**
      * 文档标题
      */
     private String title;

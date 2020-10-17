@@ -4,6 +4,7 @@ import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.props.SwaggerProperties;
 import cn.tycoding.boot.common.props.TumoProperties;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +52,8 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
-                .build();
+                .build()
+                .securitySchemes(Lists.newArrayList());
     }
 
     private ApiInfo apiInfo(SwaggerProperties swagger) {
