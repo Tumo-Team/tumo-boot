@@ -2,7 +2,7 @@ package cn.tycoding.boot.modules.blog.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.AuthConstant;
+import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.blog.entity.Tag;
 import cn.tycoding.boot.modules.blog.service.TagService;
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PREFIX + "/tag")
+@RequestMapping(ApiConstant.API_BLOG_PREFIX + "/tag")
 @Api(value = "标签表接口", tags = "标签表接口")
 public class TagController extends BaseController {
 

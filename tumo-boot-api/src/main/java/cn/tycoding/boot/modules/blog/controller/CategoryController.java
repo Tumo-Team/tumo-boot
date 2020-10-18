@@ -2,7 +2,7 @@ package cn.tycoding.boot.modules.blog.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.AuthConstant;
+import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.blog.entity.Category;
 import cn.tycoding.boot.modules.blog.service.CategoryService;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PREFIX + "/category")
+@RequestMapping(ApiConstant.API_BLOG_PREFIX + "/category")
 @Api(value = "分类表接口", tags = "分类表接口")
 public class CategoryController extends BaseController {
 

@@ -60,6 +60,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      * 构建用户信息、角色信息、权限标识信息、部门信息
      */
     private UserInfo build(UserInfo userInfo) {
+        if (userInfo == null) {
+            throw new RuntimeException("没有查询用用户信息");
+        }
         //获取用户角色列表
         List<Role> roleList = roleService.findRolesByUserId(userInfo.getUser().getId());
 

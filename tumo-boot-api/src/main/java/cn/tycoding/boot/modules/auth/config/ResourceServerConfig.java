@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.auth.config;
 
+import cn.tycoding.boot.common.constant.ApiConstant;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,17 +25,15 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/webjars/**",
+                        "/swagger-ui.html",
+                        "/swagger-ui/**",
                         "/swagger-resources/**",
-                        "/v2/api-docs/**")
+                        "/v2/api-docs",
+                        "/v3/api-docs",
+                        "/webjars/**")
                 .permitAll()
 
-                .antMatchers("/actuator/**", "/user/info/*")
+                .antMatchers(ApiConstant.API_SYSTEM_PREFIX + "/user/info/*")
                 .permitAll()
 
                 .anyRequest()

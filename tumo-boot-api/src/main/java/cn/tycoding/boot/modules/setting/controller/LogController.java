@@ -2,7 +2,7 @@ package cn.tycoding.boot.modules.setting.controller;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.AuthConstant;
+import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import cn.tycoding.boot.modules.setting.service.LogService;
@@ -22,7 +22,7 @@ import java.util.Map;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(AuthConstant.API_PREFIX + "/log")
+@RequestMapping(ApiConstant.API_SETTING_PREFIX + "/log")
 @Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class LogController extends BaseController {
 

@@ -17,4 +17,9 @@ public interface CommonConstant {
      * 分页结果集中总数量total名称
      */
     String PAGE_TOTAL = "total";
+
+    /**
+     * Swagger Base Packages
+     */
+    String BASE_PACKAGE = "cn.tycoding.boot";
 }
