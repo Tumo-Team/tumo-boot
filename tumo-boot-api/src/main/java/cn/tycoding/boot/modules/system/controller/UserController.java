@@ -33,7 +33,7 @@ public class UserController extends BaseController {
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")
     public R<UserInfo> info() {
-        return new R<>(userService.info(SecurityUtil.getUsername()));
+        return new R<>(userService.info(SecurityUtil.getUser().getUsername()));
     }
 
     @GetMapping("/getMenus/{id}")

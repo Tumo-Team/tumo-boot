@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { articleList } from '@/api/article'
+import { articleList } from '@/api/modules/blog/article'
 
 export default {
   name: 'Index',

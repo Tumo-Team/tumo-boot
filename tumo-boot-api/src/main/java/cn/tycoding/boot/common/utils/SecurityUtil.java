@@ -26,11 +26,14 @@ public class SecurityUtil {
      *
      * @return
      */
-    public String getUsername() {
+    public TumoUser getUser() {
         Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
         Object principal = authentication.getPrincipal();
-        if (!(principal instanceof TumoUser)) {
-            return (String) principal;
+        if (principal instanceof TumoUser) {
+            return (TumoUser) principal;
         }
         return null;
     }

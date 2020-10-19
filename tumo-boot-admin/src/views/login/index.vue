@@ -70,7 +70,7 @@ export default {
     return {
       form: {
         username: 'admin',
-        password: '111111'
+        password: 'tycoding'
       },
       rules: {
         username: [

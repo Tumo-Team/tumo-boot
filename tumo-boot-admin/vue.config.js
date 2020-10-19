@@ -36,10 +36,9 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    // before: require('./mock/mock-server.js')
     proxy: {
-      '/': {
-        target: `http://localhost:8080/api`,
+      '/tumo-boot': {
+        target: `http://localhost:8080/`,
         ws: true
       }
     }

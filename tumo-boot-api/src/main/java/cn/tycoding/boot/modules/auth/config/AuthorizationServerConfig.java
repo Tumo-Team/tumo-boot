@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.auth.config;
 
+import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.modules.auth.component.TumoWebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -64,6 +65,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
                 .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST)
+                .pathMapping("/oauth/token", ApiConstant.API_OAUTH_TOKEN)
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
                 .exceptionTranslator(new TumoWebResponseExceptionTranslator());

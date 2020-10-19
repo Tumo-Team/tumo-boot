@@ -36,7 +36,7 @@
 
 <script>
 import Pagination from '@/components/Pagination'
-import { userList } from '@/api/user'
+import { userList } from '@/api/modules/system/user'
 
 export default {
   name: 'Index',

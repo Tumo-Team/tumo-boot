@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.common.DefaultThrowableAnalyzer;
-import org.springframework.security.oauth2.common.exceptions.ClientAuthenticationException;
 import org.springframework.security.oauth2.common.exceptions.InsufficientScopeException;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
@@ -80,10 +79,7 @@ public class TumoWebResponseExceptionTranslator implements WebResponseExceptionT
             headers.set("WWW-Authenticate", String.format("%s %s", "Bearer", e.getSummary()));
         }
 
-        if (e instanceof ClientAuthenticationException) {
-            return new ResponseEntity<>(e, headers, HttpStatus.valueOf(code));
-        }
         return new ResponseEntity<>(new TumoOAuth2Exception(e.getOAuth2ErrorCode(), code), headers,
-                HttpStatus.valueOf(code));
+                HttpStatus.valueOf(TumoHttpStatus.SUCCESS.getCode()));
     }
 }
