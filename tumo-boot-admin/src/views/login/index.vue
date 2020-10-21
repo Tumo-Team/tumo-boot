@@ -36,6 +36,7 @@
 
             <a-form-model-item>
               <a-button
+                :loading="loading"
                 type="primary"
                 class="login-submit"
                 @click.native.prevent="handleLogin"

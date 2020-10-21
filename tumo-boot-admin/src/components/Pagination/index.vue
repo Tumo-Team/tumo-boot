@@ -1,13 +1,15 @@
 <template>
   <div :class="{'hidden':hidden}" class="pagination-container">
     <a-pagination
+      show-quick-jumper
+      show-size-changer
       :background="background"
       :current.sync="currentPage"
+      :page-size-options="pageSizes"
       :page-size.sync="pageSize"
-      show-less-items
+      :show-total="(total) => `共 ${total} 条`"
       :total="total"
-      v-bind="$attrs"
-      @show-size-change="handleSizeChange"
+      @showSizeChange="handleSizeChange"
       @change="handleCurrentChange"
     />
   </div>
@@ -34,7 +36,7 @@ export default {
     pageSizes: {
       type: Array,
       default() {
-        return ['10', '15', '20', '30']
+        return ['5', '15', '20', '30']
       }
     },
     layout: {
@@ -73,14 +75,14 @@ export default {
     }
   },
   methods: {
-    handleSizeChange(val) {
-      this.$emit('pagination', { page: this.currentPage, limit: val })
+    handleSizeChange(current, pageSize) {
+      this.$emit('pagination', { page: current, limit: pageSize })
       if (this.autoScroll) {
         scrollTo(0, 800)
       }
     },
-    handleCurrentChange(val) {
-      this.$emit('pagination', { page: val, limit: this.pageSize })
+    handleCurrentChange(page, pageSize) {
+      this.$emit('pagination', { page: page, limit: pageSize })
       if (this.autoScroll) {
         scrollTo(0, 800)
       }
