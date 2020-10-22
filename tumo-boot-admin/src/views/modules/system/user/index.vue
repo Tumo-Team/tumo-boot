@@ -3,7 +3,7 @@
     <a-card>
       <!-- 搜索条件部分 - Begin -->
       <a-row>
-        <a-input-search v-model="query.username" placeholder="请输入名称查询" style="width: 200px" @search="fetchData" />
+        <a-input-search v-model="query.username" placeholder="请输入名称查询" style="width: 200px" @search="fetchData(pageConf)" />
         <a-button type="dashed" icon="plus" @click="editVisible = true" />
       </a-row>
       <!-- 搜索条件部分 - End -->
@@ -45,26 +45,20 @@
       />
       <!-- Table列表部分 - End -->
 
-      <!-- 新增/修改弹窗 - Begin -->
-      <a-modal
-        title="新增/修改"
-        :visible="editVisible"
-        :confirm-loading="editLoading"
-        @ok="handleSubmit"
-        @cancel="handleClose"
-      />
-      <!-- 新增/修改弹窗 - End -->
+      <!-- 新增/修改弹窗 -->
+      <edit-form :id="editId" :visible.sync="editVisible" @refresh="modelRefresh" />
     </a-card>
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
-import { userList, getUser } from '@/api/modules/system/user'
+import EditForm from './components/EditForm'
+import { userList, delUser } from '@/api/modules/system/user'
 
 export default {
   name: 'Index',
-  components: { Pagination },
+  components: { Pagination, EditForm },
   data() {
     return {
       list: [],
@@ -75,16 +69,15 @@ export default {
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 150 },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, width: 200 }
       ],
-      form: {},
       query: {},
       pageConf: {
         page: 1,
         limit: 5,
         total: 0
       },
+      editId: 0,
       editVisible: false,
-      editLoading: false,
-      loading: false
+      loading: true
     }
   },
   created() {
@@ -92,7 +85,19 @@ export default {
   },
   methods: {
     handleClose() {
+      this.editId = 0
       this.editVisible = false
+    },
+    /**
+     * 子组件更新
+     * @param status 是否需要刷新Table
+     */
+    modelRefresh(status) {
+      if (status) {
+        this.fetchData(this.pageConf)
+      } else {
+        this.handleClose()
+      }
     },
     fetchData(page) {
       this.pageConf.page = page.page
@@ -100,20 +105,30 @@ export default {
       userList(this.pageConf, this.query).then(res => {
         this.list = res.data.rows
         this.pageConf.total = res.data.total
+        this.loading = false
       })
     },
     handleUpdate(id) {
-      this.editLoading = true
-      getUser(id).then(res => {
-        this.form = res.data
-        this.editVisible = true
-        this.editLoading = false
-      })
-    },
-    handleSubmit() {
+      this.editVisible = true
+      this.editId = id
     },
     handleDel(id) {
-
+      this.$confirm({
+        title: '您确定要删除此条数据吗?',
+        content: 'Some descriptions',
+        okText: '确定',
+        okType: 'danger',
+        cancelText: '取消',
+        onOk() {
+          delUser(id).then(res => {
+            if (res.code === 200) {
+              this.$message.success(res.msg)
+            } else {
+              this.$message.error(res.msg)
+            }
+          })
+        }
+      })
     }
   }
 }
