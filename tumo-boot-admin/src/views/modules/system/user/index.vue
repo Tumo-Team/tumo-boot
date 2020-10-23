@@ -4,7 +4,7 @@
       <!-- 搜索条件部分 - Begin -->
       <a-row>
         <a-input-search v-model="query.username" placeholder="请输入名称查询" style="width: 200px" @search="fetchData(pageConf)" />
-        <a-button type="dashed" icon="plus" @click="editVisible = true" />
+        <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
       </a-row>
       <!-- 搜索条件部分 - End -->
 
@@ -28,7 +28,7 @@
           </a-tag>
         </span>
         <span slot="action" slot-scope="text, record">
-          <a-button type="link" size="small" icon="edit" @click="handleUpdate(record.id)">
+          <a-button type="link" size="small" icon="edit" @click="$refs.model.init(record.id)">
             编辑
           </a-button>
           <a-button type="link" size="small" icon="delete" @click="handleDel(record.id)">
@@ -46,7 +46,7 @@
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form :id="editId" :visible.sync="editVisible" @refresh="modelRefresh" />
+      <edit-form ref="model" @refresh="modelRefresh" />
     </a-card>
   </div>
 </template>
@@ -75,8 +75,6 @@ export default {
         limit: 5,
         total: 0
       },
-      editId: 0,
-      editVisible: false,
       loading: true
     }
   },
@@ -84,10 +82,6 @@ export default {
     this.fetchData(this.pageConf)
   },
   methods: {
-    handleClose() {
-      this.editId = 0
-      this.editVisible = false
-    },
     /**
      * 子组件更新
      * @param status 是否需要刷新Table
@@ -95,8 +89,6 @@ export default {
     modelRefresh(status) {
       if (status) {
         this.fetchData(this.pageConf)
-      } else {
-        this.handleClose()
       }
     },
     fetchData(page) {
@@ -107,10 +99,6 @@ export default {
         this.pageConf.total = res.data.total
         this.loading = false
       })
-    },
-    handleUpdate(id) {
-      this.editVisible = true
-      this.editId = id
     },
     handleDel(id) {
       this.$confirm({

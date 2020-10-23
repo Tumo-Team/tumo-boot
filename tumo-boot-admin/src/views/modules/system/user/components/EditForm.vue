@@ -82,21 +82,10 @@ function getBase64(file) {
 }
 export default {
   name: 'EditForm',
-  props: {
-    visible: {
-      default: false,
-      required: true,
-      type: Boolean
-    },
-    id: {
-      default: 0,
-      required: false,
-      type: Number
-    }
-  },
   data() {
     return {
-      editLoading: false,
+      visible: false,
+      editLoading: true,
       form: {},
       rules: {
         username: [{ required: true, message: '请输入名称', trigger: 'blur' }],
@@ -122,30 +111,27 @@ export default {
       ]
     }
   },
-  watch: {
-    visible: (val) => {
-      if (val) {
-        // this.$refs.form.resetFields()
-      }
-    },
-    id: (val) => {
-      if (val !== undefined && val !== 0) {
-        this.editLoading = true
-        getUser(val).then(res => {
-          this.form = res.data
-          this.editLoading = false
-        })
-      }
-    }
-  },
   methods: {
     /**
      * 子组件关闭（默认）：不刷新Table（false）
      * 弹窗的Visible状态由父组件维护
      */
     handleClose() {
+      this.visible = false
       this.$emit('refresh', false)
     },
+
+    init(id) {
+      if (id !== undefined) {
+        // 修改操作
+        getUser(id).then(res => {
+          this.form = res.data
+          this.editLoading = false
+        })
+      }
+      this.visible = true
+    },
+
     async handlePreview(file) {
       if (!file.url && !file.preview) {
         file.preview = await getBase64(file.originFileObj)
