@@ -44,18 +44,22 @@ public class User implements Serializable {
     private String password;
 
     /**
+     * 性别
+     */
+    @ApiModelProperty(value = "性别" )
+    private String sex;
+
+    /**
+     * 邮箱
+     */
+    @ApiModelProperty(value = "邮箱" )
+    private String email;
+
+    /**
      * 部门ID
      */
     @ApiModelProperty(value = "部门ID" )
     private Long deptId;
-
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间" )
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date createTime;
 
     /**
      * 头像
@@ -74,5 +78,12 @@ public class User implements Serializable {
      */
     @ApiModelProperty(value = "状态 0锁定 1有效" )
     private Boolean status;
-
+    
+    /**
+     * 创建时间
+     */
+    @ApiModelProperty(value = "创建时间" )
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
 }

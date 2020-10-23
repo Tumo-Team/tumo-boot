@@ -28,11 +28,17 @@
           </a-tag>
         </span>
         <span slot="action" slot-scope="text, record">
-          <a-button type="link" size="small" icon="edit" @click="$refs.model.init(record.id)">
-            编辑
+          <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+            <a-icon type="eye" theme="twoTone" two-tone-color="#1890ff" />
           </a-button>
-          <a-button type="link" size="small" icon="delete" @click="handleDel(record.id)">
-            删除
+          <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+            <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
+          </a-button>
+          <a-button type="dashed" size="small" @click="handleDel(record.id)">
+            <a-icon type="delete" theme="twoTone" two-tone-color="#f5222d" />
+          </a-button>
+          <a-button type="dashed" size="small" @click="handleReset(record.id)">
+            <a-icon type="tool" theme="twoTone" two-tone-color="#f5222d" />
           </a-button>
         </span>
       </a-table>
@@ -64,10 +70,14 @@ export default {
       list: [],
       columns: [
         { title: '用户名', dataIndex: 'username', key: 'username', width: 140 },
+        { title: '性别', dataIndex: 'sex', key: 'sex', width: 100 },
         { title: '手机', dataIndex: 'phone', key: 'phone', width: 120 },
+        { title: '邮箱', dataIndex: 'email', key: 'email', width: 120 },
         { title: '角色', dataIndex: 'roles', key: 'roles', scopedSlots: { customRender: 'roles' }},
+        { title: '部门', dataIndex: 'dept', key: 'dept', scopedSlots: { customRender: 'dept' }},
+        { title: '状态', dataIndex: 'status', key: 'status', width: 80 },
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 150 },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, width: 200 }
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
       ],
       query: {},
       pageConf: {
@@ -99,6 +109,9 @@ export default {
         this.pageConf.total = res.data.total
         this.loading = false
       })
+    },
+    handleReset(id) {
+
     },
     handleDel(id) {
       this.$confirm({

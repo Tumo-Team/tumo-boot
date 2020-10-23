@@ -60,3 +60,12 @@ export function delUser(id) {
     method: 'delete'
   })
 }
+
+// 重置密码
+export function resetPass(data) {
+  return request({
+    url: `/system/user/`,
+    method: 'post',
+    data
+  })
+}
