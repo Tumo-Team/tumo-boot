@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 18/10/2020 11:03:40
+ Date: 23/10/2020 12:30:28
 */
 
 SET NAMES utf8mb4;
@@ -218,36 +218,38 @@ CREATE TABLE `sys_menu` (
   `hidden` tinyint(1) DEFAULT NULL COMMENT '是否隐藏',
   `frame` tinyint(1) DEFAULT NULL COMMENT '是否是外链',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (1, '权限管理', 0, '/auth', NULL, 'menu', 'permission', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (2, '用户管理', 1, 'user', 'user:list', 'menu', 'peoples', '/auth/user/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (3, '角色管理', 1, 'role', 'role:list', 'menu', 'role', '/auth/role/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (4, '菜单管理', 1, 'menu', 'menu:list', 'menu', 'menu', '/auth/menu/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (5, '部门管理', 1, 'dept', 'dept:list', 'menu', 'tree', '/auth/dept/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (6, '新增用户', 2, NULL, 'user:add', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (7, '修改用户', 2, NULL, 'user:update', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (8, '删除用户', 2, NULL, 'user:delete', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (9, '新增角色', 3, NULL, 'role:add', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (10, '修改角色', 3, NULL, 'role:update', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (11, '删除用户', 3, NULL, 'role:delete', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (12, '新增菜单', 4, NULL, 'menu:add', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (13, '修改菜单', 4, NULL, 'menu:update', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (14, '删除菜单', 4, NULL, 'menu:delete', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (15, '新增部门', 5, NULL, 'dept:add', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (16, '修改部门', 5, NULL, 'dept:update', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (17, '删除部门', 5, NULL, 'dept:delete', 'button', NULL, NULL, 1, 0);
-INSERT INTO `sys_menu` VALUES (31, '系统管理', 0, '/system', NULL, 'menu', 'setting', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (32, '日志管理', 31, 'log', NULL, 'menu', 'log', '/system/log/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (61, '系统监控', 0, '/monitor', NULL, 'menu', 'monitor', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (62, '注册中心', 61, 'http://scst-nacos:8848/nacos', NULL, 'menu', 'monitor', NULL, 0, 1);
-INSERT INTO `sys_menu` VALUES (63, '服务监控', 61, 'http://scst-admin:5001', NULL, 'menu', 'service-monitor', NULL, 0, 1);
-INSERT INTO `sys_menu` VALUES (64, '流量监控', 61, 'http://scst-sentinel:5002', NULL, 'menu', 'service-center', NULL, 0, 1);
-INSERT INTO `sys_menu` VALUES (65, '接口文档', 61, 'http://127.0.0.1:9999/swagger-ui.html', NULL, 'menu', 'documentation', NULL, 0, 1);
+INSERT INTO `sys_menu` VALUES (1, '权限模块', 0, '/system', NULL, 'menu', 'safety-certificate', NULL, 0, 0);
+INSERT INTO `sys_menu` VALUES (2, '用户管理', 1, 'user', 'user:list', 'menu', 'user', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (3, '角色管理', 1, 'role', 'role:list', 'menu', 'audit', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (4, '部门管理', 1, 'dept', 'dept:list', 'menu', 'apartment', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (5, '菜单管理', 1, 'menu', 'menu:list', 'menu', 'cluster', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (10, '新增用户', 2, NULL, 'user:add', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (11, '修改用户', 2, NULL, 'user:update', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (12, '删除用户', 2, NULL, 'user:delete', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (13, '新增角色', 3, NULL, 'role:add', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (14, '修改角色', 3, NULL, 'role:update', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (15, '删除角色', 3, NULL, 'role:delete', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (16, '新增部门', 5, NULL, 'dept:add', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (17, '修改部门', 5, NULL, 'dept:update', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (18, '删除部门', 5, NULL, 'dept:delete', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (20, '新增菜单', 4, NULL, 'menu:add', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (21, '删除菜单', 4, NULL, 'menu:delete', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (24, '删除用户', 3, NULL, 'role:delete', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (56, '修改菜单', 4, NULL, 'menu:update', 'button', NULL, NULL, 1, 0);
+INSERT INTO `sys_menu` VALUES (100, '博客模块', 0, '/blog', NULL, 'menu', 'alert', NULL, 0, 0);
+INSERT INTO `sys_menu` VALUES (101, '文章管理', 100, 'article', NULL, 'menu', 'read', '/modules/blog/article/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (102, '标签管理', 100, 'tag', NULL, 'menu', 'tags', '/modules/blog/tag/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (103, '分类管理', 100, 'category', NULL, 'menu', 'switcher', '/modules/blog/category/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (104, '评论管理', 100, 'comment', NULL, 'menu', 'message', '/modules/blog/comment/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (130, '系统模块', 0, '/setting', NULL, 'menu', 'setting', NULL, 0, 0);
+INSERT INTO `sys_menu` VALUES (131, '日志管理', 31, 'log', NULL, 'menu', 'log', '/system/log/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (132, 'Api文档', 61, 'doc', NULL, 'menu', 'file-search', '/modules/system/user/index', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -375,13 +377,13 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 3, '2019-01-01 00:00:00', '/img/avatar/default.jpg', '19809587839', 1);
-INSERT INTO `sys_user` VALUES (2, 'tycoding', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 5, '2019-01-01 00:00:00', '/img/avatar/20180414165754.jpg', '18798797687', 1);
-INSERT INTO `sys_user` VALUES (3, 'tumo', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 6, '2019-02-03 03:37:34', '/img/avatar/20180414165827.jpg', '781797907', 1);
-INSERT INTO `sys_user` VALUES (4, 'monitor', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 1, '2019-02-03 03:37:34', '/img/avatar/20180414165827.jpg', '18798797687', 1);
-INSERT INTO `sys_user` VALUES (5, 'synoptic', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 1, '2019-02-03 03:37:34', '/img/avatar/20180414165827.jpg', '18798797687', 0);
-INSERT INTO `sys_user` VALUES (6, 'user', '$2a$10$I/SMezVZBVuMRfChtqxe7O0pdgmZff37QRPkTJnNQth3ONBrQ3IUK', 1, '2019-02-03 03:37:34', '/img/avatar/20180414165827.jpg', '18798797687', 0);
-INSERT INTO `sys_user` VALUES (8, 'test2', 'sd', 1, '2020-07-18 07:29:27', '/img/avatar/20180414165920.jpg', '12', 1);
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 3, '2019-01-01 00:00:00', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '19809587839', 1);
+INSERT INTO `sys_user` VALUES (2, 'tycoding', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 5, '2019-01-01 00:00:00', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 1);
+INSERT INTO `sys_user` VALUES (3, 'tumo', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 6, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '781797907', 1);
+INSERT INTO `sys_user` VALUES (4, 'monitor', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 1);
+INSERT INTO `sys_user` VALUES (5, 'synoptic', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 0);
+INSERT INTO `sys_user` VALUES (6, 'user', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 0);
+INSERT INTO `sys_user` VALUES (8, 'test2', 'sd', 1, '2020-07-18 07:29:27', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '12', 1);
 COMMIT;
 
 -- ----------------------------

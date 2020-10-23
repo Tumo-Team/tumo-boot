@@ -7,7 +7,7 @@ Vue.use(Router)
 import Layout from '@/layout'
 
 /* Router Modules */
-import tumoBootRouter from './modules/tumo-boot'
+// import tumoBootRouter from './modules/tumo-boot'
 import nestedRouter from './modules/nested'
 
 /**
@@ -102,7 +102,7 @@ export const constantRoutes = [
 export const asyncRoutes = [
 
   // 自定义路由，[]集合
-  ...tumoBootRouter,
+  // ...tumoBootRouter,
 
   nestedRouter,
 
