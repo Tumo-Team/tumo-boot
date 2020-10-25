@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.system.controller;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 部门表(Dept)表控制层
@@ -34,10 +33,10 @@ public class DeptController extends BaseController {
         return new R<>(deptService.list(dept));
     }
 
-    @PostMapping("/list")
-    @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody Dept dept, QueryPage queryPage) {
-        return new R<>(super.getData(deptService.list(dept, queryPage)));
+    @GetMapping("/tree")
+    @ApiOperation(value = "获取部门Tree")
+    public R<List<Tree<Object>>> tree() {
+        return new R(deptService.tree());
     }
 
     @GetMapping("/{id}")

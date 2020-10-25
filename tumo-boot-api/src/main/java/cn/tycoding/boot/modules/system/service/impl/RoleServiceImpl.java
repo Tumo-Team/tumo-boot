@@ -1,6 +1,9 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
 import cn.tycoding.boot.modules.system.entity.Role;
 import cn.tycoding.boot.modules.system.entity.RoleMenu;
@@ -9,9 +12,7 @@ import cn.tycoding.boot.modules.system.service.RoleMenuService;
 import cn.tycoding.boot.modules.system.service.RoleService;
 import cn.tycoding.boot.modules.system.service.UserRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -45,11 +46,17 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public IPage<Role> list(Role role, QueryPage queryPage) {
-        IPage<Role> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(role.getName()), Role::getName, role.getName());
-        return baseMapper.selectPage(page, queryWrapper);
+    public List<Tree<Object>> tree() {
+        List<Role> list = this.list(new Role());
+        // 构建树形结构
+        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
+        list.forEach(t -> nodeList.add(new TreeNode<>(
+                t.getId(),
+                t.getParentId(),
+                t.getName(),
+                0
+        )));
+        return TreeUtil.build(nodeList, 0L);
     }
 
     @Override

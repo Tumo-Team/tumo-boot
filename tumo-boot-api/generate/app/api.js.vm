@@ -6,11 +6,16 @@ $!callback.setFileName("$!{TumoBootLowerCaseEntity}.js")
 import request from '@/utils/request'
 
 /**
+ * API 接口前缀
+ */
+export const API_PREFIX = '/'
+
+/**
  * 分页、条件查询
  */
 export function $!{TumoBootLowerCaseEntity}List(pagination, query) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}/list?page=${pagination.page}&size=${pagination.size}`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}/list?page=${pagination.page}&size=${pagination.size}`,
         method: 'post',
         query
     })
@@ -21,7 +26,18 @@ export function $!{TumoBootLowerCaseEntity}List(pagination, query) {
  */
 export function $!{TumoBootLowerCaseEntity}FilterList(data) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}/filter/list`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}/filter/list`,
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * 校验名称
+ */
+export function check$!{TumoBootEntity}Name(data) {
+    return request({
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}/checkName`,
         method: 'post',
         data
     })
@@ -32,7 +48,7 @@ export function $!{TumoBootLowerCaseEntity}FilterList(data) {
  */
 export function findBy$!{TumoBootEntity}Id(id) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}/${id}`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}/${id}`,
         method: 'get'
     })
 }
@@ -42,7 +58,7 @@ export function findBy$!{TumoBootEntity}Id(id) {
  */
 export function add$!{TumoBootEntity}(data) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}`,
         method: 'post',
         data
     })
@@ -53,7 +69,7 @@ export function add$!{TumoBootEntity}(data) {
  */
 export function update$!{TumoBootEntity}(data) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}`,
         method: 'put',
         data
     })
@@ -62,9 +78,9 @@ export function update$!{TumoBootEntity}(data) {
 /**
  * 删除
  */
-export function delete$!{TumoBootEntity}(id) {
+export function del$!{TumoBootEntity}(id) {
     return request({
-        url: `/$!{TumoBootLowerCaseEntity}/${id}`,
+        url: API_PREFIX + `/$!{TumoBootLowerCaseEntity}/${id}`,
         method: 'delete'
     })
 }

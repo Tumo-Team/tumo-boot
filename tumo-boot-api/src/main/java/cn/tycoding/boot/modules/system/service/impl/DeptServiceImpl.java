@@ -1,17 +1,19 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.modules.system.entity.Dept;
 import cn.tycoding.boot.modules.system.mapper.DeptMapper;
 import cn.tycoding.boot.modules.system.service.DeptService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,8 +26,6 @@ import java.util.List;
 @AllArgsConstructor
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
 
-    private final DeptMapper deptMapper;
-
     @Override
     public List<Dept> list(Dept dept) {
         LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
@@ -33,16 +33,23 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     }
 
     @Override
-    public IPage<Dept> list(Dept dept, QueryPage queryPage) {
-        IPage<Dept> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
-        //queryWrapper.like(StringUtils.isNotBlank(dept.getName()), Dept::getName, dept.getName());
-        return baseMapper.selectPage(page, queryWrapper);
+    public List<Tree<Object>> tree() {
+        List<Dept> list = this.list(new Dept());
+        // 构建树形结构
+        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
+        list.forEach(t -> nodeList.add(new TreeNode<>(
+                t.getId(),
+                t.getParentId(),
+                t.getName(),
+                0
+        )));
+        return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(Dept dept) {
+        dept.setCreateTime(new Date());
         baseMapper.insert(dept);
     }
 

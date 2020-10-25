@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.system.service;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
+import cn.tycoding.boot.modules.system.dto.UserDTO;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import cn.tycoding.boot.modules.system.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -24,6 +25,11 @@ public interface UserService extends IService<User> {
     User findByName(String username);
 
     /**
+     * 根据ID查询
+     */
+    UserDTO findById(Long id);
+
+    /**
      * 根据用户名封装：用户信息、角色、部门、权限
      */
     UserInfo info(String username);
@@ -36,12 +42,12 @@ public interface UserService extends IService<User> {
     /**
      * 条件查询
      */
-    List<User> list(User user);
+    List<UserDTO> list(UserDTO user);
 
     /**
      * 分页、条件查询
      */
-    IPage<User> list(User user, QueryPage queryPage);
+    IPage<UserDTO> list(UserDTO user, QueryPage queryPage);
 
     /**
      * 校验用户名是否存在
@@ -51,15 +57,16 @@ public interface UserService extends IService<User> {
     /**
      * 新增
      */
-    void add(UserInfo userInfo);
+    void add(UserDTO user);
 
     /**
      * 修改
      */
-    void update(UserInfo userInfo);
+    void update(UserDTO user);
 
     /**
      * 删除
      */
     void delete(Long id);
+
 }

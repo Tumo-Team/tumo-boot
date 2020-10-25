@@ -6,6 +6,7 @@ import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.common.utils.SecurityUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
+import cn.tycoding.boot.modules.system.dto.UserDTO;
 import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.service.UserService;
 import io.swagger.annotations.Api;
@@ -47,7 +48,7 @@ public class UserController extends BaseController {
      *
      * @param user id:当前修改对象的ID
      *             name:需要校验的名称
-     * @return Boolean
+     * @return true 当前名称可以用 false 当前名称已存在
      */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
@@ -57,33 +58,33 @@ public class UserController extends BaseController {
 
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
-    public R<List<User>> list(@RequestBody User user) {
+    public R<List<UserDTO>> list(@RequestBody UserDTO user) {
         return new R<>(userService.list(user));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody User user, QueryPage queryPage) {
+    public R<Map<String, Object>> list(@RequestBody UserDTO user, QueryPage queryPage) {
         return new R<>(super.getData(userService.list(user, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
-    public R<User> findById(@PathVariable Long id) {
-        return new R<>(userService.getById(id));
+    public R<UserDTO> findById(@PathVariable Long id) {
+        return new R<>(userService.findById(id));
     }
 
     @PostMapping
     @ApiOperation(value = "新增")
-    public R<User> add(@RequestBody UserInfo userInfo) {
-        userService.add(userInfo);
+    public R<User> add(@RequestBody UserDTO user) {
+        userService.add(user);
         return new R<>();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
-    public R update(@RequestBody UserInfo userInfo) {
-        userService.update(userInfo);
+    public R update(@RequestBody UserDTO user) {
+        userService.update(user);
         return new R();
     }
 

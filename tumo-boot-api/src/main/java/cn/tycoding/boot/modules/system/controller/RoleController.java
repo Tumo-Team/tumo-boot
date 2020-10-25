@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.system.controller;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
@@ -13,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 角色表(Role)表控制层
@@ -35,10 +34,10 @@ public class RoleController extends BaseController {
         return new R<>(roleService.list(role));
     }
 
-    @PostMapping("/list")
-    @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody Role role, QueryPage queryPage) {
-        return new R<>(super.getData(roleService.list(role, queryPage)));
+    @GetMapping("/tree")
+    @ApiOperation(value = "获取角色Tree")
+    public R<List<Tree<Object>>> tree() {
+        return new R(roleService.tree());
     }
 
     /**
@@ -46,7 +45,7 @@ public class RoleController extends BaseController {
      *
      * @param role id:当前修改对象的ID
      *             name:需要校验的名称
-     * @return Boolean
+     * @return true 当前名称可以用 false 当前名称已存在
      */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")

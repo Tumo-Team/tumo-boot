@@ -1,8 +1,7 @@
 package cn.tycoding.boot.modules.system.service;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.modules.system.entity.Dept;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -21,9 +20,9 @@ public interface DeptService extends IService<Dept> {
     List<Dept> list(Dept dept);
 
     /**
-     * 分页、条件查询
+     * 获取部门Tree
      */
-    IPage<Dept> list(Dept dept, QueryPage queryPage);
+    List<Tree<Object>> tree();
 
     /**
      * 新增
@@ -39,4 +38,5 @@ public interface DeptService extends IService<Dept> {
      * 删除
      */
     void delete(Long id);
+
 }

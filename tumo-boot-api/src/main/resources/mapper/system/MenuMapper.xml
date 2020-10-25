@@ -20,11 +20,11 @@
     </select>
 
     <update id="changeTopNode">
-        update sys_menu
-        set parent_id = 0
-        where id in (
-            select a.id from (
-                select id from sys_menu where parent_id = #{id}
+        UPDATE sys_menu
+        SET parent_id = 0
+        WHERE id IN (
+            SELECT a.id FROM (
+                SELECT id FROM sys_menu WHERE parent_id = #{id}
             ) a
         )
     </update>

@@ -1,9 +1,8 @@
 package cn.tycoding.boot.modules.system.service;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
 import cn.tycoding.boot.modules.system.entity.Role;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -27,9 +26,9 @@ public interface RoleService extends IService<Role> {
     List<Role> list(Role role);
 
     /**
-     * 分页、条件查询
+     * 获取角色Tree集合
      */
-    IPage<Role> list(Role role, QueryPage queryPage);
+    List<Tree<Object>> tree();
 
     /**
      * 校验名称是否存在

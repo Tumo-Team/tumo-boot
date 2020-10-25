@@ -3,9 +3,13 @@
 <mapper namespace="cn.tycoding.boot.modules.system.mapper.RoleMapper">
 
     <select id="findRolesByUserId" resultType="cn.tycoding.boot.modules.system.entity.Role">
-        select r.*
-        from sys_user u, sys_user_role ur, sys_role r
-        where ur.user_id = u.id and ur.role_id = r.id and u.id = #{id}
+        SELECT `role`.*
+        FROM sys_user AS `user`,
+             sys_user_role AS ur,
+             sys_role AS `role`
+        WHERE ur.user_id = `user`.id
+          AND ur.role_id = `role`.id
+          AND `user`.id = #{id}
     </select>
 
 </mapper>

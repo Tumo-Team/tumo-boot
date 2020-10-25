@@ -2,8 +2,9 @@ package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.utils.MenuTreeUtil;
-import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
+import cn.tycoding.boot.modules.system.dto.MenuTree;
+import cn.tycoding.boot.modules.system.dto.UserDTO;
 import cn.tycoding.boot.modules.system.entity.*;
 import cn.tycoding.boot.modules.system.mapper.MenuMapper;
 import cn.tycoding.boot.modules.system.mapper.UserMapper;
@@ -47,6 +48,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    public UserDTO findById(Long id) {
+        return baseMapper.findById(id);
+    }
+
+    @Override
     public UserInfo info(String username) {
         return this.build(new UserInfo().setUser(this.findByName(username)));
     }
@@ -84,17 +90,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> list(User user) {
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        return baseMapper.selectList(queryWrapper);
+    public List<UserDTO> list(UserDTO user) {
+        return baseMapper.filterList(user);
     }
 
     @Override
-    public IPage<User> list(User user, QueryPage queryPage) {
+    public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(user.getUsername()), User::getUsername, user.getUsername());
-        return baseMapper.selectPage(page, queryWrapper);
+        return baseMapper.list(page, user);
     }
 
     @Override
@@ -114,37 +117,37 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(UserInfo userInfo) {
-        userInfo.getUser().setCreateTime(new Date());
-        PASSWORD_ENCODER.encode(userInfo.getUser().getPassword());
-        baseMapper.insert(userInfo.getUser());
-        this.addUserRole(userInfo);
+    public void add(UserDTO user) {
+        user.setCreateTime(new Date());
+        PASSWORD_ENCODER.encode(user.getPassword());
+        baseMapper.insert(user);
+        this.addUserRole(user);
     }
 
     /**
      * 根据UserInfo保存用户与角色之前的关联
      */
-    private void addUserRole(UserInfo userInfo) {
-        if (userInfo.getRoles() == null) {
+    private void addUserRole(UserDTO user) {
+        if (user.getRoles() == null) {
             return;
         }
-        userInfo.getRoles().forEach(sysRole -> {
+        user.getRoles().forEach(role -> {
             UserRole userRole = new UserRole()
-                    .setUserId(userInfo.getUser().getId())
-                    .setRoleId(sysRole.getId());
+                    .setUserId(user.getId())
+                    .setRoleId(role.getId());
             userRoleService.save(userRole);
         });
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(UserInfo userInfo) {
-        userInfo.getUser().setPassword(null);
-        baseMapper.updateById(userInfo.getUser());
+    public void update(UserDTO user) {
+        user.setPassword(null);
+        baseMapper.updateById(user);
 
         // 删除之前用户与角色表之前的关联，并重新建立关联
-        userRoleService.deleteUserRolesByUserId(userInfo.getUser().getId());
-        this.addUserRole(userInfo);
+        userRoleService.deleteUserRolesByUserId(user.getId());
+        this.addUserRole(user);
     }
 
     @Override

@@ -62,3 +62,18 @@ public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Excep
     }
 }
 ```
+
+
+## Hutool
+
+如果使用`TreeUtil`工具类，那么需要注意：
+
+```java
+    public static <E> List<Tree<E>> build(List<TreeNode<E>> list, E parentId) {
+        return build(list, parentId, TreeNodeConfig.DEFAULT_CONFIG, new DefaultNodeParser());
+    }
+```
+
+这里的`parentId`是你调用此静态方法时传递的`parent_id`字段标识（一般我们设置为0），这里传入的类型一定要和实体类中`parentId`属性类型相同。
+例如你调用`TreeUtil.build(list, 0)`，那么实体类中`parentId`属性应该是`Integer`类型；
+如果你调用`TreeUtil.build(list, 0L)`,而实体类中`parentId`字段还是`Integer`类型，此工具类就无法构建Tree，必须设置为`Long parentId`类型才可。

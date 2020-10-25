@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -13,12 +14,20 @@ import java.io.Serializable;
  * @since 2020-10-14 14:44:42
  */
 @Data
-@TableName("sys_user_role" )
+@TableName("sys_user_role")
 @Accessors(chain = true)
 public class UserRole implements Serializable {
     private static final long serialVersionUID = -24775118196826771L;
 
+    /**
+     * 用户ID
+     */
+    @ApiModelProperty(value = "用户ID")
     private Long userId;
 
+    /**
+     * 角色ID
+     */
+    @ApiModelProperty(value = "角色ID")
     private Long roleId;
 }
