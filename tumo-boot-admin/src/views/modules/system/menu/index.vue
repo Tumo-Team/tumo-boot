@@ -7,13 +7,13 @@
           v-model="query.name"
           placeholder="请输入名称查询"
           style="width: 200px"
-          @search="fetchData(pageConf)"
+          @search="fetchData()"
         />
         <a-popover content="新增">
           <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
         </a-popover>
         <a-popover content="刷新">
-          <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
+          <a-button type="dashed" icon="redo" @click="fetchData()" />
         </a-popover>
       </a-row>
       <!-- 搜索条件部分 - End -->
@@ -47,62 +47,48 @@
           </a-popover>
         </span>
       </a-table>
-      <pagination
-        v-show="pageConf.total>0"
-        :total="pageConf.total"
-        :page.sync="pageConf.page"
-        :limit.sync="pageConf.limit"
-        @pagination="fetchData"
-      />
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData(pageConf)" />
+      <edit-form ref="model" @refresh="fetchData()" />
     </a-card>
   </div>
 </template>
 
 <script>
-import Pagination from '@/components/Pagination'
 import EditForm from './components/EditForm'
-import { commentList, delComment } from '@/api/modules/blog/comment'
+import { delMenu, menuTree } from '@/api/modules/system/menu'
 
 export default {
   name: 'Index',
-  components: { Pagination, EditForm },
+  components: { EditForm },
   data() {
     return {
       list: [],
       columns: [
-        { title: '文章ID', dataIndex: 'articleId', key: 'articleId' },
-        { title: '文章标题', dataIndex: 'articleTitle', key: 'articleTitle' },
-        { title: '父级ID', dataIndex: 'pid', key: 'pid' },
-        { title: '评论人名称', dataIndex: 'name', key: 'name' },
-        { title: '评论人邮箱', dataIndex: 'email', key: 'email' },
-        { title: '评论内容', dataIndex: 'content', key: 'content' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
+        { title: '资源名称', dataIndex: 'name', key: 'name' },
+        { title: '父级ID', dataIndex: 'parentId', key: 'parentId' },
+        { title: 'URL', dataIndex: 'path', key: 'path' },
+        { title: '权限标识', dataIndex: 'perms', key: 'perms' },
+        { title: '类型：如button按钮 menu菜单', dataIndex: 'type', key: 'type' },
+        { title: '菜单图标', dataIndex: 'icon', key: 'icon' },
+        { title: 'Vue组件', dataIndex: 'component', key: 'component' },
+        { title: '是否隐藏', dataIndex: 'hidden', key: 'hidden' },
+        { title: '是否是外链', dataIndex: 'frame', key: 'frame' },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
       ],
       query: {},
-      pageConf: {
-        page: 1,
-        limit: 5,
-        total: 0
-      },
       loading: true
     }
   },
   created() {
-    this.fetchData(this.pageConf)
+    this.fetchData()
   },
   methods: {
-    fetchData(page) {
+    fetchData() {
       this.loading = true
-      this.pageConf.page = page.page
-      this.pageConf.limit = page.limit
-      commentList(this.pageConf, this.query).then(res => {
-        this.list = res.data.rows
-        this.pageConf.total = res.data.total
+      menuTree(this.query).then(res => {
+        this.list = res.data
         this.loading = false
       })
     },
@@ -114,7 +100,7 @@ export default {
         okType: 'danger',
         cancelText: '取消',
         onOk() {
-          delComment(id).then(res => {
+          delMenu(id).then(res => {
             if (res.code === 200) {
               _this.$message
                 .success(res.msg)
@@ -122,7 +108,7 @@ export default {
               _this.$message
                 .error(res.msg)
             }
-            _this.fetchData(_this.pageConf)
+            _this.fetchData()
           })
         }
       })

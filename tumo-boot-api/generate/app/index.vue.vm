@@ -17,7 +17,7 @@ $!callback.setFileName("index.vue")
         <a-popover content="新增">
           <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
         </a-popover>
-        <a-popover content="刷新">a
+        <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
         </a-popover>
       </a-row>
@@ -66,7 +66,7 @@ $!callback.setFileName("index.vue")
 <script>
   import Pagination from '@/components/Pagination'
   import EditForm from './components/EditForm'
-  import { $!{TumoBootLowerCaseEntity}List, del$!{TumoBootEntity} } from '@/api/modules/system/user'
+  import { $!{TumoBootLowerCaseEntity}List, del$!{TumoBootEntity} } from '@/api/$!{TumoBootLowerCaseEntity}'
 
   export default {
     name: 'Index',

@@ -71,10 +71,16 @@
         </dependency>
 
         <!-- Swagger3.0 官方starter -->
-        <dependency>
+        <!--<dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <!--OpenAPI2.0的开发者继续使用Knife4j 2.x系列的版本-->
+            <version>2.0.6</version>
         </dependency>
 
         <!-- Hutool工具类 -->

@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.tycoding.boot.modules.system.dto.DeptDTO;
 import cn.tycoding.boot.modules.system.entity.Dept;
 import cn.tycoding.boot.modules.system.mapper.DeptMapper;
 import cn.tycoding.boot.modules.system.service.DeptService;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -34,15 +36,23 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
 
     @Override
     public List<Tree<Object>> tree() {
-        List<Dept> list = this.list(new Dept());
+        List<Dept> deptList = this.list(new Dept());
+
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
-        list.forEach(t -> nodeList.add(new TreeNode<>(
-                t.getId(),
-                t.getParentId(),
-                t.getName(),
-                0
-        )));
+        deptList.forEach(t -> {
+            TreeNode<Object> node = new TreeNode<>(
+                    t.getId(),
+                    t.getParentId(),
+                    t.getName(),
+                    0
+            );
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(DeptDTO.DES_KEY, t.getDes());
+            map.put(DeptDTO.CREATE_TIME_KEY, t.getCreateTime());
+            node.setExtra(map);
+            nodeList.add(node);
+        });
         return TreeUtil.build(nodeList, 0L);
     }
 

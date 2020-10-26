@@ -1,64 +1,138 @@
 <template>
   <div class="app-container">
     <a-card>
+      <!-- 搜索条件部分 - Begin -->
+      <a-row>
+        <a-input-search
+          v-model="query.name"
+          placeholder="请输入名称查询"
+          style="width: 200px"
+          @search="fetchData(pageConf)"
+        />
+        <a-popover content="新增">
+          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
+        </a-popover>
+        <a-popover content="刷新">
+          <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
+        </a-popover>
+      </a-row>
+      <!-- 搜索条件部分 - End -->
+
+      <!-- Table表列表部分 - Begin -->
       <a-table
+        size="small"
         :columns="columns"
         :row-key="record => record.id"
-        :pagination="pagination"
+        :pagination="false"
         :loading="loading"
         :data-source="list"
+        :scroll="{ x: 'calc(700px + 50%)'}"
         bordered
       >
         <span slot="action" slot-scope="text, record">
-          <a @click="handleUpdate(record.id)">修改</a>
-          <a @click="handleDel(record.id)">删除</a>
+          <a-popover content="修改">
+            <a-button
+              type="dashed"
+              size="small"
+              @click="$refs.model
+                .init(record.id)"
+            >
+              <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
+            </a-button>
+          </a-popover>
+          <a-popover content="删除">
+            <a-button type="dashed" size="small" @click="handleDel(record.id)">
+              <a-icon type="delete" theme="twoTone" two-tone-color="#f5222d" />
+            </a-button>
+          </a-popover>
         </span>
       </a-table>
+      <pagination
+        v-show="pageConf.total>0"
+        :total="pageConf.total"
+        :page.sync="pageConf.page"
+        :limit.sync="pageConf.limit"
+        @pagination="fetchData"
+      />
+      <!-- Table列表部分 - End -->
+
+      <!-- 新增/修改弹窗 -->
+      <edit-form ref="model" @refresh="fetchData(pageConf)" />
     </a-card>
   </div>
 </template>
 
 <script>
-import { articleList } from '@/api/modules/blog/article'
+import Pagination from '@/components/Pagination'
+import EditForm from './components/EditForm'
+import { articleList, delArticle } from '@/api/modules/blog/article'
 
 export default {
   name: 'Index',
+  components: { Pagination, EditForm },
   data() {
     return {
       list: [],
-      query: {},
       columns: [
-        { title: '编号', dataIndex: 'id', key: 'id', width: '100px' },
-        { title: '作者', dataIndex: 'author', key: 'author', width: '150px' },
-        { title: '标题', dataIndex: 'title', key: 'title' },
-        { title: '浏览量', dataIndex: 'eyes', key: 'eyes', width: '150px' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: '150px' },
-        { title: '操作', key: 'action', fixed: 'right', width: '100px' }
+        { title: '文章作者', dataIndex: 'author', key: 'author' },
+        { title: '文章标题', dataIndex: 'title', key: 'title' },
+        { title: '文章简介', dataIndex: 'introduce', key: 'introduce' },
+        { title: '文章内容', dataIndex: 'content', key: 'content' },
+        { title: '文章封面', dataIndex: 'cover', key: 'cover' },
+        { title: '文章阅读量', dataIndex: 'eyes', key: 'eyes' },
+        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
       ],
-      pagination: { defaultPageSize: 2 },
-      loading: false
+      query: {},
+      pageConf: {
+        page: 1,
+        limit: 5,
+        total: 0
+      },
+      loading: true
     }
   },
   created() {
-    this.fetchData()
+    this.fetchData(this.pageConf)
   },
   methods: {
-    fetchData() {
-      articleList(this.pagination, this.query).then(res => {
+    fetchData(page) {
+      this.loading = true
+      this.pageConf.page = page.page
+      this.pageConf.limit = page.limit
+      articleList(this.pageConf, this.query).then(res => {
         this.list = res.data.rows
-        this.pagination.total = res.data.total
+        this.pageConf.total = res.data.total
+        this.loading = false
       })
     },
-    handleUpdate(id) {
-      console.log('del: ' + id)
-    },
     handleDel(id) {
-      console.log('del: ' + id)
+      const _this = this
+      this.$confirm({
+        title: '您确定要删除此条数据吗?',
+        okText: '确定',
+        okType: 'danger',
+        cancelText: '取消',
+        onOk() {
+          delArticle(id).then(res => {
+            if (res.code === 200) {
+              _this.$message
+                .success(res.msg)
+            } else {
+              _this.$message
+                .error(res.msg)
+            }
+            _this.fetchData(_this.pageConf)
+          })
+        }
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-
+.ant-row {
+  margin-bottom: 10px;
+}
 </style>

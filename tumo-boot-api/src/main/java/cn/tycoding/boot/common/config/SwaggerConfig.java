@@ -15,6 +15,7 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @Configuration
 @AllArgsConstructor
+@EnableSwagger2WebMvc
 public class SwaggerConfig {
 
     private final TumoProperties properties;

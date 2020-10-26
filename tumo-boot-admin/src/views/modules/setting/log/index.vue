@@ -55,32 +55,29 @@
         @pagination="fetchData"
       />
       <!-- Table列表部分 - End -->
-
-      <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData(pageConf)" />
     </a-card>
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
-import EditForm from './components/EditForm'
-import { commentList, delComment } from '@/api/modules/blog/comment'
+import { delLog, logList } from '@/api/modules/setting/log'
 
 export default {
   name: 'Index',
-  components: { Pagination, EditForm },
+  components: { Pagination },
   data() {
     return {
       list: [],
       columns: [
-        { title: '文章ID', dataIndex: 'articleId', key: 'articleId' },
-        { title: '文章标题', dataIndex: 'articleTitle', key: 'articleTitle' },
-        { title: '父级ID', dataIndex: 'pid', key: 'pid' },
-        { title: '评论人名称', dataIndex: 'name', key: 'name' },
-        { title: '评论人邮箱', dataIndex: 'email', key: 'email' },
-        { title: '评论内容', dataIndex: 'content', key: 'content' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
+        { title: '操作用户', dataIndex: 'username', key: 'username' },
+        { title: '操作描述', dataIndex: 'operation', key: 'operation' },
+        { title: '耗时(毫秒)', dataIndex: 'time', key: 'time' },
+        { title: '操作方法', dataIndex: 'method', key: 'method' },
+        { title: '操作参数', dataIndex: 'params', key: 'params' },
+        { title: 'IP地址', dataIndex: 'ip', key: 'ip' },
+        { title: '操作时间', dataIndex: 'createTime', key: 'createTime' },
+        { title: '操作地点', dataIndex: 'location', key: 'location' },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
       ],
       query: {},
@@ -100,7 +97,7 @@ export default {
       this.loading = true
       this.pageConf.page = page.page
       this.pageConf.limit = page.limit
-      commentList(this.pageConf, this.query).then(res => {
+      logList(this.pageConf, this.query).then(res => {
         this.list = res.data.rows
         this.pageConf.total = res.data.total
         this.loading = false
@@ -114,7 +111,7 @@ export default {
         okType: 'danger',
         cancelText: '取消',
         onOk() {
-          delComment(id).then(res => {
+          delLog(id).then(res => {
             if (res.code === 200) {
               _this.$message
                 .success(res.msg)

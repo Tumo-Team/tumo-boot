@@ -1,5 +1,8 @@
 import request from '@/utils/request'
 
+/**
+ * OAuth2身份认证接口
+ */
 export function login(username, password) {
   return request({
     url: '/auth/oauth/token',
@@ -15,6 +18,19 @@ export function login(username, password) {
   })
 }
 
+/**
+ * 构建左侧权限菜单
+ */
+export function build() {
+  return request({
+    url: `/system/menu/build`,
+    method: 'get'
+  })
+}
+
+/**
+ * 获取当前登录用户信息
+ */
 export function getInfo() {
   return request({
     url: '/system/user/info',
@@ -22,9 +38,12 @@ export function getInfo() {
   })
 }
 
+/**
+ * 注销登录
+ */
 export function logout() {
   return request({
-    url: '/system/logout',
-    method: 'post'
+    url: '/auth/logout',
+    method: 'delete'
   })
 }

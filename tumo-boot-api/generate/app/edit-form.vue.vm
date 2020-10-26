@@ -77,7 +77,7 @@ $!callback.setFileName("EditForm.vue")
       init(id) {
         if (id !== undefined) {
           // 修改操作
-          get$!{TumoBootEntity}(id).then(res => {
+          findBy$!{TumoBootEntity}Id(id).then(res => {
             this.form = res.data
             this.visible = true
           })

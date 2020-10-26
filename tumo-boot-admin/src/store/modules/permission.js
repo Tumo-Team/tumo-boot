@@ -1,5 +1,5 @@
 import { asyncRoutes, constantRoutes } from '@/router'
-import { build } from '@/api/modules/system/menu'
+import { build } from '@/api/auth'
 import Layout from '@/layout/index'
 
 /**
