@@ -10,7 +10,7 @@
           @search="fetchData()"
         />
         <a-popover content="新增">
-          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
+          <a-button type="dashed" icon="plus" @click="$refs.editForm.init()" />
         </a-popover>
         <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData()" />
@@ -30,12 +30,16 @@
         bordered
       >
         <span slot="action" slot-scope="text, record">
+          <a-popover content="权限">
+            <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+              <a-icon type="security-scan" theme="twoTone" two-tone-color="#1890ff" />
+            </a-button>
+          </a-popover>
           <a-popover content="修改">
             <a-button
               type="dashed"
               size="small"
-              @click="$refs.model
-                .init(record.id)"
+              @click="$refs.editForm.init(record.id)"
             >
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
@@ -50,27 +54,31 @@
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData()" />
+      <edit-form ref="editForm" @refresh="fetchData()" />
+
+      <!-- 分配权限弹窗 -->
+      <model ref="model" @refresh="fetchData()" />
     </a-card>
   </div>
 </template>
 
 <script>
 import EditForm from './components/EditForm'
+import Model from './components/Model'
 import { delRole, roleTree } from '@/api/modules/system/role'
 
 export default {
   name: 'Index',
-  components: { EditForm },
+  components: { EditForm, Model },
   data() {
     return {
       list: [],
       columns: [
-        { title: '上级节点', dataIndex: 'parentId', key: 'parentId' },
         { title: '角色名称', dataIndex: 'name', key: 'name' },
+        { title: '角色别名', dataIndex: 'alias', key: 'alias' },
         { title: '描述', dataIndex: 'des', key: 'des' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 148 }
       ],
       query: {},
       loading: true

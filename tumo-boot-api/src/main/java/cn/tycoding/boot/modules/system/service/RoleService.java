@@ -1,7 +1,6 @@
 package cn.tycoding.boot.modules.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
-import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
 import cn.tycoding.boot.modules.system.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -31,6 +30,11 @@ public interface RoleService extends IService<Role> {
     List<Tree<Object>> tree();
 
     /**
+     * 获取指定角色ID下的所有菜单权限
+     */
+    List<Long> menuList(Long id);
+
+    /**
      * 校验名称是否存在
      */
     boolean checkName(Role role);
@@ -38,12 +42,17 @@ public interface RoleService extends IService<Role> {
     /**
      * 新增
      */
-    void add(RoleWithMenu roleWithMenu);
+    void add(Role role);
+
+    /**
+     * 分配权限
+     */
+    void addPermission(List<Long> permissionList, Long id);
 
     /**
      * 修改
      */
-    void update(RoleWithMenu roleWithMenu);
+    void update(Role role);
 
     /**
      * 删除

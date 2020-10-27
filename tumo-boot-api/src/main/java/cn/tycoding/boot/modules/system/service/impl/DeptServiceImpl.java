@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
@@ -49,7 +50,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
             );
             HashMap<String, Object> map = new HashMap<>();
             map.put(DeptDTO.DES_KEY, t.getDes());
-            map.put(DeptDTO.CREATE_TIME_KEY, t.getCreateTime());
+            map.put(DeptDTO.CREATE_TIME_KEY, DateUtil.formatDateTime(t.getCreateTime()));
             node.setExtra(map);
             nodeList.add(node);
         });

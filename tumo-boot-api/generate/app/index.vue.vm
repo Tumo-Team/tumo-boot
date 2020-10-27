@@ -78,7 +78,7 @@ $!callback.setFileName("index.vue")
         #foreach($column in $tableInfo.otherColumn)
           { title: '$!{column.comment}', dataIndex: '$!{column.name}', key: '$!{column.name}' },
         #end
-          { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+          { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 148 }
         ],
         query: {},
         pageConf: {

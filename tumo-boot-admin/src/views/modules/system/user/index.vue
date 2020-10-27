@@ -100,8 +100,8 @@ export default {
         { title: '角色', dataIndex: 'roles', key: 'roles', scopedSlots: { customRender: 'roles' }},
         { title: '部门', dataIndex: 'deptName', key: 'deptName' },
         { title: '状态', dataIndex: 'status', key: 'status', width: 60, align: 'center', scopedSlots: { customRender: 'status' }},
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', width: 150 },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 148 }
       ],
       query: {},
       pageConf: {

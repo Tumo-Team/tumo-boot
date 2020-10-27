@@ -3,7 +3,7 @@ import request from '@/utils/request'
 /**
  * API 接口前缀
  */
-export const API_PREFIX = '/'
+export const API_PREFIX = '/system'
 
 /**
  * 获取角色Tree

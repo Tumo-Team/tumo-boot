@@ -27,6 +27,27 @@ export function roleTree() {
 }
 
 /**
+ * 获取指定角色ID的所有菜单权限
+ */
+export function rolePermissionList(id) {
+  return request({
+    url: API_PREFIX + `/role/permission/list/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 为指定角色分配菜单权限
+ */
+export function roleAddPermission(data, id) {
+  return request({
+    url: API_PREFIX + `/role/permission/add/${id}`,
+    method: 'post',
+    data
+  })
+}
+
+/**
  * 校验名称
  */
 export function checkRoleName(data) {

@@ -4,7 +4,6 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
-import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
 import cn.tycoding.boot.modules.system.entity.Role;
 import cn.tycoding.boot.modules.system.service.RoleService;
 import io.swagger.annotations.Api;
@@ -37,7 +36,13 @@ public class RoleController extends BaseController {
     @GetMapping("/tree")
     @ApiOperation(value = "获取角色Tree")
     public R<List<Tree<Object>>> tree() {
-        return new R(roleService.tree());
+        return new R<>(roleService.tree());
+    }
+
+    @GetMapping("/permission/list/{id}")
+    @ApiOperation(value = "根据ID查询权限")
+    public R<List<Long>> menuList(@PathVariable Long id) {
+        return new R<>(roleService.menuList(id));
     }
 
     /**
@@ -61,15 +66,22 @@ public class RoleController extends BaseController {
 
     @PostMapping
     @ApiOperation(value = "新增")
-    public R add(@RequestBody RoleWithMenu roleWithMenu) {
-        roleService.add(roleWithMenu);
+    public R add(@RequestBody Role role) {
+        roleService.add(role);
+        return new R();
+    }
+
+    @PostMapping("/permission/add/{id}")
+    @ApiOperation(value = "分配权限")
+    public R addPermission(@RequestBody List<Long> permissionList, @PathVariable Long id) {
+        roleService.addPermission(permissionList, id);
         return new R();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
-    public R update(@RequestBody RoleWithMenu roleWithMenu) {
-        roleService.update(roleWithMenu);
+    public R update(@RequestBody Role role) {
+        roleService.update(role);
         return new R();
     }
 

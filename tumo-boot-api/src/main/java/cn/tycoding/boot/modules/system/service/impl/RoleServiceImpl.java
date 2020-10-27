@@ -1,10 +1,11 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
-import cn.tycoding.boot.modules.system.dto.RoleWithMenu;
+import cn.tycoding.boot.modules.system.dto.RoleDTO;
 import cn.tycoding.boot.modules.system.entity.Role;
 import cn.tycoding.boot.modules.system.entity.RoleMenu;
 import cn.tycoding.boot.modules.system.mapper.RoleMapper;
@@ -18,7 +19,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -50,13 +53,26 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         List<Role> list = this.list(new Role());
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
-        list.forEach(t -> nodeList.add(new TreeNode<>(
-                t.getId(),
-                t.getParentId(),
-                t.getName(),
-                0
-        )));
+        list.forEach(t -> {
+            TreeNode<Object> node = new TreeNode<>(
+                    t.getId(),
+                    t.getParentId(),
+                    t.getName(),
+                    0
+            );
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(RoleDTO.ALIAS_KEY, t.getAlias());
+            map.put(RoleDTO.DES_KEY, t.getDes());
+            map.put(RoleDTO.CREATE_TIME_KEY, DateUtil.formatDateTime(t.getCreateTime()));
+            node.setExtra(map);
+            nodeList.add(node);
+        });
         return TreeUtil.build(nodeList, 0L);
+    }
+
+    @Override
+    public List<Long> menuList(Long id) {
+        return baseMapper.menuList(id);
     }
 
     @Override
@@ -76,29 +92,33 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(RoleWithMenu roleWithMenu) {
-        roleWithMenu.setCreateTime(new Date());
-        baseMapper.insert(roleWithMenu);
-        this.addRoleMenu(roleWithMenu);
+    public void add(Role role) {
+        role.setCreateTime(new Date());
+        baseMapper.insert(role);
     }
 
-    private void addRoleMenu(RoleWithMenu sysRole) {
-        if (sysRole.getMenuIds() != null && sysRole.getMenuIds().get(0) != null) {
-            sysRole.getMenuIds().forEach(menuId -> {
+    @Override
+    public void addPermission(List<Long> permissionList, Long id) {
+        if (permissionList != null) {
+            // 先删除原有的关联
+            roleMenuService.deleteRoleMenusByRoleId(id);
+
+            // 再新增关联
+            List<RoleMenu> roleMenuList = new ArrayList<>();
+            permissionList.forEach(menuId -> {
                 RoleMenu roleMenu = new RoleMenu();
                 roleMenu.setMenuId(menuId);
-                roleMenu.setRoleId(sysRole.getId());
-                roleMenuService.save(roleMenu);
+                roleMenu.setRoleId(id);
+                roleMenuList.add(roleMenu);
             });
+            roleMenuService.saveBatch(roleMenuList);
         }
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(RoleWithMenu roleWithMenu) {
-        baseMapper.updateById(roleWithMenu);
-        roleMenuService.deleteRoleMenusByRoleId(roleWithMenu.getId());
-        addRoleMenu(roleWithMenu);
+    public void update(Role role) {
+        baseMapper.updateById(role);
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author tycoding
@@ -14,4 +15,6 @@ import java.util.List;
 public interface RoleMapper extends BaseMapper<Role> {
 
     List<Role> findRolesByUserId(Long id);
+
+    List<Long> menuList(Long id);
 }

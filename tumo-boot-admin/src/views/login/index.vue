@@ -123,6 +123,10 @@ export default {
                 path: this.redirect || '/',
                 query: this.otherQuery
               })
+              this.$notification['success']({
+                message: '登录成功',
+                description: '欢迎登录 Tumo-Boot'
+              })
               this.loading = false
             })
             .catch(() => {
