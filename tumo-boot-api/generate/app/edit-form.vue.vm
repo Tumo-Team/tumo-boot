@@ -25,7 +25,7 @@ $!callback.setFileName("EditForm.vue")
           :wrapper-col="{ span: 21 }"
       >
       #foreach($column in $tableInfo.otherColumn)
-        <a-form-model-item has-feedback prop="$!{column.name}" label="账户">
+        <a-form-model-item has-feedback prop="$!{column.name}" label="$!{column.comment}">
           <a-input v-model="form.$!{column.name}" />
         </a-form-model-item>
       #end

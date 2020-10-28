@@ -30,17 +30,18 @@
         bordered
       >
         <span slot="action" slot-scope="text, record">
+          <a-popover content="新增子级节点">
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id, 'child')">
+              <a-icon type="plus" />
+            </a-button>
+          </a-popover>
           <a-popover content="权限">
             <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
               <a-icon type="security-scan" theme="twoTone" two-tone-color="#1890ff" />
             </a-button>
           </a-popover>
           <a-popover content="修改">
-            <a-button
-              type="dashed"
-              size="small"
-              @click="$refs.editForm.init(record.id)"
-            >
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
           </a-popover>
@@ -94,6 +95,10 @@ export default {
         this.list = res.data
         this.loading = false
       })
+    },
+    // 新增下级节点
+    handleAddChild(id) {
+
     },
     handleDel(id) {
       const _this = this

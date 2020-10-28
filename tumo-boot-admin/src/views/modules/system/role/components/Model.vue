@@ -2,7 +2,7 @@
   <div v-if="visible">
     <!-- 分配权限弹窗 - Begin -->
     <a-drawer
-      title="分配权限"
+      title="角色权限分配"
       :visible.sync="visible"
       placement="right"
       :keyboard="false"
@@ -15,7 +15,7 @@
         v-model="permissionList"
         checkable
         check-strictly
-        default-expand-all
+        :expanded-keys.sync="expandedKey"
         :tree-data="menuTree"
         :replace-fields="{title: 'name', key: 'id'}"
       />
@@ -32,9 +32,17 @@
         }"
       >
         <div style="text-align: left;float: left">
-          <a-button type="primary" @click="handleSubmit">
-            操作
-          </a-button>
+          <a-dropdown>
+            <a-menu slot="overlay" @click="handleMenuClick">
+              <a-menu-item key="1">全部勾选</a-menu-item>
+              <a-menu-item key="2">取消全选</a-menu-item>
+              <a-menu-item key="3">展开所有</a-menu-item>
+              <a-menu-item key="4">合并所有</a-menu-item>
+            </a-menu>
+            <a-button> 树操作
+              <a-icon type="down" />
+            </a-button>
+          </a-dropdown>
         </div>
         <div style="text-align: right">
           <a-button :style="{ marginRight: '8px' }" @click="handleClose">
@@ -53,7 +61,7 @@
 
 <script>
 import { rolePermissionList, roleAddPermission } from '@/api/modules/system/role'
-import { menuTree } from '@/api/modules/system/menu'
+import { menuBaseTree } from '@/api/modules/system/menu'
 
 export default {
   name: 'Model',
@@ -63,7 +71,11 @@ export default {
       list: [],
       id: undefined,
       permissionList: [],
-      menuTree: []
+      menuTree: [],
+      treeIds: [],
+
+      expandedKey: [],
+      expand: true
     }
   },
   methods: {
@@ -71,19 +83,43 @@ export default {
       this.id = undefined
       this.list = []
       this.permissionList = []
+      this.expandedKey = []
       this.visible = false
     },
 
     init(id) {
       if (id !== undefined) {
         this.id = id
-        menuTree().then(res => {
-          this.menuTree = res.data
-          this.visible = true
+        menuBaseTree().then(res => {
+          this.menuTree = res.data.tree
+          this.treeIds = res.data.ids
+          rolePermissionList(id).then(res => {
+            this.permissionList = res.data
+            this.expandedKey = res.data
+            this.visible = true
+          })
         })
-        rolePermissionList(id).then(res => {
-          this.permissionList = res.data
-        })
+      }
+    },
+
+    handleMenuClick(val) {
+      switch (val.key) {
+        case '1':
+          // 全部勾选
+          this.permissionList = this.treeIds
+          break
+        case '2':
+          // 取消全选
+          this.permissionList = []
+          break
+        case '3':
+          // 展开所有
+          this.expandedKey = this.treeIds
+          break
+        case '4':
+          // 合并所有
+          this.expandedKey = []
+          break
       }
     },
 
@@ -96,7 +132,7 @@ export default {
       }
       roleAddPermission(data, this.id).then(res => {
         if (res.code === 200) {
-          this.$message.success('分配权限成功')
+          this.$message.success('权限分配成功')
           this.handleClose()
         }
       })

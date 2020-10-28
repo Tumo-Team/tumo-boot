@@ -76,7 +76,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         List<Menu> menuList = menuService.findPermissionsByUserId(userInfo.getUser().getId());
         Set<String> menuSet = menuList
                 .stream()
-                .filter(perm -> (perm.getPerms() != null && !perm.getPerms().equals("")))
+                .filter(perm -> (perm.getPerms() != null && !"".equals(perm.getPerms())))
                 .map(Menu::getPerms)
                 .collect(Collectors.toSet());
 

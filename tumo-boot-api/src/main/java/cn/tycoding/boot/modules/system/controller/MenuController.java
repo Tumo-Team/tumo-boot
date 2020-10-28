@@ -35,6 +35,12 @@ public class MenuController extends BaseController {
         return new R<>(menuService.tree());
     }
 
+    @GetMapping("/base/tree")
+    @ApiOperation(value = "获取基础数据", notes = "此接口将获取菜单表中id、name、ids等基础数据")
+    public R<Map<String, Object>> baseTree() {
+        return new R<>(menuService.baseTree());
+    }
+
     @GetMapping("/build")
     @ApiOperation(value = "加载系统左侧权限菜单", notes = "此接口将获取菜单中`menu`类型的数据")
     public R<List<MenuTree<Menu>>> build() {

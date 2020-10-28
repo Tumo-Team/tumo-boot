@@ -6,11 +6,21 @@ import request from '@/utils/request'
 export const API_PREFIX = '/system'
 
 /**
- * 获取角色Tree
+ * 获取菜单Tree
  */
 export function menuTree() {
   return request({
     url: API_PREFIX + `/menu/tree`,
+    method: 'get'
+  })
+}
+
+/**
+ * 获取菜单表基础Tree数据
+ */
+export function menuBaseTree() {
+  return request({
+    url: API_PREFIX + `/menu/base/tree`,
     method: 'get'
   })
 }

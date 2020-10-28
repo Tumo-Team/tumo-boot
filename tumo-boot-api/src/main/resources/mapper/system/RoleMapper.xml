@@ -19,7 +19,7 @@
              sys_menu `menu`
         WHERE `role`.id = srm.role_id
           AND srm.menu_id = `menu`.id
-          AND `role`.id = 1
+          AND `role`.id = #{id}
     </select>
 
 </mapper>

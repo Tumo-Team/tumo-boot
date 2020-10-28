@@ -1,5 +1,8 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.TreeNode;
+import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.constant.AuthConstant;
 import cn.tycoding.boot.common.utils.MenuTreeUtil;
@@ -17,7 +20,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 菜单表(Menu)表服务实现类
@@ -40,6 +46,26 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<MenuTree<Menu>> tree() {
         return MenuTreeUtil.build(baseMapper.selectList(new LambdaQueryWrapper<>()));
+    }
+
+    @Override
+    public Map<String, Object> baseTree() {
+        Map<String, Object> map = new HashMap<>();
+        List<Menu> list = this.list(new Menu());
+        // 构建树形结构
+        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
+        list.forEach(t -> nodeList.add(
+                new TreeNode<>(
+                        t.getId(),
+                        t.getParentId(),
+                        t.getName(),
+                        0
+                )
+        ));
+
+        map.put("ids", list.stream().map(Menu::getId).collect(Collectors.toList()));
+        map.put("tree", TreeUtil.build(nodeList, 0L));
+        return map;
     }
 
     @Override

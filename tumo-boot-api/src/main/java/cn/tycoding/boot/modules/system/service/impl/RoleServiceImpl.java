@@ -111,7 +111,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                 roleMenu.setRoleId(id);
                 roleMenuList.add(roleMenu);
             });
-            roleMenuService.saveBatch(roleMenuList);
+             roleMenuService.saveBatch(roleMenuList);
         }
     }
 

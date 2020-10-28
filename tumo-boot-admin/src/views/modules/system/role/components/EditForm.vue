@@ -19,17 +19,25 @@
         :label-col="{ span: 3 }"
         :wrapper-col="{ span: 21 }"
       >
-        <a-form-model-item has-feedback prop="parentId" label="账户">
-          <a-input v-model="form.parentId" />
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="name" label="账户">
+        <a-form-model-item has-feedback prop="name" label="角色名称">
           <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="des" label="账户">
+        <a-form-model-item has-feedback prop="alias" label="角色别名">
+          <a-input v-model="form.alias" />
+        </a-form-model-item>
+        <a-form-model-item has-feedback prop="des" label="角色描述">
           <a-input v-model="form.des" />
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="createTime" label="账户">
-          <a-input v-model="form.createTime" />
+        <a-form-model-item has-feedback prop="parentId" label="上级角色">
+          <a-tree-select
+            v-model="form.parentId"
+            style="width: 100%"
+            :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+            :replace-fields="{title: 'name', key: 'id', value: 'id'}"
+            :tree-data="roleTree"
+            tree-default-expand-all
+            placeholder="请选择部门"
+          />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -39,7 +47,7 @@
 </template>
 
 <script>
-import { addRole, checkRoleName, findByRoleId, updateRole } from '@/api/modules/system/role'
+import { roleTree, addRole, checkRoleName, findByRoleId, updateRole } from '@/api/modules/system/role'
 
 export default {
   name: 'EditForm',
@@ -61,11 +69,12 @@ export default {
       loading: false,
       form: {},
       rules: {
-        parentId: [{ required: true, message: '请输入上级节点', trigger: 'blur' }],
         name: [{ validator: validateName, required: true, message: '请输入角色名称', trigger: 'blur' }],
-        des: [{ required: true, message: '请输入描述', trigger: 'blur' }],
-        createTime: [{ required: true, message: '请输入创建时间', trigger: 'blur' }]
-      }
+        alias: [{ required: true, message: '请输入角色别名', trigger: 'blur' }],
+        des: [{ required: true, message: '请输入角色描述', trigger: 'blur' }],
+        parentId: [{ required: true, message: '请输入上级节点', trigger: 'change' }]
+      },
+      roleTree: []
     }
   },
   methods: {
@@ -75,7 +84,17 @@ export default {
       this.form = {}
     },
 
-    init(id) {
+    init(id, type) {
+      // 角色Tree
+      roleTree().then(res => {
+        this.roleTree = res.data
+      })
+      if (type === 'child') {
+        // 新增下级节点操作
+        this.form.parentId = id
+        this.visible = true
+        return
+      }
       if (id !== undefined) {
         // 修改操作
         findByRoleId(id).then(res => {
@@ -83,6 +102,7 @@ export default {
           this.visible = true
         })
       } else {
+        // 新增操作
         this.visible = true
       }
     },
