@@ -19,10 +19,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 角色表(Role)表服务实现类
@@ -71,6 +69,26 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
+    public Map<String, Object> baseTree() {
+        Map<String, Object> map = new HashMap<>();
+        List<Role> list = this.list(new Role());
+        // 构建树形结构
+        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
+        list.forEach(t -> nodeList.add(
+                new TreeNode<>(
+                        t.getId(),
+                        t.getParentId(),
+                        t.getName(),
+                        0
+                )
+        ));
+
+        map.put("ids", list.stream().map(Role::getId).collect(Collectors.toList()));
+        map.put("tree", TreeUtil.build(nodeList, 0L));
+        return map;
+    }
+
+    @Override
     public List<Long> menuList(Long id) {
         return baseMapper.menuList(id);
     }
@@ -108,13 +126,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
             // 再新增关联
             List<RoleMenu> roleMenuList = new ArrayList<>();
-            permissionList.forEach(menuId -> {
-                RoleMenu roleMenu = new RoleMenu();
-                roleMenu.setMenuId(menuId);
-                roleMenu.setRoleId(id);
-                roleMenuList.add(roleMenu);
-            });
-             roleMenuService.saveBatch(roleMenuList);
+            permissionList.forEach(menuId -> roleMenuList.add(new RoleMenu()
+                    .setMenuId(menuId)
+                    .setRoleId(id)));
+            roleMenuService.saveBatch(roleMenuList);
         }
     }
 

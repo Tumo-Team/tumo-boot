@@ -44,13 +44,18 @@
           </a-popover>
         </span>
         <span slot="action" slot-scope="text, record">
-          <a-popover content="详细">
+          <a-popover content="分配角色">
             <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+              <a-icon type="idcard" theme="twoTone" two-tone-color="#2db7f5" />
+            </a-button>
+          </a-popover>
+          <a-popover content="详细">
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
               <a-icon type="eye" theme="twoTone" two-tone-color="#1890ff" />
             </a-button>
           </a-popover>
           <a-popover content="修改">
-            <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
           </a-popover>
@@ -60,7 +65,7 @@
             </a-button>
           </a-popover>
           <a-popover content="重置密码">
-            <a-button type="dashed" size="small" @click="handleReset(record.id)">
+            <a-button type="dashed" size="small" @click="$refs.passModel.init(record.id)">
               <a-icon type="tool" theme="twoTone" two-tone-color="#f5222d" />
             </a-button>
           </a-popover>
@@ -76,7 +81,13 @@
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData(pageConf)" />
+      <edit-form ref="editForm" @refresh="fetchData(pageConf)" />
+
+      <!-- 分配角色弹窗 -->
+      <role-model ref="model" @refresh="fetchData(pageConf)" />
+
+      <!-- 修改密码弹窗 -->
+      <pass-model ref="passModel" @refresh="fetchData(pageConf)" />
     </a-card>
   </div>
 </template>
@@ -84,11 +95,13 @@
 <script>
 import Pagination from '@/components/Pagination'
 import EditForm from './components/EditForm'
+import RoleModel from './components/RoleModel'
+import PassModel from './components/PassModel'
 import { userList, delUser } from '@/api/modules/system/user'
 
 export default {
   name: 'Index',
-  components: { Pagination, EditForm },
+  components: { Pagination, EditForm, RoleModel, PassModel },
   data() {
     return {
       list: [],
@@ -96,12 +109,12 @@ export default {
         { title: '账户', dataIndex: 'username', key: 'username', width: 140 },
         { title: '性别', dataIndex: 'sex', key: 'sex', width: 60, align: 'center' },
         { title: '电话', dataIndex: 'phone', key: 'phone', width: 120 },
-        { title: '邮箱', dataIndex: 'email', key: 'email' },
+        { title: '邮箱', dataIndex: 'email', key: 'email', width: 180 },
         { title: '角色', dataIndex: 'roles', key: 'roles', scopedSlots: { customRender: 'roles' }},
-        { title: '部门', dataIndex: 'deptName', key: 'deptName' },
+        { title: '部门', dataIndex: 'deptName', key: 'deptName', width: 120 },
         { title: '状态', dataIndex: 'status', key: 'status', width: 60, align: 'center', scopedSlots: { customRender: 'status' }},
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 148 }
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 188 }
       ],
       query: {},
       pageConf: {
@@ -125,9 +138,6 @@ export default {
         this.pageConf.total = res.data.total
         this.loading = false
       })
-    },
-    handleReset(id) {
-
     },
     handleDel(id) {
       const _this = this

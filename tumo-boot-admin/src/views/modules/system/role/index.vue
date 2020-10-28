@@ -36,7 +36,7 @@
             </a-button>
           </a-popover>
           <a-popover content="权限">
-            <a-button type="dashed" size="small" @click="$refs.model.init(record.id)">
+            <a-button type="dashed" size="small" @click="$refs.permModel.init(record.id)">
               <a-icon type="security-scan" theme="twoTone" two-tone-color="#1890ff" />
             </a-button>
           </a-popover>
@@ -58,19 +58,19 @@
       <edit-form ref="editForm" @refresh="fetchData()" />
 
       <!-- 分配权限弹窗 -->
-      <model ref="model" @refresh="fetchData()" />
+      <perm-model ref="permModel" @refresh="fetchData()" />
     </a-card>
   </div>
 </template>
 
 <script>
 import EditForm from './components/EditForm'
-import Model from './components/Model'
+import PermModel from './components/PermModel'
 import { delRole, roleTree } from '@/api/modules/system/role'
 
 export default {
   name: 'Index',
-  components: { EditForm, Model },
+  components: { EditForm, PermModel },
   data() {
     return {
       list: [],
@@ -95,10 +95,6 @@ export default {
         this.list = res.data
         this.loading = false
       })
-    },
-    // 新增下级节点
-    handleAddChild(id) {
-
     },
     handleDel(id) {
       const _this = this

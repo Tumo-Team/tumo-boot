@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 角色表(Role)表控制层
@@ -39,8 +40,14 @@ public class RoleController extends BaseController {
         return new R<>(roleService.tree());
     }
 
+    @GetMapping("/base/tree")
+    @ApiOperation(value = "获取基础数据", notes = "此接口将获取角色表中id、name、ids等基础数据")
+    public R<Map<String, Object>> baseTree() {
+        return new R<>(roleService.baseTree());
+    }
+
     @GetMapping("/permission/list/{id}")
-    @ApiOperation(value = "根据ID查询权限")
+    @ApiOperation(value = "根据角色ID查询权限")
     public R<List<Long>> menuList(@PathVariable Long id) {
         return new R<>(roleService.menuList(id));
     }

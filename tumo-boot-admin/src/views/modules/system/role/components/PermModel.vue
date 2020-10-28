@@ -12,7 +12,7 @@
       @close="handleClose"
     >
       <a-tree
-        v-model="permissionList"
+        v-model="rolePermissionList"
         checkable
         check-strictly
         :expanded-keys.sync="expandedKey"
@@ -61,16 +61,15 @@
 
 <script>
 import { rolePermissionList, roleAddPermission } from '@/api/modules/system/role'
-import { menuBaseTree } from '@/api/modules/system/menu'
+import { roleTree } from '@/api/modules/system/role'
 
 export default {
-  name: 'Model',
+  name: 'PermModel',
   data() {
     return {
       visible: false,
-      list: [],
       id: undefined,
-      permissionList: [],
+      rolePermissionList: [],
       menuTree: [],
       treeIds: [],
 
@@ -81,8 +80,7 @@ export default {
   methods: {
     handleClose() {
       this.id = undefined
-      this.list = []
-      this.permissionList = []
+      this.rolePermissionList = []
       this.expandedKey = []
       this.visible = false
     },
@@ -90,11 +88,11 @@ export default {
     init(id) {
       if (id !== undefined) {
         this.id = id
-        menuBaseTree().then(res => {
+        roleTree().then(res => {
           this.menuTree = res.data.tree
           this.treeIds = res.data.ids
           rolePermissionList(id).then(res => {
-            this.permissionList = res.data
+            this.rolePermissionList = res.data
             this.expandedKey = res.data
             this.visible = true
           })
@@ -106,11 +104,11 @@ export default {
       switch (val.key) {
         case '1':
           // 全部勾选
-          this.permissionList = this.treeIds
+          this.rolePermissionList = this.treeIds
           break
         case '2':
           // 取消全选
-          this.permissionList = []
+          this.rolePermissionList = []
           break
         case '3':
           // 展开所有
@@ -126,9 +124,9 @@ export default {
     handleSubmit() {
       let data = []
       if (this.permissionList instanceof Array) {
-        data = this.permissionList
+        data = this.rolePermissionList
       } else {
-        data = this.permissionList.checked
+        data = this.rolePermissionList.checked
       }
       roleAddPermission(data, this.id).then(res => {
         if (res.code === 200) {

@@ -27,6 +27,16 @@ export function roleTree() {
 }
 
 /**
+ * 获取菜单表基础Tree数据
+ */
+export function roleBaseTree() {
+  return request({
+    url: API_PREFIX + `/role/base/tree`,
+    method: 'get'
+  })
+}
+
+/**
  * 获取指定角色ID的所有菜单权限
  */
 export function rolePermissionList(id) {

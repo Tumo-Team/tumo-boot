@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.Date;
 @Data
 @TableName("sys_user" )
 @ApiModel(value = "用户表实体" )
+@Accessors(chain = true)
 public class User implements Serializable {
     private static final long serialVersionUID = -94827981963832107L;
 

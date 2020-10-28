@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.system.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 @Data
 @TableName("sys_role_menu")
+@Accessors(chain = true)
 public class RoleMenu implements Serializable {
     private static final long serialVersionUID = 854296054659457976L;
 

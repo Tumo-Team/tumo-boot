@@ -28,6 +28,27 @@ export function userFilterList(data) {
 }
 
 /**
+ * 获取指定用户ID的所有角色
+ */
+export function userRoleList(id) {
+  return request({
+    url: API_PREFIX + `/user/role/list/${id}`,
+    method: 'get'
+  })
+}
+
+/**
+ * 为指定用户分配角色
+ */
+export function userAddRole(data, id) {
+  return request({
+    url: API_PREFIX + `/user/role/add/${id}`,
+    method: 'post',
+    data
+  })
+}
+
+/**
  * 校验名称
  */
 export function checkUserName(data) {
@@ -85,8 +106,8 @@ export function delUser(id) {
  */
 export function resetPass(data) {
   return request({
-    url: API_PREFIX + `/user/`,
-    method: 'post',
+    url: API_PREFIX + `/user/resetPass`,
+    method: 'delete',
     data
   })
 }

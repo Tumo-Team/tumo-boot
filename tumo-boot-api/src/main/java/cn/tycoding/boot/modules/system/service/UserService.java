@@ -40,6 +40,11 @@ public interface UserService extends IService<User> {
     List<MenuTree<Menu>> getMenuByUserId(Long id);
 
     /**
+     * 根据用户ID查询角色
+     */
+    List<Long> roleList(Long id);
+
+    /**
      * 条件查询
      */
     List<UserDTO> list(UserDTO user);
@@ -60,6 +65,11 @@ public interface UserService extends IService<User> {
     void add(UserDTO user);
 
     /**
+     * 分配角色
+     */
+    void addRole(List<Long> roleList, Long id);
+
+    /**
      * 修改
      */
     void update(UserDTO user);
@@ -69,4 +79,8 @@ public interface UserService extends IService<User> {
      */
     void delete(Long id);
 
+    /**
+     * 重置密码
+     */
+    void resetPass(User user);
 }

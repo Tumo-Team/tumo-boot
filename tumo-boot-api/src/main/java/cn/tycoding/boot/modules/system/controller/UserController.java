@@ -43,6 +43,19 @@ public class UserController extends BaseController {
         return new R<>(userService.getMenuByUserId(id));
     }
 
+    @GetMapping("/role/list/{id}")
+    @ApiOperation(value = "根据用户ID查询角色")
+    public R<List<Long>> menuList(@PathVariable Long id) {
+        return new R<>(userService.roleList(id));
+    }
+
+    @PostMapping("/role/add/{id}")
+    @ApiOperation(value = "分配角色")
+    public R addRole(@RequestBody List<Long> roleList, @PathVariable Long id) {
+        userService.addRole(roleList, id);
+        return new R();
+    }
+
     /**
      * 校验当前名称是否已存在
      *
@@ -92,6 +105,13 @@ public class UserController extends BaseController {
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         userService.delete(id);
+        return new R();
+    }
+
+    @DeleteMapping("/resetPass")
+    @ApiOperation(value = "重置密码")
+    public R resetPass(@RequestBody User user) {
+        userService.resetPass(user);
         return new R();
     }
 }

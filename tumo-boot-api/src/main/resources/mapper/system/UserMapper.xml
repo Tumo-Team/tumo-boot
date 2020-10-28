@@ -32,11 +32,10 @@
                sd.name AS deptName
         FROM sys_user AS `user`
                  LEFT JOIN sys_dept AS sd on `user`.dept_id = sd.id
-        <where>
+        WHERE `user`.id != #{ignoreId}
             <if test="user.username != null and user.username != ''">
                 AND `user`.username LIKE CONCAT('%', #{user.username},  '%')
             </if>
-        </where>
     </select>
 
     <!-- 根据ID查询 -->
@@ -54,4 +53,13 @@
         WHERE `user`.id = #{id}
     </select>
 
+    <select id="roleList" resultType="Long">
+        SELECT `role`.id
+        FROM sys_user `user`,
+             sys_user_role sur,
+             sys_role `role`
+        WHERE `user`.id = sur.user_id
+          AND sur.role_id = `role`.id
+          AND `user`.id = #{id}
+    </select>
 </mapper>

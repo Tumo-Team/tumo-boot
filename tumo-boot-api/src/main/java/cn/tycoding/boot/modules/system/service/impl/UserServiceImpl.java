@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.utils.MenuTreeUtil;
+import cn.tycoding.boot.common.utils.SecurityUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.dto.UserDTO;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +64,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return MenuTreeUtil.build(menuMapper.findPermissionsByUserId(id));
     }
 
+    @Override
+    public List<Long> roleList(Long id) {
+        return baseMapper.roleList(id);
+    }
+
     /**
      * 构建用户信息、角色信息、权限标识信息、部门信息
      */
@@ -97,7 +104,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        return baseMapper.list(page, user);
+        return baseMapper.list(page, user, SecurityUtil.getUser().getId());
     }
 
     @Override
@@ -121,22 +128,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setCreateTime(new Date());
         PASSWORD_ENCODER.encode(user.getPassword());
         baseMapper.insert(user);
-        this.addUserRole(user);
     }
 
-    /**
-     * 根据UserInfo保存用户与角色之前的关联
-     */
-    private void addUserRole(UserDTO user) {
-        if (user.getRoles() == null) {
-            return;
+    @Override
+    public void addRole(List<Long> roleList, Long id) {
+        if (roleList != null) {
+            // 删除之前用户与角色表之前的关联，并重新建立关联
+            userRoleService.deleteUserRolesByUserId(id);
+
+            // 新增用户角色关联
+            List<UserRole> list = new ArrayList<>();
+            roleList.forEach(roleId -> list.add(new UserRole()
+                    .setUserId(id)
+                    .setRoleId(roleId)));
+            userRoleService.saveBatch(list);
         }
-        user.getRoles().forEach(role -> {
-            UserRole userRole = new UserRole()
-                    .setUserId(user.getId())
-                    .setRoleId(role.getId());
-            userRoleService.save(userRole);
-        });
     }
 
     @Override
@@ -144,10 +150,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void update(UserDTO user) {
         user.setPassword(null);
         baseMapper.updateById(user);
-
-        // 删除之前用户与角色表之前的关联，并重新建立关联
-        userRoleService.deleteUserRolesByUserId(user.getId());
-        this.addUserRole(user);
     }
 
     @Override
@@ -155,5 +157,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void delete(Long id) {
         baseMapper.deleteById(id);
         userRoleService.deleteUserRolesByUserId(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void resetPass(User user) {
+        baseMapper.updateById(new User().setId(user.getId()).setPassword(user.getPassword()));
     }
 }
