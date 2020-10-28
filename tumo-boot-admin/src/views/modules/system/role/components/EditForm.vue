@@ -71,8 +71,7 @@ export default {
       rules: {
         name: [{ validator: validateName, required: true, message: '请输入角色名称', trigger: 'blur' }],
         alias: [{ required: true, message: '请输入角色别名', trigger: 'blur' }],
-        des: [{ required: true, message: '请输入角色描述', trigger: 'blur' }],
-        parentId: [{ required: true, message: '请输入上级节点', trigger: 'change' }]
+        des: [{ required: true, message: '请输入角色描述', trigger: 'blur' }]
       },
       roleTree: []
     }

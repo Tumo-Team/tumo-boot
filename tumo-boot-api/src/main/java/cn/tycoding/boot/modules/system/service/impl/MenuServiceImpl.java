@@ -108,7 +108,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(Menu menu) {
-        baseMapper.insert(menu);
         if (menu.getParentId() == null) {
             menu.setParentId(0L);
         }
@@ -117,6 +116,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
             menu.setPath(null);
             menu.setIcon(null);
         }
+        baseMapper.insert(menu);
     }
 
     @Override

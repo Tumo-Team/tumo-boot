@@ -93,6 +93,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(Role role) {
+        if (role.getParentId() == null) {
+            role.setParentId(0L);
+        }
         role.setCreateTime(new Date());
         baseMapper.insert(role);
     }

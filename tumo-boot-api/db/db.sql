@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 23/10/2020 12:30:28
+ Date: 28/10/2020 13:14:38
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_article`;
 CREATE TABLE `blog_article` (
-  `id` bigint(20) NOT NULL COMMENT '文章ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '文章ID',
   `author` varchar(100) NOT NULL COMMENT '文章作者',
   `title` varchar(100) NOT NULL COMMENT '文章标题',
   `introduce` varchar(255) NOT NULL COMMENT '文章简介',
@@ -38,10 +38,8 @@ CREATE TABLE `blog_article` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_article_category`;
 CREATE TABLE `blog_article_category` (
-  `id` bigint(20) NOT NULL COMMENT '主键',
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
-  `category_id` bigint(20) NOT NULL COMMENT '分类ID',
-  PRIMARY KEY (`id`)
+  `category_id` bigint(20) NOT NULL COMMENT '分类ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章分类关联表';
 
 -- ----------------------------
@@ -49,10 +47,8 @@ CREATE TABLE `blog_article_category` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_article_tag`;
 CREATE TABLE `blog_article_tag` (
-  `id` bigint(20) NOT NULL COMMENT '主键',
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
-  `tag_id` bigint(20) NOT NULL COMMENT '标签ID',
-  PRIMARY KEY (`id`)
+  `tag_id` bigint(20) NOT NULL COMMENT '标签ID'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章标签关联表';
 
 -- ----------------------------
@@ -60,7 +56,7 @@ CREATE TABLE `blog_article_tag` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_category`;
 CREATE TABLE `blog_category` (
-  `id` bigint(20) NOT NULL COMMENT '主键',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(100) DEFAULT NULL COMMENT '分类名称',
   `des` varchar(255) DEFAULT NULL COMMENT '分类描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -72,7 +68,7 @@ CREATE TABLE `blog_category` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_comment`;
 CREATE TABLE `blog_comment` (
-  `id` bigint(20) NOT NULL COMMENT '主键',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `article_id` bigint(20) NOT NULL COMMENT '文章ID',
   `article_title` bigint(20) NOT NULL COMMENT '文章标题',
   `pid` bigint(20) DEFAULT NULL COMMENT '父级ID',
@@ -88,7 +84,7 @@ CREATE TABLE `blog_comment` (
 -- ----------------------------
 DROP TABLE IF EXISTS `blog_tag`;
 CREATE TABLE `blog_tag` (
-  `id` bigint(20) NOT NULL COMMENT '标签ID',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '标签ID',
   `name` varchar(100) DEFAULT NULL COMMENT '标签名称',
   `color` varchar(100) DEFAULT NULL COMMENT '色彩',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -129,6 +125,8 @@ CREATE TABLE `sys_dept` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
   `parent_id` bigint(20) NOT NULL COMMENT '上级部门ID',
   `name` varchar(20) NOT NULL COMMENT '部门名称',
+  `des` varchar(100) DEFAULT NULL COMMENT '描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='部门表';
 
@@ -136,12 +134,12 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (1, 0, '开发部');
-INSERT INTO `sys_dept` VALUES (2, 1, '开发一部');
-INSERT INTO `sys_dept` VALUES (3, 1, '开发二部');
-INSERT INTO `sys_dept` VALUES (4, 0, '测试部');
-INSERT INTO `sys_dept` VALUES (5, 4, '测试一部');
-INSERT INTO `sys_dept` VALUES (6, 0, '人事部');
+INSERT INTO `sys_dept` VALUES (1, 0, '开发部', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (2, 1, '开发一部', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (3, 1, '开发二部', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (4, 0, '测试部', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (5, 4, '测试一部', NULL, NULL);
+INSERT INTO `sys_dept` VALUES (6, 0, '人事部', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -218,7 +216,7 @@ CREATE TABLE `sys_menu` (
   `hidden` tinyint(1) DEFAULT NULL COMMENT '是否隐藏',
   `frame` tinyint(1) DEFAULT NULL COMMENT '是否是外链',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -226,9 +224,9 @@ CREATE TABLE `sys_menu` (
 BEGIN;
 INSERT INTO `sys_menu` VALUES (1, '权限模块', 0, '/system', NULL, 'menu', 'safety-certificate', NULL, 0, 0);
 INSERT INTO `sys_menu` VALUES (2, '用户管理', 1, 'user', 'user:list', 'menu', 'user', '/modules/system/user/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (3, '角色管理', 1, 'role', 'role:list', 'menu', 'audit', '/modules/system/user/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (4, '部门管理', 1, 'dept', 'dept:list', 'menu', 'apartment', '/modules/system/user/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (5, '菜单管理', 1, 'menu', 'menu:list', 'menu', 'cluster', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (3, '角色管理', 1, 'role', 'role:list', 'menu', 'audit', '/modules/system/role/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (4, '部门管理', 1, 'dept', 'dept:list', 'menu', 'apartment', '/modules/system/dept/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (5, '菜单管理', 1, 'menu', 'menu:list', 'menu', 'cluster', '/modules/system/menu/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (10, '新增用户', 2, NULL, 'user:add', 'button', NULL, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (11, '修改用户', 2, NULL, 'user:update', 'button', NULL, NULL, 1, 0);
 INSERT INTO `sys_menu` VALUES (12, '删除用户', 2, NULL, 'user:delete', 'button', NULL, NULL, 1, 0);
@@ -248,8 +246,8 @@ INSERT INTO `sys_menu` VALUES (102, '标签管理', 100, 'tag', NULL, 'menu', 't
 INSERT INTO `sys_menu` VALUES (103, '分类管理', 100, 'category', NULL, 'menu', 'switcher', '/modules/blog/category/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (104, '评论管理', 100, 'comment', NULL, 'menu', 'message', '/modules/blog/comment/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (130, '系统模块', 0, '/setting', NULL, 'menu', 'setting', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (131, '日志管理', 31, 'log', NULL, 'menu', 'log', '/system/log/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (132, 'Api文档', 61, 'doc', NULL, 'menu', 'file-search', '/modules/system/user/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (131, '日志管理', 130, 'log', NULL, 'menu', 'exception', '/modules/setting/log/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (132, 'Api文档', 130, 'doc', NULL, 'menu', 'file-search', '/modules/system/user/index', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -258,22 +256,24 @@ COMMIT;
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '上级节点',
   `name` varchar(20) NOT NULL COMMENT '角色名称',
+  `alias` varchar(20) DEFAULT NULL COMMENT '角色别名',
+  `des` varchar(100) DEFAULT NULL COMMENT '描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
-  `description` varchar(100) DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=1321311698688331781 DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1, '管理员', '2019-01-01 00:00:00', '管理员');
-INSERT INTO `sys_role` VALUES (2, '测试账号', '2019-01-01 00:00:00', '测试，可查看所有页面，但无操作权限');
-INSERT INTO `sys_role` VALUES (3, '用户管理员', '2019-01-01 00:00:00', '负责用户的增删改查操作');
-INSERT INTO `sys_role` VALUES (4, '系统监控员', '2019-02-14 08:51:48', '可查看系统监控信息');
-INSERT INTO `sys_role` VALUES (5, '天气预报员', '2019-02-14 02:54:56', '可查看天气预报信息');
-INSERT INTO `sys_role` VALUES (6, '用户查看', '2019-02-14 02:59:17', '查看用户，但无操作权限');
+INSERT INTO `sys_role` VALUES (1, 0, '管理员', 'ADMIN', '管理员', '2019-01-01 00:00:00');
+INSERT INTO `sys_role` VALUES (2, 1, '测试账号', 'TEST', '测试，可查看所有页面，但无操作权限', '2019-01-01 00:00:00');
+INSERT INTO `sys_role` VALUES (3, 1, '用户管理员', 'USER_ADMIN', '负责用户的增删改查操作', '2019-01-01 00:00:00');
+INSERT INTO `sys_role` VALUES (4, 0, '系统监控员', 'MONITOR_ADMIN', '可查看系统监控信息', '2019-02-14 08:51:48');
+INSERT INTO `sys_role` VALUES (5, 4, '天气预报员', NULL, '可查看天气预报信息', '2019-02-14 02:54:56');
+INSERT INTO `sys_role` VALUES (6, 4, '用户查看', NULL, '查看用户，但无操作权限', '2019-02-14 02:59:17');
 COMMIT;
 
 -- ----------------------------
@@ -352,9 +352,9 @@ INSERT INTO `sys_role_menu` VALUES (4, 20);
 INSERT INTO `sys_role_menu` VALUES (4, 21);
 INSERT INTO `sys_role_menu` VALUES (4, 22);
 INSERT INTO `sys_role_menu` VALUES (4, 23);
-INSERT INTO `sys_role_menu` VALUES (5, 34);
-INSERT INTO `sys_role_menu` VALUES (5, 35);
-INSERT INTO `sys_role_menu` VALUES (6, 2);
+INSERT INTO `sys_role_menu` VALUES (5, 101);
+INSERT INTO `sys_role_menu` VALUES (6, 131);
+INSERT INTO `sys_role_menu` VALUES (1321311698688331800, 131);
 COMMIT;
 
 -- ----------------------------
@@ -365,25 +365,28 @@ CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `username` varchar(50) NOT NULL COMMENT '用户名',
   `password` varchar(100) NOT NULL COMMENT '密码',
-  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
+  `sex` varchar(10) DEFAULT NULL COMMENT '性别',
   `phone` varchar(20) DEFAULT NULL COMMENT '手机',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
   `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 3, '2019-01-01 00:00:00', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '19809587839', 1);
-INSERT INTO `sys_user` VALUES (2, 'tycoding', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 5, '2019-01-01 00:00:00', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 1);
-INSERT INTO `sys_user` VALUES (3, 'tumo', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 6, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '781797907', 1);
-INSERT INTO `sys_user` VALUES (4, 'monitor', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 1);
-INSERT INTO `sys_user` VALUES (5, 'synoptic', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 0);
-INSERT INTO `sys_user` VALUES (6, 'user', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', 1, '2019-02-03 03:37:34', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '18798797687', 0);
-INSERT INTO `sys_user` VALUES (8, 'test2', 'sd', 1, '2020-07-18 07:29:27', 'http://cdn.tycoding.cn/MIK-WxRzP9.png', '12', 1);
+INSERT INTO `sys_user` VALUES (1, 'admin', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '男', '19809587839', 'tycoding@sina.com', 3, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (2, 'tycoding', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '男', '18798797687', 'tycoding@sina.com', 5, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (3, 'tumo', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '男', '781797907', 'tycoding@sina.com', 6, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2019-02-03 03:37:34');
+INSERT INTO `sys_user` VALUES (4, 'monitor', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', NULL, '18798797687', 'tycoding@sina.com', 1, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2019-02-03 03:37:34');
+INSERT INTO `sys_user` VALUES (5, 'synoptic', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '女', '18798797687', 'tycoding@sina.com', 1, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 0, '2019-02-03 03:37:34');
+INSERT INTO `sys_user` VALUES (6, 'user', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '男', '18798797687', 'tycoding@sina.com', 1, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 0, '2019-02-03 03:37:34');
+INSERT INTO `sys_user` VALUES (8, 'test2', 'sd', '男', '12', 'tycoding@sina.com', 1, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2020-07-18 07:29:27');
+INSERT INTO `sys_user` VALUES (9, '1', '1', '男', '17823787849', 'tycoding@sina.com', 2, NULL, 0, '2020-10-28 13:13:18');
 COMMIT;
 
 -- ----------------------------
@@ -407,9 +410,11 @@ INSERT INTO `sys_user_role` VALUES (3, 4);
 INSERT INTO `sys_user_role` VALUES (4, 4);
 INSERT INTO `sys_user_role` VALUES (4, 5);
 INSERT INTO `sys_user_role` VALUES (5, 5);
+INSERT INTO `sys_user_role` VALUES (5, 6);
 INSERT INTO `sys_user_role` VALUES (6, 6);
 INSERT INTO `sys_user_role` VALUES (8, 4);
 INSERT INTO `sys_user_role` VALUES (8, 6);
+INSERT INTO `sys_user_role` VALUES (9, 6);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
