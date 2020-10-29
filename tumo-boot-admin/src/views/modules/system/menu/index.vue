@@ -29,6 +29,22 @@
         :scroll="{ x: 'calc(700px + 50%)'}"
         bordered
       >
+        <span slot="type" slot-scope="type">
+          <a-tag color="blue">{{ type }}</a-tag>
+        </span>
+        <span slot="meta" slot-scope="meta">
+          <a-icon v-if="meta !== null && meta.icon !== null" :type="meta.icon" />
+        </span>
+        <span slot="hidden" slot-scope="hidden">
+          <a-popover :content="hidden ? '隐藏' : '显示'">
+            <a-badge :status="hidden ? 'error' : 'success'" />
+          </a-popover>
+        </span>
+        <span slot="frame" slot-scope="frame">
+          <a-popover :content="frame ? '外链' : '内部'">
+            <a-tag :color="frame ? '#f50' : '#87d068'">{{ frame ? '外链' : '内部' }}</a-tag>
+          </a-popover>
+        </span>
         <span slot="action" slot-scope="text, record">
           <a-popover content="修改">
             <a-button
@@ -66,15 +82,14 @@ export default {
     return {
       list: [],
       columns: [
-        { title: '资源名称', dataIndex: 'name', key: 'name' },
-        { title: '父级ID', dataIndex: 'parentId', key: 'parentId' },
+        { title: '菜单名称', dataIndex: 'name', key: 'name' },
         { title: 'URL', dataIndex: 'path', key: 'path' },
-        { title: '权限标识', dataIndex: 'perms', key: 'perms' },
-        { title: '类型：如button按钮 menu菜单', dataIndex: 'type', key: 'type' },
-        { title: '菜单图标', dataIndex: 'icon', key: 'icon' },
+        { title: '权限标识', dataIndex: 'perms', key: 'perms', width: 120, align: 'center' },
+        { title: '类型', dataIndex: 'type', key: 'type', scopedSlots: { customRender: 'type' }, width: 80, align: 'center' },
+        { title: '图标', dataIndex: 'meta', key: 'meta', scopedSlots: { customRender: 'meta' }, width: 80, align: 'center' },
         { title: 'Vue组件', dataIndex: 'component', key: 'component' },
-        { title: '是否隐藏', dataIndex: 'hidden', key: 'hidden' },
-        { title: '是否是外链', dataIndex: 'frame', key: 'frame' },
+        { title: '是否隐藏', dataIndex: 'hidden', key: 'hidden', scopedSlots: { customRender: 'hidden' }, width: 80, align: 'center' },
+        { title: '是否外链', dataIndex: 'frame', key: 'frame', scopedSlots: { customRender: 'frame' }, width: 80, align: 'center' },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
       ],
       query: {},

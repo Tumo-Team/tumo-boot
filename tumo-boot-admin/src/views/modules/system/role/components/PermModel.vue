@@ -9,7 +9,8 @@
       :mask-closable="false"
       width="40%"
       :destroy-on-close="true"
-      @close="handleClose"
+      @ok="handleSubmit"
+      @cancel="handleClose"
     >
       <a-tree
         v-model="rolePermissionList"
