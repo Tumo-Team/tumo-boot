@@ -27,6 +27,16 @@ export function deptTree() {
 }
 
 /**
+ * 获取所属用户列表
+ */
+export function deptUserList(id) {
+  return request({
+    url: API_PREFIX + `/dept/${id}/user/list`,
+    method: 'get'
+  })
+}
+
+/**
  * 校验名称
  */
 export function checkDeptName(data) {

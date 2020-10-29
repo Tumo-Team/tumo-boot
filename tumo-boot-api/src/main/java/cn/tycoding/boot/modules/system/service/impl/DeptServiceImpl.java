@@ -7,9 +7,12 @@ import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.modules.system.dto.DeptDTO;
 import cn.tycoding.boot.modules.system.entity.Dept;
+import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.mapper.DeptMapper;
+import cn.tycoding.boot.modules.system.mapper.UserMapper;
 import cn.tycoding.boot.modules.system.service.DeptService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements DeptService {
+
+    private final UserMapper userMapper;
 
     @Override
     public List<Dept> list(Dept dept) {
@@ -58,8 +63,39 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     }
 
     @Override
+    public List<User> userList(Long id) {
+        return userMapper.selectList(new LambdaQueryWrapper<User>().eq(User::getDeptId, id).select(
+                User::getId,
+                User::getUsername,
+                User::getAvatar,
+                User::getSex,
+                User::getPhone,
+                User::getEmail,
+                User::getStatus
+        ));
+    }
+
+    @Override
+    public boolean checkName(Dept dept) {
+        if (StringUtils.isBlank(dept.getName())) {
+            return false;
+        }
+        LambdaQueryWrapper<Dept> queryWrapper = new LambdaQueryWrapper<>();
+        if (dept.getId() != null && dept.getId() != 0) {
+            queryWrapper.eq(Dept::getName, dept.getName());
+            queryWrapper.ne(Dept::getId, dept.getId());
+        } else {
+            queryWrapper.eq(Dept::getName, dept.getName());
+        }
+        return baseMapper.selectList(queryWrapper).size() <= 0;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(Dept dept) {
+        if (dept.getParentId() == null) {
+            dept.setParentId(0L);
+        }
         dept.setCreateTime(new Date());
         baseMapper.insert(dept);
     }

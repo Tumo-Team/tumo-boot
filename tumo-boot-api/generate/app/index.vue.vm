@@ -36,7 +36,7 @@ $!callback.setFileName("index.vue")
       >
         <span slot="action" slot-scope="text, record">
           <a-popover content="修改">
-            <a-button type="dashed" size="small" @click="$refs.model
+            <a-button type="dashed" size="small" @click="$refs.editForm
                     .init(record.id)">
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
@@ -58,7 +58,7 @@ $!callback.setFileName("index.vue")
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData(pageConf)" />
+      <edit-form ref="editForm" @refresh="fetchData(pageConf)" />
     </a-card>
   </div>
 </template>

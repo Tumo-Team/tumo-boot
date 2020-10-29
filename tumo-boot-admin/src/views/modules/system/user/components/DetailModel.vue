@@ -31,25 +31,25 @@
             </a-form-item>
             <a-form-item>
               <span slot="label">
-                <a-icon type="user" />&nbsp;邮箱&nbsp;
+                <a-icon type="mail" />&nbsp;邮箱&nbsp;
               </span>
               {{ form.email }}
             </a-form-item>
             <a-form-item>
               <span slot="label">
-                <a-icon type="user" />&nbsp;手机&nbsp;
+                <a-icon type="phone" />&nbsp;手机&nbsp;
               </span>
               {{ form.phone }}
             </a-form-item>
             <a-form-item>
               <span slot="label">
-                <a-icon type="user" />&nbsp;部门&nbsp;
+                <a-icon type="apartment" />&nbsp;部门&nbsp;
               </span>
               <a-tag color="cyan">{{ form.deptName }}</a-tag>
             </a-form-item>
             <a-form-item>
               <span slot="label">
-                <a-icon type="user" />&nbsp;角色&nbsp;
+                <a-icon type="audit" />&nbsp;角色&nbsp;
               </span>
               <a-tag
                 v-for="role in form.roles"

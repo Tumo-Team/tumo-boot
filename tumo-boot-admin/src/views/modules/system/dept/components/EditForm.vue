@@ -19,17 +19,22 @@
         :label-col="{ span: 3 }"
         :wrapper-col="{ span: 21 }"
       >
-        <a-form-model-item has-feedback prop="parentId" label="账户">
-          <a-input v-model="form.parentId" />
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="name" label="账户">
+        <a-form-model-item has-feedback prop="name" label="部门名称">
           <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="des" label="账户">
+        <a-form-model-item has-feedback prop="des" label="部门描述">
           <a-input v-model="form.des" />
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="createTime" label="账户">
-          <a-input v-model="form.createTime" />
+        <a-form-model-item prop="parentId" label="上级部门">
+          <a-tree-select
+            v-model="form.parentId"
+            style="width: 100%"
+            :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+            :replace-fields="{title: 'name', key: 'id', value: 'id'}"
+            :tree-data="deptTree"
+            tree-default-expand-all
+            placeholder="请选择部门"
+          />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -39,14 +44,14 @@
 </template>
 
 <script>
-import { findByDeptId, addDept, checkDeptName, updateDept } from '@/api/modules/system/dept'
+import { deptTree, findByDeptId, addDept, checkDeptName, updateDept } from '@/api/modules/system/dept'
 
 export default {
   name: 'EditForm',
   data() {
     const validateName = (rule, value, callback) => {
       if (value === undefined || value.trim() === '') {
-        callback(new Error('请输入名称'))
+        callback(new Error('请输入部门名称'))
       } else {
         checkDeptName(this.form).then(res => {
           if (!res.data) {
@@ -61,11 +66,10 @@ export default {
       loading: false,
       form: {},
       rules: {
-        parentId: [{ validator: validateName, required: true, message: '请输入上级部门ID', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入部门名称', trigger: 'blur' }],
-        des: [{ required: true, message: '请输入描述', trigger: 'blur' }],
-        createTime: [{ required: true, message: '请输入创建时间', trigger: 'blur' }]
-      }
+        name: [{ validator: validateName, required: true, trigger: 'blur' }],
+        des: [{ required: true, message: '请输入描述', trigger: 'blur' }]
+      },
+      deptTree: []
     }
   },
   methods: {
@@ -75,7 +79,17 @@ export default {
       this.form = {}
     },
 
-    init(id) {
+    init(id, type) {
+      // 部门Tree
+      deptTree().then(res => {
+        this.deptTree = res.data
+      })
+      if (type === 'child') {
+        // 新增下级节点操作
+        this.form.parentId = id
+        this.visible = true
+        return
+      }
       if (id !== undefined) {
         // 修改操作
         findByDeptId(id).then(res => {

@@ -10,7 +10,7 @@
           @search="fetchData()"
         />
         <a-popover content="新增">
-          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
+          <a-button type="dashed" icon="plus" @click="$refs.editForm.init()" />
         </a-popover>
         <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData()" />
@@ -30,13 +30,18 @@
         bordered
       >
         <span slot="action" slot-scope="text, record">
+          <a-popover content="新增子级节点">
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id, 'child')">
+              <a-icon type="plus" />
+            </a-button>
+          </a-popover>
+          <a-popover content="用户">
+            <a-button type="dashed" size="small" @click="$refs.userModel.init(record.id)">
+              <a-icon type="contacts" theme="twoTone" two-tone-color="#1890ff" />
+            </a-button>
+          </a-popover>
           <a-popover content="修改">
-            <a-button
-              type="dashed"
-              size="small"
-              @click="$refs.model
-                .init(record.id)"
-            >
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
           </a-popover>
@@ -50,23 +55,26 @@
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData()" />
+      <edit-form ref="editForm" @refresh="fetchData()" />
+
+      <!-- 用户列表弹窗 -->
+      <user-model ref="userModel" />
     </a-card>
   </div>
 </template>
 
 <script>
 import EditForm from './components/EditForm'
+import UserModel from './components/UserModel'
 import { deptTree, delDept } from '@/api/modules/system/dept'
 
 export default {
   name: 'Index',
-  components: { EditForm },
+  components: { EditForm, UserModel },
   data() {
     return {
       list: [],
       columns: [
-        { title: '上级部门ID', dataIndex: 'parentId', key: 'parentId' },
         { title: '部门名称', dataIndex: 'name', key: 'name' },
         { title: '描述', dataIndex: 'des', key: 'des' },
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },

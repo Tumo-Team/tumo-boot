@@ -5,6 +5,8 @@ import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.entity.Dept;
+import cn.tycoding.boot.modules.system.entity.Menu;
+import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -37,6 +39,25 @@ public class DeptController extends BaseController {
     @ApiOperation(value = "获取部门Tree")
     public R<List<Tree<Object>>> tree() {
         return new R(deptService.tree());
+    }
+
+    @GetMapping("/{id}/user/list")
+    @ApiOperation(value = "获取所属用户列表")
+    public R<List<User>> userList(@PathVariable Long id) {
+        return new R(deptService.userList(id));
+    }
+
+    /**
+     * 校验当前名称是否已存在
+     *
+     * @param menu id:当前修改对象的ID
+     *             name:需要校验的名称
+     * @return true 当前名称可以用 false 当前名称已存在
+     */
+    @PostMapping("/checkName")
+    @ApiOperation(value = "校验名称是否已存在")
+    public R<Boolean> checkName(@RequestBody Dept dept) {
+        return new R<>(deptService.checkName(dept));
     }
 
     @GetMapping("/{id}")

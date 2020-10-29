@@ -68,35 +68,34 @@ service.interceptors.response.use(
       return res
     }
 
+    // 针对Security OAuth异常做特殊处理
+    if (response.status === 401 || response.status === 403) {
+      // 重新登录
+      Modal.warning({
+        title: 'Confirm logout',
+        content: 'Token已失效，请重新登录',
+        okText: 'Re-Login',
+        cancelText: 'Cancle',
+        onOk: () => {
+          store.dispatch('user/resetToken').then(() => {
+            location.reload()
+          })
+        }
+      })
+    }
+
     // 根据response code判断请求是否成功
     if (res.code !== 200) {
       message.error(
         res.msg || 'Error',
         4
       )
-
-      // 对特殊的code自定义处理
-      if (res.code === 401 || res.code === 403) {
-        // 重新登录
-        Modal.warning({
-          title: 'Confirm logout',
-          content: 'You have been logged out, you can cancel to stay on this page, or log in again',
-          okText: 'Re-Login',
-          cancelText: 'Cancle',
-          onOk: () => {
-            store.dispatch('user/resetToken').then(() => {
-              location.reload()
-            })
-          }
-        })
-      }
       return Promise.reject(new Error(res.msg || 'Error'))
     } else {
       return res
     }
   },
   error => {
-    console.log(error)
     console.log('err' + error) // for debug
     message.error(
       error.message,
