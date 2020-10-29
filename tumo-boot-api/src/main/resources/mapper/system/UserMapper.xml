@@ -48,8 +48,10 @@
            `user`.avatar,
            `user`.phone,
            `user`.status,
-           `user`.create_time
+           `user`.create_time,
+           sd.name AS deptName
         FROM sys_user AS `user`
+                LEFT JOIN sys_dept AS sd on `user`.dept_id = sd.id
         WHERE `user`.id = #{id}
     </select>
 

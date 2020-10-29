@@ -58,6 +58,25 @@
             placeholder="请选择部门"
           />
         </a-form-model-item>
+        <a-form-model-item label="头像">
+          <a-upload
+            name="avatar"
+            list-type="picture-card"
+            class="avatar-uploader"
+            :show-upload-list="false"
+            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+            :before-upload="beforeUpload"
+            @change="handleUploadChange"
+          >
+            <img v-if="form.avatar" :src="form.avatar" alt="avatar">
+            <div v-else>
+              <a-icon :type="uploadLoading ? 'loading' : 'plus'" />
+              <div class="ant-upload-text">
+                Upload
+              </div>
+            </div>
+          </a-upload>
+        </a-form-model-item>
       </a-form-model>
     </a-modal>
     <!-- 新增/修改弹窗 - End -->
@@ -98,7 +117,8 @@ export default {
           required: true, message: '请输入电话号', trigger: 'blur' }],
         deptId: [{ required: true, message: '请选择部门', trigger: 'change' }],
         status: [{ required: true, message: '请选择状态', trigger: 'change' }]
-      }
+      },
+      uploadLoading: false
     }
   },
   methods: {
@@ -123,6 +143,21 @@ export default {
       }
     },
 
+    // 文件上传前
+    beforeUpload(file) {
+      this.uploadLoading = true
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+      if (!isJpgOrPng) {
+        this.$message.error('请上传JPG或PNG格式文件')
+      }
+      return isJpgOrPng
+    },
+
+    // 文件上传后
+    handleUploadChange(info) {
+      this.uploadLoading = false
+      console.log(info)
+    },
     handleSubmit() {
       this.loading = true
       this.$refs.form.validate(valid => {
@@ -158,4 +193,8 @@ export default {
 </script>
 
 <style scoped>
+img {
+  width: 128px !important;
+  height: 128px !important;
+}
 </style>

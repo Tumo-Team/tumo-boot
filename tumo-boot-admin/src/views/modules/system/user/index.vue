@@ -10,7 +10,7 @@
           @search="fetchData(pageConf)"
         />
         <a-popover content="新增">
-          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
+          <a-button type="dashed" icon="plus" @click="$refs.editForm.init()" />
         </a-popover>
         <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
@@ -50,7 +50,7 @@
             </a-button>
           </a-popover>
           <a-popover content="详细">
-            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
+            <a-button type="dashed" size="small" @click="$refs.detailModel.init(record.id)">
               <a-icon type="eye" theme="twoTone" two-tone-color="#1890ff" />
             </a-button>
           </a-popover>
@@ -80,6 +80,9 @@
       />
       <!-- Table列表部分 - End -->
 
+      <!-- 详情弹窗 -->
+      <detail-model ref="detailModel" />
+
       <!-- 新增/修改弹窗 -->
       <edit-form ref="editForm" @refresh="fetchData(pageConf)" />
 
@@ -94,6 +97,7 @@
 
 <script>
 import Pagination from '@/components/Pagination'
+import DetailModel from './components/DetailModel'
 import EditForm from './components/EditForm'
 import RoleModel from './components/RoleModel'
 import PassModel from './components/PassModel'
@@ -101,7 +105,7 @@ import { userList, delUser } from '@/api/modules/system/user'
 
 export default {
   name: 'Index',
-  components: { Pagination, EditForm, RoleModel, PassModel },
+  components: { Pagination, DetailModel, EditForm, RoleModel, PassModel },
   data() {
     return {
       list: [],
