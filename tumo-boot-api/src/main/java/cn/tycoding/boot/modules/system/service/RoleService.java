@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.modules.system.entity.Role;
+import cn.tycoding.boot.modules.system.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -39,6 +40,11 @@ public interface RoleService extends IService<Role> {
      * 获取指定角色ID下的所有菜单权限
      */
     List<Long> menuList(Long id);
+
+    /**
+     * 获取所属用户列表
+     */
+    List<User> userList(Long id);
 
     /**
      * 校验名称是否存在

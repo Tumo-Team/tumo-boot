@@ -58,6 +58,16 @@ export function roleAddPermission(data, id) {
 }
 
 /**
+ * 获取所属用户列表
+ */
+export function roleUserList(id) {
+  return request({
+    url: API_PREFIX + `/role/${id}/user/list`,
+    method: 'get'
+  })
+}
+
+/**
  * 校验名称
  */
 export function checkRoleName(data) {

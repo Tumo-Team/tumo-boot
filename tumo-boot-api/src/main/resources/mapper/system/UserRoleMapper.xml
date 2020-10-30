@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tycoding.boot.modules.system.mapper.UserRoleMapper">
+
+    <select id="selectUserList" resultType="cn.tycoding.boot.modules.system.entity.User">
+        SELECT `user`.*
+        FROM sys_user `user`,
+             sys_user_role sur,
+             sys_role `role`
+        WHERE `user`.id = sur.user_id
+          AND sur.role_id = `role`.id
+          AND `role`.id = #{roleId}
+    </select>
+</mapper>

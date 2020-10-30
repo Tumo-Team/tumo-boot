@@ -2,7 +2,7 @@
   <div v-if="visible">
     <!-- 用户列表弹窗 - Begin -->
     <a-drawer
-      title="该部门所属用户列表"
+      title="该角色所属用户列表"
       :visible.sync="visible"
       placement="right"
       :keyboard="false"
@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { deptUserList } from '@/api/modules/system/dept'
+import { roleUserList } from '@/api/modules/system/role'
 
 export default {
   name: 'UserModel',
@@ -48,7 +48,7 @@ export default {
 
     init(id) {
       if (id !== undefined) {
-        deptUserList(id).then(res => {
+        roleUserList(id).then(res => {
           this.list = res.data
           this.visible = true
         })

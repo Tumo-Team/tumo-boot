@@ -62,7 +62,7 @@
 
 <script>
 import { rolePermissionList, roleAddPermission } from '@/api/modules/system/role'
-import { roleTree } from '@/api/modules/system/role'
+import { menuBaseTree } from '@/api/modules/system/menu'
 
 export default {
   name: 'PermModel',
@@ -89,7 +89,7 @@ export default {
     init(id) {
       if (id !== undefined) {
         this.id = id
-        roleTree().then(res => {
+        menuBaseTree().then(res => {
           this.menuTree = res.data.tree
           this.treeIds = res.data.ids
           rolePermissionList(id).then(res => {
@@ -124,7 +124,7 @@ export default {
 
     handleSubmit() {
       let data = []
-      if (this.permissionList instanceof Array) {
+      if (this.rolePermissionList instanceof Array) {
         data = this.rolePermissionList
       } else {
         data = this.rolePermissionList.checked

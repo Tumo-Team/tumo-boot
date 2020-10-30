@@ -5,6 +5,7 @@ import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.entity.Role;
+import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +51,12 @@ public class RoleController extends BaseController {
     @ApiOperation(value = "根据角色ID查询权限")
     public R<List<Long>> menuList(@PathVariable Long id) {
         return new R<>(roleService.menuList(id));
+    }
+
+    @GetMapping("/{id}/user/list")
+    @ApiOperation(value = "获取所属用户列表")
+    public R<List<User>> userList(@PathVariable Long id) {
+        return new R(roleService.userList(id));
     }
 
     /**

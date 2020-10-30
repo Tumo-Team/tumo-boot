@@ -8,7 +8,9 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.modules.system.dto.RoleDTO;
 import cn.tycoding.boot.modules.system.entity.Role;
 import cn.tycoding.boot.modules.system.entity.RoleMenu;
+import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.mapper.RoleMapper;
+import cn.tycoding.boot.modules.system.mapper.UserRoleMapper;
 import cn.tycoding.boot.modules.system.service.RoleMenuService;
 import cn.tycoding.boot.modules.system.service.RoleService;
 import cn.tycoding.boot.modules.system.service.UserRoleService;
@@ -34,6 +36,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     private final RoleMenuService roleMenuService;
     private final UserRoleService userRoleService;
+    private final UserRoleMapper userRoleMapper;
 
     @Override
     public List<Role> findRolesByUserId(Long id) {
@@ -91,6 +94,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     public List<Long> menuList(Long id) {
         return baseMapper.menuList(id);
+    }
+
+    @Override
+    public List<User> userList(Long id) {
+        return userRoleMapper.selectUserList(id);
     }
 
     @Override

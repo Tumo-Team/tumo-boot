@@ -35,6 +35,11 @@
               <a-icon type="plus" />
             </a-button>
           </a-popover>
+          <a-popover content="用户">
+            <a-button type="dashed" size="small" @click="$refs.userModel.init(record.id)">
+              <a-icon type="contacts" theme="twoTone" two-tone-color="#1890ff" />
+            </a-button>
+          </a-popover>
           <a-popover content="权限">
             <a-button type="dashed" size="small" @click="$refs.permModel.init(record.id)">
               <a-icon type="security-scan" theme="twoTone" two-tone-color="#1890ff" />
@@ -59,6 +64,9 @@
 
       <!-- 分配权限弹窗 -->
       <perm-model ref="permModel" @refresh="fetchData()" />
+
+      <!-- 用户列表弹窗 -->
+      <user-model ref="userModel" />
     </a-card>
   </div>
 </template>
@@ -66,11 +74,12 @@
 <script>
 import EditForm from './components/EditForm'
 import PermModel from './components/PermModel'
+import UserModel from './components/UserModel'
 import { delRole, roleTree } from '@/api/modules/system/role'
 
 export default {
   name: 'Index',
-  components: { EditForm, PermModel },
+  components: { EditForm, PermModel, UserModel },
   data() {
     return {
       list: [],
@@ -79,7 +88,7 @@ export default {
         { title: '角色别名', dataIndex: 'alias', key: 'alias' },
         { title: '描述', dataIndex: 'des', key: 'des' },
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 148 }
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 187 }
       ],
       query: {},
       loading: true
