@@ -10,22 +10,22 @@
   >
     <a-tabs default-active-key="1">
       <a-tab-pane key="1" tab="方向性图标">
-        <a-button v-for="icon in directionIconList" :key="icon" type="dashed" :icon="icon" />
+        <a-button v-for="icon in directionIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
       <a-tab-pane key="2" tab="提示建议性图标">
-        <a-button v-for="icon in tipsIconList" :key="icon" type="dashed" :icon="icon" />
+        <a-button v-for="icon in tipsIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
       <a-tab-pane key="3" tab="编辑类图标">
-        <a-button v-for="icon in editIconList" :key="icon" type="dashed" :icon="icon" />
+        <a-button v-for="icon in editIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
       <a-tab-pane key="4" tab="数据类图标">
-        <a-button v-for="icon in dataIconList" :key="icon" type="dashed" :icon="icon" />
+        <a-button v-for="icon in dataIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
       <a-tab-pane key="5" tab="品牌和标识">
-        <a-button v-for="icon in logoIconList" :key="icon" type="dashed" :icon="icon" />
+        <a-button v-for="icon in logoIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
-      <a-tab-pane key="5" tab="网站通用图标">
-        <a-button v-for="icon in webIconList" :key="icon" type="dashed" :icon="icon" />
+      <a-tab-pane key="6" tab="网站通用图标">
+        <a-button v-for="icon in webIconList" :key="icon" type="dashed" :icon="icon" @click="handleSelect(icon)" />
       </a-tab-pane>
     </a-tabs>
   </a-modal>
@@ -35,8 +35,6 @@
 
 export default {
   name: 'IconPanel',
-  props: {
-  },
   data() {
     return {
       directionIconList: ['step-backward', 'step-forward', 'fast-backward', 'fast-forward', 'shrink', 'arrows-alt', 'down', 'up', 'left', 'right', 'caret-up', 'caret-down', 'caret-left', 'caret-right', 'up-circle', 'down-circle', 'left-circle', 'right-circle', 'up-circle-o', 'down-circle-o', 'right-circle-o', 'left-circle-o', 'double-right', 'double-left', 'vertical-left', 'vertical-right', 'forward', 'backward', 'rollback', 'enter', 'retweet', 'swap', 'swap-left', 'swap-right', 'arrow-up', 'arrow-down', 'arrow-left', 'arrow-right', 'play-circle', 'play-circle-o', 'up-square', 'down-square', 'left-square', 'right-square', 'up-square-o', 'down-square-o', 'left-square-o', 'right-square-o', 'login', 'logout', 'menu-fold', 'menu-unfold', 'border-bottom', 'border-horizontal', 'border-inner', 'border-left', 'border-right', 'border-top', 'border-verticle', 'pic-center', 'pic-left', 'pic-right', 'radius-bottomleft', 'radius-bottomright', 'radius-upleft', 'radius-upright', 'fullscreen', 'fullscreen-exit'],
@@ -50,10 +48,19 @@ export default {
     }
   },
   methods: {
-    handleSelect() {}
+    init() {
+      this.visible = true
+    },
+    handleSelect(icon) {
+      this.visible = false
+      this.$emit('handleSelectIcon', icon)
+    }
   }
 }
 </script>
 
 <style scoped>
+.ant-tabs-tabpane button {
+  margin: 5px;
+}
 </style>

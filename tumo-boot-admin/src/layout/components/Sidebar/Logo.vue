@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      title: 'Tumo Boot Admin',
+      title: 'Tumo Boot',
       logo: '/logo.png'
     }
   }

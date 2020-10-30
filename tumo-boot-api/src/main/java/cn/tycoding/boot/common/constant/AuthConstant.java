@@ -13,14 +13,4 @@ public interface AuthConstant {
      */
     String ROLE_PREFIX = "ROLE_";
 
-    /**
-     * 菜单类型：menu
-     */
-    String MENU_TYPE_MENU = "menu";
-
-    /**
-     * 菜单类型：button
-     */
-    String MENU_TYPE_BUTTON = "button";
-
 }

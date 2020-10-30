@@ -50,6 +50,7 @@
         <a-form-model-item has-feedback prop="deptId" label="部门">
           <a-tree-select
             v-model="form.deptId"
+            allow-clear
             style="width: 100%"
             :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
             :replace-fields="{title: 'name', key: 'id', value: 'id'}"

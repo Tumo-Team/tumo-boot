@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -29,7 +30,8 @@ public class Menu implements Serializable {
     /**
      * 资源名称
      */
-    @ApiModelProperty(value = "资源名称")
+    @ApiModelProperty(value = "菜单名称")
+    @NotNull(message = "菜单名称不能为空")
     private String name;
 
     /**
@@ -39,9 +41,9 @@ public class Menu implements Serializable {
     private Long parentId;
 
     /**
-     * URL
+     * 菜单路径
      */
-    @ApiModelProperty(value = "URL")
+    @ApiModelProperty(value = "菜单路径")
     private String path;
 
     /**
@@ -51,9 +53,9 @@ public class Menu implements Serializable {
     private String perms;
 
     /**
-     * 类型：如button按钮 menu菜单
+     * 菜单类型：如button按钮 menu菜单
      */
-    @ApiModelProperty(value = "类型")
+    @ApiModelProperty(value = "菜单类型")
     private String type;
 
     /**
@@ -63,9 +65,9 @@ public class Menu implements Serializable {
     private String icon;
 
     /**
-     * Vue组件
+     * 组件路径
      */
-    @ApiModelProperty(value = "Vue组件")
+    @ApiModelProperty(value = "组件路径")
     private String component;
 
     /**

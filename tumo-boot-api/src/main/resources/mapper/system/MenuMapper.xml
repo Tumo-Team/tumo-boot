@@ -28,4 +28,22 @@
             ) a
         )
     </update>
+
+    <select id="build" resultType="cn.tycoding.boot.modules.system.entity.Menu">
+        SELECT DISTINCT
+            m.*
+        FROM
+            sys_role r,
+            sys_user_role ur,
+            sys_user u,
+            sys_role_menu rm,
+            sys_menu m
+        WHERE
+            r.id = ur.role_id
+            AND ur.user_id = u.id
+            AND r.id = rm.role_id
+            AND m.id = rm.menu_id
+            AND u.id = #{userId}
+            AND m.type = #{type}
+    </select>
 </mapper>

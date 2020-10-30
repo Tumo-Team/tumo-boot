@@ -1,11 +1,14 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.common.constant.AuthConstant;
+import cn.tycoding.boot.common.constant.CommonConstant;
 import cn.tycoding.boot.common.utils.MenuTreeUtil;
+import cn.tycoding.boot.common.utils.SecurityUtil;
+import cn.tycoding.boot.modules.system.dto.MenuDTO;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import cn.tycoding.boot.modules.system.mapper.MenuMapper;
@@ -44,8 +47,29 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<MenuTree<Menu>> tree() {
-        return MenuTreeUtil.build(baseMapper.selectList(new LambdaQueryWrapper<>()));
+    public List<Tree<Object>> tree() {
+        List<Menu> list = this.list(new Menu());
+        // 构建树形结构
+        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
+        list.forEach(t -> {
+            TreeNode<Object> node = new TreeNode<>(
+                    t.getId(),
+                    t.getParentId(),
+                    t.getName(),
+                    0
+            );
+            HashMap<String, Object> map = new HashMap<>();
+            map.put(MenuDTO.PATH_KEY, t.getPath());
+            map.put(MenuDTO.PERMS_KEY, t.getPerms());
+            map.put(MenuDTO.TYPE_KEY, t.getType());
+            map.put(MenuDTO.ICON_KEY, t.getIcon());
+            map.put(MenuDTO.COMPONENT_KEY, t.getComponent());
+            map.put(MenuDTO.HIDDEN_KEY, t.getHidden());
+            map.put(MenuDTO.FRAME_KEY, t.getFrame());
+            node.setExtra(map);
+            nodeList.add(node);
+        });
+        return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
@@ -70,9 +94,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuTree<Menu>> build() {
-        List<Menu> menuList = baseMapper.selectList(
-                new LambdaQueryWrapper<Menu>()
-                        .eq(Menu::getType, AuthConstant.MENU_TYPE_MENU));
+        List<Menu> menuList = baseMapper.build(SecurityUtil.getUser().getId(), CommonConstant.MENU_TYPE_MENU);
         return MenuTreeUtil.build(menuList);
     }
 
@@ -111,8 +133,10 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         if (menu.getParentId() == null) {
             menu.setParentId(0L);
         }
-        // TODO
-        if (AuthConstant.MENU_TYPE_MENU.equals(menu.getType())) {
+        if (CommonConstant.MENU_TYPE_MENU.equals(menu.getType()) && menu.getIcon() == null) {
+            menu.setIcon(CommonConstant.MENU_ICON);
+        }
+        if (CommonConstant.MENU_TYPE_BUTTON.equals(menu.getType())) {
             menu.setPath(null);
             menu.setIcon(null);
         }
@@ -122,6 +146,13 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Menu menu) {
+        if (menu.getParentId() == null) {
+            menu.setParentId(0L);
+        }
+        if (CommonConstant.MENU_TYPE_BUTTON.equals(menu.getType())) {
+            menu.setPath(null);
+            menu.setIcon(null);
+        }
         baseMapper.updateById(menu);
     }
 
@@ -130,5 +161,6 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public void delete(Long id) {
         roleMenuService.deleteRoleMenusByMenuId(id);
         baseMapper.changeTopNode(id);
+        baseMapper.deleteById(id);
     }
 }

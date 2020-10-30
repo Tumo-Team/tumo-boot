@@ -32,8 +32,8 @@
         <span slot="type" slot-scope="type">
           <a-tag color="blue">{{ type }}</a-tag>
         </span>
-        <span slot="meta" slot-scope="meta">
-          <a-icon v-if="meta !== null && meta.icon !== null" :type="meta.icon" />
+        <span slot="icon" slot-scope="icon">
+          <a-icon v-if="icon !== null && icon !== null" :type="icon" />
         </span>
         <span slot="hidden" slot-scope="hidden">
           <a-popover :content="hidden ? '隐藏' : '显示'">
@@ -46,13 +46,13 @@
           </a-popover>
         </span>
         <span slot="action" slot-scope="text, record">
+          <a-popover content="新增子级节点">
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id, 'child')">
+              <a-icon type="plus" />
+            </a-button>
+          </a-popover>
           <a-popover content="修改">
-            <a-button
-              type="dashed"
-              size="small"
-              @click="$refs.model
-                .init(record.id)"
-            >
+            <a-button type="dashed" size="small" @click="$refs.editForm.init(record.id)">
               <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
             </a-button>
           </a-popover>
@@ -66,7 +66,7 @@
       <!-- Table列表部分 - End -->
 
       <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData()" />
+      <edit-form ref="editForm" @refresh="fetchData()" />
     </a-card>
   </div>
 </template>
@@ -83,11 +83,11 @@ export default {
       list: [],
       columns: [
         { title: '菜单名称', dataIndex: 'name', key: 'name' },
-        { title: 'URL', dataIndex: 'path', key: 'path' },
+        { title: '菜单路径', dataIndex: 'path', key: 'path' },
         { title: '权限标识', dataIndex: 'perms', key: 'perms', width: 120, align: 'center' },
         { title: '类型', dataIndex: 'type', key: 'type', scopedSlots: { customRender: 'type' }, width: 80, align: 'center' },
-        { title: '图标', dataIndex: 'meta', key: 'meta', scopedSlots: { customRender: 'meta' }, width: 80, align: 'center' },
-        { title: 'Vue组件', dataIndex: 'component', key: 'component' },
+        { title: '图标', dataIndex: 'icon', key: 'icon', scopedSlots: { customRender: 'icon' }, width: 80, align: 'center' },
+        { title: '组件路径', dataIndex: 'component', key: 'component' },
         { title: '是否隐藏', dataIndex: 'hidden', key: 'hidden', scopedSlots: { customRender: 'hidden' }, width: 80, align: 'center' },
         { title: '是否外链', dataIndex: 'frame', key: 'frame', scopedSlots: { customRender: 'frame' }, width: 80, align: 'center' },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }

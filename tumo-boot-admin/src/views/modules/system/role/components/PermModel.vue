@@ -10,7 +10,7 @@
       width="40%"
       :destroy-on-close="true"
       @ok="handleSubmit"
-      @cancel="handleClose"
+      @close="handleClose"
     >
       <a-tree
         v-model="rolePermissionList"

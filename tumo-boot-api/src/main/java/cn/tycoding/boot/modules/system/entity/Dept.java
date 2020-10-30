@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -41,6 +42,7 @@ public class Dept implements Serializable {
      * 部门名称
      */
     @ApiModelProperty(value = "部门名称")
+    @NotNull(message = "部门名称不能为空")
     private String name;
 
     /**

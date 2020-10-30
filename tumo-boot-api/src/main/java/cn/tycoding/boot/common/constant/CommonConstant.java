@@ -22,4 +22,19 @@ public interface CommonConstant {
      * Swagger Base Packages
      */
     String BASE_PACKAGE = "cn.tycoding.boot";
+
+    /**
+     * 菜单类型：menu
+     */
+    String MENU_TYPE_MENU = "menu";
+
+    /**
+     * 菜单类型：button
+     */
+    String MENU_TYPE_BUTTON = "button";
+
+    /**
+     * 菜单：默认Icon图标
+     */
+    String MENU_ICON = "alert";
 }

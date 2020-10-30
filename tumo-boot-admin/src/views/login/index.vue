@@ -5,7 +5,7 @@
         <svg-icon icon-class="tumo-team" style="width: 74px;height: 77px;" />
       </div>
       <div class="login-tip">
-        Tumo Boot Admin
+        Tumo Boot
       </div>
       <div class="login-border">
         <div class="login-main">

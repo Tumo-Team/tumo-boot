@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.system.controller;
 
+import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
@@ -31,7 +32,7 @@ public class MenuController extends BaseController {
 
     @GetMapping("/tree")
     @ApiOperation(value = "构建菜单Tree树", notes = "此接口将获取菜单表中所有数据")
-    public R<List<MenuTree<Menu>>> tree() {
+    public R<List<Tree<Object>>> tree() {
         return new R<>(menuService.tree());
     }
 

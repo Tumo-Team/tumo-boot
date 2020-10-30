@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Tumo Boot Admin',
+  title: 'Tumo Boot',
 
   // 是否展示左侧设置按钮
   showSettings: true,

@@ -5,7 +5,6 @@ import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
 import cn.tycoding.boot.modules.system.entity.Dept;
-import cn.tycoding.boot.modules.system.entity.Menu;
 import cn.tycoding.boot.modules.system.entity.User;
 import cn.tycoding.boot.modules.system.service.DeptService;
 import io.swagger.annotations.Api;
@@ -50,7 +49,7 @@ public class DeptController extends BaseController {
     /**
      * 校验当前名称是否已存在
      *
-     * @param menu id:当前修改对象的ID
+     * @param dept id:当前修改对象的ID
      *             name:需要校验的名称
      * @return true 当前名称可以用 false 当前名称已存在
      */

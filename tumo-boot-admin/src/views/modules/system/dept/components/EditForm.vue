@@ -28,12 +28,13 @@
         <a-form-model-item prop="parentId" label="上级部门">
           <a-tree-select
             v-model="form.parentId"
+            allow-clear
             style="width: 100%"
             :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
             :replace-fields="{title: 'name', key: 'id', value: 'id'}"
             :tree-data="deptTree"
             tree-default-expand-all
-            placeholder="请选择部门"
+            placeholder="请选择上级部门"
           />
         </a-form-model-item>
       </a-form-model>

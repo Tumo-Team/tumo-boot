@@ -9,7 +9,7 @@
       :mask-closable="false"
       width="40%"
       :destroy-on-close="true"
-      @cancel="handleClose"
+      @close="handleClose"
     >
       <a-form-model
         ref="form"
@@ -21,11 +21,21 @@
         <a-form-model-item has-feedback prop="name" label="菜单名称">
           <a-input v-model="form.name" />
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="path" label="菜单路径">
-          <a-input v-model="form.path" />
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="perms" label="权限标识">
-          <a-input v-model="form.perms" />
+        <a-form-model-item prop="parentId" label="上级菜单">
+          <a-tree-select
+            v-model="form.parentId"
+            allow-clear
+            style="width: 100%"
+            :dropdown-style="{ maxHeight: '400px', overflow: 'auto' }"
+            :replace-fields="{title: 'name', key: 'id', value: 'id'}"
+            :tree-data="menuTree"
+            tree-default-expand-all
+            placeholder="请选择上级菜单"
+          >
+            <a-tooltip slot="suffixIcon" title="顶级节点ParentId=0">
+              <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
+            </a-tooltip>
+          </a-tree-select>
         </a-form-model-item>
         <a-form-model-item has-feedback prop="type" label="菜单类型">
           <a-radio-group v-model="form.type" name="type">
@@ -33,19 +43,38 @@
             <a-radio value="button">按钮</a-radio>
           </a-radio-group>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="icon" label="菜单图标">
-          <a-input v-model="form.icon" />
+        <a-form-model-item v-if="form.type === 'menu'" has-feedback prop="path" label="菜单路径">
+          <a-input v-model="form.path">
+            <a-tooltip slot="suffix" title="顶级节点需要设置此路径；子节点默认使用此路径前缀，无需再设置">
+              <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
+            </a-tooltip>
+          </a-input>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="component" label="组件路径">
-          <a-input v-model="form.component" />
+        <a-form-model-item v-if="form.type === 'menu'" prop="component" label="组件路径">
+          <a-input v-model="form.component" :disabled="form.parentId === undefined">
+            <a-tooltip slot="suffix" title="顶级节点路径是Layout无需设置；子节点为views文件夹下文件相对路径">
+              <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
+            </a-tooltip>
+          </a-input>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="hidden" label="是否隐藏">
+        <a-form-model-item has-feedback prop="perms" label="权限标识">
+          <a-input v-model="form.perms" />
+        </a-form-model-item>
+        <a-form-model-item v-if="form.type === 'menu'" prop="icon" label="菜单图标">
+          <a-input v-model="form.icon">
+            <a-icon slot="prefix" type="search" @click="$refs.iconPanel.init()" />
+            <a-tooltip slot="suffix" title="点击前面的搜索按钮选择图标">
+              <a-icon type="info-circle" style="color: rgba(0,0,0,.45)" />
+            </a-tooltip>
+          </a-input>
+        </a-form-model-item>
+        <a-form-model-item v-if="form.type === 'menu'" prop="hidden" label="是否隐藏">
           <a-radio-group v-model="form.hidden" name="hidden">
             <a-radio :value="true">是</a-radio>
             <a-radio :value="false">否</a-radio>
           </a-radio-group>
         </a-form-model-item>
-        <a-form-model-item has-feedback prop="frame" label="是否为外链">
+        <a-form-model-item v-if="form.type === 'menu'" prop="frame" label="是否为外链">
           <a-radio-group v-model="form.frame" name="frame">
             <a-radio :value="true">是</a-radio>
             <a-radio :value="false">否</a-radio>
@@ -76,15 +105,20 @@
       </div>
     </a-drawer>
     <!-- 新增/修改弹窗 - End -->
+
+    <!-- Icon面板 -->
+    <IconPanel ref="iconPanel" @handleSelectIcon="handleSelectIcon" />
   </div>
 
 </template>
 
 <script>
-import { addMenu, checkMenuName, findByMenuId, updateMenu } from '@/api/modules/system/menu'
+import IconPanel from '@/components/IconPanel'
+import { menuTree, addMenu, checkMenuName, findByMenuId, updateMenu } from '@/api/modules/system/menu'
 
 export default {
   name: 'EditForm',
+  components: { IconPanel },
   data() {
     const validateName = (rule, value, callback) => {
       if (value === undefined || value.trim() === '') {
@@ -103,14 +137,13 @@ export default {
       form: {},
       rules: {
         name: [{ validator: validateName, required: true, message: '请输入菜单名称', trigger: 'blur' }],
-        path: [{ required: true, message: '请输入URL', trigger: 'blur' }],
+        path: [{ required: true, message: '请输入菜单路径', trigger: 'blur' }],
         perms: [{ required: true, message: '请输入权限标识', trigger: 'blur' }],
-        type: [{ required: true, message: '请输入类型：如button按钮 menu菜单', trigger: 'blur' }],
-        icon: [{ required: true, message: '请输入菜单图标', trigger: 'blur' }],
-        component: [{ required: true, message: '请输入Vue组件', trigger: 'blur' }],
-        hidden: [{ required: true, message: '请输入是否隐藏', trigger: 'blur' }],
-        frame: [{ required: true, message: '请输入是否是外链', trigger: 'blur' }]
-      }
+        type: [{ required: true, message: '请选择菜单类型', trigger: 'blur' }],
+        hidden: [{ required: true, message: '请选择是否隐藏', trigger: 'blur' }],
+        frame: [{ required: true, message: '请选择是否是外链', trigger: 'blur' }]
+      },
+      menuTree: []
     }
   },
   methods: {
@@ -119,7 +152,16 @@ export default {
       this.form = {}
     },
 
-    init(id) {
+    init(id, type) {
+      menuTree().then(res => {
+        this.menuTree = res.data
+      })
+      if (type === 'child') {
+        // 新增下级节点操作
+        this.form.parentId = id
+        this.visible = true
+        return
+      }
       if (id !== undefined) {
         // 修改操作
         findByMenuId(id).then(res => {
@@ -127,8 +169,13 @@ export default {
           this.visible = true
         })
       } else {
+        // this.form.parentId = 0
         this.visible = true
       }
+    },
+
+    handleSelectIcon(icon) {
+      this.form.icon = icon
     },
 
     handleSubmit() {

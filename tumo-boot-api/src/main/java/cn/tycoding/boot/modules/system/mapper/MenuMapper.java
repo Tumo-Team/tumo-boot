@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.system.mapper;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> findPermissionsByUserId(Long id);
 
     void changeTopNode(Long id);
+
+    List<Menu> build(@Param("userId") Long userId, @Param("type") String type);
 }
