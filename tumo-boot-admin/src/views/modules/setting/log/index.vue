@@ -9,9 +9,6 @@
           style="width: 200px"
           @search="fetchData(pageConf)"
         />
-        <a-popover content="新增">
-          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
-        </a-popover>
         <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
         </a-popover>
@@ -30,16 +27,6 @@
         bordered
       >
         <span slot="action" slot-scope="text, record">
-          <a-popover content="修改">
-            <a-button
-              type="dashed"
-              size="small"
-              @click="$refs.model
-                .init(record.id)"
-            >
-              <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
-            </a-button>
-          </a-popover>
           <a-popover content="删除">
             <a-button type="dashed" size="small" @click="handleDel(record.id)">
               <a-icon type="delete" theme="twoTone" two-tone-color="#f5222d" />
@@ -70,15 +57,15 @@ export default {
     return {
       list: [],
       columns: [
-        { title: '操作用户', dataIndex: 'username', key: 'username' },
+        { title: '操作用户', dataIndex: 'username', key: 'username', width: 110 },
         { title: '操作描述', dataIndex: 'operation', key: 'operation' },
-        { title: '耗时(毫秒)', dataIndex: 'time', key: 'time' },
-        { title: '操作方法', dataIndex: 'method', key: 'method' },
-        { title: '操作参数', dataIndex: 'params', key: 'params' },
-        { title: 'IP地址', dataIndex: 'ip', key: 'ip' },
-        { title: '操作时间', dataIndex: 'createTime', key: 'createTime' },
+        { title: '耗时(毫秒)', dataIndex: 'time', key: 'time', align: 'center', width: 100 },
+        { title: '操作方法', dataIndex: 'method', key: 'method', ellipsis: true },
+        { title: '操作参数', dataIndex: 'params', key: 'params', ellipsis: true },
+        { title: 'IP地址', dataIndex: 'ip', key: 'ip', align: 'center', width: 120 },
         { title: '操作地点', dataIndex: 'location', key: 'location' },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+        { title: '操作时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 100 }
       ],
       query: {},
       pageConf: {
