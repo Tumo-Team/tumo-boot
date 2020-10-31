@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.blog.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.modules.blog.entity.Article;
 import cn.tycoding.boot.modules.blog.entity.Category;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,6 +27,16 @@ public interface CategoryService extends IService<Category> {
     IPage<Category> list(Category category, QueryPage queryPage);
 
     /**
+     * 查询相关的文章列表
+     */
+    IPage<Article> articleList(QueryPage queryPage, Long id);
+
+    /**
+     * 校验名称是否存在
+     */
+    boolean checkName(Category category);
+
+    /**
      * 新增
      */
     void add(Category category);
@@ -39,4 +50,5 @@ public interface CategoryService extends IService<Category> {
      * 删除
      */
     void delete(Long id);
+
 }

@@ -153,12 +153,12 @@ export default {
       }
       return isJpgOrPng
     },
-
     // 文件上传后
     handleUploadChange(info) {
       this.uploadLoading = false
       console.log(info)
     },
+
     handleSubmit() {
       this.loading = true
       this.$refs.form.validate(valid => {

@@ -41,6 +41,26 @@ public class CategoryController extends BaseController {
         return new R<>(super.getData(categoryService.list(category, queryPage)));
     }
 
+    @GetMapping("/{id}/article/list")
+    @ApiOperation(value = "查询相关的文章列表")
+    public R<Map<String, Object>> list(QueryPage queryPage, @PathVariable Long id) {
+        return new R<>(super.getData(categoryService.articleList(queryPage, id)));
+    }
+
+    /**
+     * 校验当前名称是否已存在
+     *
+     * @param category id:当前修改对象的ID
+     *                 name:需要校验的名称
+     * @return true 当前名称可以用 false 当前名称已存在
+     */
+    @PostMapping("/checkName")
+    @ApiOperation(value = "校验名称是否已存在")
+    public R<Boolean> checkName(@RequestBody Category category) {
+        return new R<>(categoryService.checkName(category));
+    }
+
+
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<Category> findById(@PathVariable Long id) {

@@ -8,11 +8,11 @@ export const API_PREFIX = '/setting'
 /**
  * 分页、条件查询
  */
-export function logList(pagination, query) {
+export function logList(pagination, data) {
   return request({
-    url: API_PREFIX + `/log/list?page=${pagination.page}&size=${pagination.size}`,
+    url: API_PREFIX + `/log/list?page=${pagination.page}&limit=${pagination.limit}`,
     method: 'post',
-    query
+    data
   })
 }
 

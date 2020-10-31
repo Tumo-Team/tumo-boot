@@ -26,6 +26,11 @@ public interface ArticleService extends IService<Article> {
     IPage<Article> list(Article article, QueryPage queryPage);
 
     /**
+     * 校验名称是否存在
+     */
+    boolean checkName(Article article);
+
+    /**
      * 新增
      */
     void add(Article article);

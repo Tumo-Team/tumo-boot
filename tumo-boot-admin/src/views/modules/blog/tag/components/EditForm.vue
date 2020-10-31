@@ -19,14 +19,8 @@
         :label-col="{ span: 3 }"
         :wrapper-col="{ span: 21 }"
       >
-        <a-form-model-item has-feedback prop="name" label="账户">
+        <a-form-model-item has-feedback prop="name" label="标签名称">
           <a-input v-model="form.name" />
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="color" label="账户">
-          <a-input v-model="form.color" />
-        </a-form-model-item>
-        <a-form-model-item has-feedback prop="createTime" label="账户">
-          <a-input v-model="form.createTime" />
         </a-form-model-item>
       </a-form-model>
     </a-modal>
@@ -58,9 +52,7 @@ export default {
       loading: false,
       form: {},
       rules: {
-        name: [{ validator: validateName, required: true, message: '请输入标签名称', trigger: 'blur' }],
-        color: [{ required: true, message: '请输入色彩', trigger: 'blur' }],
-        createTime: [{ required: true, message: '请输入创建时间', trigger: 'blur' }]
+        name: [{ validator: validateName, required: true, trigger: 'blur' }]
       }
     }
   },

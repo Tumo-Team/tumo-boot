@@ -47,13 +47,19 @@ public class Article implements Serializable {
      * 文章简介
      */
     @ApiModelProperty(value = "文章简介")
-    private String introduce;
+    private String des;
 
     /**
      * 文章内容
      */
     @ApiModelProperty(value = "文章内容")
     private String content;
+
+    /**
+     * 文章HTML内容
+     */
+    @ApiModelProperty(value = "文章HTML内容")
+    private String contentHtml;
 
     /**
      * 文章封面

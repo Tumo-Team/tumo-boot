@@ -1,7 +1,9 @@
 package cn.tycoding.boot.modules.blog.mapper;
 
+import cn.tycoding.boot.modules.blog.entity.Article;
 import cn.tycoding.boot.modules.blog.entity.Tag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface TagMapper extends BaseMapper<Tag> {
 
+    IPage<Article> articleList(IPage<Article> page, Long id);
 }

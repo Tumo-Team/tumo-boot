@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -35,13 +36,8 @@ public class Tag implements Serializable {
      * 标签名称
      */
     @ApiModelProperty(value = "标签名称")
+    @NotBlank(message = "标签名称不能为空")
     private String name;
-
-    /**
-     * 色彩
-     */
-    @ApiModelProperty(value = "色彩")
-    private String color;
 
     /**
      * 创建时间

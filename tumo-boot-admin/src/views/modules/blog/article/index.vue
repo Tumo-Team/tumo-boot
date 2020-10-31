@@ -4,8 +4,8 @@
       <!-- 搜索条件部分 - Begin -->
       <a-row>
         <a-input-search
-          v-model="query.name"
-          placeholder="请输入名称查询"
+          v-model="query.title"
+          placeholder="请输入文章标题查询"
           style="width: 200px"
           @search="fetchData(pageConf)"
         />
@@ -76,12 +76,11 @@ export default {
       columns: [
         { title: '文章作者', dataIndex: 'author', key: 'author' },
         { title: '文章标题', dataIndex: 'title', key: 'title' },
-        { title: '文章简介', dataIndex: 'introduce', key: 'introduce' },
-        { title: '文章内容', dataIndex: 'content', key: 'content' },
+        { title: '文章简介', dataIndex: 'des', key: 'des' },
         { title: '文章封面', dataIndex: 'cover', key: 'cover' },
         { title: '文章阅读量', dataIndex: 'eyes', key: 'eyes' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 100 }
       ],
       query: {},
       pageConf: {

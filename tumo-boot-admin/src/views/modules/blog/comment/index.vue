@@ -4,14 +4,11 @@
       <!-- 搜索条件部分 - Begin -->
       <a-row>
         <a-input-search
-          v-model="query.name"
-          placeholder="请输入名称查询"
+          v-model="query.content"
+          placeholder="请输入评论内容查询"
           style="width: 200px"
           @search="fetchData(pageConf)"
         />
-        <a-popover content="新增">
-          <a-button type="dashed" icon="plus" @click="$refs.model.init()" />
-        </a-popover>
         <a-popover content="刷新">
           <a-button type="dashed" icon="redo" @click="fetchData(pageConf)" />
         </a-popover>
@@ -30,16 +27,6 @@
         bordered
       >
         <span slot="action" slot-scope="text, record">
-          <a-popover content="修改">
-            <a-button
-              type="dashed"
-              size="small"
-              @click="$refs.model
-                .init(record.id)"
-            >
-              <a-icon type="edit" theme="twoTone" two-tone-color="#52c41a" />
-            </a-button>
-          </a-popover>
           <a-popover content="删除">
             <a-button type="dashed" size="small" @click="handleDel(record.id)">
               <a-icon type="delete" theme="twoTone" two-tone-color="#f5222d" />
@@ -56,32 +43,27 @@
       />
       <!-- Table列表部分 - End -->
 
-      <!-- 新增/修改弹窗 -->
-      <edit-form ref="model" @refresh="fetchData(pageConf)" />
     </a-card>
   </div>
 </template>
 
 <script>
 import Pagination from '@/components/Pagination'
-import EditForm from './components/EditForm'
 import { commentList, delComment } from '@/api/modules/blog/comment'
 
 export default {
   name: 'Index',
-  components: { Pagination, EditForm },
+  components: { Pagination },
   data() {
     return {
       list: [],
       columns: [
-        { title: '文章ID', dataIndex: 'articleId', key: 'articleId' },
         { title: '文章标题', dataIndex: 'articleTitle', key: 'articleTitle' },
-        { title: '父级ID', dataIndex: 'pid', key: 'pid' },
-        { title: '评论人名称', dataIndex: 'name', key: 'name' },
-        { title: '评论人邮箱', dataIndex: 'email', key: 'email' },
+        { title: '评论人', dataIndex: 'name', key: 'name' },
+        { title: '邮箱', dataIndex: 'email', key: 'email' },
         { title: '评论内容', dataIndex: 'content', key: 'content' },
-        { title: '创建时间', dataIndex: 'createTime', key: 'createTime' },
-        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', width: 148 }
+        { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
+        { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, align: 'center', fixed: 'right', width: 100 }
       ],
       query: {},
       pageConf: {

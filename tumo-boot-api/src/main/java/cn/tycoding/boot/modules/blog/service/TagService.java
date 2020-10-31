@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.blog.service;
 
 import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.modules.blog.entity.Article;
 import cn.tycoding.boot.modules.blog.entity.Tag;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,6 +27,16 @@ public interface TagService extends IService<Tag> {
     IPage<Tag> list(Tag tag, QueryPage queryPage);
 
     /**
+     * 查询相关的文章列表
+     */
+    IPage<Article> articleList(QueryPage queryPage, Long id);
+
+    /**
+     * 校验名称是否存在
+     */
+    boolean checkName(Tag tag);
+
+    /**
      * 新增
      */
     void add(Tag tag);
@@ -39,4 +50,5 @@ public interface TagService extends IService<Tag> {
      * 删除
      */
     void delete(Long id);
+
 }

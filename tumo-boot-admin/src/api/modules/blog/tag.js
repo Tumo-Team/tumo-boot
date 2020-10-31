@@ -8,11 +8,21 @@ export const API_PREFIX = '/blog'
 /**
  * 分页、条件查询
  */
-export function tagList(pagination, query) {
+export function tagList(pagination, data) {
   return request({
-    url: API_PREFIX + `/tag/list?page=${pagination.page}&size=${pagination.size}`,
+    url: API_PREFIX + `/tag/list?page=${pagination.page}&limit=${pagination.limit}`,
     method: 'post',
-    query
+    data
+  })
+}
+
+/**
+ * 分页、条件查询
+ */
+export function tagArticleList(pagination, id) {
+  return request({
+    url: API_PREFIX + `/tag/${id}/article/list?page=${pagination.page}&limit=${pagination.limit}`,
+    method: 'get'
   })
 }
 

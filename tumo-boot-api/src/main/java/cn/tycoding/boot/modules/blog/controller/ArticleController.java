@@ -40,6 +40,19 @@ public class ArticleController extends BaseController {
         return new R<>(super.getData(articleService.list(article, queryPage)));
     }
 
+    /**
+     * 校验当前名称是否已存在
+     *
+     * @param article id:当前修改对象的ID
+     *                name:需要校验的名称
+     * @return true 当前名称可以用 false 当前名称已存在
+     */
+    @PostMapping("/checkName")
+    @ApiOperation(value = "校验名称是否已存在")
+    public R<Boolean> checkName(@RequestBody Article article) {
+        return new R<>(articleService.checkName(article));
+    }
+
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<Article> findById(@PathVariable Long id) {

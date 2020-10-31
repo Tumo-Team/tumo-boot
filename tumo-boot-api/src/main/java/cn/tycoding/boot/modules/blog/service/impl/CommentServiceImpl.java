@@ -6,12 +6,14 @@ import cn.tycoding.boot.modules.blog.mapper.CommentMapper;
 import cn.tycoding.boot.modules.blog.service.CommentService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,24 +38,25 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     public IPage<Comment> list(Comment comment, QueryPage queryPage) {
         IPage<Comment> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
-        //queryWrapper.like(StringUtils.isNotBlank(comment.getName()), Comment::getName, comment.getName());
+        queryWrapper.like(StringUtils.isNotBlank(comment.getContent()), Comment::getContent, comment.getContent());
         return baseMapper.selectPage(page, queryWrapper);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void add(Comment comment) {
+        comment.setCreateTime(new Date());
         baseMapper.insert(comment);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void update(Comment comment) {
         baseMapper.updateById(comment);
     }
 
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         baseMapper.deleteById(id);
     }

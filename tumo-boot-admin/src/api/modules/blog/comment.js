@@ -8,11 +8,11 @@ export const API_PREFIX = '/blog'
 /**
  * 分页、条件查询
  */
-export function commentList(pagination, query) {
+export function commentList(pagination, data) {
   return request({
-    url: API_PREFIX + `/comment/list?page=${pagination.page}&size=${pagination.size}`,
+    url: API_PREFIX + `/comment/list?page=${pagination.page}&limit=${pagination.limit}`,
     method: 'post',
-    query
+    data
   })
 }
 
