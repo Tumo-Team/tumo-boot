@@ -60,10 +60,7 @@ export default {
         { title: '操作用户', dataIndex: 'username', key: 'username', width: 110 },
         { title: '操作描述', dataIndex: 'operation', key: 'operation' },
         { title: '耗时(毫秒)', dataIndex: 'time', key: 'time', align: 'center', width: 100 },
-        { title: '操作方法', dataIndex: 'method', key: 'method', ellipsis: true },
-        { title: '操作参数', dataIndex: 'params', key: 'params', ellipsis: true },
         { title: 'IP地址', dataIndex: 'ip', key: 'ip', align: 'center', width: 120 },
-        { title: '操作地点', dataIndex: 'location', key: 'location' },
         { title: '操作时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 100 }
       ],
