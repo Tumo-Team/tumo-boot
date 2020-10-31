@@ -37,7 +37,7 @@ target/
 
 ### logs ####
 /logs/
-*.log
+*.apiLog
 
 ### temp ignore ###
 *.cache

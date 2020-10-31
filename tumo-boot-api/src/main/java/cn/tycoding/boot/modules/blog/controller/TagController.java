@@ -1,9 +1,11 @@
 package cn.tycoding.boot.modules.blog.controller;
 
+import cn.tycoding.boot.common.annotation.ApiLog;
 import cn.tycoding.boot.common.api.QueryPage;
 import cn.tycoding.boot.common.api.R;
 import cn.tycoding.boot.common.constant.ApiConstant;
 import cn.tycoding.boot.common.controller.BaseController;
+import cn.tycoding.boot.common.utils.WebUtil;
 import cn.tycoding.boot.modules.blog.entity.Tag;
 import cn.tycoding.boot.modules.blog.service.TagService;
 import io.swagger.annotations.Api;
@@ -11,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +39,8 @@ public class TagController extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody Tag tag, QueryPage queryPage) {
+    public R<Map<String, Object>> list(@RequestBody Tag tag, QueryPage queryPage, HttpServletRequest request) {
+        HttpServletRequest servletRequest = WebUtil.getRequest();
         return new R<>(super.getData(tagService.list(tag, queryPage)));
     }
 
@@ -66,6 +70,7 @@ public class TagController extends BaseController {
     }
 
     @PostMapping
+    @ApiLog("新增文章标签")
     @ApiOperation(value = "新增")
     public R add(@RequestBody Tag tag) {
         tagService.add(tag);
@@ -73,6 +78,7 @@ public class TagController extends BaseController {
     }
 
     @PutMapping
+    @ApiLog("修改文章标签")
     @ApiOperation(value = "修改")
     public R update(@RequestBody Tag tag) {
         tagService.update(tag);
@@ -80,6 +86,7 @@ public class TagController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiLog("删除文章标签")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         tagService.delete(id);

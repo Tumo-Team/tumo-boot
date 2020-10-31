@@ -133,7 +133,7 @@ export default {
               this.loading = false
             })
         } else {
-          console.log('error submit!!')
+          console.apiLog('error submit!!')
           return false
         }
       })

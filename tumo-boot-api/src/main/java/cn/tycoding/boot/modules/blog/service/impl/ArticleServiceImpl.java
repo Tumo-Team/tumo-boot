@@ -67,7 +67,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Transactional(rollbackFor = Exception.class)
     public void add(Article article) {
         article.setCreateTime(new Date());
-        article.setAuthor(SecurityUtil.getUser().getUsername());
+        article.setAuthor(SecurityUtil.getUsername());
         baseMapper.insert(article);
     }
 

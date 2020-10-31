@@ -40,7 +40,7 @@ export default {
         })
       }).catch((error) => {
         this.wxLoading = false
-        console.log('login error', error)
+        console.apiLog('login error', error)
       })
     }
   }

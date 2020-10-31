@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -20,6 +21,7 @@ import java.util.Date;
  */
 @Data
 @TableName("sys_log")
+@Accessors(chain = true)
 @ApiModel(value = "系统日志表实体")
 public class Log implements Serializable {
     private static final long serialVersionUID = -39039111282732175L;
@@ -42,6 +44,12 @@ public class Log implements Serializable {
      */
     @ApiModelProperty(value = "操作描述")
     private String operation;
+
+    /**
+     * 请求URL
+     */
+    @ApiModelProperty(value = "请求URL")
+    private String url;
 
     /**
      * 耗时(毫秒)
@@ -68,10 +76,10 @@ public class Log implements Serializable {
     private String ip;
 
     /**
-     * 操作地点
+     * 用户代理
      */
-    @ApiModelProperty(value = "操作地点")
-    private String location;
+    @ApiModelProperty(value = "用户代理")
+    private String userAgent;
 
     /**
      * 操作时间

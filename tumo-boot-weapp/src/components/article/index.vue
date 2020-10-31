@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     handleReadMore() {
-      console.log('read more')
+      console.apiLog('read more')
     }
   }
 }

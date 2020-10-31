@@ -24,16 +24,29 @@ public class SecurityUtil {
     /**
      * 获取用户名
      *
-     * @return
+     * @return username
      */
-    public TumoUser getUser() {
+    public String getUsername() {
+        Authentication authentication = getAuthentication();
+        if (authentication == null) {
+            return null;
+        }
+        return authentication.getName();
+    }
+
+    /**
+     * 获取用户ID
+     *
+     * @return id
+     */
+    public Long getUserId() {
         Authentication authentication = getAuthentication();
         if (authentication == null) {
             return null;
         }
         Object principal = authentication.getPrincipal();
         if (principal instanceof TumoUser) {
-            return (TumoUser) principal;
+            return ((TumoUser) principal).getId();
         }
         return null;
     }

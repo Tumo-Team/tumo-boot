@@ -104,7 +104,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        return baseMapper.list(page, user, SecurityUtil.getUser().getId());
+        return baseMapper.list(page, user, SecurityUtil.getUserId());
     }
 
     @Override

@@ -94,7 +94,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuTree<Menu>> build() {
-        List<Menu> menuList = baseMapper.build(SecurityUtil.getUser().getId(), CommonConstant.MENU_TYPE_MENU);
+        List<Menu> menuList = baseMapper.build(SecurityUtil.getUserId(), CommonConstant.MENU_TYPE_MENU);
         return MenuTreeUtil.build(menuList);
     }
 

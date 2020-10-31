@@ -1,14 +1,14 @@
 .DS_Store
 node_modules/
 dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-**/*.log
+npm-debug.apiLog*
+yarn-debug.apiLog*
+yarn-error.apiLog*
+**/*.apiLog
 
 tests/**/coverage/
 tests/e2e/reports
-selenium-debug.log
+selenium-debug.apiLog
 
 # Editor directories and files
 .idea

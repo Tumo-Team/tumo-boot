@@ -246,7 +246,7 @@ INSERT INTO `sys_menu` VALUES (102, '标签管理', 100, 'tag', NULL, 'menu', 't
 INSERT INTO `sys_menu` VALUES (103, '分类管理', 100, 'category', NULL, 'menu', 'switcher', '/modules/blog/category/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (104, '评论管理', 100, 'comment', NULL, 'menu', 'message', '/modules/blog/comment/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (130, '系统模块', 0, '/setting', NULL, 'menu', 'setting', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (131, '日志管理', 130, 'log', NULL, 'menu', 'exception', '/modules/setting/log/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (131, '日志管理', 130, 'apiLog', NULL, 'menu', 'exception', '/modules/setting/apiLog/index', 0, 0);
 INSERT INTO `sys_menu` VALUES (132, 'Api文档', 130, 'doc', NULL, 'menu', 'file-search', '/modules/system/user/index', 0, 0);
 COMMIT;
 

@@ -156,7 +156,7 @@ export default {
     // 文件上传后
     handleUploadChange(info) {
       this.uploadLoading = false
-      console.log(info)
+      console.apiLog(info)
     },
 
     handleSubmit() {
