@@ -32,7 +32,7 @@
       <a-alert type="warning" :style="{ marginTop: '24px' }">
         <span slot="message">
           项目源码：
-          <a href="https://github.com/TyCoding/ant-design-vue-pro" target="_blank">https://github.com/TyCoding/ant-design-vue-pro</a>
+          <a href="https://github.com/TyCoding/ant-design-vue-pro" target="_blank">https://github.com/Tumo-Team/Tumo-Boot</a>
         </span>
       </a-alert>
     </div>

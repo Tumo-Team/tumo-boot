@@ -10,14 +10,12 @@
     </parent>
     <groupId>cn.tycoding.boot</groupId>
     <artifactId>tumo-boot</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>tumo-boot</name>
     <description>http://docs.boot.tycoding.cn</description>
 
     <properties>
         <java.version>1.8</java.version>
-
         <security-oauth2-autoconfigure.version>2.3.4.RELEASE</security-oauth2-autoconfigure.version>
         <mybatis-spring.version>2.1.3</mybatis-spring.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
@@ -25,6 +23,12 @@
         <guava.version>20.0</guava.version>
         <hutool.version>5.4.4</hutool.version>
         <poi.version>4.1.2</poi.version>
+        <docker.plugin.version>0.32.0</docker.plugin.version>
+        <docker.host>http://172.16.60.129:2375</docker.host>
+        <docker.registry>172.16.60.129</docker.registry>
+        <docker.namespace>tumo-boot</docker.namespace>
+        <docker.username>tycoding</docker.username>
+        <docker.password>root</docker.password>
     </properties>
 
     <dependencies>
@@ -125,12 +129,40 @@
     </dependencies>
 
     <build>
+        <finalName>${project.name}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>cn.tycoding.boot.TumoBootApp</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+                <configuration>
+                    <!-- Docker Remote Api-->
+                    <dockerHost>${docker.host}</dockerHost>
+                    <!-- Docker 镜像私服-->
+                    <registry>${docker.registry}</registry>
+                    <!-- 认证信息-->
+                    <authConfig>
+                        <push>
+                            <username>${docker.username}</username>
+                            <password>${docker.password}</password>
+                        </push>
+                    </authConfig>
+                    <images>
+                        <image>
+                            <!-- 镜像名称： 172.17.0.111/library/pig-gateway:2.6.3-->
+                            <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+                            <build>
+                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                            </build>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
         </plugins>
