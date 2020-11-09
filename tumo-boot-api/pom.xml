@@ -9,9 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>cn.tycoding.boot</groupId>
-    <artifactId>tumo-boot</artifactId>
+    <artifactId>tumo-boot-api</artifactId>
+    <name>${project.artifactId}</name>
+    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
-    <name>tumo-boot</name>
     <description>http://docs.boot.tycoding.cn</description>
 
     <properties>
@@ -23,12 +24,14 @@
         <guava.version>20.0</guava.version>
         <hutool.version>5.4.4</hutool.version>
         <poi.version>4.1.2</poi.version>
-        <docker.plugin.version>0.32.0</docker.plugin.version>
-        <docker.host>http://172.16.60.129:2375</docker.host>
-        <docker.registry>172.16.60.129</docker.registry>
-        <docker.namespace>tumo-boot</docker.namespace>
+
+        <!-- Harbor -->
+        <docker.registry.url>172.16.60.134</docker.registry.url>
+        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
         <docker.username>tycoding</docker.username>
-        <docker.password>root</docker.password>
+        <docker.password>Tycoding123</docker.password>
+        <docker.namespace>tumo-boot</docker.namespace>
+        <docker.plugin.version>1.4.13</docker.plugin.version>
     </properties>
 
     <dependencies>
@@ -138,31 +141,20 @@
                     <mainClass>cn.tycoding.boot.TumoBootApp</mainClass>
                 </configuration>
             </plugin>
+            <!-- Harbor插件 -->
             <plugin>
-                <groupId>io.fabric8</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>${docker.plugin.version}</version>
                 <configuration>
-                    <!-- Docker Remote Api-->
-                    <dockerHost>${docker.host}</dockerHost>
-                    <!-- Docker 镜像私服-->
-                    <registry>${docker.registry}</registry>
-                    <!-- 认证信息-->
-                    <authConfig>
-                        <push>
-                            <username>${docker.username}</username>
-                            <password>${docker.password}</password>
-                        </push>
-                    </authConfig>
-                    <images>
-                        <image>
-                            <!-- 镜像名称： 172.17.0.111/library/pig-gateway:2.6.3-->
-                            <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
-                            <build>
-                                <dockerFile>${project.basedir}/Dockerfile</dockerFile>
-                            </build>
-                        </image>
-                    </images>
+                    <username>${docker.username}</username>
+                    <password>${docker.password}</password>
+                    <repository>${docker.registry.url}/${docker.namespace}/${project.artifactId}</repository>
+                    <tag>${project.version}</tag>
+                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+                    <buildArgs>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
                 </configuration>
             </plugin>
         </plugins>
