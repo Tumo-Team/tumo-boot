@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.setting.service.impl;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import cn.tycoding.boot.modules.setting.mapper.LogMapper;
 import cn.tycoding.boot.modules.setting.service.LogService;

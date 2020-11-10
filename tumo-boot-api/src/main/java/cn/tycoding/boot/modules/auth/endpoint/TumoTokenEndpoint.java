@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.auth.endpoint;
 
-import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.api.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;

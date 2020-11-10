@@ -1,7 +1,7 @@
 {
-    "name" : "Wechat App Template",
+    "name" : "Tumo Boot WeApp",
     "appid" : "",
-    "description" : "Wechat App Template",
+    "description" : "Tumo Boot WeApp",
     "versionName" : "1.5.0",
     "versionCode" : 118,
     "transformPx" : false,
@@ -92,7 +92,7 @@
         "enable" : false
     },
     "h5" : {
-        "title" : "Wechat App Template",
+        "title" : "Tumo Boot WeApp",
         "sdkConfigs" : {
             "maps" : {
                 "qqmap" : {

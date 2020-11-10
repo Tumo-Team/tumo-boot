@@ -1,9 +1,9 @@
 package cn.tycoding.boot.modules.blog.controller;
 
-import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.ApiConstant;
-import cn.tycoding.boot.common.controller.BaseController;
+import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.api.R;
+import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.modules.blog.entity.Comment;
 import cn.tycoding.boot.modules.blog.service.CommentService;
 import io.swagger.annotations.Api;

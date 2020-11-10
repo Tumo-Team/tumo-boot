@@ -207,9 +207,9 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/controller"))
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.controller.BaseController;
-import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.common.api.R;
+import cn.tycoding.boot.common.core.controller.BaseController;
+import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.api.R;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -303,7 +303,7 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/service"))
 
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
@@ -366,7 +366,7 @@ import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.dao.$!{tableInfo.name}Dao;
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

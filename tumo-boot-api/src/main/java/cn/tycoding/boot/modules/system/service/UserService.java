@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.system.service;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.dto.UserDTO;

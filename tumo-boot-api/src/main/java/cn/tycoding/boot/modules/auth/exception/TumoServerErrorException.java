@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.exception;
 
-import cn.tycoding.boot.common.api.TumoHttpStatus;
+import cn.tycoding.boot.common.core.api.TumoHttpStatus;
 import cn.tycoding.boot.modules.auth.component.TumoOAuth2ExceptionSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

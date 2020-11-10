@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.auth.config;
 
-import cn.tycoding.boot.common.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.props.AuthProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,8 +13,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * @since 2020/10/15
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+
+    private final AuthProperties authProperties;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -34,7 +38,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                         "/webjars/**")
                 .permitAll()
 
-                .antMatchers(ApiConstant.API_SYSTEM_PREFIX + "/user/info/*")
+                .antMatchers(authProperties.getSkipUrl().toArray(new String[0]))
                 .permitAll()
 
                 .anyRequest()

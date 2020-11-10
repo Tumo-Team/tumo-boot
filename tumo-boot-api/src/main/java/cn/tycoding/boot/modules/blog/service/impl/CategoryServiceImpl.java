@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.blog.service.impl;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.blog.entity.Article;
 import cn.tycoding.boot.modules.blog.entity.Category;
 import cn.tycoding.boot.modules.blog.mapper.CategoryMapper;

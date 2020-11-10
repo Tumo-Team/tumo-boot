@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.setting.service;
 
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;

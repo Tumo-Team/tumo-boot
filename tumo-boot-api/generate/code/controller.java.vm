@@ -16,15 +16,8 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/controller"))
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.controller.BaseController;
-import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.common.api.R;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * $!{tableInfo.comment}($!{tableInfo.name})表控制层

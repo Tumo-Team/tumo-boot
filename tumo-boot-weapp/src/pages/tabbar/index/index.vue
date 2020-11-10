@@ -12,7 +12,7 @@
 import VanButton from '@/wxcomponents/vant/button'
 import VanSkeleton from '@/wxcomponents/vant/skeleton'
 import Article from '@/components/article/index'
-import {titleList} from "@/api/article"
+import {articleFilterList} from "@/api/article"
 
 export default {
   components: {
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     fetchData() {
-      titleList().then(res => {
+      articleFilterList({}).then(res => {
         this.list = res.data
         this.loading = false
       })

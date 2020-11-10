@@ -15,7 +15,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-  #文件上传相关设置
+  # 文件上传相关设置
   servlet:
     multipart:
       max-file-size: 10MB

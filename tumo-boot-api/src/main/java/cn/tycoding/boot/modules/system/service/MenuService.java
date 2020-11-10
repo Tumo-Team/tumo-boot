@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.system.service;
 
 import cn.hutool.core.lang.tree.Tree;
-import cn.tycoding.boot.common.api.QueryPage;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.system.dto.MenuTree;
 import cn.tycoding.boot.modules.system.entity.Menu;
 import com.baomidou.mybatisplus.core.metadata.IPage;

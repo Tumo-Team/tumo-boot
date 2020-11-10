@@ -1,10 +1,10 @@
 package cn.tycoding.boot.modules.system.controller;
 
-import cn.tycoding.boot.common.api.QueryPage;
-import cn.tycoding.boot.common.api.R;
-import cn.tycoding.boot.common.constant.ApiConstant;
-import cn.tycoding.boot.common.controller.BaseController;
-import cn.tycoding.boot.common.utils.SecurityUtil;
+import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.utils.SecurityUtil;
+import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.api.R;
+import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.dto.UserDTO;
 import cn.tycoding.boot.modules.system.entity.User;

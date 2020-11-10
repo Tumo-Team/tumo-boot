@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.service;
 
-import cn.tycoding.boot.common.constant.AuthConstant;
+import cn.tycoding.boot.common.auth.constant.AuthConstant;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.system.entity.Role;
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("loadUserByUsername >>>>>>>>>>>>> username: {}", username);
         UserInfo info = userService.info(username);
-        log.info("loadUserByUsername success >>>>>>>>>>>>>> info: {}", info);
+        log.info("loadUserByUsername >>>>>>>>>>>>>> info: {}", info);
         return getUserDetails(info);
     }
 

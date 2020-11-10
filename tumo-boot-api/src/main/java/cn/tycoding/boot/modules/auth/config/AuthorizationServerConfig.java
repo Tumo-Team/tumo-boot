@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.config;
 
-import cn.tycoding.boot.common.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.modules.auth.component.TumoWebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;

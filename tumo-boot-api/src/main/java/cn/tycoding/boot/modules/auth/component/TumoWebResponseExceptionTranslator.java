@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.component;
 
-import cn.tycoding.boot.common.api.TumoHttpStatus;
+import cn.tycoding.boot.common.core.api.TumoHttpStatus;
 import cn.tycoding.boot.modules.auth.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
