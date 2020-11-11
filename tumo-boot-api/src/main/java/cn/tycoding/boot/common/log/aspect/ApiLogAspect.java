@@ -9,6 +9,7 @@ import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

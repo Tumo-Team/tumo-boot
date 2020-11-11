@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 
@@ -18,12 +19,13 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Aspect
 @Configuration
+@ConditionalOnProperty(value = {"tumo-boot.log.enable"}, matchIfMissing = true)
 public class RequestLogAspect {
 
-    @Around("execution(!static cn.tycoding.boot.common.core.api.R *(..)) && (@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController))")
+    @Around("(@within(org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint)) || (execution(!static cn.tycoding.boot.common.core.api.R *(..)) && (@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        HttpServletRequest request = WebUtil.getRequest();
         Object result = point.proceed();
+        HttpServletRequest request = WebUtil.getRequest();
         if (request == null) {
             return result;
         }

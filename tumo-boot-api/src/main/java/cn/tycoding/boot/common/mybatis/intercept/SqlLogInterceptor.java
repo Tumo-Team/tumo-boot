@@ -4,7 +4,6 @@ import cn.hutool.core.text.StrFormatter;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.toolkit.PluginUtils;
 import com.baomidou.mybatisplus.core.toolkit.SystemClock;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
@@ -14,6 +13,7 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.ResultHandler;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -27,16 +27,7 @@ import java.sql.Statement;
         type = StatementHandler.class,
         method = "query",
         args = {Statement.class, ResultHandler.class}
-), @Signature(
-        type = StatementHandler.class,
-        method = "update",
-        args = {Statement.class}
-), @Signature(
-        type = StatementHandler.class,
-        method = "batch",
-        args = {Statement.class}
 )})
-@Slf4j
 public class SqlLogInterceptor implements Interceptor {
 
     private Method druidGetSqlMethod;

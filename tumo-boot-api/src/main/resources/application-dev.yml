@@ -12,18 +12,3 @@ spring:
   redis:
     port: 6379
     host: 127.0.0.1
-
-#系统自定义配置
-tumo-boot:
-  #权限配置
-  auth:
-    skip-url:
-      - /blog/article/filter/list
-  #Swagger配置
-  swagger:
-    title: Tumo Boot 项目API接口文档
-    description: 项目开源地址：https://github.com/Tumo-Team/Tumo-Boot
-    author: TyCoding
-    url: https://tycoding.cn
-    email: tycoding@sina.com
-    version: v1.0

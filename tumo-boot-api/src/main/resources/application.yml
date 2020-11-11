@@ -35,3 +35,26 @@ logging:
 
 knife4j:
   enable: true
+
+# 系统自定义配置
+tumo-boot:
+  # 权限配置
+  auth:
+    skip-url:
+      - /blog/article/filter/list
+  # 日志配置
+  log:
+    # 是否开始日志打印
+    enable: true
+  # Mybatis 配置
+  mybatis:
+    # 是否开启SQL打印
+    enable: true
+  # Swagger配置
+  swagger:
+    title: Tumo Boot 项目API接口文档
+    description: 项目开源地址：https://github.com/Tumo-Team/Tumo-Boot
+    author: TyCoding
+    url: https://tycoding.cn
+    email: tycoding@sina.com
+    version: v1.0

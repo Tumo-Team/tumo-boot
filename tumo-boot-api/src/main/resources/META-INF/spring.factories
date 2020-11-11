@@ -1,4 +1,6 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   cn.tycoding.boot.common.log.LogAutoConfiguration,\
   cn.tycoding.boot.common.swagger.SwaggerAutoConfiguration,\
-  cn.tycoding.boot.common.auth.AuthAutoConfiguration
+  cn.tycoding.boot.common.auth.AuthAutoConfiguration,\
+  cn.tycoding.boot.common.log.LogAutoConfiguration,\
+  cn.tycoding.boot.common.mybatis.MybatisAutoConfiguration
