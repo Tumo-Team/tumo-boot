@@ -30,6 +30,13 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public List<Article> list(Article article) {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Article::getId,
+                Article::getAuthor,
+                Article::getTitle,
+                Article::getDes,
+                Article::getCover,
+                Article::getEyes,
+                Article::getCreateTime);
         return baseMapper.selectList(queryWrapper);
     }
 
