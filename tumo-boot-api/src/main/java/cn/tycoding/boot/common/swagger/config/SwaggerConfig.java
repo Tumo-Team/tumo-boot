@@ -5,6 +5,7 @@ import cn.tycoding.boot.common.swagger.props.SwaggerProperties;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -69,7 +70,7 @@ public class SwaggerConfig {
     }
 
     private List<SecurityScheme> apiKey() {
-        ApiKey apiKey = new ApiKey("Authorization", "Authorization", "header");
+        ApiKey apiKey = new ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header");
         return Collections.singletonList(apiKey);
     }
 

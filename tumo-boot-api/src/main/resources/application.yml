@@ -12,7 +12,7 @@ spring:
     allow-bean-definition-overriding: true
 
   datasource:
-    type: com.zaxxer.hikari.HikariDataSource
+    type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   # 文件上传相关设置

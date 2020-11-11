@@ -27,7 +27,7 @@ public class RequestLogAspect {
         if (request == null) {
             return result;
         }
-        String beforeLog = "\n================  Request Start  ================" +
+        String beforeLog = "\n\n================  Request Start  ================" +
                 "\n===General=== Request URL: " + request.getRequestURL() +
                 "\n===General=== Request Method: " + request.getMethod() +
                 "\n===General=== Remote Address: " + request.getRemoteAddr() +
