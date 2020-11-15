@@ -74,11 +74,10 @@ export default {
     return {
       list: [],
       columns: [
-        { title: '文章作者', dataIndex: 'author', key: 'author' },
-        { title: '文章标题', dataIndex: 'title', key: 'title', ellipsis: true },
-        { title: '文章简介', dataIndex: 'des', key: 'des', ellipsis: true },
-        { title: '文章封面', dataIndex: 'cover', key: 'cover' },
-        { title: '文章阅读量', dataIndex: 'eyes', key: 'eyes' },
+        { title: '作者', dataIndex: 'author', key: 'author', width: 120 },
+        { title: '标题', dataIndex: 'title', key: 'title', ellipsis: true },
+        { title: '简介', dataIndex: 'des', key: 'des', ellipsis: true },
+        { title: '阅读量', dataIndex: 'eyes', key: 'eyes', width: 100 },
         { title: '创建时间', dataIndex: 'createTime', key: 'createTime', align: 'center', width: 150 },
         { title: '操作', key: 'action', scopedSlots: { customRender: 'action' }, fixed: 'right', align: 'center', width: 100 }
       ],

@@ -38,7 +38,8 @@ public class RequestLogAspect {
                 "\n===Headers=== Host: " + request.getHeader(HttpHeaders.HOST) +
                 "\n===Headers=== User-Agent: " + request.getHeader(HttpHeaders.USER_AGENT) +
                 "\n===Headers=== Parameters: " + new JSONObject(request.getParameterMap()).toString() +
-                "\n\n===Result=== " + new JSONObject(result).toString() +
+                // 打印响应结果，内容过长会影响效率
+                // "\n\n===Result=== " + new JSONObject(result).toString() +
                 "\n================  Request End  ================\n";
         log.info(beforeLog);
         return result;

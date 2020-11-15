@@ -24,7 +24,7 @@
           <a-input v-model="form.des" />
         </a-form-model-item>
         <a-form-model-item has-feedback prop="content" label="文章内容">
-          <mavon-editor v-model="form.content" :ishljs="true" @change="handleEditorChange" />
+          <mavon-editor v-model="form.content" :ishljs="true" />
         </a-form-model-item>
         <a-form-model-item prop="cover" label="封面图片">
           <a-upload
@@ -112,11 +112,6 @@ export default {
       } else {
         this.visible = true
       }
-    },
-
-    // Editor编辑区发生变化
-    handleEditorChange(value, render) {
-      this.form.contentHtml = render
     },
 
     // 文件上传前

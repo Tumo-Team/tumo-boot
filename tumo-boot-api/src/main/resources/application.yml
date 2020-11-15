@@ -41,7 +41,7 @@ tumo-boot:
   # 权限配置
   auth:
     skip-url:
-      - /tumo-boot/blog/article/filter/list
+      - /tumo-boot/blog/article/**
   # 日志配置
   log:
     # 是否开始日志打印

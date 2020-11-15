@@ -1,0 +1,10 @@
+{
+  "component": true,
+  "usingComponents": {
+    "decode": "./decode",
+    "table": "./table/table",
+    "todogroup": "./todogroup/todogroup",
+    "yuml": "./yuml/yuml",
+    "img": "./img/img"
+  }
+}

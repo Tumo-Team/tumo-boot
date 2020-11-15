@@ -68,6 +68,13 @@
         "disableScroll": true,
         "navigationBarTitleText": "登录"
       }
+    },
+
+    {
+      "path": "pages/tabbar/index/components/article/detail",
+      "style": {
+        "navigationBarTitleText": "文章详情"
+      }
     }
   ]
 }

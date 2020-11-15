@@ -28,17 +28,6 @@ export function articleFilterList(data) {
 }
 
 /**
- * 校验名称
- */
-export function checkArticleName(data) {
-  return http.request({
-    url: API_PREFIX + `/article/checkName`,
-    method: 'post',
-    data
-  })
-}
-
-/**
  * 根据ID查询
  */
 export function findByArticleId(id) {

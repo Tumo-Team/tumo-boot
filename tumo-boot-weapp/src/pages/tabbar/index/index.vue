@@ -1,5 +1,5 @@
 <template>
-  <div class="index-container">
+  <div class="bg-grey">
     <van-skeleton title row="6" :loading="loading">
       <Article :list="list"/>
     </van-skeleton>
@@ -11,7 +11,7 @@
 <script>
 import VanButton from '@/wxcomponents/vant/button'
 import VanSkeleton from '@/wxcomponents/vant/skeleton'
-import Article from '@/components/article/index'
+import Article from './components/article/index'
 import {articleFilterList} from "@/api/article"
 
 export default {
@@ -42,13 +42,6 @@ export default {
 </script>
 
 <style scoped>
-.index-container {
-  background-color: #fff;
-  margin: 12px 12px 0;
-  min-height: -webkit-fill-available;
-}
 
-.index-container van-skeleton {
-  padding-left: 10px;
-}
+
 </style>
