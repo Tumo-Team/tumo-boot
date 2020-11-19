@@ -1,0 +1,20 @@
+version: "3.5"
+
+services:
+  tumo-boot-admin:
+    image: tumo-boot-admin
+    hostname: "tumo-boot-admin"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8088:80
+    restart: always
+
+  tumo-boot-api:
+    image: tumo-boot-admin
+    hostname: "tumo-boot-api"
+    environment:
+      - TZ=Asia/Shanghai
+    ports:
+      - 8087:8080
+    restart: always

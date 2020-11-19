@@ -85,6 +85,33 @@ lsof -i tcp:2375
 
 ![](http://cdn.tycoding.cn/MIK-rdDGLZ.png)
 
+## 安装Docker私有仓库
+
+[Docker私有仓库安装](https://www.funtl.com/zh/docs-docker/Docker-%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93.html#%E5%AE%89%E8%A3%85%E8%BF%90%E8%A1%8C-docker-registry)
+
+Docker私有仓库签发SSL证书时如果报错：`Can't load /root/.rnd into RNG`
+
+```shell
+cd /root
+openssl rand -writerand .rnd
+```
+
+
+
+报错：`docker: Error response from daemon: OCI runtime create failed: container_linux.go:349`
+
+是Ubuntu版本和Docker版本不兼容造成的，先查询本地Docker版本，再查询适合当前系统的Docker版本：
+
+```shell
+docker --version  #查询本地Docker版本
+sudo apt-cache madison docker-ce  #查询适合本系统的Docker版本
+
+sudo apt-get autoremove docker-ce  #卸载之前安装的Docker版本
+
+```
+
+
+
 ## 安装 Harbor
 
 ```shell script
@@ -121,6 +148,27 @@ vi harbor.yml
 浏览器访问：`http://ip`。用户名`admin`，密码`Harbor12345`
 
 ![](http://cdn.tycoding.cn/MIK-99W8XD.png)
+
+启动Harbor，进入到`harbor`文件夹下：
+
+![image-20201118180216394](http://cdn.tycoding.cn/20201118180221.png)
+
+启动：
+
+```shell
+docker-compose up -d
+```
+
+重启：
+
+```shell
+docker-compose stop
+docker-compose start
+```
+
+
+
+
 
 # 部署项目到私有仓库
 
@@ -224,3 +272,14 @@ docker push 172.16.60.134/tumo-boot/REPOSITORY[:TAG]
 ```
 
 如上利用``
+
+
+## Docker 命令
+
+```shell script
+docker ps -aq  #列出所有容器ID
+docker stop $(docker ps -aq)  #停止所有容器
+docker rm $(docker ps -aq)  #删除所有容器
+docker rmi $(docker images -q)  #删除所有镜像
+```
+

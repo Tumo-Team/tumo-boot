@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.4.0</version>
         <relativePath/>
     </parent>
     <groupId>cn.tycoding.boot</groupId>
@@ -26,13 +26,12 @@
         <hutool.version>5.4.4</hutool.version>
         <poi.version>4.1.2</poi.version>
 
-        <!-- Harbor -->
+        <docker.image.name>tumo-boot/${project.artifactId}</docker.image.name>
+        <docker.host>http://172.16.60.134:2375</docker.host>
+        <docker.registry.username>tycoding</docker.registry.username>
+        <docker.registry.password>Tumo-Team123</docker.registry.password>
         <docker.registry.url>172.16.60.134</docker.registry.url>
-        <docker.registry.host>http://${docker.registry.url}:2375</docker.registry.host>
-        <docker.username>tycoding</docker.username>
-        <docker.password>Tycoding123</docker.password>
-        <docker.namespace>tumo-boot</docker.namespace>
-        <docker.plugin.version>1.4.13</docker.plugin.version>
+
     </properties>
 
     <dependencies>
@@ -140,6 +139,11 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -152,20 +156,27 @@
                     <mainClass>cn.tycoding.boot.TumoBootApp</mainClass>
                 </configuration>
             </plugin>
-            <!-- Harbor插件 -->
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>dockerfile-maven-plugin</artifactId>
-                <version>${docker.plugin.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <username>${docker.username}</username>
-                    <password>${docker.password}</password>
-                    <repository>${docker.registry.url}/${docker.namespace}/${project.artifactId}</repository>
-                    <tag>${project.version}</tag>
-                    <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
-                    <buildArgs>
-                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
-                    </buildArgs>
+                    <image>
+                        <name>${docker.image.name}</name>
+                        <!-- 执行完build 自动push -->
+                        <publish>true</publish>
+                        <builder>registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3</builder>
+                        <runImage>registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/run:base-cnb</runImage>
+                    </image>
+                    <!--配置构建宿主机信息，本机不用配置-->
+                    <docker>
+                        <host>${docker.host}</host>
+                        <tlsVerify>false</tlsVerify>
+                        <publishRegistry>
+                            <username>${docker.registry.username}</username>
+                            <password>${docker.registry.password}</password>
+                            <url>${docker.registry.url}</url>
+                        </publishRegistry>
+                    </docker>
                 </configuration>
             </plugin>
         </plugins>
