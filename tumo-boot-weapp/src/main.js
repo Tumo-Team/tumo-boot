@@ -12,7 +12,6 @@ import '@/mock/index'
 
 Vue.config.productionTip = false
 
-Vue.prototype.towXmlUtil = require('@/wxcomponents/towxml/index.js')
 Vue.prototype.$store = store
 App.mpType = 'app'
 

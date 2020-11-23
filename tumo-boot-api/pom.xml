@@ -8,10 +8,10 @@
         <version>2.4.0</version>
         <relativePath/>
     </parent>
+
+    <name>tumo-boot</name>
     <groupId>cn.tycoding.boot</groupId>
     <artifactId>tumo-boot-api</artifactId>
-    <name>${project.artifactId}</name>
-    <version>1.0.0.RELEASE</version>
     <packaging>jar</packaging>
     <description>http://docs.boot.tycoding.cn</description>
 
@@ -26,11 +26,11 @@
         <hutool.version>5.4.4</hutool.version>
         <poi.version>4.1.2</poi.version>
 
-        <docker.image.name>tumo-boot/${project.artifactId}</docker.image.name>
-        <docker.host>http://172.16.60.134:2375</docker.host>
-        <docker.registry.username>tycoding</docker.registry.username>
-        <docker.registry.password>Tumo-Team123</docker.registry.password>
         <docker.registry.url>172.16.60.134</docker.registry.url>
+        <docker.host>http://172.16.60.134:2375</docker.host>
+        <docker.image.name>${docker.registry.url}/${project.name}/${project.artifactId}</docker.image.name>
+        <docker.registry.username>admin</docker.registry.username>
+        <docker.registry.password>Harbor12345</docker.registry.password>
 
     </properties>
 

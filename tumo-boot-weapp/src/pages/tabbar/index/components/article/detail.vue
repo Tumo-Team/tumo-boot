@@ -6,39 +6,39 @@
           {{ form.title }}
         </h1>
         <div class="post-data">
-        <span id="https://tycoding.cn/2020/07/01/project/tumo-recode/" class="leancloud-visitors">
+        <span class="leancloud-visitors">
           <span class="leancloud-visitors-count">0</span> Views
         </span>
           <time>{{ form.createTime }}</time>
           <a href="/">springboot</a>
         </div>
       </div>
-      <div id="post-content" class="post-content" itemprop="articleBody">
+      <div class="post-content">
         <p class="post-tags"></p>
-        <towxml :nodes="article"></towxml>
+        <wemark :md="form.content" link highlight selectable type="wemark"></wemark>
       </div>
+      <Comments ref="comments" />
     </van-skeleton>
-    <van-skeleton title row="6" :loading="loading"/>
-    <van-skeleton title row="6" :loading="loading"/>
   </div>
 </template>
 
 <script>
+import Comments from '../comments/index'
 import VanSkeleton from '@/wxcomponents/vant/skeleton'
-import towxml from '@/wxcomponents/towxml/towxml'
+import wemark from '@/wxcomponents/wemark/wemark'
 import {findByArticleId} from "@/api/article"
 
 export default {
   name: "detail",
   components: {
+    Comments,
     VanSkeleton,
-    towxml
+    wemark
   },
   data() {
     return {
       form: {},
-      loading: true,
-      article: {}
+      loading: true
     }
   },
   onLoad() {
@@ -47,9 +47,11 @@ export default {
   methods: {
     fetchData() {
       findByArticleId(this.$Route.query.id).then(res => {
-        this.form = res.data
-        this.article = this.towXmlUtil(res.data.content, 'markdown')
-        this.loading = false
+        if (res.code === 200) {
+          this.form = res.data
+          this.loading = false
+          this.$refs.comments.fetchData(this.$Route.query.id)
+        }
       })
     }
   }

@@ -1,4 +1,5 @@
 import http from '@/utils/request'
+const request = http.request
 
 /**
  * API 接口前缀

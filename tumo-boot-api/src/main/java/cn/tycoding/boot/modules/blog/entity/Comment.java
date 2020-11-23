@@ -41,7 +41,7 @@ public class Comment implements Serializable {
      * 文章标题
      */
     @ApiModelProperty(value = "文章标题")
-    private Long articleTitle;
+    private String articleTitle;
 
     /**
      * 父级ID

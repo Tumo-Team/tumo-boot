@@ -1,6 +1,6 @@
 <template>
-  <div v-if="list.length > 0" class="main-content index-page clearfix ">
-    <div class="post-lists">
+  <div class="main-content index-page clearfix ">
+    <div v-if="list.length > 0" class="post-lists">
       <div class="post-lists-body">
         <div v-for="i in list" :key="i.id" class="post-list-item">
           <div class="post-list-item-container">
@@ -32,6 +32,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div v-else>
+      <p>您还没有发布文章哦！...</p>
     </div>
   </div>
 </template>

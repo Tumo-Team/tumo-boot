@@ -2,7 +2,7 @@ version: "3.5"
 
 services:
   tumo-boot-api:
-    image: tumo-boot-admin
+    image: "172.16.60.134/tumo-boot/tumo-boot-api"
     hostname: "tumo-boot-api"
     environment:
       - TZ=Asia/Shanghai

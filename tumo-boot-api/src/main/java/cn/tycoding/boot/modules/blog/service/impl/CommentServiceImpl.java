@@ -31,6 +31,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Override
     public List<Comment> list(Comment comment) {
         LambdaQueryWrapper<Comment> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(comment.getArticleId() != null, Comment::getArticleId, comment.getArticleId());
         return baseMapper.selectList(queryWrapper);
     }
 
