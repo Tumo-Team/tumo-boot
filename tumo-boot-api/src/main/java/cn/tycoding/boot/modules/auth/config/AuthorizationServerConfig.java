@@ -20,6 +20,8 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import javax.sql.DataSource;
 
 /**
+ * 认证服务器
+ *
  * @author tycoding
  * @since 2020/10/14
  */
@@ -29,10 +31,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired
     private DataSource dataSource;
-
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
-
     @Autowired
     private AuthenticationManager authenticationManager;
 

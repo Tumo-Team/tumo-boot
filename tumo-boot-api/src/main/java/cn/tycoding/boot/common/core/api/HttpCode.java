@@ -7,7 +7,7 @@ package cn.tycoding.boot.common.core.api;
  * @since 2020/10/9
  */
 @SuppressWarnings("all")
-public enum TumoHttpStatus {
+public enum HttpCode {
     SUCCESS(200, "操作成功"),
     FAILURE(400, "业务异常"),
     UN_AUTHORIZED(401, "请求未授权"),
@@ -36,7 +36,7 @@ public enum TumoHttpStatus {
         return this.msg;
     }
 
-    private TumoHttpStatus(final int code, final String msg) {
+    private HttpCode(final int code, final String msg) {
         this.code = code;
         this.msg = msg;
     }

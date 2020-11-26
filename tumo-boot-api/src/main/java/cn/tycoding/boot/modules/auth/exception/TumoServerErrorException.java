@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.exception;
 
-import cn.tycoding.boot.common.core.api.TumoHttpStatus;
+import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.modules.auth.component.TumoOAuth2ExceptionSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -20,11 +20,11 @@ public class TumoServerErrorException extends TumoOAuth2Exception {
 
     @Override
     public String getOAuth2ErrorCode() {
-        return TumoHttpStatus.INTERNAL_SERVER_ERROR.getMsg();
+        return HttpCode.INTERNAL_SERVER_ERROR.getMsg();
     }
 
     @Override
     public int getHttpErrorCode() {
-        return TumoHttpStatus.INTERNAL_SERVER_ERROR.getCode();
+        return HttpCode.INTERNAL_SERVER_ERROR.getCode();
     }
 }

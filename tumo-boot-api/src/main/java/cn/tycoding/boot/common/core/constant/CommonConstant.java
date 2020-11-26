@@ -9,6 +9,16 @@ package cn.tycoding.boot.common.core.constant;
 public interface CommonConstant {
 
     /**
+     * UTF-8 编码
+     */
+    String UTF_8 = "utf-8";
+
+    /**
+     * JSON 请求响应格式
+     */
+    String CONTENT_TYPE = "application/json; charset=utf-8";
+
+    /**
      * 分页结果集中承载分页数据的属性名
      */
     String PAGE_ROWS = "rows";

@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.component;
 
-import cn.tycoding.boot.common.core.api.TumoHttpStatus;
+import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.modules.auth.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -67,7 +67,7 @@ public class TumoWebResponseExceptionTranslator implements WebResponseExceptionT
             return this.handleOAuth2Exception((OAuth2Exception) ase);
         }
 
-        return handleOAuth2Exception(new TumoServerErrorException(TumoHttpStatus.INTERNAL_SERVER_ERROR.getMsg(), e));
+        return handleOAuth2Exception(new TumoServerErrorException(HttpCode.INTERNAL_SERVER_ERROR.getMsg(), e));
     }
 
     private ResponseEntity<OAuth2Exception> handleOAuth2Exception(OAuth2Exception e) throws IOException {
@@ -80,6 +80,6 @@ public class TumoWebResponseExceptionTranslator implements WebResponseExceptionT
         }
 
         return new ResponseEntity<>(new TumoOAuth2Exception(e.getOAuth2ErrorCode(), code), headers,
-                HttpStatus.valueOf(TumoHttpStatus.SUCCESS.getCode()));
+                HttpStatus.valueOf(HttpCode.SUCCESS.getCode()));
     }
 }

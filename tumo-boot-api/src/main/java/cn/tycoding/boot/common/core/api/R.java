@@ -16,10 +16,10 @@ public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("状态码")
-    private int code = TumoHttpStatus.SUCCESS.code;
+    private int code = HttpCode.SUCCESS.code;
 
     @ApiModelProperty("返回消息")
-    private String msg = TumoHttpStatus.SUCCESS.msg;
+    private String msg = HttpCode.SUCCESS.msg;
 
     @ApiModelProperty("承载数据")
     private T data;
@@ -32,20 +32,25 @@ public class R<T> implements Serializable {
         this.data = data;
     }
 
-    public R(TumoHttpStatus tumoHttpStatus) {
-        this.code = tumoHttpStatus.code;
-        this.msg = tumoHttpStatus.msg;
+    public R(HttpCode httpCode) {
+        this.code = httpCode.code;
+        this.msg = httpCode.msg;
     }
 
-    public R(T data, TumoHttpStatus tumoHttpStatus) {
+    public R(T data, HttpCode httpCode) {
         this.data = data;
-        this.code = tumoHttpStatus.code;
-        this.msg = tumoHttpStatus.msg;
+        this.code = httpCode.code;
+        this.msg = httpCode.msg;
+    }
+
+    public R(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
     }
 
     public R(Throwable e) {
         super();
-        this.code = TumoHttpStatus.INTERNAL_SERVER_ERROR.code;
+        this.code = HttpCode.INTERNAL_SERVER_ERROR.code;
         this.msg = e.getMessage();
     }
 }

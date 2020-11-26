@@ -7,7 +7,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -48,13 +47,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .logout()
-                .logoutUrl("/logout" )
-                .logoutSuccessUrl("/" )
-                .deleteCookies("JSESSIONID" )
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .deleteCookies("JSESSIONID")
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/user/1" )
+                .antMatchers("/user/1")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -62,10 +61,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable();
-    }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().mvcMatchers("/oauth/check_token", "/user/info/*" );
     }
 }

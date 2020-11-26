@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.exception;
 
-import cn.tycoding.boot.common.core.api.TumoHttpStatus;
+import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.modules.auth.component.TumoOAuth2ExceptionSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -20,11 +20,11 @@ public class TumoForbiddenException extends TumoOAuth2Exception {
 
     @Override
     public String getOAuth2ErrorCode() {
-        return TumoHttpStatus.FORBIDDEN.getMsg();
+        return HttpCode.FORBIDDEN.getMsg();
     }
 
     @Override
     public int getHttpErrorCode() {
-        return TumoHttpStatus.FORBIDDEN.getCode();
+        return HttpCode.FORBIDDEN.getCode();
     }
 }

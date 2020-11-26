@@ -29,8 +29,8 @@ public class TumoTokenEndpoint {
     /**
      * 注销登录并清除Token
      *
-     * @param authHeader
-     * @return
+     * @param authHeader 请求头
+     * @return 结果
      */
     @DeleteMapping("/logout")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
