@@ -5,17 +5,17 @@
         <div class="vpanel">
           <div class="vwrap">
             <div class="vheader item3">
-              <input name="nick" placeholder="昵称" class="vnick vinput" type="text">
-              <input name="mail" placeholder="邮箱" class="vmail vinput" type="email">
-              <input name="link" placeholder="网址(http://)" class="vlink vinput" type="text">
+              <input v-model="form.name" placeholder="昵称" class="vnick vinput" type="text">
+              <input v-model="form.email" placeholder="邮箱" class="vmail vinput" type="email">
+              <input v-model="form.url" placeholder="网址(http://)" class="vlink vinput" type="text">
             </div>
             <div class="vedit">
-              <textarea id="veditor" class="veditor vinput"></textarea>
+              <textarea v-model="form.content" class="veditor vinput"></textarea>
             </div>
             <div class="vrow">
               <div class="vcol vcol-30"></div>
               <div class="vcol vcol-70 text-right">
-                <button type="button" class="vsubmit vbtn">提交</button>
+                <van-button @click.native="handleSubmit" type="primary" size="small">提交</van-button>
               </div>
             </div>
           </div>
@@ -37,26 +37,57 @@
         </div>
       </div>
     </van-skeleton>
+    <van-notify id="van-notify"/>
   </div>
 </template>
 
 <script>
-
-import {commentFilterList} from "@/api/comment"
+import VanButton from '@/wxcomponents/vant/button'
+import VanSkeleton from '@/wxcomponents/vant/skeleton'
+import VanNotify from '@/wxcomponents/vant/notify'
+import {commentFilterList, addComment} from "@/api/comment"
 
 export default {
   name: "comments",
-  props: ['id'],
+  components: {
+    VanButton,
+    VanSkeleton,
+    VanNotify
+  },
   data() {
     return {
+      id: undefined,
       list: {},
+      form: {},
       loading: true
     }
   },
   methods: {
     fetchData(id) {
+      this.id = id
       commentFilterList({articleId: id}).then(res => {
+        this.loading = false
         this.list = res.data
+      })
+    },
+    handleSubmit() {
+      if (!(!!form.name && !!form.email && !!form.url)) {
+        console.log('submit error!')
+        VanNotify({
+          type: 'warning',
+          message: '请完整填写表单信息'
+        })
+        return;
+      }
+      this.form.articleId = this.id
+      addComment(this.form).then(res => {
+        if (res.code === 200) {
+          VanNotify({
+            type: 'success',
+            message: '评论成功'
+          })
+          this.fetchData(this.id)
+        }
       })
     }
   }
@@ -151,32 +182,6 @@ textarea {
   text-align: right;
 }
 
-.vbtn {
-  -webkit-transition-duration: .4s;
-  transition-duration: .4s;
-  text-align: center;
-  color: #555;
-  border: 1px solid #ededed;
-  border-radius: .3em;
-  display: inline-block;
-  background: transparent;
-  margin-bottom: 0;
-  font-weight: 400;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  white-space: nowrap;
-  padding: .5em 1.25em;
-  font-size: .875em;
-  line-height: 1.42857143;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  outline: none;
-}
-
 .vcount {
   padding: 5px;
   font-weight: 600;
@@ -251,6 +256,7 @@ textarea {
   margin-bottom: .75em;
   padding-top: .625em;
 }
+
 .vcontent view {
   margin: 0px !important;
 }

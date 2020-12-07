@@ -1,7 +1,10 @@
 package cn.tycoding.boot.modules.blog.service.impl;
 
+import cn.hutool.http.HtmlUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.modules.blog.entity.Article;
 import cn.tycoding.boot.modules.blog.entity.Comment;
+import cn.tycoding.boot.modules.blog.mapper.ArticleMapper;
 import cn.tycoding.boot.modules.blog.mapper.CommentMapper;
 import cn.tycoding.boot.modules.blog.service.CommentService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -26,7 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
 
-    private final CommentMapper commentMapper;
+    private final ArticleMapper articleMapper;
 
     @Override
     public List<Comment> list(Comment comment) {
@@ -47,6 +50,11 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Transactional(rollbackFor = Exception.class)
     public void add(Comment comment) {
         comment.setCreateTime(new Date());
+        comment.setContent(HtmlUtil.filter(comment.getContent()));
+        if (comment.getArticleTitle() == null) {
+            Article article = articleMapper.selectOne(new LambdaQueryWrapper<Article>().eq(Article::getId, comment.getArticleId()).select(Article::getId, Article::getTitle));
+            comment.setArticleTitle(article.getTitle());
+        }
         baseMapper.insert(comment);
     }
 

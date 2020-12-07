@@ -44,22 +44,22 @@ public class Comment implements Serializable {
     private String articleTitle;
 
     /**
-     * 父级ID
+     * 昵称
      */
-    @ApiModelProperty(value = "父级ID")
-    private Long pid;
+    @ApiModelProperty(value = "昵称")
+    private String nick;
 
     /**
-     * 评论人名称
+     * 邮箱
      */
-    @ApiModelProperty(value = "评论人名称")
-    private String name;
-
-    /**
-     * 评论人邮箱
-     */
-    @ApiModelProperty(value = "评论人邮箱")
+    @ApiModelProperty(value = "邮箱")
     private String email;
+
+    /**
+     * URL
+     */
+    @ApiModelProperty(value = "URL")
+    private String url;
 
     /**
      * 评论内容
@@ -75,4 +75,15 @@ public class Comment implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    public void setName(String nick) {
+        this.nick = nick == null ? null : nick.trim();
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 }

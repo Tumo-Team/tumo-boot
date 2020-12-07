@@ -31,7 +31,7 @@ mybatis-plus:
 
 logging:
   level:
-    springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator: ERROR
+    springfox.documentation.spring.web: ERROR
 
 knife4j:
   enable: true

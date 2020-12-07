@@ -47,9 +47,9 @@ export default {
   methods: {
     fetchData() {
       findByArticleId(this.$Route.query.id).then(res => {
+        this.loading = false
         if (res.code === 200) {
           this.form = res.data
-          this.loading = false
           this.$refs.comments.fetchData(this.$Route.query.id)
         }
       })
