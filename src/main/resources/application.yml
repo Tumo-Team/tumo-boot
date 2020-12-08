@@ -42,7 +42,6 @@ tumo-boot:
   auth:
     skip-url:
       - /favicon.ico
-      - /tumo-boot/blog/**
   # 日志配置
   log:
     # 是否开始日志打印
