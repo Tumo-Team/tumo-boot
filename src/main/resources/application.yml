@@ -32,6 +32,7 @@ mybatis-plus:
 logging:
   level:
     springfox.documentation.spring.web: ERROR
+    com.baomidou.mybatisplus.core.metadata: ERROR
 
 knife4j:
   enable: true
