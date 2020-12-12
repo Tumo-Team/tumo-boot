@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - 8080:8080
+      - 8090:8080
     restart: always
   tumo-boot-admin:
     image: "tumo-boot/tumo-boot-admin"
@@ -15,5 +15,5 @@ services:
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - 8081:8080
+      - 8091:8080
     restart: always

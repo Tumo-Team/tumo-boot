@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.4.1</version>
         <relativePath/>
     </parent>
 
@@ -26,11 +26,13 @@
         <hutool.version>5.4.4</hutool.version>
         <poi.version>4.1.2</poi.version>
 
-        <docker.registry.url>172.16.60.134</docker.registry.url>
-        <docker.host>http://172.16.60.134:2375</docker.host>
-        <docker.image.name>${docker.registry.url}/${project.name}/${project.artifactId}</docker.image.name>
+        <docker.host>http://172.16.60.137:2375</docker.host>
         <docker.registry.username>admin</docker.registry.username>
         <docker.registry.password>Harbor12345</docker.registry.password>
+        <docker.registry.url>172.16.60.137:80</docker.registry.url>
+        <docker.repository.name>tumo-boot</docker.repository.name>
+        <docker.image.name>tumo-boot-api</docker.image.name>
+        <docker.push.image.name>${docker.registry.url}/${docker.repository.name}/${docker.image.name}</docker.push.image.name>
 
     </properties>
 
@@ -161,7 +163,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>${docker.image.name}</name>
+                        <name>${docker.push.image.name}</name>
                         <!-- 执行完build 自动push -->
                         <publish>true</publish>
                         <builder>registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3</builder>

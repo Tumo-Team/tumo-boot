@@ -212,3 +212,7 @@ docker tag tumo-boot-admin:v1 172.16.60.137:80/tumo-boot/tumo-boot-admin:v1
 - `172.16.60.137:80/tumo-boot/tumo-boot-admin:v1`: 格式：`ip:port/projects[repository]/name:tag`，其中`ip:port`代表远程私有仓库的注册的地址和端口（这里指定的`80`端口，因为新版本中Harbor默认使用HTTPS协议，如果我们手动配置禁用了HTTPS协议，应该在此手动指定注册地址的端口）
 
 
+## 打包并推送后端镜像
+
+![](http://cdn.tycoding.cn/MIK-X3nOTv.png)
+

@@ -9,6 +9,8 @@
 
 # Tumo Boot
 
+> SpringBoot 2.4.1
+
 > 手摸手带你学习基于SpringBoot（后端）、Ant Design Vue（前端）、Uni-App（微信小程序端）的项目开发。
 
 ```
@@ -18,6 +20,7 @@
 ├── tumo-boot-api       项目后端接口（基于SpringBoot）
 └── tumo-boot-weapp     项目微信小程序端（基于Uni-App、Vant）
 ```
+
 
 **项目正在开发中ing...**
 
