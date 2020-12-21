@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.auth.endpoint;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -35,6 +36,7 @@ public class TumoTokenEndpoint {
      * @return 结果
      */
     @DeleteMapping("/logout")
+    @ApiOperation(value = "注销接口")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         if (StringUtils.isEmpty(authHeader)) {
             return new R<>();
