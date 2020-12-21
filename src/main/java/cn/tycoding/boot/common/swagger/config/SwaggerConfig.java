@@ -43,11 +43,6 @@ public class SwaggerConfig {
         return docket("系统模块", CommonConstant.BASE_PACKAGE + ".modules.system.controller");
     }
 
-    @Bean
-    public Docket blogDocket() {
-        return docket("博客模块", CommonConstant.BASE_PACKAGE + ".modules.blog.controller");
-    }
-
     private Docket docket(String groupName, String basePackage) {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName(groupName)

@@ -7,7 +7,7 @@ spring:
   application:
     name: Tumo-Boot
   profiles:
-    active: dev
+    active: prod
   main:
     allow-bean-definition-overriding: true
 
@@ -28,11 +28,6 @@ mybatis-plus:
     jdbc-type-for-null: null
   global-config:
     banner: false
-
-logging:
-  level:
-    springfox.documentation.spring.web: ERROR
-    com.baomidou.mybatisplus.core.metadata: ERROR
 
 knife4j:
   enable: true

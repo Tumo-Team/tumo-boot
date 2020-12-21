@@ -8,6 +8,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.StringUtils;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 /**
  * @author tycoding
  * @since 2020/10/9
@@ -21,11 +24,13 @@ public class StartEventListener {
 
     @Async
     @EventListener({WebServerInitializedEvent.class})
-    public void afterStart(WebServerInitializedEvent event) {
+    public void afterStart(WebServerInitializedEvent event) throws UnknownHostException {
         Environment environment = event.getApplicationContext().getEnvironment();
         String appName = environment.getProperty("spring.application.name");
         int port = event.getWebServer().getPort();
+        String host = InetAddress.getLocalHost().getHostAddress();
         String profile = StringUtils.arrayToCommaDelimitedString(environment.getActiveProfiles());
         log.info("----[{}]----启动完成。当前使用端口：[{}]，环境变量：[{}]", appName, port, profile);
+        log.info("----[{}]----查看项目接口文档，访问：http://{}:{}/doc.html", appName, host, port);
     }
 }
