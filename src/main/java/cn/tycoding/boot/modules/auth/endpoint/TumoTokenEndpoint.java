@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.auth.endpoint;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_AUTH_PREFIX)
+@Api(value = "Token端点接口", tags = "Token端点接口")
 public class TumoTokenEndpoint {
 
     private final TokenStore tokenStore;
