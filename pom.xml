@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.1</version>
+        <version>2.4.2</version>
         <relativePath/>
     </parent>
 
@@ -17,13 +17,13 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <security-oauth2-autoconfigure.version>2.3.4.RELEASE</security-oauth2-autoconfigure.version>
+        <justauth.version>1.15.9</justauth.version>
+        <security-oauth2-autoconfigure.version>2.4.0</security-oauth2-autoconfigure.version>
         <druid.version>1.2.3</druid.version>
         <mybatis-spring.version>2.1.3</mybatis-spring.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <knife4j.version>3.0.2</knife4j.version>
-        <guava.version>20.0</guava.version>
-        <hutool.version>5.5.4</hutool.version>
+        <hutool.version>5.5.7</hutool.version>
         <poi.version>4.1.2</poi.version>
 
         <docker.host>http://172.16.60.137:2375</docker.host>
@@ -65,6 +65,13 @@
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
+        </dependency>
+
+        <!-- Just Auth -->
+        <dependency>
+            <groupId>me.zhyd.oauth</groupId>
+            <artifactId>JustAuth</artifactId>
+            <version>${justauth.version}</version>
         </dependency>
 
         <!-- Spring Security OAuth2 -->

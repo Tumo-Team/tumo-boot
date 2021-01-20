@@ -28,7 +28,6 @@ import java.util.List;
  */
 @Configuration
 @AllArgsConstructor
-@EnableSwagger2WebMvc
 public class SwaggerConfig {
 
     private final SwaggerProperties swagger;

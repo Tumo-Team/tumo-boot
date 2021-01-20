@@ -1,8 +1,8 @@
 package cn.tycoding.boot.common.core.utils;
 
-import cn.tycoding.boot.modules.system.dto.MenuMeta;
-import cn.tycoding.boot.modules.system.dto.MenuTree;
-import cn.tycoding.boot.modules.system.entity.Menu;
+import cn.tycoding.boot.modules.upms.dto.MenuMeta;
+import cn.tycoding.boot.modules.upms.dto.MenuTree;
+import cn.tycoding.boot.modules.upms.entity.Menu;
 
 import java.util.ArrayList;
 import java.util.List;

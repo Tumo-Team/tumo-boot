@@ -1,8 +1,8 @@
 package cn.tycoding.boot.modules.auth.dto;
 
-import cn.tycoding.boot.modules.system.entity.Dept;
-import cn.tycoding.boot.modules.system.entity.Role;
-import cn.tycoding.boot.modules.system.entity.User;
+import cn.tycoding.boot.modules.upms.entity.Dept;
+import cn.tycoding.boot.modules.upms.entity.Role;
+import cn.tycoding.boot.modules.upms.entity.User;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
