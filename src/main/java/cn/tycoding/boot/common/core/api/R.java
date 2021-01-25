@@ -28,6 +28,14 @@ public class R<T> implements Serializable {
         super();
     }
 
+    public static <T> R<T> data(T data) {
+        return new R(data);
+    }
+
+    public static <T> R<T> data(T data, HttpCode httpCode) {
+        return new R(data, httpCode);
+    }
+
     public R(T data) {
         this.data = data;
     }

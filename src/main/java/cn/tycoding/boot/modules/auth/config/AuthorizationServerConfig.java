@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.auth.config;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.modules.auth.component.TumoWebResponseExceptionTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -38,9 +39,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-        // JDBC 存储，需要创建`oauth_access_token`表和`oauth_refresh_token`表
-//        return new JdbcTokenStore(dataSource());
-        return new RedisTokenStore(redisConnectionFactory);
+        RedisTokenStore tokenStore = new RedisTokenStore(redisConnectionFactory);
+        tokenStore.setPrefix(CacheConstant.OAUTH_REDIS_KEY);
+        return tokenStore;
     }
 
     @Override

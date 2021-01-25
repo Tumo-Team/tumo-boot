@@ -1,19 +1,29 @@
 package cn.tycoding.boot.modules.auth.endpoint;
 
+import cn.hutool.captcha.CaptchaUtil;
+import cn.hutool.captcha.CircleCaptcha;
+import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.constant.CaptchaConstant;
 import cn.tycoding.boot.common.core.api.R;
+import cn.tycoding.boot.common.core.constant.CacheConstant;
+import cn.tycoding.boot.common.redis.config.TumoRedis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.Duration;
+import java.util.UUID;
 
 /**
  * 自定义令牌端点
@@ -22,18 +32,29 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020/10/18
  */
 @RestController
-@RequiredArgsConstructor
+@AllArgsConstructor
 @RequestMapping(ApiConstant.API_AUTH_PREFIX)
 @Api(value = "Token端点接口", tags = "Token端点接口")
 public class TumoTokenEndpoint {
 
     private final TokenStore tokenStore;
+    private final TumoRedis tumoRedis;
+
+    /**
+     * 获取验证码
+     */
+    @GetMapping("/captcha")
+    @ApiOperation(value = "获取验证码")
+    public R<Dict> getCaptcha() {
+        CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(CaptchaConstant.CAPTCHA_WIDTH, CaptchaConstant.CAPTCHA_HEIGHT, CaptchaConstant.CAPTCHA_COUNT, CaptchaConstant.CAPTCHA_CIRCLE_COUNT);
+        String code = captcha.getCode().toLowerCase();
+        String key = UUID.randomUUID().toString();
+        tumoRedis.set(CacheConstant.CAPTCHA_REDIS_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
+        return R.data(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
+    }
 
     /**
      * 注销登录并清除Token
-     *
-     * @param authHeader 请求头
-     * @return 结果
      */
     @DeleteMapping("/logout")
     @ApiOperation(value = "注销接口")
