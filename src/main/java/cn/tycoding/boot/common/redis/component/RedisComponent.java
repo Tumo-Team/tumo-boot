@@ -1,17 +1,14 @@
-package cn.tycoding.boot.common.redis;
+package cn.tycoding.boot.common.redis.component;
 
 import cn.tycoding.boot.common.redis.config.TumoRedis;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.AutoConfigureBefore;
-import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
 
 /**
  * Redis配置
@@ -19,11 +16,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * @author tycoding
  * @since 2021/1/25
  */
+@Component
 @EnableCaching
-@Configuration
 @RequiredArgsConstructor
-@AutoConfigureBefore(RedisAutoConfiguration.class)
-public class RedisTemplateConfiguration {
+public class RedisComponent {
 
     private final RedisConnectionFactory connectionFactory;
 
