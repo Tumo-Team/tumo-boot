@@ -30,12 +30,9 @@ public class CaptchaFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
-        String requestURI = request.getRequestURI();
         if (ApiConstant.API_OAUTH_TOKEN.equals(request.getRequestURI())) {
             String headerKey = request.getHeader(SecurityUtil.CAPTCHA_HEADER_KEY);
             String code = ServletRequestUtils.getStringParameter(request, SecurityUtil.CAPTCHA_FORM_KEY);
-            System.out.println("验证码Code：" + code);
-            System.out.println("验证码Header：" + headerKey);
             String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_REDIS_KEY + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
                 throw new ServiceException(SecurityUtil.CAPTCHA_ERROR_INFO);
