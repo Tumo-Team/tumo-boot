@@ -43,11 +43,11 @@ tumo-boot:
   # 日志配置
   log:
     # 是否开始日志打印
-    enable: true
+    enable: false
   # Mybatis 配置
   mybatis:
     # 是否开启SQL打印
-    enable: true
+    enable: false
   # Swagger配置
   swagger:
     title: Tumo Boot 项目API接口文档

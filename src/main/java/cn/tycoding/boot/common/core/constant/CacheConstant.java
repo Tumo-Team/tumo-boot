@@ -2,6 +2,7 @@ package cn.tycoding.boot.common.core.constant;
 
 /**
  * 缓存常量
+ *
  * @author tycoding
  * @since 2021/1/24
  */
@@ -21,10 +22,4 @@ public interface CacheConstant {
      * Captcha Redis Key
      */
     String CAPTCHA_REDIS_KEY = REDIS_KEY_PREFIX + "auth:captcha:";
-
-    /**
-     * Captcha Header Key
-     */
-    String CAPTCHA_HEADER_KEY = "Captcha-Key";
-
 }

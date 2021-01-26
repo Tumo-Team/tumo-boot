@@ -38,8 +38,4 @@ public interface ApiConstant {
      */
     String API_SETTING_PREFIX = "/tumo-boot/setting";
 
-    /**
-     * API接口前缀 - Blog模块
-     */
-    String API_BLOG_PREFIX = "/tumo-boot/blog";
 }

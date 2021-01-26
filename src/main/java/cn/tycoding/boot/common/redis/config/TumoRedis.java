@@ -33,5 +33,8 @@ public class TumoRedis {
         this.valueOps.set(key, value, seconds, TimeUnit.SECONDS);
     }
 
+    public Object get(String key) {
+        return this.valueOps.get(key);
+    }
 
 }

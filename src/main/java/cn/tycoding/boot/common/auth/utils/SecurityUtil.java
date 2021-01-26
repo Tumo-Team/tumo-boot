@@ -12,10 +12,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @UtilityClass
 public class SecurityUtil {
 
+    /* 登录表单验证码Key标识 */
+    public static final String CAPTCHA_FORM_KEY = "captcha";
+    /* 登录验证码Header Key标识 */
+    public static final String CAPTCHA_HEADER_KEY = "Captcha-Key";
+    /* 验证码错误信息 */
+    public static final String CAPTCHA_ERROR_INFO = "验证码不正确";
+
     /**
      * 获取Authentication对象
-     *
-     * @return
      */
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
@@ -23,8 +28,6 @@ public class SecurityUtil {
 
     /**
      * 获取用户名
-     *
-     * @return username
      */
     public String getUsername() {
         Authentication authentication = getAuthentication();
@@ -35,9 +38,7 @@ public class SecurityUtil {
     }
 
     /**
-     * 获取用户ID
-     *
-     * @return id
+     * 获取登录用户ID
      */
     public Long getUserId() {
         Authentication authentication = getAuthentication();
