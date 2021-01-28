@@ -32,15 +32,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     /**
      * 加载用户信息，在这里可做登录用户的权限、角色判断
      *
-     * @param username
+     * @param username 用户名
      * @return UserDetails对象
      * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("loadUserByUsername >>>>>>>>>>>>> username: {}", username);
         UserInfo info = userService.info(username);
-        log.info("loadUserByUsername >>>>>>>>>>>>>> info: {}", info);
         return getUserDetails(info);
     }
 

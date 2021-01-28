@@ -31,39 +31,39 @@ public class LogController extends BaseController {
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<Log>> list(@RequestBody Log log) {
-        return new R<>(logService.list(log));
+        return R.data(logService.list(log));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Map<String, Object>> list(@RequestBody Log log, QueryPage queryPage) {
-        return new R<>(super.getData(logService.list(log, queryPage)));
+        return R.data(super.getData(logService.list(log, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<Log> findById(@PathVariable Long id) {
-        return new R<>(logService.getById(id));
+        return R.data(logService.getById(id));
     }
 
     @PostMapping
     @ApiOperation(value = "新增")
     public R add(@RequestBody Log log) {
         logService.add(log);
-        return new R();
+        return R.ok();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
     public R update(@RequestBody Log log) {
         logService.update(log);
-        return new R();
+        return R.ok();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         logService.delete(id);
-        return new R();
+        return R.ok();
     }
 }

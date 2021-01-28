@@ -112,13 +112,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (StringUtils.isBlank(user.getUsername())) {
             return false;
         }
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        if (user.getId() != null && user.getId() != 0) {
-            queryWrapper.eq(User::getUsername, user.getUsername());
-            queryWrapper.ne(User::getId, user.getId());
-        } else {
-            queryWrapper.eq(User::getUsername, user.getUsername());
-        }
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>()
+                .eq(User::getUsername, user.getUsername())
+                .ne(user.getId() != null, User::getId, user.getId());
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }
 

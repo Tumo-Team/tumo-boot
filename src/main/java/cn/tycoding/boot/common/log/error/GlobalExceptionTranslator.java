@@ -30,21 +30,21 @@ public class GlobalExceptionTranslator {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R handleError(ServiceException e) {
         log.error("业务异常", e);
-        return new R(e.getHttpCode());
+        return R.fail(e.getHttpCode());
     }
 
     @ExceptionHandler({TumoOAuth2Exception.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public R handleError(TumoOAuth2Exception e) {
         log.error("认证异常", e);
-        return new R(e.getCode(), e.getMessage());
+        return R.fail(e);
     }
 
     @ExceptionHandler({Throwable.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleError(Throwable e) {
         log.error("服务器异常", e);
-        return new R(e);
+        return R.fail(e);
     }
 
 }

@@ -36,27 +36,51 @@ public class R<T> implements Serializable {
         return new R(data, httpCode);
     }
 
-    public R(T data) {
+    public static <T> R<T> ok() {
+        return new R<>();
+    }
+
+    public static <T> R<T> ok(String msg) {
+        return new R<>(HttpCode.SUCCESS.getCode(), msg);
+    }
+
+    public static <T> R<T> ok(HttpCode httpCode) {
+        return new R<>(httpCode);
+    }
+
+    public static <T> R<T> fail(String msg) {
+        return new R<>(HttpCode.FAILURE.getCode(), msg);
+    }
+
+    public static <T> R<T> fail(HttpCode httpCode) {
+        return new R<>(httpCode);
+    }
+
+    public static <T> R<T> fail(Throwable e) {
+        return new R<>(e);
+    }
+
+    protected R(T data) {
         this.data = data;
     }
 
-    public R(HttpCode httpCode) {
+    protected R(HttpCode httpCode) {
         this.code = httpCode.code;
         this.msg = httpCode.msg;
     }
 
-    public R(T data, HttpCode httpCode) {
+    protected R(T data, HttpCode httpCode) {
         this.data = data;
         this.code = httpCode.code;
         this.msg = httpCode.msg;
     }
 
-    public R(int code, String msg) {
+    protected R(int code, String msg) {
         this.code = code;
         this.msg = msg;
     }
 
-    public R(Throwable e) {
+    protected R(Throwable e) {
         super();
         this.code = HttpCode.INTERNAL_SERVER_ERROR.code;
         this.msg = e.getMessage();

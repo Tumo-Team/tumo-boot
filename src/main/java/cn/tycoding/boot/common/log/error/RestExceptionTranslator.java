@@ -31,7 +31,7 @@ public class RestExceptionTranslator {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public R handleError(NoHandlerFoundException e) {
         log.error(HttpCode.NOT_FOUND.getMsg(), e.getMessage());
-        return new R(HttpCode.NOT_FOUND);
+        return R.fail(HttpCode.NOT_FOUND);
     }
 
 }

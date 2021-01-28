@@ -5,6 +5,7 @@ import cn.tycoding.boot.common.auth.utils.SecurityUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
+import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.User;
@@ -14,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Map;
 
@@ -34,26 +36,26 @@ public class UserController extends BaseController {
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")
     public R<UserInfo> info() {
-        return new R<>(userService.info(SecurityUtil.getUsername()));
+        return R.data(userService.info(SecurityUtil.getUsername()));
     }
 
     @GetMapping("/getMenus/{id}")
     @ApiOperation(value = "根据用户ID获取菜单")
     public R getMenuByUserId(@PathVariable("id") Long id) {
-        return new R<>(userService.getMenuByUserId(id));
+        return R.data(userService.getMenuByUserId(id));
     }
 
     @GetMapping("/role/list/{id}")
     @ApiOperation(value = "根据用户ID查询角色")
     public R<List<Long>> menuList(@PathVariable Long id) {
-        return new R<>(userService.roleList(id));
+        return R.data(userService.roleList(id));
     }
 
     @PostMapping("/role/add/{id}")
     @ApiOperation(value = "分配角色")
     public R addRole(@RequestBody List<Long> roleList, @PathVariable Long id) {
         userService.addRole(roleList, id);
-        return new R();
+        return R.ok();
     }
 
     /**
@@ -66,52 +68,59 @@ public class UserController extends BaseController {
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody User user) {
-        return new R<>(userService.checkName(user));
+        return R.data(userService.checkName(user));
     }
 
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<UserDTO>> list(@RequestBody UserDTO user) {
-        return new R<>(userService.list(user));
+        return R.data(userService.list(user));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Map<String, Object>> list(@RequestBody UserDTO user, QueryPage queryPage) {
-        return new R<>(super.getData(userService.list(user, queryPage)));
+        return R.data(super.getData(userService.list(user, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<UserDTO> findById(@PathVariable Long id) {
-        return new R<>(userService.findById(id));
+        return R.data(userService.findById(id));
     }
 
     @PostMapping
     @ApiOperation(value = "新增")
     public R<User> add(@RequestBody UserDTO user) {
         userService.add(user);
-        return new R<>();
+        return R.ok();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
     public R update(@RequestBody UserDTO user) {
         userService.update(user);
-        return new R();
+        return R.ok();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         userService.delete(id);
-        return new R();
+        return R.ok();
     }
 
     @DeleteMapping("/resetPass")
     @ApiOperation(value = "重置密码")
     public R resetPass(@RequestBody User user) {
         userService.resetPass(user);
-        return new R();
+        return R.ok();
+    }
+
+    @GetMapping("/export")
+    @ApiOperation(value = "导出Excel")
+    public void export(HttpServletResponse response) {
+        List<User> list = userService.list();
+        ExcelUtil.export(response, "用户数据", "用户数据", User.class, list);
     }
 }
