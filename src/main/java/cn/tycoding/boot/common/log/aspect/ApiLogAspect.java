@@ -3,13 +3,12 @@ package cn.tycoding.boot.common.log.aspect;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
-import cn.tycoding.boot.common.auth.utils.SecurityUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.modules.setting.entity.Log;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -45,7 +44,7 @@ public class ApiLogAspect {
                     Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
 
             Log log = new Log()
-                    .setUsername(SecurityUtil.getUsername())
+                    .setUsername(AuthUtil.getUsername())
                     .setOperation(apiLog.value())
                     .setCreateTime(new Date())
                     .setIp(ServletUtil.getClientIP(request))

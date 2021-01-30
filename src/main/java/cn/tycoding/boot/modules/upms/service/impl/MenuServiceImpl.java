@@ -1,14 +1,14 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
-import cn.tycoding.boot.common.auth.utils.SecurityUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
-import cn.tycoding.boot.modules.upms.dto.MenuDTO;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.mapper.MenuMapper;
@@ -19,13 +19,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -35,7 +33,7 @@ import java.util.stream.Collectors;
  * @since 2020-10-14 14:45:51
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
     private final MenuMapper menuMapper;
@@ -58,23 +56,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                     t.getName(),
                     0
             );
-            HashMap<String, Object> map = new HashMap<>();
-            map.put(MenuDTO.PATH_KEY, t.getPath());
-            map.put(MenuDTO.PERMS_KEY, t.getPerms());
-            map.put(MenuDTO.TYPE_KEY, t.getType());
-            map.put(MenuDTO.ICON_KEY, t.getIcon());
-            map.put(MenuDTO.COMPONENT_KEY, t.getComponent());
-            map.put(MenuDTO.HIDDEN_KEY, t.getHidden());
-            map.put(MenuDTO.FRAME_KEY, t.getFrame());
-            node.setExtra(map);
+            node.setExtra(Dict.create()
+                    .set("path", t.getPath())
+                    .set("perms", t.getPerms())
+                    .set("type", t.getType())
+                    .set("icon", t.getIcon())
+                    .set("component", t.getComponent())
+                    .set("hidden", t.getHidden())
+                    .set("frame", t.getFrame())
+            );
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
-    public Map<String, Object> baseTree() {
-        Map<String, Object> map = new HashMap<>();
+    public Dict baseTree() {
         List<Menu> list = this.list(new Menu());
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
@@ -86,29 +83,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
                         0
                 )
         ));
-
-        map.put("ids", list.stream().map(Menu::getId).collect(Collectors.toList()));
-        map.put("tree", TreeUtil.build(nodeList, 0L));
-        return map;
+        List<Long> ids = list.stream().map(Menu::getId).collect(Collectors.toList());
+        List<Tree<Object>> tree = TreeUtil.build(nodeList, 0L);
+        return Dict.create().set("ids", ids).set("tree", tree);
     }
 
     @Override
     public List<MenuTree<Menu>> build() {
-        List<Menu> menuList = baseMapper.build(SecurityUtil.getUserId(), CommonConstant.MENU_TYPE_MENU);
+        List<Menu> menuList = baseMapper.build(AuthUtil.getUserId(), CommonConstant.MENU_TYPE_MENU);
         return MenuTreeUtil.build(menuList);
     }
 
     @Override
     public boolean checkName(Menu menu) {
-        if (StringUtils.isBlank(menu.getName())) {
-            return false;
-        }
-        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<Menu>().eq(Menu::getName, menu.getName());
         if (menu.getId() != null && menu.getId() != 0) {
-            queryWrapper.eq(Menu::getName, menu.getName());
             queryWrapper.ne(Menu::getId, menu.getId());
-        } else {
-            queryWrapper.eq(Menu::getName, menu.getName());
         }
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }

@@ -48,13 +48,6 @@ public class DeptController extends BaseController {
         return R.data(deptService.userList(id));
     }
 
-    /**
-     * 校验当前名称是否已存在
-     *
-     * @param dept id:当前修改对象的ID
-     *             name:需要校验的名称
-     * @return true 当前名称可以用 false 当前名称已存在
-     */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody Dept dept) {

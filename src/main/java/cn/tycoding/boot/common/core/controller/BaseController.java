@@ -1,10 +1,8 @@
 package cn.tycoding.boot.common.core.controller;
 
+import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 公共层Controller方法提取
@@ -20,10 +18,8 @@ public class BaseController {
      * @param page 分页数据
      * @return 格式化后的Map对象
      */
-    public Map<String, Object> getData(IPage<?> page) {
-        Map<String, Object> data = new HashMap<>();
-        data.put(CommonConstant.PAGE_ROWS, page.getRecords());
-        data.put(CommonConstant.PAGE_TOTAL, page.getTotal());
-        return data;
+    public Dict getData(IPage<?> page) {
+        return Dict.create().set(CommonConstant.PAGE_ROWS, page.getRecords())
+                .set(CommonConstant.PAGE_TOTAL, page.getTotal());
     }
 }

@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.setting.controller;
 
+import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
@@ -12,7 +13,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 系统日志表(Log)表控制层
@@ -36,7 +36,7 @@ public class LogController extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody Log log, QueryPage queryPage) {
+    public R<Dict> list(@RequestBody Log log, QueryPage queryPage) {
         return R.data(super.getData(logService.list(log, queryPage)));
     }
 

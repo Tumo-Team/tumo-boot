@@ -1,8 +1,8 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
-import cn.tycoding.boot.common.auth.utils.SecurityUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
@@ -12,10 +12,9 @@ import cn.tycoding.boot.modules.upms.mapper.UserMapper;
 import cn.tycoding.boot.modules.upms.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,7 +33,7 @@ import java.util.stream.Collectors;
  * @since 2020-10-14 14:32:27
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
@@ -98,23 +97,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserDTO> list(UserDTO user) {
-        return baseMapper.filterList(user);
+        List<User> list = baseMapper.selectList(new LambdaQueryWrapper<User>().like(User::getUsername, user.getUsername()));
+        return null;
     }
 
     @Override
     public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        return baseMapper.list(page, user, SecurityUtil.getUserId());
+        return baseMapper.list(page, user, AuthUtil.getUserId());
     }
 
     @Override
     public boolean checkName(User user) {
-        if (StringUtils.isBlank(user.getUsername())) {
-            return false;
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>().eq(User::getUsername, user.getUsername());
+        if (user.getId() != null && user.getId() != 0) {
+            queryWrapper.ne(user.getId() != null, User::getId, user.getId());
         }
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<User>()
-                .eq(User::getUsername, user.getUsername())
-                .ne(user.getId() != null, User::getId, user.getId());
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }
 

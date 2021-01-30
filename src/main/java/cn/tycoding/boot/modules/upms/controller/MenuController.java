@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.upms.controller;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 菜单表(Menu)表控制层
@@ -40,7 +40,7 @@ public class MenuController extends BaseController {
 
     @GetMapping("/base/tree")
     @ApiOperation(value = "获取基础数据", notes = "此接口将获取菜单表中id、name、ids等基础数据")
-    public R<Map<String, Object>> baseTree() {
+    public R<Dict> baseTree() {
         return R.data(menuService.baseTree());
     }
 
@@ -50,13 +50,6 @@ public class MenuController extends BaseController {
         return R.data(menuService.build());
     }
 
-    /**
-     * 校验当前名称是否已存在
-     *
-     * @param menu id:当前修改对象的ID
-     *             name:需要校验的名称
-     * @return true 当前名称可以用 false 当前名称已存在
-     */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody Menu menu) {
@@ -71,7 +64,7 @@ public class MenuController extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "条件查询")
-    public R<Map<String, Object>> list(@RequestBody Menu menu, QueryPage queryPage) {
+    public R<Dict> list(@RequestBody Menu menu, QueryPage queryPage) {
         return R.data(super.getData(menuService.list(menu, queryPage)));
     }
 

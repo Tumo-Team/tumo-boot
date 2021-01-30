@@ -1,7 +1,7 @@
 package cn.tycoding.boot.common.auth.filter;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
-import cn.tycoding.boot.common.auth.utils.SecurityUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.common.redis.config.TumoRedis;
@@ -31,11 +31,11 @@ public class CaptchaFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         if (ApiConstant.API_OAUTH_TOKEN.equals(request.getRequestURI())) {
-            String headerKey = request.getHeader(SecurityUtil.CAPTCHA_HEADER_KEY);
-            String code = ServletRequestUtils.getStringParameter(request, SecurityUtil.CAPTCHA_FORM_KEY);
+            String headerKey = request.getHeader(AuthUtil.CAPTCHA_HEADER_KEY);
+            String code = ServletRequestUtils.getStringParameter(request, AuthUtil.CAPTCHA_FORM_KEY);
             String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_REDIS_KEY + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
-                throw new ServiceException(SecurityUtil.CAPTCHA_ERROR_INFO);
+                throw new ServiceException(AuthUtil.CAPTCHA_ERROR_INFO);
             }
         }
         chain.doFilter(request, response);

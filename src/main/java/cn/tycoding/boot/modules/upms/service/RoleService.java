@@ -1,12 +1,12 @@
 package cn.tycoding.boot.modules.upms.service;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 角色表(Role)表服务接口
@@ -34,7 +34,7 @@ public interface RoleService extends IService<Role> {
     /**
      * 此接口将获取角色表中id、name、ids等基础数据
      */
-    Map<String, Object> baseTree();
+    Dict baseTree();
 
     /**
      * 获取指定角色ID下的所有菜单权限

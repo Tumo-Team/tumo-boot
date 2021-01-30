@@ -15,7 +15,6 @@ import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.Collections;
 import java.util.List;
@@ -39,7 +38,12 @@ public class SwaggerConfig {
 
     @Bean
     public Docket systemDocket() {
-        return docket("系统模块", CommonConstant.BASE_PACKAGE + ".modules.system.controller");
+        return docket("系统模块", CommonConstant.BASE_PACKAGE + ".modules.upms.controller");
+    }
+
+    @Bean
+    public Docket settingDocket() {
+        return docket("设置模块", CommonConstant.BASE_PACKAGE + ".modules.setting.controller");
     }
 
     private Docket docket(String groupName, String basePackage) {

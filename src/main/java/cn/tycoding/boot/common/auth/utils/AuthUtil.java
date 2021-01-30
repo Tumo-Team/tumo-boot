@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @since 2020/10/15
  */
 @UtilityClass
-public class SecurityUtil {
+public class AuthUtil {
+
+    public final String ADMINISTRATOR = "administrator";
 
     /* 登录表单验证码Key标识 */
     public static final String CAPTCHA_FORM_KEY = "captcha";

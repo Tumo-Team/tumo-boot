@@ -3,9 +3,11 @@ package cn.tycoding.boot.common.core.utils;
 import cn.tycoding.boot.modules.upms.dto.MenuMeta;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
+import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author tycoding
@@ -32,10 +34,19 @@ public class MenuTreeUtil {
     }
 
     /**
-     * 构建Tree树
-     *
-     * @param nodes 节点集合
-     * @return
+     * 一级节点结构：
+      {
+          path: '/',
+          component: Layout,
+          children: [
+              {
+                  path: '/test',
+                  name: 'Test',
+                  component: () => import('@/views/modules/test/index'),
+                  meta: { title: 'Test', icon: 'radar-chart' }
+              }
+          ]
+      }
      */
     private static List<MenuTree<Menu>> buildTree(List<MenuTree<Menu>> nodes) {
         if (nodes == null) {
@@ -56,6 +67,18 @@ public class MenuTreeUtil {
                     return;
                 }
             }
+        });
+        // 只有一级节点的节点
+        List<MenuTree<Menu>> parentList = tree.stream().filter(i -> i.getChildren() == null || i.getChildren().size() == 0).collect(Collectors.toList());
+        parentList.forEach(node -> {
+            MenuTree<Menu> child = new MenuTree<>();
+            BeanUtils.copyProperties(node, child);
+            List<MenuTree<Menu>> childList = new ArrayList<>();
+            childList.add(child);
+            node = new MenuTree<>();
+            node.setPath("/");
+            node.setComponent("Layout");
+            node.setChildren(childList);
         });
         return tree;
     }

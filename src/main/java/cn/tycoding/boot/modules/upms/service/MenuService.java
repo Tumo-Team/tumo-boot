@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.upms.service;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
@@ -8,7 +9,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 菜单表(Menu)表服务接口
@@ -26,7 +26,7 @@ public interface MenuService extends IService<Menu> {
     /**
      * 获取菜单表基础数据
      */
-    Map<String, Object> baseTree();
+    Dict baseTree();
 
     /**
      * 构建左侧权限菜单

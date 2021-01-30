@@ -1,5 +1,6 @@
 package cn.tycoding.boot.modules.upms.controller;
 
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 角色表(Role)表控制层
@@ -45,7 +45,7 @@ public class RoleController extends BaseController {
 
     @GetMapping("/base/tree")
     @ApiOperation(value = "获取基础数据", notes = "此接口将获取角色表中id、name、ids等基础数据")
-    public R<Map<String, Object>> baseTree() {
+    public R<Dict> baseTree() {
         return R.data(roleService.baseTree());
     }
 
@@ -61,13 +61,6 @@ public class RoleController extends BaseController {
         return R.data(roleService.userList(id));
     }
 
-    /**
-     * 校验当前名称是否已存在
-     *
-     * @param role id:当前修改对象的ID
-     *             name:需要校验的名称
-     * @return true 当前名称可以用 false 当前名称已存在
-     */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody Role role) {

@@ -1,4 +1,5 @@
-import cn.tycoding.boot.TumoBootApp;
+package cn.tycoding.boot;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,8 +21,5 @@ public class PasswordGenerateTest {
     public void passwordTest() {
         // 默认用户名：tumo-boot 密码：tycoding
         System.out.println(passwordEncoder.encode("tycoding")); // $2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na
-
-        Long l = 1320191857076097026L;
-        System.out.println(l);
     }
 }

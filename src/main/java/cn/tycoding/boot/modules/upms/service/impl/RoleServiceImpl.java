@@ -1,11 +1,10 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
-import cn.tycoding.boot.modules.upms.dto.RoleDTO;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.RoleMenu;
 import cn.tycoding.boot.modules.upms.entity.User;
@@ -15,13 +14,14 @@ import cn.tycoding.boot.modules.upms.service.RoleMenuService;
 import cn.tycoding.boot.modules.upms.service.RoleService;
 import cn.tycoding.boot.modules.upms.service.UserRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
  * @since 2020-10-14 14:45:23
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements RoleService {
 
     private final RoleMenuService roleMenuService;
@@ -61,19 +61,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                     t.getName(),
                     0
             );
-            HashMap<String, Object> map = new HashMap<>();
-            map.put(RoleDTO.ALIAS_KEY, t.getAlias());
-            map.put(RoleDTO.DES_KEY, t.getDes());
-            map.put(RoleDTO.CREATE_TIME_KEY, DateUtil.formatDateTime(t.getCreateTime()));
-            node.setExtra(map);
+            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()).set("createTime", t.getCreateTime()));
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
-    public Map<String, Object> baseTree() {
-        Map<String, Object> map = new HashMap<>();
+    public Dict baseTree() {
         List<Role> list = this.list(new Role());
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
@@ -85,10 +80,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                         0
                 )
         ));
-
-        map.put("ids", list.stream().map(Role::getId).collect(Collectors.toList()));
-        map.put("tree", TreeUtil.build(nodeList, 0L));
-        return map;
+        List<Long> ids = list.stream().map(Role::getId).collect(Collectors.toList());
+        List<Tree<Object>> tree = TreeUtil.build(nodeList, 0L);
+        return Dict.create().set("ids", ids).set("tree", tree);
     }
 
     @Override
@@ -103,15 +97,9 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
 
     @Override
     public boolean checkName(Role role) {
-        if (StringUtils.isBlank(role.getName())) {
-            return false;
-        }
-        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<>();
+        LambdaQueryWrapper<Role> queryWrapper = new LambdaQueryWrapper<Role>().eq(Role::getName, role.getName());
         if (role.getId() != null && role.getId() != 0) {
-            queryWrapper.eq(Role::getName, role.getName());
             queryWrapper.ne(Role::getId, role.getId());
-        } else {
-            queryWrapper.eq(Role::getName, role.getName());
         }
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }

@@ -1,7 +1,8 @@
 package cn.tycoding.boot.modules.upms.controller;
 
+import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
-import cn.tycoding.boot.common.auth.utils.SecurityUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 用户表(User)表控制层
@@ -36,7 +36,7 @@ public class UserController extends BaseController {
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")
     public R<UserInfo> info() {
-        return R.data(userService.info(SecurityUtil.getUsername()));
+        return R.data(userService.info(AuthUtil.getUsername()));
     }
 
     @GetMapping("/getMenus/{id}")
@@ -58,13 +58,6 @@ public class UserController extends BaseController {
         return R.ok();
     }
 
-    /**
-     * 校验当前名称是否已存在
-     *
-     * @param user id:当前修改对象的ID
-     *             name:需要校验的名称
-     * @return true 当前名称可以用 false 当前名称已存在
-     */
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody User user) {
@@ -79,7 +72,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<Map<String, Object>> list(@RequestBody UserDTO user, QueryPage queryPage) {
+    public R<Dict> list(@RequestBody UserDTO user, QueryPage queryPage) {
         return R.data(super.getData(userService.list(user, queryPage)));
     }
 

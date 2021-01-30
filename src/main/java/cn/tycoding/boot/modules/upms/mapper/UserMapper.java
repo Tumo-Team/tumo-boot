@@ -19,8 +19,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     UserDTO findById(Long id);
 
-    List<UserDTO> filterList(UserDTO user);
-
     IPage<UserDTO> list(IPage<User> page, UserDTO user, Long ignoreId);
 
     List<Long> roleList(Long id);
