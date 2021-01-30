@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -97,8 +98,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public List<UserDTO> list(UserDTO user) {
-        List<User> list = baseMapper.selectList(new LambdaQueryWrapper<User>().like(User::getUsername, user.getUsername()));
-        return null;
+        List<User> userList = baseMapper.selectList(new LambdaQueryWrapper<User>().like(User::getUsername, user.getUsername()));
+        List<UserDTO> list = new ArrayList<>();
+        BeanUtils.copyProperties(userList, list);
+        return list;
     }
 
     @Override
