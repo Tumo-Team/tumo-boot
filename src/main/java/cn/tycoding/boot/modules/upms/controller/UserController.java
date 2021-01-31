@@ -39,12 +39,6 @@ public class UserController extends BaseController {
         return R.data(userService.info(AuthUtil.getUsername()));
     }
 
-    @GetMapping("/getMenus/{id}")
-    @ApiOperation(value = "根据用户ID获取菜单")
-    public R getMenuByUserId(@PathVariable("id") Long id) {
-        return R.data(userService.getMenuByUserId(id));
-    }
-
     @GetMapping("/role/list/{id}")
     @ApiOperation(value = "根据用户ID查询角色")
     public R<List<Long>> menuList(@PathVariable Long id) {

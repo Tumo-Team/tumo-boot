@@ -1,10 +1,8 @@
 package cn.tycoding.boot.modules.upms.service;
 
 import cn.tycoding.boot.common.core.api.QueryPage;
-import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
-import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -33,11 +31,6 @@ public interface UserService extends IService<User> {
      * 根据用户名封装：用户信息、角色、部门、权限
      */
     UserInfo info(String username);
-
-    /**
-     * 根据用户ID获取菜单信息
-     */
-    List<MenuTree<Menu>> getMenuByUserId(Long id);
 
     /**
      * 根据用户ID查询角色

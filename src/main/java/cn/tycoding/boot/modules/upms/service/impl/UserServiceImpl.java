@@ -2,12 +2,9 @@ package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
-import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
-import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.*;
-import cn.tycoding.boot.modules.upms.mapper.MenuMapper;
 import cn.tycoding.boot.modules.upms.mapper.UserMapper;
 import cn.tycoding.boot.modules.upms.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -42,7 +39,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final MenuService menuService;
     private final DeptService deptService;
     private final UserRoleService userRoleService;
-    private final MenuMapper menuMapper;
 
     @Override
     public User findByName(String username) {
@@ -57,11 +53,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfo info(String username) {
         return this.build(new UserInfo().setUser(this.findByName(username)));
-    }
-
-    @Override
-    public List<MenuTree<Menu>> getMenuByUserId(Long id) {
-        return MenuTreeUtil.build(menuMapper.findPermissionsByUserId(id));
     }
 
     @Override

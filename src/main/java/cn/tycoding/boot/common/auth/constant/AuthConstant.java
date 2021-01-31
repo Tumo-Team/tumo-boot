@@ -11,6 +11,10 @@ public interface AuthConstant {
     /**
      * 角色前缀名
      */
-    String ROLE_PREFIX = "ROLE_";
+    String ROLE_PREFIX = "ROLE_PREFIX_";
 
+    /**
+     * 角色后缀名
+     */
+    String ROLE_SUFFIX = "_ROLE_SUFFIX_";
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author tycoding
@@ -15,9 +14,9 @@ import java.util.stream.Collectors;
  */
 public class MenuTreeUtil {
 
-    public static List<MenuTree<Menu>> build(List<Menu> menus) {
+    private static List<MenuTree<Menu>> init(List<Menu> list) {
         List<MenuTree<Menu>> treeList = new ArrayList<>();
-        menus.forEach(menu -> {
+        list.forEach(menu -> {
             MenuTree<Menu> tree = new MenuTree<>();
             tree.setId(menu.getId());
             tree.setName(menu.getName());
@@ -30,33 +29,16 @@ public class MenuTreeUtil {
             tree.setParentId(menu.getParentId());
             treeList.add(tree);
         });
-        return buildTree(treeList);
+        return treeList;
     }
 
-    /**
-     * 一级节点结构：
-      {
-          path: '/',
-          component: Layout,
-          children: [
-              {
-                  path: '/test',
-                  name: 'Test',
-                  component: () => import('@/views/modules/test/index'),
-                  meta: { title: 'Test', icon: 'radar-chart' }
-              }
-          ]
-      }
-     */
-    private static List<MenuTree<Menu>> buildTree(List<MenuTree<Menu>> nodes) {
-        if (nodes == null) {
-            return null;
-        }
+
+    public static List<MenuTree<Menu>> build(List<Menu> list) {
+        List<MenuTree<Menu>> nodes = init(list);
         List<MenuTree<Menu>> tree = new ArrayList<>();
         nodes.forEach(node -> {
             Long pid = node.getParentId();
             if (pid == null || pid.equals(0L)) {
-                node.setComponent("Layout");
                 tree.add(node);
                 return;
             }
@@ -68,18 +50,41 @@ public class MenuTreeUtil {
                 }
             }
         });
-        // 只有一级节点的节点
-        List<MenuTree<Menu>> parentList = tree.stream().filter(i -> i.getChildren() == null || i.getChildren().size() == 0).collect(Collectors.toList());
-        parentList.forEach(node -> {
+        return tree;
+    }
+
+    /**
+     * 一级节点结构：
+     * {
+     * path: '/',
+     * component: Layout,
+     * children: [
+     * {
+     * path: '/test',
+     * name: 'Test',
+     * component: () => import('@/views/modules/test/index'),
+     * meta: { title: 'Test', icon: 'radar-chart' }
+     * }
+     * ]
+     * }
+     */
+    public static List<MenuTree<Menu>> buildTree(List<Menu> list) {
+        List<MenuTree<Menu>> nodes = new ArrayList<>();
+        build(list).forEach(node -> {
             MenuTree<Menu> child = new MenuTree<>();
             BeanUtils.copyProperties(node, child);
-            List<MenuTree<Menu>> childList = new ArrayList<>();
-            childList.add(child);
-            node = new MenuTree<>();
-            node.setPath("/");
-            node.setComponent("Layout");
-            node.setChildren(childList);
+            if (node.getChildren().size() == 0) {
+                // 只有一级节点
+                List<MenuTree<Menu>> childList = new ArrayList<>();
+                childList.add(child);
+                nodes.add(new MenuTree<Menu>().setPath("/").setComponent("Layout")
+                        .setRedirect(child.getPath()).setChildren(childList).setHidden(child.getHidden()));
+            } else {
+                // 包含子节点
+                nodes.add(new MenuTree<Menu>().setPath(child.getPath()).setComponent("Layout")
+                        .setRedirect(child.getPath()).setChildren(child.getChildren()).setMeta(child.getMeta()).setHidden(child.getHidden()));
+            }
         });
-        return tree;
+        return nodes;
     }
 }

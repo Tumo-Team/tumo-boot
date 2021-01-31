@@ -1,8 +1,10 @@
 package cn.tycoding.boot.modules.auth.service;
 
 import cn.tycoding.boot.common.auth.constant.AuthConstant;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
+import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +36,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param username 用户名
      * @return UserDetails对象
-     * @throws UsernameNotFoundException
+     * @throws UsernameNotFoundException 用户名没有找到异常
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -50,18 +52,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<String> authSet = new HashSet<>();
 
         List<Role> roles = userInfo.getRoles();
-        if (roles != null && roles.size() > 0) {
-            roles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role));
+        if (roles == null || roles.size() == 0) {
+            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
         }
+        roles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
+
 //        Set<String> permissions = userInfo.getPermissions();
 //        if (permissions != null && permissions.size() > 0) {
 //            authSet.addAll(permissions);
 //        }
 //        String perms = permissions.stream().map(String::trim).collect(Collectors.joining(","));
 
-        List<GrantedAuthority> authorities = AuthorityUtils.commaSeparatedStringToAuthorityList(authSet.toString());
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authSet.toArray(new String[0]));
 
         return new TumoUser(userInfo.getUser().getId(),
+                userInfo.getDept().getId(),
                 userInfo.getUser().getUsername(),
                 userInfo.getUser().getPassword(),
                 true,

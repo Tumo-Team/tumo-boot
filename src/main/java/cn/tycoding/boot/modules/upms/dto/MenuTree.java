@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.upms.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
  * @since 2020/10/15
  */
 @Data
+@Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class MenuTree<T> implements Serializable {
     private static final long serialVersionUID = 547891924677981054L;

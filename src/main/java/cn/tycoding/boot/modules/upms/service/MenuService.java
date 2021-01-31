@@ -1,7 +1,6 @@
 package cn.tycoding.boot.modules.upms.service;
 
 import cn.hutool.core.lang.Dict;
-import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
@@ -21,7 +20,7 @@ public interface MenuService extends IService<Menu> {
     /**
      * 构建菜单Tree树
      */
-    List<Tree<Object>> tree();
+    List<MenuTree<Menu>> tree();
 
     /**
      * 获取菜单表基础数据

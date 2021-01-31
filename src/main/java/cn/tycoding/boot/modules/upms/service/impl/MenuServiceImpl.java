@@ -9,6 +9,7 @@ import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
+import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.mapper.MenuMapper;
@@ -16,10 +17,10 @@ import cn.tycoding.boot.modules.upms.service.MenuService;
 import cn.tycoding.boot.modules.upms.service.RoleMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,29 +46,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     }
 
     @Override
-    public List<Tree<Object>> tree() {
-        List<Menu> list = this.list(new Menu());
-        // 构建树形结构
-        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
-        list.forEach(t -> {
-            TreeNode<Object> node = new TreeNode<>(
-                    t.getId(),
-                    t.getParentId(),
-                    t.getName(),
-                    0
-            );
-            node.setExtra(Dict.create()
-                    .set("path", t.getPath())
-                    .set("perms", t.getPerms())
-                    .set("type", t.getType())
-                    .set("icon", t.getIcon())
-                    .set("component", t.getComponent())
-                    .set("hidden", t.getHidden())
-                    .set("frame", t.getFrame())
-            );
-            nodeList.add(node);
-        });
-        return TreeUtil.build(nodeList, 0L);
+    public List<MenuTree<Menu>> tree() {
+        return MenuTreeUtil.build(this.list(new Menu()));
     }
 
     @Override
@@ -90,8 +70,16 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuTree<Menu>> build() {
-        List<Menu> menuList = baseMapper.build(AuthUtil.getUserId(), CommonConstant.MENU_TYPE_MENU);
-        return MenuTreeUtil.build(menuList);
+        List<Long> roleIds = AuthUtil.getRoleIds();
+        if (roleIds.size() == 0) {
+            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
+        }
+        if (AuthUtil.getRoleNames().contains(AuthUtil.ADMINISTRATOR)) {
+            // 超级管理员，不做权限过滤
+            roleIds.clear();
+        }
+        List<Menu> menuList = baseMapper.build(roleIds, CommonConstant.MENU_TYPE_MENU);
+        return MenuTreeUtil.buildTree(menuList);
     }
 
     @Override

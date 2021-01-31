@@ -20,5 +20,5 @@ public interface MenuMapper extends BaseMapper<Menu> {
 
     void changeTopNode(Long id);
 
-    List<Menu> build(@Param("userId") Long userId, @Param("type") String type);
+    List<Menu> build(@Param("roleIds") List<Long> roleIds, @Param("type") String type);
 }
