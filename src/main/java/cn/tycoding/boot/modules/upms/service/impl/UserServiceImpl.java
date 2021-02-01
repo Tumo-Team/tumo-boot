@@ -81,10 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //获取用户部门信息
         Dept dept = deptService.getById(userInfo.getUser().getDeptId());
 
-        return userInfo
-                .setRoles(roleList)
-                .setPermissions(menuSet)
-                .setDept(dept);
+        return userInfo.setRoles(roleList).setPermissions(menuSet).setDept(dept);
     }
 
     @Override

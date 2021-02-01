@@ -1,6 +1,8 @@
 package cn.tycoding.boot.modules.upms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -23,11 +25,13 @@ public class UserRole implements Serializable {
      * 用户ID
      */
     @ApiModelProperty(value = "用户ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     /**
      * 角色ID
      */
     @ApiModelProperty(value = "角色ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 }

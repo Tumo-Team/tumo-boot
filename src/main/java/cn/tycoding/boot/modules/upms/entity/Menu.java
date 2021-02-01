@@ -3,6 +3,8 @@ package cn.tycoding.boot.modules.upms.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,7 +26,8 @@ public class Menu implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /**
@@ -38,6 +41,7 @@ public class Menu implements Serializable {
      * 父级ID
      */
     @ApiModelProperty(value = "父级ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
 
     /**
