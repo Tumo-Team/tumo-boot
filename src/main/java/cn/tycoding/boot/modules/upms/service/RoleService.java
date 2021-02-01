@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.upms.service;
 
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
+import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -39,7 +40,7 @@ public interface RoleService extends IService<Role> {
     /**
      * 获取指定角色ID下的所有菜单权限
      */
-    List<Long> menuList(Long id);
+    List<Menu> getMenuListByRoleId(Long id);
 
     /**
      * 获取所属用户列表

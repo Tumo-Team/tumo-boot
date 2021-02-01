@@ -5,10 +5,12 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.RoleMenu;
 import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.mapper.RoleMapper;
+import cn.tycoding.boot.modules.upms.mapper.RoleMenuMapper;
 import cn.tycoding.boot.modules.upms.mapper.UserRoleMapper;
 import cn.tycoding.boot.modules.upms.service.RoleMenuService;
 import cn.tycoding.boot.modules.upms.service.RoleService;
@@ -37,10 +39,11 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     private final RoleMenuService roleMenuService;
     private final UserRoleService userRoleService;
     private final UserRoleMapper userRoleMapper;
+    private final RoleMenuMapper roleMenuMapper;
 
     @Override
     public List<Role> findRolesByUserId(Long id) {
-        return baseMapper.findRolesByUserId(id);
+        return userRoleMapper.getRoleListByUserId(id);
     }
 
     @Override
@@ -86,13 +89,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     }
 
     @Override
-    public List<Long> menuList(Long id) {
-        return baseMapper.menuList(id);
+    public List<Menu> getMenuListByRoleId(Long id) {
+        return roleMenuMapper.getMenuListByRoleId(id);
     }
 
     @Override
     public List<User> userList(Long id) {
-        return userRoleMapper.selectUserList(id);
+        return userRoleMapper.getUserListByRoleId(id);
     }
 
     @Override

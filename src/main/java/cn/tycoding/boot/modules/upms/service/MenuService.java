@@ -1,10 +1,9 @@
 package cn.tycoding.boot.modules.upms.service;
 
 import cn.hutool.core.lang.Dict;
-import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import cn.tycoding.boot.modules.upms.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public interface MenuService extends IService<Menu> {
     /**
      * 根据用户ID查询权限信息
      */
-    List<Menu> findPermissionsByUserId(Long id);
+    List<Menu> getUserMenuList(List<Role> roleList);
 
     /**
      * 校验名称是否存在
@@ -46,11 +45,6 @@ public interface MenuService extends IService<Menu> {
      * 条件查询
      */
     List<Menu> list(Menu menu);
-
-    /**
-     * 分页、条件查询
-     */
-    IPage<Menu> list(Menu menu, QueryPage queryPage);
 
     /**
      * 新增

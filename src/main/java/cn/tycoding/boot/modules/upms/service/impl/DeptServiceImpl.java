@@ -5,6 +5,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.upms.entity.Dept;
 import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.mapper.DeptMapper;
@@ -96,6 +97,10 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
+        List<Dept> list = baseMapper.selectList(new LambdaQueryWrapper<Dept>().eq(Dept::getParentId, id));
+        if (list.size() > 0) {
+            throw new ServiceException("该部门包含子节点，不能删除");
+        }
         baseMapper.deleteById(id);
     }
 }

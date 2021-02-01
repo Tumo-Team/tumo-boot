@@ -3,9 +3,11 @@ package cn.tycoding.boot.modules.upms.service.impl;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
+import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.*;
 import cn.tycoding.boot.modules.upms.mapper.UserMapper;
+import cn.tycoding.boot.modules.upms.mapper.UserRoleMapper;
 import cn.tycoding.boot.modules.upms.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -39,6 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private final MenuService menuService;
     private final DeptService deptService;
     private final UserRoleService userRoleService;
+    private final UserRoleMapper userRoleMapper;
 
     @Override
     public User findByName(String username) {
@@ -47,7 +50,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public UserDTO findById(Long id) {
-        return baseMapper.findById(id);
+        User user = baseMapper.selectById(id);
+        UserDTO dto = new UserDTO();
+        BeanUtils.copyProperties(user, dto);
+        Dept dept = deptService.getById(user.getDeptId());
+        dto.setDeptName(dept == null ? null : dept.getName());
+        return dto;
     }
 
     @Override
@@ -56,8 +64,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<Long> roleList(Long id) {
-        return baseMapper.roleList(id);
+    public List<Role> roleList(Long id) {
+        return userRoleMapper.getRoleListByUserId(id);
     }
 
     /**
@@ -69,9 +77,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         //获取用户角色列表
         List<Role> roleList = roleService.findRolesByUserId(userInfo.getUser().getId());
+        if (roleList.size() == 0) {
+            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
+        }
 
         //获取用户权限列表
-        List<Menu> menuList = menuService.findPermissionsByUserId(userInfo.getUser().getId());
+        List<Menu> menuList = menuService.getUserMenuList(roleList);
         Set<String> menuSet = menuList
                 .stream()
                 .filter(perm -> (perm.getPerms() != null && !"".equals(perm.getPerms())))
@@ -85,17 +96,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<UserDTO> list(UserDTO user) {
-        List<User> userList = baseMapper.selectList(new LambdaQueryWrapper<User>().like(User::getUsername, user.getUsername()));
-        List<UserDTO> list = new ArrayList<>();
-        BeanUtils.copyProperties(userList, list);
-        return list;
+    public List<User> list(User user) {
+        return baseMapper.selectList(new LambdaQueryWrapper<User>().like(User::getUsername, user.getUsername()));
     }
 
     @Override
     public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        return baseMapper.list(page, user, AuthUtil.getUserId());
+        IPage<User> iPage = baseMapper.selectPage(page, new LambdaQueryWrapper<User>().ne(User::getId, AuthUtil.getUserId()));
+        iPage.getRecords().forEach(i -> i.setPassword(null));
+        IPage<UserDTO> result = new Page<>();
+        BeanUtils.copyProperties(iPage, result);
+        List<Dept> deptList = deptService.list();
+        result.getRecords().forEach(i -> i.setDeptName(getDeptName(deptList, i.getDeptId())));
+        return result;
+    }
+
+    private String getDeptName(List<Dept> deptList, Long id) {
+        List<Dept> list = deptList.stream().filter(i -> i.getId().equals(id)).collect(Collectors.toList());
+        return list.size() == 0 ? null : list.get(0).getName();
     }
 
     @Override

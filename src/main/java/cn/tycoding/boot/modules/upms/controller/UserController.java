@@ -9,6 +9,7 @@ import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
+import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.service.UserService;
 import io.swagger.annotations.Api;
@@ -41,7 +42,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/role/list/{id}")
     @ApiOperation(value = "根据用户ID查询角色")
-    public R<List<Long>> menuList(@PathVariable Long id) {
+    public R<List<Role>> menuList(@PathVariable Long id) {
         return R.data(userService.roleList(id));
     }
 
@@ -60,7 +61,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
-    public R<List<UserDTO>> list(@RequestBody UserDTO user) {
+    public R<List<User>> list(@RequestBody User user) {
         return R.data(userService.list(user));
     }
 

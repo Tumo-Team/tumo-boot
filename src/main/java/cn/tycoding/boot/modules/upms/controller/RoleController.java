@@ -6,6 +6,7 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
+import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.service.RoleService;
@@ -49,10 +50,10 @@ public class RoleController extends BaseController {
         return R.data(roleService.baseTree());
     }
 
-    @GetMapping("/permission/list/{id}")
+    @GetMapping("/menu/list/{id}")
     @ApiOperation(value = "根据角色ID查询权限")
-    public R<List<Long>> menuList(@PathVariable Long id) {
-        return R.data(roleService.menuList(id));
+    public R<List<Menu>> getMenuListByRoleId(@PathVariable Long id) {
+        return R.data(roleService.getMenuListByRoleId(id));
     }
 
     @GetMapping("/{id}/user/list")

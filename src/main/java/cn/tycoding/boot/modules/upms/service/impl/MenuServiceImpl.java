@@ -6,21 +6,19 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
-import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
+import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.mapper.MenuMapper;
 import cn.tycoding.boot.modules.upms.service.MenuService;
 import cn.tycoding.boot.modules.upms.service.RoleMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,12 +35,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements MenuService {
 
-    private final MenuMapper menuMapper;
     private final RoleMenuService roleMenuService;
 
     @Override
-    public List<Menu> findPermissionsByUserId(Long id) {
-        return menuMapper.findPermissionsByUserId(id);
+    public List<Menu> getUserMenuList(List<Role> roleList) {
+        List<Long> roleIds = roleList.stream().map(Role::getId).collect(Collectors.toList());
+        return baseMapper.build(roleIds, null);
     }
 
     @Override
@@ -93,16 +91,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<Menu> list(Menu menu) {
-        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
-        return baseMapper.selectList(queryWrapper);
-    }
-
-    @Override
-    public IPage<Menu> list(Menu menu, QueryPage queryPage) {
-        IPage<Menu> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.like(StringUtils.isNotBlank(menu.getName()), Menu::getName, menu.getName());
-        return baseMapper.selectPage(page, queryWrapper);
+        return baseMapper.selectList(new LambdaQueryWrapper<Menu>().like(Menu::getName, menu.getName()));
     }
 
     @Override
@@ -137,8 +126,11 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
+        List<Menu> list = baseMapper.selectList(new LambdaQueryWrapper<Menu>().eq(Menu::getParentId, id));
+        if (list.size() > 0) {
+            throw new ServiceException("该菜单包含子节点，不能删除");
+        }
         roleMenuService.deleteRoleMenusByMenuId(id);
-        baseMapper.changeTopNode(id);
         baseMapper.deleteById(id);
     }
 }

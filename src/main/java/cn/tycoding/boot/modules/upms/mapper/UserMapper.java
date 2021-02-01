@@ -1,12 +1,8 @@
 package cn.tycoding.boot.modules.upms.mapper;
 
-import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * 用户表(User)表数据库访问层
@@ -17,9 +13,4 @@ import java.util.List;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    UserDTO findById(Long id);
-
-    IPage<UserDTO> list(IPage<User> page, UserDTO user, Long ignoreId);
-
-    List<Long> roleList(Long id);
 }

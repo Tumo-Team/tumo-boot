@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.upms.service;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
+import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -35,12 +36,12 @@ public interface UserService extends IService<User> {
     /**
      * 根据用户ID查询角色
      */
-    List<Long> roleList(Long id);
+    List<Role> roleList(Long id);
 
     /**
      * 条件查询
      */
-    List<UserDTO> list(UserDTO user);
+    List<User> list(User user);
 
     /**
      * 分页、条件查询

@@ -16,9 +16,5 @@ import java.util.List;
 @Mapper
 public interface MenuMapper extends BaseMapper<Menu> {
 
-    List<Menu> findPermissionsByUserId(Long id);
-
-    void changeTopNode(Long id);
-
     List<Menu> build(@Param("roleIds") List<Long> roleIds, @Param("type") String type);
 }

@@ -2,7 +2,6 @@ package cn.tycoding.boot.modules.upms.controller;
 
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
-import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
@@ -59,12 +58,6 @@ public class MenuController extends BaseController {
     @ApiOperation(value = "条件查询")
     public R<List<Menu>> list(@RequestBody Menu menu) {
         return R.data(menuService.list(menu));
-    }
-
-    @PostMapping("/list")
-    @ApiOperation(value = "条件查询")
-    public R<Dict> list(@RequestBody Menu menu, QueryPage queryPage) {
-        return R.data(super.getData(menuService.list(menu, queryPage)));
     }
 
     @GetMapping("/{id}")
