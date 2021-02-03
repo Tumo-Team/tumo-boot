@@ -13,7 +13,7 @@
     </select>
 
     <select id="getRoleListByUserId" resultType="cn.tycoding.boot.modules.upms.entity.Role">
-        SELECT `role`.id
+        SELECT `role`.*
         FROM sys_user `user`,
              sys_user_role sur,
              sys_role `role`

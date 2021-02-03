@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户表(User)表控制层
@@ -28,7 +29,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/user")
+@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/user")
 @Api(value = "用户表接口", tags = "用户表接口")
 public class UserController extends BaseController {
 
@@ -41,9 +42,10 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/role/list/{id}")
-    @ApiOperation(value = "根据用户ID查询角色")
-    public R<List<Role>> menuList(@PathVariable Long id) {
-        return R.data(userService.roleList(id));
+    @ApiOperation(value = "根据用户ID查询角色ID集合")
+    public R menuList(@PathVariable Long id) {
+        List<Role> roleList = userService.roleList(id);
+        return R.data(roleList.stream().map(Role::getId).collect(Collectors.toList()));
     }
 
     @PostMapping("/role/add/{id}")

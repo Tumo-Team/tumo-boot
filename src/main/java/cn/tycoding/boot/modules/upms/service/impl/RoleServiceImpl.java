@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
@@ -64,7 +65,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()).set("createTime", t.getCreateTime()));
+            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()).set("createTime", DateUtil.formatDateTime(t.getCreateTime())));
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);

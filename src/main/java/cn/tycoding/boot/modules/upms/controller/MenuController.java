@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/menu")
+@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
 public class MenuController extends BaseController {
 

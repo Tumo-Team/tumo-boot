@@ -45,7 +45,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<MenuTree<Menu>> tree() {
-        return MenuTreeUtil.build(this.list(new Menu()));
+        return MenuTreeUtil.build(this.list());
     }
 
     @Override
@@ -91,7 +91,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public List<Menu> list(Menu menu) {
-        return baseMapper.selectList(new LambdaQueryWrapper<Menu>().like(Menu::getName, menu.getName()));
+        return baseMapper.selectList(new LambdaQueryWrapper<Menu>().like(menu.getName() != null, Menu::getName, menu.getName()));
     }
 
     @Override

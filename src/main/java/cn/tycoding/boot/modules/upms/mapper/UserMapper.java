@@ -1,7 +1,9 @@
 package cn.tycoding.boot.modules.upms.mapper;
 
+import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,4 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
+    IPage<UserDTO> list(IPage<User> page, UserDTO user, Long ignoreId);
 }

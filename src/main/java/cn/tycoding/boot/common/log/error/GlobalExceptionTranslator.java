@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +41,13 @@ public class GlobalExceptionTranslator {
     public R handleError(TumoOAuth2Exception e) {
         log.error("认证异常", e);
         return R.fail(e);
+    }
+
+    @ExceptionHandler({RedisConnectionFailureException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public R handleError(RedisConnectionFailureException e) {
+        log.error("Redis连接异常", e);
+        return R.fail("Redis连接异常");
     }
 
     @ExceptionHandler({Throwable.class})

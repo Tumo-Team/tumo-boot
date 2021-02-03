@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
@@ -34,12 +35,12 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
 
     @Override
     public List<Dept> list(Dept dept) {
-        return baseMapper.selectList(new LambdaQueryWrapper<Dept>().like(Dept::getName, dept.getName()));
+        return baseMapper.selectList(new LambdaQueryWrapper<Dept>().like(dept.getName() != null, Dept::getName, dept.getName()));
     }
 
     @Override
     public List<Tree<Object>> tree() {
-        List<Dept> deptList = this.list(new Dept());
+        List<Dept> deptList = this.list();
 
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
@@ -50,7 +51,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("des", t.getDes()).set("createTime", t.getCreateTime()));
+            node.setExtra(Dict.create().set("des", t.getDes()).set("createTime", DateUtil.formatDateTime(t.getCreateTime())));
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);

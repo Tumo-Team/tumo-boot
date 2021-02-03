@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 角色表(Role)表控制层
@@ -26,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/role")
+@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/role")
 @Api(value = "角色表接口", tags = "角色表接口")
 public class RoleController extends BaseController {
 
@@ -52,8 +53,9 @@ public class RoleController extends BaseController {
 
     @GetMapping("/menu/list/{id}")
     @ApiOperation(value = "根据角色ID查询权限")
-    public R<List<Menu>> getMenuListByRoleId(@PathVariable Long id) {
-        return R.data(roleService.getMenuListByRoleId(id));
+    public R getMenuListByRoleId(@PathVariable Long id) {
+        List<Menu> menuList = roleService.getMenuListByRoleId(id);
+        return R.data(menuList.stream().map(Menu::getId).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}/user/list")

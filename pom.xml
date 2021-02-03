@@ -24,6 +24,7 @@
         <knife4j.version>3.0.2</knife4j.version>
         <hutool.version>5.5.7</hutool.version>
         <easyexcel.version>2.2.7</easyexcel.version>
+        <orika.version>1.5.4</orika.version>
 
         <docker.host>http://172.16.60.137:2375</docker.host>
         <docker.registry.username>admin</docker.registry.username>
@@ -100,6 +101,13 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+
+        <!-- Orika Bean拷贝工具 -->
+        <dependency>
+            <groupId>ma.glasnost.orika</groupId>
+            <artifactId>orika-core</artifactId>
+            <version>${orika.version}</version>
         </dependency>
 
         <!-- EasyExcel -->

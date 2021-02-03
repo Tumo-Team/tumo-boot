@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @AllArgsConstructor
-@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/dept")
+@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/dept")
 @Api(value = "部门表接口", tags = "部门表接口")
 public class DeptController extends BaseController {
 

@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.utils.BeanUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
@@ -14,7 +15,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,8 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserDTO findById(Long id) {
         User user = baseMapper.selectById(id);
-        UserDTO dto = new UserDTO();
-        BeanUtils.copyProperties(user, dto);
+        UserDTO dto = BeanUtil.copy(user, UserDTO.class);
         Dept dept = deptService.getById(user.getDeptId());
         dto.setDeptName(dept == null ? null : dept.getName());
         return dto;
@@ -103,18 +102,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public IPage<UserDTO> list(UserDTO user, QueryPage queryPage) {
         IPage<User> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        IPage<User> iPage = baseMapper.selectPage(page, new LambdaQueryWrapper<User>().ne(User::getId, AuthUtil.getUserId()));
-        iPage.getRecords().forEach(i -> i.setPassword(null));
-        IPage<UserDTO> result = new Page<>();
-        BeanUtils.copyProperties(iPage, result);
-        List<Dept> deptList = deptService.list();
-        result.getRecords().forEach(i -> i.setDeptName(getDeptName(deptList, i.getDeptId())));
-        return result;
-    }
-
-    private String getDeptName(List<Dept> deptList, Long id) {
-        List<Dept> list = deptList.stream().filter(i -> i.getId().equals(id)).collect(Collectors.toList());
-        return list.size() == 0 ? null : list.get(0).getName();
+        return baseMapper.list(page, user, AuthUtil.getUserId());
     }
 
     @Override

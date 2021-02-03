@@ -3,7 +3,6 @@ package cn.tycoding.boot.common.core.utils;
 import cn.tycoding.boot.modules.upms.dto.MenuMeta;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
-import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,8 +70,7 @@ public class MenuTreeUtil {
     public static List<MenuTree<Menu>> buildTree(List<Menu> list) {
         List<MenuTree<Menu>> nodes = new ArrayList<>();
         build(list).forEach(node -> {
-            MenuTree<Menu> child = new MenuTree<>();
-            BeanUtils.copyProperties(node, child);
+            MenuTree<Menu> child = BeanUtil.copy(node, new MenuTree<>());
             if (node.getChildren().size() == 0) {
                 // 只有一级节点
                 List<MenuTree<Menu>> childList = new ArrayList<>();
