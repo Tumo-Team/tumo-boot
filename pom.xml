@@ -19,21 +19,11 @@
         <java.version>1.8</java.version>
         <security-oauth2-autoconfigure.version>2.4.0</security-oauth2-autoconfigure.version>
         <druid.version>1.2.3</druid.version>
-        <mybatis-spring.version>2.1.3</mybatis-spring.version>
         <mybatis-plus.version>3.4.0</mybatis-plus.version>
         <knife4j.version>3.0.2</knife4j.version>
         <hutool.version>5.5.7</hutool.version>
         <easyexcel.version>2.2.7</easyexcel.version>
         <orika.version>1.5.4</orika.version>
-
-        <docker.host>http://172.16.60.137:2375</docker.host>
-        <docker.registry.username>admin</docker.registry.username>
-        <docker.registry.password>Harbor12345</docker.registry.password>
-        <docker.registry.url>172.16.60.137:80</docker.registry.url>
-        <docker.repository.name>tumo-boot</docker.repository.name>
-        <docker.image.name>tumo-boot-api</docker.image.name>
-        <docker.push.image.name>${docker.registry.url}/${docker.repository.name}/${docker.image.name}</docker.push.image.name>
-
     </properties>
 
     <dependencies>
@@ -124,12 +114,6 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Javax -->
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-        </dependency>
-
         <!-- 热更新 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -142,11 +126,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -162,28 +141,18 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <image>
-                        <name>${docker.push.image.name}</name>
-                        <!-- 执行完build 自动push -->
-                        <publish>true</publish>
-                        <builder>registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/builder:base-platform-api-0.3</builder>
-                        <runImage>registry.cn-hangzhou.aliyuncs.com/paketo-buildpacks/run:base-cnb</runImage>
-                    </image>
-                    <!--配置构建宿主机信息，本机不用配置-->
-                    <docker>
-                        <host>${docker.host}</host>
-                        <tlsVerify>false</tlsVerify>
-                        <publishRegistry>
-                            <username>${docker.registry.username}</username>
-                            <password>${docker.registry.password}</password>
-                            <url>${docker.registry.url}</url>
-                        </publishRegistry>
-                    </docker>
-                    <profiles>
-                        <profile.active>prod</profile.active>
-                    </profiles>
-                    <mainClass>cn.tycoding.boot.TumoBootApp</mainClass>
+                    <finalName>${project.build.finalName}</finalName>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

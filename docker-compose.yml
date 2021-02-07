@@ -1,19 +1,28 @@
 version: "3.5"
 
 services:
-  tumo-boot-api:
-    image: "tumo-boot/tumo-boot-api"
-    hostname: "tumo-boot-api"
+  tumo-boot-mysql:
+    image: mysql:5.7.33
+    command: --default-authentication-plugin=mysql_native_password
     environment:
-      - TZ=Asia/Shanghai
-    ports:
-      - 8090:8080
+      MYSQL_ROOT_PASSWORD: root
     restart: always
-  tumo-boot-admin:
-    image: "tumo-boot/tumo-boot-admin"
-    hostname: "tumo-boot-admin"
-    environment:
-      - TZ=Asia/Shanghai
+    container_name: tumo-boot-mysql
     ports:
-      - 8091:8080
+      - 3306:3306
+
+  tumo-boot-redis:
+    image: redis
     restart: always
+    hostname: tumo-boot-redis
+    container_name: tumo-boot-redis
+    ports:
+      - 8848:8848
+
+  tumo-boot:
+    image: tumo-boot
+    build:
+      context: ./
+    restart: always
+    container_name: tumo-boot
+    hostname: tumo-boot
