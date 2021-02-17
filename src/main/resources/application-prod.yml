@@ -2,8 +2,8 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://127.0.0.1:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://tumo-boot-mysql:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
 
   redis:
-    port: 8101
-    host: 127.0.0.1
+    port: 6379
+    host: tumo-boot-redis

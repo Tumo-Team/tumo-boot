@@ -2,18 +2,18 @@ version: "3.5"
 
 services:
   tumo-boot-redis:
-    image: redis
+    image: redis:6.0
     restart: always
     hostname: tumo-boot-redis
     container_name: tumo-boot-redis
     privileged: true
-    volumes:
-      - /docker/redis/data:/data
     command: "redis-server --appendonly yes"
     environment:
       - TZ=Asia/Shanghai
     ports:
       - 8101:6379
+    networks:
+      - tumo_boot_net
 
   tumo-boot:
     image: tumo-boot
@@ -22,6 +22,17 @@ services:
     restart: always
     container_name: tumo-boot
     hostname: tumo-boot
-    privileged: true
     ports:
       - 8090:8090
+    environment:
+      - TZ=Asia/Shanghai
+    networks:
+      tumo_boot_net:
+        ipv4_address: 172.30.0.80
+
+networks:
+  tumo_boot_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.0.0/16
