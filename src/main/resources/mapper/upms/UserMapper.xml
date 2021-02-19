@@ -6,6 +6,7 @@
     <resultMap type="cn.tycoding.boot.modules.upms.dto.UserDTO" id="UserMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="realName" column="real_name" jdbcType="VARCHAR"/>
         <result property="sex" column="sex" jdbcType="VARCHAR"/>
         <result property="email" column="email" jdbcType="VARCHAR"/>
         <result property="deptId" column="dept_id" jdbcType="INTEGER"/>
@@ -22,6 +23,7 @@
     <select id="list" resultMap="UserMap">
         SELECT `user`.id,
             `user`.username,
+            `user`.real_name,
             `user`.sex,
             `user`.email,
             `user`.dept_id,

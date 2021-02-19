@@ -18,9 +18,16 @@ import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.mapper.$!{tableInfo.name}Mapper;
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import lombok.AllArgsConstructor;
+import cn.tycoding.boot.common.core.api.QueryPage;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * $!{tableInfo.comment}($!{tableInfo.name})表服务实现类
@@ -29,7 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @since $!time.currTime()
  */
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class $!{tableName} extends ServiceImpl<$!{TumoBootMapper}, $!{TumoBootEntity}> implements $!{TumoBootService} {
 
     private final $!{TumoBootMapper} $!{TumoBootLowerCaseMapper};

@@ -1,15 +1,15 @@
-package cn.tycoding.boot.modules.setting.controller;
+package cn.tycoding.boot.modules.system.controller;
 
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
-import cn.tycoding.boot.modules.setting.entity.Log;
-import cn.tycoding.boot.modules.setting.service.LogService;
+import cn.tycoding.boot.modules.system.entity.Log;
+import cn.tycoding.boot.modules.system.service.LogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +21,8 @@ import java.util.List;
  * @since 2020-10-14 16:53:52
  */
 @RestController
-@AllArgsConstructor
-@RequestMapping(ApiConstant.API_SETTING_PREFIX + "/log")
+@RequiredArgsConstructor
+@RequestMapping(ApiConstant.API_SETTING_PREFIX + "/log/api")
 @Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class LogController extends BaseController {
 

@@ -22,6 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+    private final String[] swagger_ignores = new String[]{"/swagger-ui.html", "/doc.html/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs", "/v3/api-docs", "/webjars/**"};
 
     private final AuthProperties authProperties;
     private final CaptchaFilter captchaFilter;
@@ -37,19 +38,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         http
                 .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
 
-                //允许使用iframe嵌套，避免swagger-ui不被加载的问题
-                .headers().frameOptions().disable()
-
-                .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,
-                        "/swagger-ui.html",
-                        "/doc.html/**",
-                        "/swagger-ui/**",
-                        "/swagger-resources/**",
-                        "/v2/api-docs",
-                        "/v3/api-docs",
-                        "/webjars/**")
+                .antMatchers(HttpMethod.GET, swagger_ignores)
                 .permitAll()
 
                 .antMatchers(authProperties.getSkipUrl().toArray(new String[0]))

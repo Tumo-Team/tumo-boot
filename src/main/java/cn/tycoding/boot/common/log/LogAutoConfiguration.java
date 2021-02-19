@@ -3,7 +3,7 @@ package cn.tycoding.boot.common.log;
 import cn.tycoding.boot.common.log.aspect.ApiLogAspect;
 import cn.tycoding.boot.common.log.event.LogListener;
 import cn.tycoding.boot.common.log.props.LogProperties;
-import cn.tycoding.boot.modules.setting.service.LogService;
+import cn.tycoding.boot.modules.system.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

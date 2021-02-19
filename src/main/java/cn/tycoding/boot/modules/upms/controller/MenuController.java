@@ -10,7 +10,7 @@ import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.service.MenuService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2020-10-14 14:45:53
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
 public class MenuController extends BaseController {

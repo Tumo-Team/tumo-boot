@@ -10,7 +10,7 @@ import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.service.DeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2020-10-14 14:47:28
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/dept")
 @Api(value = "部门表接口", tags = "部门表接口")
 public class DeptController extends BaseController {

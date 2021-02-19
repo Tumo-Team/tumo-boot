@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.setting.entity;
+package cn.tycoding.boot.modules.system.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -35,6 +35,12 @@ public class Log implements Serializable {
     @TableId(value = "id", type = IdType.ASSIGN_ID)
     @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
+
+    /**
+     * 日志类型
+     */
+    @ApiModelProperty(value = "日志类型")
+    private Integer type;
 
     /**
      * 操作用户

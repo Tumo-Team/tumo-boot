@@ -1,11 +1,11 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.modules.upms.entity.Menu;
 import cn.tycoding.boot.modules.upms.entity.Role;
 import cn.tycoding.boot.modules.upms.entity.RoleMenu;
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,15 +59,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         list.forEach(t -> {
             TreeNode<Object> node = new TreeNode<>(
-                    t.getId(),
-                    t.getParentId(),
+                    t.getId().toString(),
+                    t.getParentId().toString(),
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()).set("createTime", DateUtil.formatDateTime(t.getCreateTime())));
+            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()));
             nodeList.add(node);
         });
-        return TreeUtil.build(nodeList, 0L);
+        return TreeUtil.build(nodeList, "0");
     }
 
     @Override
@@ -78,14 +77,14 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         list.forEach(t -> nodeList.add(
                 new TreeNode<>(
-                        t.getId(),
-                        t.getParentId(),
+                        t.getId().toString(),
+                        t.getParentId().toString(),
                         t.getName(),
                         0
                 )
         ));
-        List<Long> ids = list.stream().map(Role::getId).collect(Collectors.toList());
-        List<Tree<Object>> tree = TreeUtil.build(nodeList, 0L);
+        List<String> ids = list.stream().map(Role::getId).collect(Collectors.toList()).stream().map(String::valueOf).collect(Collectors.toList());
+        List<Tree<Object>> tree = TreeUtil.build(nodeList, "0");
         return Dict.create().set("ids", ids).set("tree", tree);
     }
 
@@ -114,7 +113,6 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
         if (role.getParentId() == null) {
             role.setParentId(0L);
         }
-        role.setCreateTime(new Date());
         baseMapper.insert(role);
     }
 
@@ -142,6 +140,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
+        Role role = this.getById(id);
+        if (AuthUtil.ADMINISTRATOR.equals(role.getAlias())) {
+            throw new RuntimeException("[超级管理员]角色不可删除");
+        }
         baseMapper.deleteById(id);
         roleMenuService.deleteRoleMenusByRoleId(id);
         userRoleService.deleteUserRolesByRoleId(id);

@@ -12,7 +12,7 @@ import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * @since 2020-10-14 14:45:25
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/role")
 @Api(value = "角色表接口", tags = "角色表接口")
 public class RoleController extends BaseController {

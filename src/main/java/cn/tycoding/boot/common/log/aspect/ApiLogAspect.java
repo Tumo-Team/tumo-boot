@@ -5,9 +5,8 @@ import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
-import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.common.log.event.LogEvent;
-import cn.tycoding.boot.modules.setting.entity.Log;
+import cn.tycoding.boot.modules.system.entity.Log;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -31,7 +30,7 @@ import java.util.Objects;
 public class ApiLogAspect {
 
     @Around("@annotation(apiLog)")
-    public Object around(ProceedingJoinPoint point, ApiLog apiLog) throws JsonProcessingException {
+    public Object around(ProceedingJoinPoint point, cn.tycoding.boot.common.log.annotation.ApiLog apiLog) throws JsonProcessingException {
         try {
             String className = point.getTarget().getClass().getName();
             String methodName = point.getSignature().getName();

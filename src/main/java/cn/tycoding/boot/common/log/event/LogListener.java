@@ -1,7 +1,7 @@
 package cn.tycoding.boot.common.log.event;
 
-import cn.tycoding.boot.modules.setting.entity.Log;
-import cn.tycoding.boot.modules.setting.service.LogService;
+import cn.tycoding.boot.modules.system.entity.Log;
+import cn.tycoding.boot.modules.system.service.LogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.Order;

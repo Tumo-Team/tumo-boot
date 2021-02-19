@@ -8,7 +8,6 @@ import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
-import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.Menu;
@@ -97,29 +96,37 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(Menu menu) {
+        this.format(menu);
+        baseMapper.insert(menu);
+    }
+
+    private void format(Menu menu) {
         if (menu.getParentId() == null) {
             menu.setParentId(0L);
+        } else {
+            if (menu.getPath().startsWith("/")) {
+                menu.setPath(menu.getPath().substring(1));
+            }
         }
-        if (CommonConstant.MENU_TYPE_MENU.equals(menu.getType()) && menu.getIcon() == null) {
-            menu.setIcon(CommonConstant.MENU_ICON);
+        if (CommonConstant.MENU_TYPE_MENU.equals(menu.getType())) {
+            if (menu.getIcon() == null) {
+                menu.setIcon(CommonConstant.MENU_ICON);
+            }
+            if (menu.getComponent() != null && !menu.getComponent().startsWith("/")) {
+                menu.setComponent("/" + menu.getComponent());
+            }
         }
         if (CommonConstant.MENU_TYPE_BUTTON.equals(menu.getType())) {
             menu.setPath(null);
             menu.setIcon(null);
+            menu.setComponent(null);
         }
-        baseMapper.insert(menu);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(Menu menu) {
-        if (menu.getParentId() == null) {
-            menu.setParentId(0L);
-        }
-        if (CommonConstant.MENU_TYPE_BUTTON.equals(menu.getType())) {
-            menu.setPath(null);
-            menu.setIcon(null);
-        }
+        this.format(menu);
         baseMapper.updateById(menu);
     }
 
@@ -128,7 +135,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     public void delete(Long id) {
         List<Menu> list = baseMapper.selectList(new LambdaQueryWrapper<Menu>().eq(Menu::getParentId, id));
         if (list.size() > 0) {
-            throw new ServiceException("该菜单包含子节点，不能删除");
+            throw new RuntimeException("该菜单包含子节点，不能删除");
         }
         roleMenuService.deleteRoleMenusByMenuId(id);
         baseMapper.deleteById(id);

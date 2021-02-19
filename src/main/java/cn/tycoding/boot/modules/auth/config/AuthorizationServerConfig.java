@@ -3,7 +3,7 @@ package cn.tycoding.boot.modules.auth.config;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.modules.auth.component.TumoWebResponseExceptionTranslator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -27,15 +27,13 @@ import javax.sql.DataSource;
  * @since 2020/10/14
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    @Autowired
-    private DataSource dataSource;
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final DataSource dataSource;
+    private final RedisConnectionFactory redisConnectionFactory;
+    private final AuthenticationManager authenticationManager;
 
     @Bean
     public TokenStore tokenStore() {

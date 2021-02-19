@@ -1,8 +1,8 @@
 package cn.tycoding.boot.common.log.error;
 
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -24,17 +24,11 @@ import javax.servlet.Servlet;
 @Slf4j
 @Order
 @Configuration
+@RequiredArgsConstructor
 @RestControllerAdvice
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class})
 public class GlobalExceptionTranslator {
-
-    @ExceptionHandler({ServiceException.class})
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public R handleError(ServiceException e) {
-        log.error("业务异常", e);
-        return R.fail(e.getHttpCode());
-    }
 
     @ExceptionHandler({TumoOAuth2Exception.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)

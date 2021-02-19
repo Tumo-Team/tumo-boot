@@ -52,6 +52,13 @@ public class User implements Serializable {
     private String password;
 
     /**
+     * 真实姓名
+     */
+    @ApiModelProperty(value = "真实姓名")
+    @NotBlank(message = "真实姓名")
+    private String realName;
+
+    /**
      * 性别
      */
     @ApiModelProperty(value = "性别")

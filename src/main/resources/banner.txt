@@ -8,8 +8,9 @@ ${AnsiColor.BLUE}             \/__/     \/__/     \/__/          \/__/     \/__/
 
 ${AnsiColor.BLUE} ${spring.application.name} :: ${AnsiColor.CYAN} Running SpringBoot ${spring-boot.version} ${AnsiColor.RED} :: Port: ${server.port} :: ${AnsiColor.WHITE}
 
-   开发、使用文档：http://docs.boot.tycoding.cn/
-   Blog: http://tycoding.cn
+   开发文档：http://docs.boot.tycoding.cn/
+   开源地址：https://github.com/Tumo-Team/Tumo-Boot
+   博客: http://tycoding.cn
    Github: https://github.com/tycoding
-   QQ group: 671017003
+   QQ交流群: 866685601
 

@@ -1,6 +1,8 @@
 package cn.tycoding.boot.modules.upms.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -23,12 +25,14 @@ public class MenuTree<T> implements Serializable {
      * 节点ID
      */
     @ApiModelProperty(value = "节点ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /**
      * 父节点ID
      */
     @ApiModelProperty(value = "父节点ID")
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long parentId;
 
     /**
@@ -42,6 +46,12 @@ public class MenuTree<T> implements Serializable {
      */
     @ApiModelProperty(value = "路由地址")
     private String path;
+
+    /**
+     * 类型
+     */
+    @ApiModelProperty(value = "类型")
+    private String type;
 
     /**
      * 重定向地址

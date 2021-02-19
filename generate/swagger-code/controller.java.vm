@@ -13,13 +13,19 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/controller"))
 
 #if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}controller;
 
+import cn.hutool.core.lang.Dict;
+##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
+import cn.tycoding.boot.common.core.api.R;
+import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.controller.BaseController;
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
-##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * $!{tableInfo.comment}($!{tableInfo.name})表控制层
@@ -28,7 +34,7 @@ import org.springframework.web.bind.annotation.*;
  * @since $!time.currTime()
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/$!{TumoBootLowerCaseEntity}")
 @Api(value = "$!{tableInfo.comment}接口", tags = "$!{tableInfo.comment}接口")
 public class $!{tableName} extends BaseController {
@@ -38,39 +44,39 @@ public class $!{tableName} extends BaseController {
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        return new R<>($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
+        return R.data($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
-    public R<IPage<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
-        return new R<>(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
+    public R<Dict> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+        return R.data(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<$!{TumoBootEntity}> findById(@PathVariable $!pk.shortType id) {
-        return new R<>($!{TumoBootLowerCaseService}.getById(id));
+        return R.data($!{TumoBootLowerCaseService}.getById(id));
     }
 
     @PostMapping
     @ApiOperation(value = "新增")
     public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
-        return new R<>();
+        return R.ok();
     }
 
     @PutMapping
     @ApiOperation(value = "修改")
     public R update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
         $!{TumoBootLowerCaseService}.update($!{TumoBootLowerCaseEntity});
-        return new R<>();
+        return R.ok();
     }
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable $!pk.shortType id) {
         $!{TumoBootLowerCaseService}.delete(id);
-        return new R<>();
+        return R.ok();
     }
 }

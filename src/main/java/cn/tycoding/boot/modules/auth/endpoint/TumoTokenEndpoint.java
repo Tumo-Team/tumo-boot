@@ -10,7 +10,7 @@ import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.redis.config.TumoRedis;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
@@ -28,7 +28,7 @@ import java.util.UUID;
  * @since 2020/10/18
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_AUTH_PREFIX)
 @Api(value = "Token端点接口", tags = "Token端点接口")
 public class TumoTokenEndpoint {
@@ -56,17 +56,17 @@ public class TumoTokenEndpoint {
     @ApiOperation(value = "注销接口")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader) {
         if (StringUtils.isEmpty(authHeader)) {
-            return new R<>();
+            return R.ok();
         }
         OAuth2AccessToken accessToken = tokenStore.readAccessToken(authHeader);
         if (accessToken == null || StringUtils.isEmpty(accessToken.getValue())) {
-            return new R<>();
+            return R.ok();
         }
         // 清空access_token
         tokenStore.removeAccessToken(accessToken);
         // 清空refresh_token
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
         tokenStore.removeRefreshToken(refreshToken);
-        return new R<>();
+        return R.ok();
     }
 }

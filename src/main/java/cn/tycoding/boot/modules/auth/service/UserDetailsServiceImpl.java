@@ -57,16 +57,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         roles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
 
-//        Set<String> permissions = userInfo.getPermissions();
-//        if (permissions != null && permissions.size() > 0) {
-//            authSet.addAll(permissions);
-//        }
-//        String perms = permissions.stream().map(String::trim).collect(Collectors.joining(","));
+        Set<String> permissions = userInfo.getPermissions();
+        if (permissions != null && permissions.size() > 0) {
+            authSet.addAll(permissions);
+        }
 
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authSet.toArray(new String[0]));
 
         return new TumoUser(userInfo.getUser().getId(),
-                userInfo.getDept().getId(),
+                userInfo.getDept() == null ? null : userInfo.getDept().getId(),
                 userInfo.getUser().getUsername(),
                 userInfo.getUser().getPassword(),
                 true,

@@ -20,6 +20,7 @@ public class MenuTreeUtil {
             tree.setId(menu.getId());
             tree.setName(menu.getName());
             tree.setPath(menu.getPath());
+            tree.setType(menu.getType());
             tree.setMeta(new MenuMeta(menu.getName(), menu.getIcon()));
             tree.setComponent(menu.getComponent());
             tree.setPerms(menu.getPerms());

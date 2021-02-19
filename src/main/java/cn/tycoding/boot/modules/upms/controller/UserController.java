@@ -7,6 +7,7 @@ import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
+import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.UserDTO;
 import cn.tycoding.boot.modules.upms.entity.Role;
@@ -14,7 +15,7 @@ import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
  * @since 2020-10-14 14:32:30
  */
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/user")
 @Api(value = "用户表接口", tags = "用户表接口")
 public class UserController extends BaseController {
@@ -45,7 +46,8 @@ public class UserController extends BaseController {
     @ApiOperation(value = "根据用户ID查询角色ID集合")
     public R menuList(@PathVariable Long id) {
         List<Role> roleList = userService.roleList(id);
-        return R.data(roleList.stream().map(Role::getId).collect(Collectors.toList()));
+        List<String> ids = roleList.stream().map(Role::getId).collect(Collectors.toList()).stream().map(String::valueOf).collect(Collectors.toList());
+        return R.data(ids);
     }
 
     @PostMapping("/role/add/{id}")
@@ -79,6 +81,7 @@ public class UserController extends BaseController {
         return R.data(userService.findById(id));
     }
 
+    @ApiLog
     @PostMapping
     @ApiOperation(value = "新增")
     public R<User> add(@RequestBody UserDTO user) {

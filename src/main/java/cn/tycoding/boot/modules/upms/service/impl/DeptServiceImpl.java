@@ -1,12 +1,10 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
-import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.upms.entity.Dept;
 import cn.tycoding.boot.modules.upms.entity.User;
 import cn.tycoding.boot.modules.upms.mapper.DeptMapper;
@@ -18,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,15 +43,15 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         deptList.forEach(t -> {
             TreeNode<Object> node = new TreeNode<>(
-                    t.getId(),
-                    t.getParentId(),
+                    t.getId().toString(),
+                    t.getParentId().toString(),
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("des", t.getDes()).set("createTime", DateUtil.formatDateTime(t.getCreateTime())));
+            node.setExtra(Dict.create().set("des", t.getDes()));
             nodeList.add(node);
         });
-        return TreeUtil.build(nodeList, 0L);
+        return TreeUtil.build(nodeList, "0");
     }
 
     @Override
@@ -85,7 +82,6 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
         if (dept.getParentId() == null) {
             dept.setParentId(0L);
         }
-        dept.setCreateTime(new Date());
         baseMapper.insert(dept);
     }
 
@@ -100,7 +96,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements De
     public void delete(Long id) {
         List<Dept> list = baseMapper.selectList(new LambdaQueryWrapper<Dept>().eq(Dept::getParentId, id));
         if (list.size() > 0) {
-            throw new ServiceException("该部门包含子节点，不能删除");
+            throw new RuntimeException("该部门包含子节点，不能删除");
         }
         baseMapper.deleteById(id);
     }
