@@ -39,7 +39,9 @@ public class SysUserController extends BaseController {
     @GetMapping("/info")
     @ApiOperation(value = "获取当前用户信息")
     public R<UserInfo> info() {
-        return R.data(sysUserService.info(AuthUtil.getUsername()));
+        UserInfo userInfo = sysUserService.info(AuthUtil.getUsername());
+        userInfo.getUser().setPassword(null);
+        return R.data(userInfo);
     }
 
     @GetMapping("/role/list/{id}")

@@ -154,6 +154,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void resetPass(SysUser sysUser) {
-        baseMapper.updateById(new SysUser().setId(sysUser.getId()).setPassword(sysUser.getPassword()));
+        baseMapper.updateById(new SysUser()
+                .setId(sysUser.getId())
+                .setPassword(PASSWORD_ENCODER.encode(sysUser.getPassword())));
     }
 }
