@@ -5,8 +5,8 @@ import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
-import cn.tycoding.boot.modules.upms.entity.Role;
-import cn.tycoding.boot.modules.upms.service.UserService;
+import cn.tycoding.boot.modules.upms.entity.SysRole;
+import cn.tycoding.boot.modules.upms.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -29,7 +29,7 @@ import java.util.Set;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private SysUserService sysUserService;
 
     /**
      * 加载用户信息，在这里可做登录用户的权限、角色判断
@@ -40,7 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo info = userService.info(username);
+        UserInfo info = sysUserService.info(username);
         return getUserDetails(info);
     }
 
@@ -51,11 +51,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Set<String> authSet = new HashSet<>();
 
-        List<Role> roles = userInfo.getRoles();
-        if (roles == null || roles.size() == 0) {
+        List<SysRole> sysRoles = userInfo.getRoles();
+        if (sysRoles == null || sysRoles.size() == 0) {
             throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
         }
-        roles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
+        sysRoles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
 
         Set<String> permissions = userInfo.getPermissions();
         if (permissions != null && permissions.size() > 0) {

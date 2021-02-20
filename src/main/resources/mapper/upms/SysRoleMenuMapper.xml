@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.tycoding.boot.modules.upms.mapper.SysRoleMenuMapper">
+
+    <select id="getMenuListByRoleId" resultType="cn.tycoding.boot.modules.upms.entity.SysMenu">
+        SELECT `menu`.id
+        FROM sys_role `role`,
+             sys_role_menu srm,
+             sys_menu `menu`
+        WHERE `role`.id = srm.role_id
+          AND srm.menu_id = `menu`.id
+          AND `role`.id = #{roleId}
+    </select>
+</mapper>

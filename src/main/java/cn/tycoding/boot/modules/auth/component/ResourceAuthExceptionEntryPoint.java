@@ -1,9 +1,13 @@
 package cn.tycoding.boot.modules.auth.component;
 
 import cn.hutool.core.util.URLUtil;
+import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
 import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
+import cn.tycoding.boot.common.log.event.LogEvent;
+import cn.tycoding.boot.common.log.utils.SysLogUtil;
+import cn.tycoding.boot.modules.system.entity.SysLog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,5 +43,8 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
         result.setMsg(HttpCode.UN_AUTHORIZED.getMsg());
         log.error(HttpCode.UN_AUTHORIZED.getMsg() + ", URL: {}", URLUtil.getPath(request.getRequestURI()));
         writer.append(objectMapper.writeValueAsString(result));
+
+        SysLog sysLog = SysLogUtil.build(2, HttpCode.UN_AUTHORIZED.getMsg(), null, null);
+        SpringContextHolder.publishEvent(new LogEvent(sysLog));
     }
 }

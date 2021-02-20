@@ -34,8 +34,8 @@ public interface ApiConstant {
     String API_UPMS_PREFIX = "/tumo-boot/upms";
 
     /**
-     * API接口前缀 - Setting模块
+     * API接口前缀 - System模块
      */
-    String API_SETTING_PREFIX = "/tumo-boot/setting";
+    String API_SYSTEM_PREFIX = "/tumo-boot/system";
 
 }

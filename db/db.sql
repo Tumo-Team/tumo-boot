@@ -110,16 +110,16 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (1362304631325192191, '权限模块', 0, '/upms', NULL, 'menu', 'safety-certificate', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (1362304631325192192, '菜单管理', 1362304631325192191, 'menu', 'menu:list', 'menu', 'cluster', '/modules/upms/menu/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362311197558341634, '用户管理', 1362304631325192191, 'user', 'user:list', 'menu', 'team', '/modules/upms/user/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362314451879096321, '角色管理', 1362304631325192191, 'role', 'role:list', 'menu', 'solution', '/modules/upms/role/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362316746228355073, '部门管理', 1362304631325192191, 'dept', 'dept:list', 'menu', 'audit', '/modules/upms/dept/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362600462804586498, '系统模块', 0, '/system', 'system', 'menu', 'setting', NULL, 0, 0);
-INSERT INTO `sys_menu` VALUES (1362601021230026753, 'API文档', 1362600462804586498, 'http://127.0.0.1:8090/doc.html', 'doc:list', 'menu', 'file-search', NULL, 0, 1);
-INSERT INTO `sys_menu` VALUES (1362604427059400705, '操作日志', 1362600462804586498, 'log/api', 'log:api:list', 'menu', 'api', '/modules/system/log/api/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362604853041303554, '错误日志', 1362600462804586498, 'log/error', 'log:error:list', 'menu', 'bug', '/modules/system/log/error/index', 0, 0);
-INSERT INTO `sys_menu` VALUES (1362663179380875265, 'Test Page', 0, '/test', 'test', 'menu', 'alert', '/modules/test/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362304631325192191, '权限模块', 0, '/upms', NULL, 'sysMenu', 'safety-certificate', NULL, 0, 0);
+INSERT INTO `sys_menu` VALUES (1362304631325192192, '菜单管理', 1362304631325192191, 'sysMenu', 'sysMenu:list', 'sysMenu', 'cluster', '/modules/upms/sysMenu/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362311197558341634, '用户管理', 1362304631325192191, 'sysUser', 'sysUser:list', 'sysMenu', 'team', '/modules/upms/sysUser/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362314451879096321, '角色管理', 1362304631325192191, 'sysRole', 'sysRole:list', 'sysMenu', 'solution', '/modules/upms/sysRole/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362316746228355073, '部门管理', 1362304631325192191, 'sysDept', 'sysDept:list', 'sysMenu', 'audit', '/modules/upms/sysDept/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362600462804586498, '系统模块', 0, '/system', 'system', 'sysMenu', 'setting', NULL, 0, 0);
+INSERT INTO `sys_menu` VALUES (1362601021230026753, 'API文档', 1362600462804586498, 'http://127.0.0.1:8090/doc.html', 'doc:list', 'sysMenu', 'file-search', NULL, 0, 1);
+INSERT INTO `sys_menu` VALUES (1362604427059400705, '操作日志', 1362600462804586498, 'sysLog/api', 'sysLog:api:list', 'sysMenu', 'api', '/modules/system/sysLog/api/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362604853041303554, '错误日志', 1362600462804586498, 'sysLog/error', 'sysLog:error:list', 'sysMenu', 'bug', '/modules/system/sysLog/error/index', 0, 0);
+INSERT INTO `sys_menu` VALUES (1362663179380875265, 'Test Page', 0, '/test', 'test', 'sysMenu', 'alert', '/modules/test/index', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -140,7 +140,7 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', '超级管理员管理员，不受权限控制');
-INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', '仅拥有用户管理权限');
+INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'sysUser-admin', '仅拥有用户管理权限');
 COMMIT;
 
 -- ----------------------------

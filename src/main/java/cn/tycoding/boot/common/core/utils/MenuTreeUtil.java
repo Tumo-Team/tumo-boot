@@ -2,7 +2,7 @@ package cn.tycoding.boot.common.core.utils;
 
 import cn.tycoding.boot.modules.upms.dto.MenuMeta;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
-import cn.tycoding.boot.modules.upms.entity.Menu;
+import cn.tycoding.boot.modules.upms.entity.SysMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class MenuTreeUtil {
 
-    private static List<MenuTree<Menu>> init(List<Menu> list) {
-        List<MenuTree<Menu>> treeList = new ArrayList<>();
+    private static List<MenuTree<SysMenu>> init(List<SysMenu> list) {
+        List<MenuTree<SysMenu>> treeList = new ArrayList<>();
         list.forEach(menu -> {
-            MenuTree<Menu> tree = new MenuTree<>();
+            MenuTree<SysMenu> tree = new MenuTree<>();
             tree.setId(menu.getId());
             tree.setName(menu.getName());
             tree.setPath(menu.getPath());
@@ -33,16 +33,16 @@ public class MenuTreeUtil {
     }
 
 
-    public static List<MenuTree<Menu>> build(List<Menu> list) {
-        List<MenuTree<Menu>> nodes = init(list);
-        List<MenuTree<Menu>> tree = new ArrayList<>();
+    public static List<MenuTree<SysMenu>> build(List<SysMenu> list) {
+        List<MenuTree<SysMenu>> nodes = init(list);
+        List<MenuTree<SysMenu>> tree = new ArrayList<>();
         nodes.forEach(node -> {
             Long pid = node.getParentId();
             if (pid == null || pid.equals(0L)) {
                 tree.add(node);
                 return;
             }
-            for (MenuTree<Menu> c : nodes) {
+            for (MenuTree<SysMenu> c : nodes) {
                 Long id = c.getId();
                 if (id != null && id.equals(pid)) {
                     c.getChildren().add(node);
@@ -68,19 +68,19 @@ public class MenuTreeUtil {
      * ]
      * }
      */
-    public static List<MenuTree<Menu>> buildTree(List<Menu> list) {
-        List<MenuTree<Menu>> nodes = new ArrayList<>();
+    public static List<MenuTree<SysMenu>> buildTree(List<SysMenu> list) {
+        List<MenuTree<SysMenu>> nodes = new ArrayList<>();
         build(list).forEach(node -> {
-            MenuTree<Menu> child = BeanUtil.copy(node, new MenuTree<>());
+            MenuTree<SysMenu> child = BeanUtil.copy(node, new MenuTree<>());
             if (node.getChildren().size() == 0) {
                 // 只有一级节点
-                List<MenuTree<Menu>> childList = new ArrayList<>();
+                List<MenuTree<SysMenu>> childList = new ArrayList<>();
                 childList.add(child);
-                nodes.add(new MenuTree<Menu>().setPath("/").setComponent("Layout")
+                nodes.add(new MenuTree<SysMenu>().setPath("/").setComponent("Layout")
                         .setRedirect(child.getPath()).setChildren(childList).setHidden(child.getHidden()));
             } else {
                 // 包含子节点
-                nodes.add(new MenuTree<Menu>().setPath(child.getPath()).setComponent("Layout")
+                nodes.add(new MenuTree<SysMenu>().setPath(child.getPath()).setComponent("Layout")
                         .setRedirect(child.getPath()).setChildren(child.getChildren()).setMeta(child.getMeta()).setHidden(child.getHidden()));
             }
         });

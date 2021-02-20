@@ -37,7 +37,7 @@ target/
 
 ### logs ####
 /logs/
-*.log
+*.sysLog
 
 ### temp ignore ###
 *.cache
@@ -55,3 +55,4 @@ Servers
 .metadata
 upload
 gen_code
+dump.rdb

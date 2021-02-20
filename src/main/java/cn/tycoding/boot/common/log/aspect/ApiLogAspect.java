@@ -1,24 +1,15 @@
 package cn.tycoding.boot.common.log.aspect;
 
-import cn.hutool.core.util.URLUtil;
-import cn.hutool.extra.servlet.ServletUtil;
-import cn.hutool.http.HttpUtil;
-import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
 import cn.tycoding.boot.common.log.event.LogEvent;
-import cn.tycoding.boot.modules.system.entity.Log;
+import cn.tycoding.boot.common.log.utils.SysLogUtil;
+import cn.tycoding.boot.modules.system.entity.SysLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.Objects;
 
 /**
  * @author tycoding
@@ -39,21 +30,10 @@ public class ApiLogAspect {
             Object result = point.proceed();
             long time = System.currentTimeMillis() - beginTime;
 
-            HttpServletRequest request = ((ServletRequestAttributes)
-                    Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+            String method = className + "." + methodName + "()";
+            SysLog sysLog = SysLogUtil.build(1, apiLog.value(), method, time);
 
-            Log log = new Log()
-                    .setUsername(AuthUtil.getUsername())
-                    .setOperation(apiLog.value())
-                    .setCreateTime(new Date())
-                    .setIp(ServletUtil.getClientIP(request))
-                    .setUrl(URLUtil.getPath(request.getRequestURI()))
-                    .setMethod(className + "." + methodName + "()")
-                    .setParams(HttpUtil.toParams(request.getParameterMap()))
-                    .setUserAgent(request.getHeader("user-agent"))
-                    .setTime(time);
-
-            SpringContextHolder.publishEvent(new LogEvent(log));
+            SpringContextHolder.publishEvent(new LogEvent(sysLog));
             return result;
         } catch (Throwable throwable) {
             throwable.printStackTrace();
