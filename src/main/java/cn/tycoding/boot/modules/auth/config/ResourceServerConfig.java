@@ -39,8 +39,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .formLogin()
                 .and()
 
-                .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
-
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, swagger_ignores)
                 .permitAll()
@@ -53,5 +51,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
                 .and()
                 .csrf().disable();
+
+        http.addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

@@ -2,7 +2,9 @@ package cn.tycoding.boot.common.auth.filter;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
+import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
+import cn.tycoding.boot.common.core.utils.ServletUtil;
 import cn.tycoding.boot.common.redis.config.TumoRedis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,7 +36,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
             String code = ServletRequestUtils.getStringParameter(request, AuthUtil.CAPTCHA_FORM_KEY);
             String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_REDIS_KEY + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
-                response.sendError(400, "验证码不正确");
+                ServletUtil.write(response, new R<>(400, AuthUtil.CAPTCHA_ERROR_INFO));
+                return;
             }
         }
         chain.doFilter(request, response);

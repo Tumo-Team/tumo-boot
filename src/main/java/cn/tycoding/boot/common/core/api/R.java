@@ -28,6 +28,11 @@ public class R<T> implements Serializable {
         super();
     }
 
+    public R(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     public static <T> R<T> data(T data) {
         return new R(data);
     }
@@ -73,11 +78,6 @@ public class R<T> implements Serializable {
         this.data = data;
         this.code = httpCode.code;
         this.msg = httpCode.msg;
-    }
-
-    protected R(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
     }
 
     protected R(Throwable e) {
