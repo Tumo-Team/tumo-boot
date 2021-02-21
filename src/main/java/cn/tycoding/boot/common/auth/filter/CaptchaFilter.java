@@ -34,7 +34,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
             String code = ServletRequestUtils.getStringParameter(request, AuthUtil.CAPTCHA_FORM_KEY);
             String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_REDIS_KEY + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
-                throw new RuntimeException(AuthUtil.CAPTCHA_ERROR_INFO);
+                response.sendError(400, "验证码不正确");
             }
         }
         chain.doFilter(request, response);

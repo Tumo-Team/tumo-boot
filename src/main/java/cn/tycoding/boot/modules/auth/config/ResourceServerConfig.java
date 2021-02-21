@@ -36,6 +36,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .formLogin()
+                .and()
+
                 .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
