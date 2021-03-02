@@ -5,6 +5,7 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
+import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.entity.SysDept;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysDeptService;
@@ -61,6 +62,7 @@ public class SysDeptController extends BaseController {
     }
 
     @PostMapping
+    @ApiLog("新增部门")
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysDept sysDept) {
         sysDeptService.add(sysDept);
@@ -68,6 +70,7 @@ public class SysDeptController extends BaseController {
     }
 
     @PutMapping
+    @ApiLog("修改部门")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysDept sysDept) {
         sysDeptService.update(sysDept);
@@ -75,6 +78,7 @@ public class SysDeptController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiLog("删除部门")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         sysDeptService.delete(id);

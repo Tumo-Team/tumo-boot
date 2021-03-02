@@ -6,10 +6,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 权限相关工具方法
@@ -34,6 +39,20 @@ public class AuthUtil {
     public static final String CAPTCHA_ERROR_INFO = "验证码不正确";
     /* 没有查询到用户名 */
     public static final String NOT_ROLE_ERROR = "没有查询到用户角色信息";
+
+    /**
+     * 获取Request对象
+     */
+    public static HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
+    }
+
+    /**
+     * 获取Response对象
+     */
+    public static HttpServletResponse getResponse() {
+        return ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getResponse();
+    }
 
     /**
      * 获取Authentication对象

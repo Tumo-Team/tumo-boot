@@ -83,8 +83,8 @@ public class SysUserController extends BaseController {
         return R.data(sysUserService.findById(id));
     }
 
-    @ApiLog
     @PostMapping
+    @ApiLog("新增用户")
     @ApiOperation(value = "新增")
     public R<SysUser> add(@RequestBody SysUserDTO user) {
         sysUserService.add(user);
@@ -92,6 +92,7 @@ public class SysUserController extends BaseController {
     }
 
     @PutMapping
+    @ApiLog("修改用户")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysUserDTO user) {
         sysUserService.update(user);
@@ -99,6 +100,7 @@ public class SysUserController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiLog("删除用户")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         sysUserService.delete(id);
@@ -106,6 +108,7 @@ public class SysUserController extends BaseController {
     }
 
     @DeleteMapping("/resetPass")
+    @ApiLog("重置密码")
     @ApiOperation(value = "重置密码")
     public R resetPass(@RequestBody SysUser sysUser) {
         sysUserService.resetPass(sysUser);

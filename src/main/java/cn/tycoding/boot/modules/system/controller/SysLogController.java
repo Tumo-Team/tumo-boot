@@ -30,12 +30,6 @@ public class SysLogController extends BaseController {
 
     private final SysLogService sysLogService;
 
-    @PostMapping("/filter/list")
-    @ApiOperation(value = "条件查询")
-    public R<List<SysLog>> list(@RequestBody SysLog sysLog) {
-        return R.data(sysLogService.list(sysLog));
-    }
-
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Dict> list(@RequestBody SysLog sysLog, QueryPage queryPage) {
@@ -52,13 +46,6 @@ public class SysLogController extends BaseController {
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysLog sysLog) {
         sysLogService.add(sysLog);
-        return R.ok();
-    }
-
-    @PutMapping
-    @ApiOperation(value = "修改")
-    public R update(@RequestBody SysLog sysLog) {
-        sysLogService.update(sysLog);
         return R.ok();
     }
 

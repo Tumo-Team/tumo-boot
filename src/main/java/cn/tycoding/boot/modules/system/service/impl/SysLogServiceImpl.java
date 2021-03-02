@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 /**
  * 系统日志表(Log)表服务实现类
  *
@@ -23,12 +21,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements SysLogService {
-
-    @Override
-    public List<SysLog> list(SysLog sysLog) {
-        LambdaQueryWrapper<SysLog> queryWrapper = new LambdaQueryWrapper<>();
-        return baseMapper.selectList(queryWrapper);
-    }
 
     @Override
     public IPage<SysLog> list(SysLog sysLog, QueryPage queryPage) {
@@ -42,12 +34,6 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
     @Transactional(rollbackFor = Exception.class)
     public void add(SysLog sysLog) {
         baseMapper.insert(sysLog);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(SysLog sysLog) {
-        baseMapper.updateById(sysLog);
     }
 
     @Override

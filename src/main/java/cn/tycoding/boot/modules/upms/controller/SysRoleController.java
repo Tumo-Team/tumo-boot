@@ -6,6 +6,7 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
+import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
@@ -77,6 +78,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping
+    @ApiLog("新增角色")
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysRole sysRole) {
         sysRoleService.add(sysRole);
@@ -84,6 +86,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/permission/add/{id}")
+    @ApiLog("为角色分配权限")
     @ApiOperation(value = "分配权限")
     public R addPermission(@RequestBody List<Long> permissionList, @PathVariable Long id) {
         sysRoleService.addPermission(permissionList, id);
@@ -91,6 +94,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PutMapping
+    @ApiLog("修改角色")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysRole sysRole) {
         sysRoleService.update(sysRole);
@@ -98,6 +102,7 @@ public class SysRoleController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiLog("删除角色")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         sysRoleService.delete(id);

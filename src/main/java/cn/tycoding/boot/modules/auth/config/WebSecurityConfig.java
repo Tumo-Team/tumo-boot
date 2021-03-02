@@ -1,26 +1,28 @@
 package cn.tycoding.boot.modules.auth.config;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.filter.CaptchaFilter;
 import cn.tycoding.boot.modules.auth.service.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author tycoding
  * @since 2020/10/14
  */
-@Order(90)
-@Primary
 @Configuration
+@RequiredArgsConstructor
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final CaptchaFilter captchaFilter;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -61,5 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .csrf().disable();
+
+        http.addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

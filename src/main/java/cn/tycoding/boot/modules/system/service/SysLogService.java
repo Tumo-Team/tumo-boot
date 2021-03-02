@@ -5,8 +5,6 @@ import cn.tycoding.boot.modules.system.entity.SysLog;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.List;
-
 /**
  * 系统日志表(Log)表服务接口
  *
@@ -14,11 +12,6 @@ import java.util.List;
  * @since 2020-10-14 16:53:42
  */
 public interface SysLogService extends IService<SysLog> {
-
-    /**
-     * 条件查询
-     */
-    List<SysLog> list(SysLog sysLog);
 
     /**
      * 分页、条件查询
@@ -29,12 +22,6 @@ public interface SysLogService extends IService<SysLog> {
      * 新增
      */
     void add(SysLog sysLog);
-
-    /**
-     * 修改
-     */
-    void update(SysLog sysLog);
-
     /**
      * 删除
      */

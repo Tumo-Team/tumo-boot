@@ -4,7 +4,6 @@ import cn.hutool.json.JSONUtil;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import lombok.SneakyThrows;
-import org.apache.poi.ss.formula.functions.T;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ServletUtil {
 
     @SneakyThrows
-    public static void write(HttpServletResponse response, R<T> data) {
+    public static void write(HttpServletResponse response, R data) {
         response.setStatus(data.getCode());
         response.setHeader("Content-type", "application/json;charset=" + CommonConstant.UTF_8);
         response.setCharacterEncoding(CommonConstant.UTF_8);

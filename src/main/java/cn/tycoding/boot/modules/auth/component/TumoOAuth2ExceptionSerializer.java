@@ -18,13 +18,6 @@ public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Excep
         super(TumoOAuth2Exception.class);
     }
 
-    /**
-     * 自定义封装异常返回值数据结构
-     *
-     * @author tycoding
-     * @see org.springframework.security.oauth2.common.exceptions.OAuth2ExceptionJackson2Serializer
-     * @since 2020/10/16
-     */
     @Override
     public void serialize(TumoOAuth2Exception e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();

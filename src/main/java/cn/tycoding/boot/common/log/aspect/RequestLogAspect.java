@@ -1,7 +1,7 @@
 package cn.tycoding.boot.common.log.aspect;
 
 import cn.hutool.json.JSONObject;
-import cn.tycoding.boot.common.auth.utils.WebUtil;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -25,10 +25,7 @@ public class RequestLogAspect {
     @Around("(@within(org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint)) || (execution(!static cn.tycoding.boot.common.core.api.R *(..)) && (@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         Object result = point.proceed();
-        HttpServletRequest request = WebUtil.getRequest();
-        if (request == null) {
-            return result;
-        }
+        HttpServletRequest request = AuthUtil.getRequest();
         String beforeLog = "\n\n================  Request Start  ================" +
                 "\n===General=== Request URL: " + request.getRequestURL() +
                 "\n===General=== Request Method: " + request.getMethod() +

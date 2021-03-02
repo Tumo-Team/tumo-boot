@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 用于构建Menu Tree的工具类
+ *
  * @author tycoding
  * @since 2020/10/15
  */

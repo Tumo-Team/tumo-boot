@@ -5,6 +5,7 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
+import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.service.SysMenuService;
@@ -67,6 +68,7 @@ public class SysMenuController extends BaseController {
     }
 
     @PostMapping
+    @ApiLog("新增菜单")
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysMenu sysMenu) {
         sysMenuService.add(sysMenu);
@@ -74,6 +76,7 @@ public class SysMenuController extends BaseController {
     }
 
     @PutMapping
+    @ApiLog("修改菜单")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysMenu sysMenu) {
         sysMenuService.update(sysMenu);
@@ -81,6 +84,7 @@ public class SysMenuController extends BaseController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiLog("删除菜单")
     @ApiOperation(value = "根据ID删除")
     public R delete(@PathVariable Long id) {
         sysMenuService.delete(id);
