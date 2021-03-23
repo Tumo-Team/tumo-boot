@@ -175,7 +175,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'tumo-boot', '$2a$10$.Sb3c/st.CpxxLp5N1X7f.PTfJEUm/yHg3ZH4V5cjDaU1tYbup8Na', '超级管理员', '男', '19809587839', 'tycoding@sina.com', 3, NULL, 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'Tumo-Boot', '$2a$10$ZjqngBAeTeUEvd3oe1DrL.I0uKO7X.6IZVWAb3Zc4TmqmID.zOWGe', '超级管理员', '男', '19809587839', 'tycoding@sina.com', 3, NULL, 1, '2019-01-01 00:00:00');
 INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '123456', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, NULL, 1, '2021-02-19 11:02:08');
 COMMIT;
 
