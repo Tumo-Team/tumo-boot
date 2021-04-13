@@ -9,7 +9,6 @@ import org.springframework.core.annotation.Order;
  * @author tycoding
  * @since 2021/1/26
  */
-@Order
 @Configuration
 @EnableConfigurationProperties({AuthProperties.class})
 public class AuthAutoConfiguration {

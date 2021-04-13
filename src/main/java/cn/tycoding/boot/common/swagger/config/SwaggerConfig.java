@@ -1,22 +1,22 @@
 package cn.tycoding.boot.common.swagger.config;
 
+import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.swagger.props.SwaggerProperties;
+import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import springfox.documentation.builders.ApiInfoBuilder;
+import springfox.documentation.builders.OAuthBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +47,25 @@ public class SwaggerConfig {
     }
 
     private Docket docket(String groupName, String basePackage) {
+        // schema
+        List<GrantType> grantTypes = new ArrayList<>();
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant(ApiConstant.API_OAUTH_TOKEN);
+        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
+        OAuth oAuth = new OAuthBuilder().name("oauth2").grantTypes(grantTypes).build();
+
+        // scope
+        List<AuthorizationScope> scopes = new ArrayList<>();
+        scopes.add(new AuthorizationScope("read", "read  resources"));
+        scopes.add(new AuthorizationScope("write", "write resources"));
+        scopes.add(new AuthorizationScope("reads", "read all resources"));
+        scopes.add(new AuthorizationScope("writes", "write all resources"));
+
+        SecurityReference securityReference = new SecurityReference("oauth2", scopes.toArray(new AuthorizationScope[]{}));
+        SecurityContext securityContext = new SecurityContext(Lists.newArrayList(securityReference), PathSelectors.ant("/api/**"), null, null);
+        ArrayList<SecurityScheme> securitySchemes = Lists.newArrayList(oAuth);
+        List<SecurityContext> securityContexts = Lists.newArrayList(securityContext);
+
+
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName(groupName)
                 .apiInfo(apiInfo(swagger))
@@ -54,7 +73,8 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage(basePackage))
                 .paths(PathSelectors.any())
                 .build()
-                .securitySchemes(apiKey());
+                .securitySchemes(securitySchemes)
+                .securityContexts(securityContexts);
     }
 
     private ApiInfo apiInfo(SwaggerProperties swagger) {
@@ -65,11 +85,6 @@ public class SwaggerConfig {
                 .contact(new Contact(swagger.getAuthor(), swagger.getUrl(), swagger.getEmail()))
                 .version(swagger.getVersion())
                 .build();
-    }
-
-    private List<SecurityScheme> apiKey() {
-        ApiKey apiKey = new ApiKey(HttpHeaders.AUTHORIZATION, HttpHeaders.AUTHORIZATION, "header");
-        return Collections.singletonList(apiKey);
     }
 
 }

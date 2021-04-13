@@ -114,6 +114,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- 方便Spring识别自定义配置，语法提示 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- 热更新 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

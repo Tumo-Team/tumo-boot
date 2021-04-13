@@ -8,6 +8,7 @@ import cn.tycoding.boot.common.auth.constant.CaptchaConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.redis.config.TumoRedis;
+import cn.tycoding.boot.common.redis.utils.RedisCatchUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,6 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.UUID;
 
 /**
  * 自定义令牌端点
@@ -44,7 +44,7 @@ public class TumoTokenEndpoint {
     public R<Dict> getCaptcha() {
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(CaptchaConstant.CAPTCHA_WIDTH, CaptchaConstant.CAPTCHA_HEIGHT, CaptchaConstant.CAPTCHA_COUNT, CaptchaConstant.CAPTCHA_CIRCLE_COUNT);
         String code = captcha.getCode().toLowerCase();
-        String key = UUID.randomUUID().toString();
+        String key = RedisCatchUtil.getKey();
         tumoRedis.set(CacheConstant.CAPTCHA_REDIS_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
         return R.data(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
     }
