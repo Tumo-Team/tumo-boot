@@ -47,13 +47,18 @@ public class SwaggerConfig {
     }
 
     private Docket docket(String groupName, String basePackage) {
-        // schema
-        List<GrantType> grantTypes = new ArrayList<>();
-        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant(ApiConstant.API_OAUTH_TOKEN);
-        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
-        OAuth oAuth = new OAuthBuilder().name("oauth2").grantTypes(grantTypes).build();
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName(groupName)
+                .apiInfo(apiInfo(swagger))
+                .select()
+                .apis(RequestHandlerSelectors.basePackage(basePackage))
+                .paths(PathSelectors.any())
+                .build()
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts());
+    }
 
-        // scope
+    private List<SecurityContext> securityContexts() {
         List<AuthorizationScope> scopes = new ArrayList<>();
         scopes.add(new AuthorizationScope("read", "read  resources"));
         scopes.add(new AuthorizationScope("write", "write resources"));
@@ -62,19 +67,15 @@ public class SwaggerConfig {
 
         SecurityReference securityReference = new SecurityReference("oauth2", scopes.toArray(new AuthorizationScope[]{}));
         SecurityContext securityContext = new SecurityContext(Lists.newArrayList(securityReference), PathSelectors.ant("/api/**"), null, null);
-        ArrayList<SecurityScheme> securitySchemes = Lists.newArrayList(oAuth);
-        List<SecurityContext> securityContexts = Lists.newArrayList(securityContext);
+        return Lists.newArrayList(securityContext);
+    }
 
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName(groupName)
-                .apiInfo(apiInfo(swagger))
-                .select()
-                .apis(RequestHandlerSelectors.basePackage(basePackage))
-                .paths(PathSelectors.any())
-                .build()
-                .securitySchemes(securitySchemes)
-                .securityContexts(securityContexts);
+    private ArrayList<SecurityScheme> securitySchemes() {
+        List<GrantType> grantTypes = new ArrayList<>();
+        ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant(ApiConstant.API_OAUTH_TOKEN);
+        grantTypes.add(resourceOwnerPasswordCredentialsGrant);
+        OAuth oAuth = new OAuthBuilder().name("oauth2").grantTypes(grantTypes).build();
+        return Lists.newArrayList(oAuth);
     }
 
     private ApiInfo apiInfo(SwaggerProperties swagger) {
