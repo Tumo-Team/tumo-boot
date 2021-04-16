@@ -29,11 +29,6 @@ public interface CommonConstant {
     String PAGE_TOTAL = "total";
 
     /**
-     * Swagger Base Packages
-     */
-    String BASE_PACKAGE = "cn.tycoding.boot";
-
-    /**
      * 菜单类型：menu
      */
     String MENU_TYPE_MENU = "menu";

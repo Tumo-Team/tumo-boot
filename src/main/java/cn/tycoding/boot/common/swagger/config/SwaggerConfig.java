@@ -1,7 +1,6 @@
 package cn.tycoding.boot.common.swagger.config;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
-import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.swagger.props.SwaggerProperties;
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.OAuthBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
@@ -33,17 +31,17 @@ public class SwaggerConfig {
 
     @Bean
     public Docket authDocket() {
-        return docket("授权模块", CommonConstant.BASE_PACKAGE + ".modules.auth.endpoint");
+        return docket("授权模块", swagger.getBasePackage() + ".modules.auth.endpoint");
     }
 
     @Bean
-    public Docket systemDocket() {
-        return docket("系统模块", CommonConstant.BASE_PACKAGE + ".modules.upms.controller");
+    public Docket upmsDocket() {
+        return docket("系统模块", swagger.getBasePackage() + ".modules.upms.controller");
     }
 
     @Bean
     public Docket settingDocket() {
-        return docket("设置模块", CommonConstant.BASE_PACKAGE + ".modules.setting.controller");
+        return docket("设置模块", swagger.getBasePackage() + ".modules.setting.controller");
     }
 
     private Docket docket(String groupName, String basePackage) {
@@ -52,7 +50,6 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo(swagger))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(basePackage))
-                .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts());
@@ -60,14 +57,16 @@ public class SwaggerConfig {
 
     private List<SecurityContext> securityContexts() {
         List<AuthorizationScope> scopes = new ArrayList<>();
-        scopes.add(new AuthorizationScope("read", "read  resources"));
-        scopes.add(new AuthorizationScope("write", "write resources"));
-        scopes.add(new AuthorizationScope("reads", "read all resources"));
-        scopes.add(new AuthorizationScope("writes", "write all resources"));
+        swagger.getAuthorizationScopeList().forEach(s -> {
+            scopes.add(new AuthorizationScope(s.getScope(), s.getDescription()));
+        });
 
         SecurityReference securityReference = new SecurityReference("oauth2", scopes.toArray(new AuthorizationScope[]{}));
-        SecurityContext securityContext = new SecurityContext(Lists.newArrayList(securityReference), PathSelectors.ant("/api/**"), null, null);
-        return Lists.newArrayList(securityContext);
+        return Lists.newArrayList(SecurityContext
+                .builder()
+                .securityReferences(Lists.newArrayList(securityReference))
+                .build()
+        );
     }
 
     private ArrayList<SecurityScheme> securitySchemes() {

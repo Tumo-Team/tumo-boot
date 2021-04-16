@@ -50,6 +50,10 @@ tumo-boot:
     enable: false
   # Swagger配置
   swagger:
+    base-package: cn.tycoding.boot
+    authorization-scope-list:
+      - scope: 'app'
+        description: 'default scope'
     title: Tumo Boot 项目API接口文档
     description: 项目开源地址：https://github.com/Tumo-Team/Tumo-Boot
     author: TyCoding

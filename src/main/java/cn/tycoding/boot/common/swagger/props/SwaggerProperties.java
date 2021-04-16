@@ -1,7 +1,10 @@
 package cn.tycoding.boot.common.swagger.props;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import java.util.List;
 
 /**
  * Swagger配置
@@ -12,6 +15,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties("tumo-boot.swagger")
 public class SwaggerProperties {
+
+    /**
+     * Base package扫描地址
+     */
+    private String basePackage;
 
     /**
      * 文档标题
@@ -42,4 +50,16 @@ public class SwaggerProperties {
      * 文档版本
      */
     private String version;
+
+    /**
+     * Scope
+     */
+    private List<AuthorizationScope> authorizationScopeList;
+
+    @Data
+    @NoArgsConstructor
+    public static class AuthorizationScope {
+        private String scope = "";
+        private String description = "";
+    }
 }
