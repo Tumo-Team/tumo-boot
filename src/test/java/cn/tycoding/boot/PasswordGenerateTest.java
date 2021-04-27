@@ -14,7 +14,7 @@ public class PasswordGenerateTest {
 
     @Test
     public void passwordTest() {
-        // 默认用户名：Tumo-Boot 密码：Tumo-Boot
-        System.out.println(passwordEncoder.encode("Tumo-Boot")); // $2a$10$ZjqngBAeTeUEvd3oe1DrL.I0uKO7X.6IZVWAb3Zc4TmqmID.zOWGe
+        // 默认用户名：tumo-boot 密码：123456
+        System.out.println(passwordEncoder.encode("123456")); // $2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K
     }
 }

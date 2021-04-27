@@ -44,19 +44,19 @@ public class $!{tableName} extends BaseController {
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        return R.data($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
+        return R.ok($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Dict> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
-        return R.data(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
+        return R.ok(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<$!{TumoBootEntity}> findById(@PathVariable $!pk.shortType id) {
-        return R.data($!{TumoBootLowerCaseService}.getById(id));
+        return R.ok($!{TumoBootLowerCaseService}.getById(id));
     }
 
     @PostMapping

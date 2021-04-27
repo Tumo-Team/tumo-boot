@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.system.entity;
+package cn.tycoding.boot.modules.upms.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

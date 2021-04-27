@@ -1,9 +1,9 @@
-package cn.tycoding.boot.modules.system.service.impl;
+package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.core.api.QueryPage;
-import cn.tycoding.boot.modules.system.entity.SysLog;
-import cn.tycoding.boot.modules.system.mapper.SysLogMapper;
-import cn.tycoding.boot.modules.system.service.SysLogService;
+import cn.tycoding.boot.modules.upms.entity.SysLog;
+import cn.tycoding.boot.modules.upms.mapper.SysLogMapper;
+import cn.tycoding.boot.modules.upms.service.SysLogService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

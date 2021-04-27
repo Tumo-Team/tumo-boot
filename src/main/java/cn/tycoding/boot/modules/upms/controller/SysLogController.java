@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.system.controller;
+package cn.tycoding.boot.modules.upms.controller;
 
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
@@ -6,8 +6,8 @@ import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
-import cn.tycoding.boot.modules.system.entity.SysLog;
-import cn.tycoding.boot.modules.system.service.SysLogService;
+import cn.tycoding.boot.modules.upms.entity.SysLog;
+import cn.tycoding.boot.modules.upms.service.SysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/log")
+@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/log")
 @Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class SysLogController extends BaseController {
 
@@ -33,13 +33,13 @@ public class SysLogController extends BaseController {
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Dict> list(@RequestBody SysLog sysLog, QueryPage queryPage) {
-        return R.data(super.getData(sysLogService.list(sysLog, queryPage)));
+        return R.ok(super.getData(sysLogService.list(sysLog, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysLog> findById(@PathVariable Long id) {
-        return R.data(sysLogService.getById(id));
+        return R.ok(sysLogService.getById(id));
     }
 
     @PostMapping

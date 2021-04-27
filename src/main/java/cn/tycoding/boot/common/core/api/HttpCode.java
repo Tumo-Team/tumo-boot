@@ -12,7 +12,7 @@ public enum HttpCode {
     FAILURE(400, "业务异常"),
     UN_AUTHORIZED(401, "请求未授权"),
     CLIENT_UN_AUTHORIZED(401, "客户端请求未授权"),
-    INVALID_GRANT(426, "用户名或密码错误"),
+    INVALID_GRANT(401, "用户名或密码错误"),
     FORBIDDEN(403, "拒绝访问"),
     NOT_FOUND(404, "404 没找到请求"),
     MSG_NOT_READABLE(400, "消息不能读取"),

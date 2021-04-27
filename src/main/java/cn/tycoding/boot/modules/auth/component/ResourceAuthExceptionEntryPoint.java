@@ -7,7 +7,7 @@ import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
-import cn.tycoding.boot.modules.system.entity.SysLog;
+import cn.tycoding.boot.modules.upms.entity.SysLog;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

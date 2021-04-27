@@ -43,7 +43,7 @@ public class $!{tableName} extends BaseController {
     */
     @PostMapping("/filter/list")
     public R<List<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        return R.data($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
+        return R.ok($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
     }
 
     /**
@@ -51,7 +51,7 @@ public class $!{tableName} extends BaseController {
     */
     @PostMapping("/list")
     public R<Dict> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
-        return R.data(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
+        return R.ok(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
     }
 
     /**
@@ -59,7 +59,7 @@ public class $!{tableName} extends BaseController {
     */
     @GetMapping("/{id}")
     public R<$!{TumoBootEntity}> findById(@PathVariable $!pk.shortType id) {
-        return R.data($!{TumoBootLowerCaseService}.getById(id));
+        return R.ok($!{TumoBootLowerCaseService}.getById(id));
     }
 
     /**

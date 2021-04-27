@@ -37,44 +37,44 @@ public class SysRoleController extends BaseController {
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysRole>> list(@RequestBody SysRole sysRole) {
-        return R.data(sysRoleService.list(sysRole));
+        return R.ok(sysRoleService.list(sysRole));
     }
 
     @GetMapping("/tree")
     @ApiOperation(value = "获取角色Tree")
     public R<List<Tree<Object>>> tree() {
-        return R.data(sysRoleService.tree());
+        return R.ok(sysRoleService.tree());
     }
 
     @GetMapping("/base/tree")
     @ApiOperation(value = "获取基础数据", notes = "此接口将获取角色表中id、name、ids等基础数据")
     public R<Dict> baseTree() {
-        return R.data(sysRoleService.baseTree());
+        return R.ok(sysRoleService.baseTree());
     }
 
     @GetMapping("/menu/list/{id}")
     @ApiOperation(value = "根据角色ID查询权限")
     public R getMenuListByRoleId(@PathVariable Long id) {
         List<SysMenu> sysMenuList = sysRoleService.getMenuListByRoleId(id);
-        return R.data(sysMenuList.stream().map(SysMenu::getId).collect(Collectors.toList()));
+        return R.ok(sysMenuList.stream().map(SysMenu::getId).collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}/user/list")
     @ApiOperation(value = "获取所属用户列表")
     public R<List<SysUser>> userList(@PathVariable Long id) {
-        return R.data(sysRoleService.userList(id));
+        return R.ok(sysRoleService.userList(id));
     }
 
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody SysRole sysRole) {
-        return R.data(sysRoleService.checkName(sysRole));
+        return R.ok(sysRoleService.checkName(sysRole));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysRole> findById(@PathVariable Long id) {
-        return R.data(sysRoleService.getById(id));
+        return R.ok(sysRoleService.getById(id));
     }
 
     @PostMapping

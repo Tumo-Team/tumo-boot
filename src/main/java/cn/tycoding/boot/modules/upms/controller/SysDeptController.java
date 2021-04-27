@@ -34,31 +34,31 @@ public class SysDeptController extends BaseController {
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysDept>> list(@RequestBody SysDept sysDept) {
-        return R.data(sysDeptService.list(sysDept));
+        return R.ok(sysDeptService.list(sysDept));
     }
 
     @GetMapping("/tree")
     @ApiOperation(value = "获取部门Tree")
     public R<List<Tree<Object>>> tree() {
-        return R.data(sysDeptService.tree());
+        return R.ok(sysDeptService.tree());
     }
 
     @GetMapping("/{id}/user/list")
     @ApiOperation(value = "获取所属用户列表")
     public R<List<SysUser>> userList(@PathVariable Long id) {
-        return R.data(sysDeptService.userList(id));
+        return R.ok(sysDeptService.userList(id));
     }
 
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody SysDept sysDept) {
-        return R.data(sysDeptService.checkName(sysDept));
+        return R.ok(sysDeptService.checkName(sysDept));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysDept> findById(@PathVariable Long id) {
-        return R.data(sysDeptService.getById(id));
+        return R.ok(sysDeptService.getById(id));
     }
 
     @PostMapping

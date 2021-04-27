@@ -33,11 +33,11 @@ public class R<T> implements Serializable {
         this.msg = msg;
     }
 
-    public static <T> R<T> data(T data) {
+    public static <T> R<T> ok(T data) {
         return new R(data);
     }
 
-    public static <T> R<T> data(T data, HttpCode httpCode) {
+    public static <T> R<T> ok(T data, HttpCode httpCode) {
         return new R(data, httpCode);
     }
 

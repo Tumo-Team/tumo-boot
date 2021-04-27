@@ -41,7 +41,7 @@ public class SysUserController extends BaseController {
     public R<UserInfo> info() {
         UserInfo userInfo = sysUserService.info(AuthUtil.getUsername());
         userInfo.getUser().setPassword(null);
-        return R.data(userInfo);
+        return R.ok(userInfo);
     }
 
     @GetMapping("/role/list/{id}")
@@ -49,7 +49,7 @@ public class SysUserController extends BaseController {
     public R menuList(@PathVariable Long id) {
         List<SysRole> sysRoleList = sysUserService.roleList(id);
         List<String> ids = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList()).stream().map(String::valueOf).collect(Collectors.toList());
-        return R.data(ids);
+        return R.ok(ids);
     }
 
     @PostMapping("/role/add/{id}")
@@ -62,25 +62,25 @@ public class SysUserController extends BaseController {
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody SysUser sysUser) {
-        return R.data(sysUserService.checkName(sysUser));
+        return R.ok(sysUserService.checkName(sysUser));
     }
 
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysUser>> list(@RequestBody SysUser sysUser) {
-        return R.data(sysUserService.list(sysUser));
+        return R.ok(sysUserService.list(sysUser));
     }
 
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Dict> list(@RequestBody SysUserDTO user, QueryPage queryPage) {
-        return R.data(super.getData(sysUserService.list(user, queryPage)));
+        return R.ok(super.getData(sysUserService.list(user, queryPage)));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysUserDTO> findById(@PathVariable Long id) {
-        return R.data(sysUserService.findById(id));
+        return R.ok(sysUserService.findById(id));
     }
 
     @PostMapping

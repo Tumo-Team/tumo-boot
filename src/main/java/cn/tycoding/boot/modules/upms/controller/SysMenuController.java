@@ -34,37 +34,37 @@ public class SysMenuController extends BaseController {
     @GetMapping("/tree")
     @ApiOperation(value = "构建菜单Tree树", notes = "此接口将获取菜单表中所有数据")
     public R<List<MenuTree<SysMenu>>> tree() {
-        return R.data(sysMenuService.tree());
+        return R.ok(sysMenuService.tree());
     }
 
     @GetMapping("/base/tree")
     @ApiOperation(value = "获取基础数据", notes = "此接口将获取菜单表中id、name、ids等基础数据")
     public R<Dict> baseTree() {
-        return R.data(sysMenuService.baseTree());
+        return R.ok(sysMenuService.baseTree());
     }
 
     @GetMapping("/build")
     @ApiOperation(value = "加载系统左侧权限菜单", notes = "此接口将获取菜单中`menu`类型的数据")
     public R<List<MenuTree<SysMenu>>> build() {
-        return R.data(sysMenuService.build());
+        return R.ok(sysMenuService.build());
     }
 
     @PostMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
     public R<Boolean> checkName(@RequestBody SysMenu sysMenu) {
-        return R.data(sysMenuService.checkName(sysMenu));
+        return R.ok(sysMenuService.checkName(sysMenu));
     }
 
     @PostMapping("/filter/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysMenu>> list(@RequestBody SysMenu sysMenu) {
-        return R.data(sysMenuService.list(sysMenu));
+        return R.ok(sysMenuService.list(sysMenu));
     }
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysMenu> findById(@PathVariable Long id) {
-        return R.data(sysMenuService.getById(id));
+        return R.ok(sysMenuService.getById(id));
     }
 
     @PostMapping

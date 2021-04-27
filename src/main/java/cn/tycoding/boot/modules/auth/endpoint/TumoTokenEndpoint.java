@@ -46,7 +46,7 @@ public class TumoTokenEndpoint {
         String code = captcha.getCode().toLowerCase();
         String key = RedisCatchUtil.getKey();
         tumoRedis.set(CacheConstant.CAPTCHA_REDIS_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
-        return R.data(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
+        return R.ok(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
     }
 
     /**

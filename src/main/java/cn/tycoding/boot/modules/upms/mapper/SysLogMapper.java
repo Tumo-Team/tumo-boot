@@ -1,6 +1,6 @@
-package cn.tycoding.boot.modules.system.mapper;
+package cn.tycoding.boot.modules.upms.mapper;
 
-import cn.tycoding.boot.modules.system.entity.SysLog;
+import cn.tycoding.boot.modules.upms.entity.SysLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
