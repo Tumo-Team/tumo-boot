@@ -29,7 +29,7 @@ public interface ApiConstant {
     String API_AUTH_PREFIX = "/tumo-boot/auth";
 
     /**
-     * API接口前缀 - System模块
+     * API接口前缀 - Upms模块
      */
     String API_UPMS_PREFIX = "/tumo-boot/upms";
 
