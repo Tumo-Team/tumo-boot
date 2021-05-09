@@ -4,10 +4,8 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
-import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysRoleService;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 角色表(Role)表控制层
@@ -30,7 +27,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/role")
 @Api(value = "角色表接口", tags = "角色表接口")
-public class SysRoleController extends BaseController {
+public class SysRoleController {
 
     private final SysRoleService sysRoleService;
 
@@ -55,8 +52,7 @@ public class SysRoleController extends BaseController {
     @GetMapping("/menu/list/{id}")
     @ApiOperation(value = "根据角色ID查询权限")
     public R getMenuListByRoleId(@PathVariable Long id) {
-        List<SysMenu> sysMenuList = sysRoleService.getMenuListByRoleId(id);
-        return R.ok(sysMenuList.stream().map(SysMenu::getId).collect(Collectors.toList()));
+        return R.ok(sysRoleService.getMenuIdsByRoleId(id));
     }
 
     @GetMapping("/{id}/user/list")

@@ -19,16 +19,6 @@ public interface CommonConstant {
     String CONTENT_TYPE = "application/json; charset=utf-8";
 
     /**
-     * 分页结果集中承载分页数据的属性名
-     */
-    String PAGE_ROWS = "rows";
-
-    /**
-     * 分页结果集中总数量total名称
-     */
-    String PAGE_TOTAL = "total";
-
-    /**
      * 菜单类型：menu
      */
     String MENU_TYPE_MENU = "menu";

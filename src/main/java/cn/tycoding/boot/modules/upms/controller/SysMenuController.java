@@ -3,7 +3,6 @@ package cn.tycoding.boot.modules.upms.controller;
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
@@ -27,7 +26,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/menu")
 @Api(value = "菜单表接口", tags = "菜单表接口")
-public class SysMenuController extends BaseController {
+public class SysMenuController {
 
     private final SysMenuService sysMenuService;
 

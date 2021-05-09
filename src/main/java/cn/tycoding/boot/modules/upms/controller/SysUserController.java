@@ -5,9 +5,9 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.controller.BaseController;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
+import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/user")
 @Api(value = "用户表接口", tags = "用户表接口")
-public class SysUserController extends BaseController {
+public class SysUserController {
 
     private final SysUserService sysUserService;
 
@@ -74,7 +74,7 @@ public class SysUserController extends BaseController {
     @PostMapping("/list")
     @ApiOperation(value = "分页、条件查询")
     public R<Dict> list(@RequestBody SysUserDTO user, QueryPage queryPage) {
-        return R.ok(super.getData(sysUserService.list(user, queryPage)));
+        return R.ok(MybatisUtil.getData(sysUserService.list(user, queryPage)));
     }
 
     @GetMapping("/{id}")

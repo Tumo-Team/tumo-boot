@@ -6,7 +6,6 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
-import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysRoleMenu;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
@@ -89,8 +88,9 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public List<SysMenu> getMenuListByRoleId(Long id) {
-        return sysRoleMenuMapper.getMenuListByRoleId(id);
+    public List<Long> getMenuIdsByRoleId(Long roleId) {
+        List<SysRoleMenu> list = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
+        return list.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toList());
     }
 
     @Override

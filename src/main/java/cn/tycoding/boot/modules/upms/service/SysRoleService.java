@@ -2,7 +2,6 @@ package cn.tycoding.boot.modules.upms.service;
 
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
-import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -40,7 +39,7 @@ public interface SysRoleService extends IService<SysRole> {
     /**
      * 获取指定角色ID下的所有菜单权限
      */
-    List<SysMenu> getMenuListByRoleId(Long id);
+    List<Long> getMenuIdsByRoleId(Long roleId);
 
     /**
      * 获取所属用户列表
