@@ -31,10 +31,10 @@ public class SysRoleController {
 
     private final SysRoleService sysRoleService;
 
-    @PostMapping("/filter/list")
+    @GetMapping("/list")
     @ApiOperation(value = "条件查询")
-    public R<List<SysRole>> list(@RequestBody SysRole sysRole) {
-        return R.ok(sysRoleService.list(sysRole));
+    public R<List<SysRole>> list(SysRole sysRole) {
+        return R.ok(sysRoleService.list());
     }
 
     @GetMapping("/tree")
@@ -61,9 +61,9 @@ public class SysRoleController {
         return R.ok(sysRoleService.userList(id));
     }
 
-    @PostMapping("/checkName")
+    @GetMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
-    public R<Boolean> checkName(@RequestBody SysRole sysRole) {
+    public R<Boolean> checkName(SysRole sysRole) {
         return R.ok(sysRoleService.checkName(sysRole));
     }
 
@@ -77,7 +77,7 @@ public class SysRoleController {
     @ApiLog("新增角色")
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysRole sysRole) {
-        sysRoleService.add(sysRole);
+        sysRoleService.save(sysRole);
         return R.ok();
     }
 
@@ -93,7 +93,7 @@ public class SysRoleController {
     @ApiLog("修改角色")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysRole sysRole) {
-        sysRoleService.update(sysRole);
+        sysRoleService.updateById(sysRole);
         return R.ok();
     }
 

@@ -59,21 +59,21 @@ public class SysUserController {
         return R.ok();
     }
 
-    @PostMapping("/checkName")
+    @GetMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
-    public R<Boolean> checkName(@RequestBody SysUser sysUser) {
+    public R<Boolean> checkName(SysUser sysUser) {
         return R.ok(sysUserService.checkName(sysUser));
     }
 
-    @PostMapping("/filter/list")
+    @GetMapping("/list")
     @ApiOperation(value = "条件查询")
-    public R<List<SysUser>> list(@RequestBody SysUser sysUser) {
+    public R<List<SysUser>> list(SysUser sysUser) {
         return R.ok(sysUserService.list(sysUser));
     }
 
-    @PostMapping("/list")
+    @GetMapping("/page")
     @ApiOperation(value = "分页、条件查询")
-    public R<Dict> list(@RequestBody SysUserDTO user, QueryPage queryPage) {
+    public R<Dict> list(SysUserDTO user, QueryPage queryPage) {
         return R.ok(MybatisUtil.getData(sysUserService.list(user, queryPage)));
     }
 

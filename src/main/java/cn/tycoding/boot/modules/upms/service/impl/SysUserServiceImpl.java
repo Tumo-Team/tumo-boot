@@ -3,6 +3,7 @@ package cn.tycoding.boot.modules.upms.service.impl;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.utils.BeanUtil;
+import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
@@ -12,9 +13,9 @@ import cn.tycoding.boot.modules.upms.mapper.SysUserRoleMapper;
 import cn.tycoding.boot.modules.upms.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -52,8 +53,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public SysUserDTO findById(Long id) {
         SysUser sysUser = baseMapper.selectById(id);
         SysUserDTO dto = BeanUtil.copy(sysUser, SysUserDTO.class);
-        SysDept sysDept = sysDeptService.getById(sysUser.getDeptId());
-        dto.setDeptName(sysDept == null ? null : sysDept.getName());
+        dto.setPassword(null);
+        dto.setRoleIds(roleList(id).stream().map(SysRole::getId).collect(Collectors.toList()));
         return dto;
     }
 
@@ -63,8 +64,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public List<SysRole> roleList(Long id) {
-        return sysUserRoleMapper.getRoleListByUserId(id);
+    public List<SysRole> roleList(Long userId) {
+        return sysUserRoleMapper.getRoleListByUserId(userId);
     }
 
     /**
@@ -96,13 +97,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public List<SysUser> list(SysUser sysUser) {
-        return baseMapper.selectList(new LambdaQueryWrapper<SysUser>().like(SysUser::getUsername, sysUser.getUsername()));
+        List<SysUser> list = baseMapper.selectList(new LambdaQueryWrapper<SysUser>()
+                .like(StringUtils.isNotEmpty(sysUser.getUsername()), SysUser::getUsername, sysUser.getUsername()));
+        list.forEach(i -> i.setPassword(null));
+        return list;
     }
 
     @Override
     public IPage<SysUserDTO> list(SysUserDTO user, QueryPage queryPage) {
-        IPage<SysUser> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        return baseMapper.list(page, user, AuthUtil.getUserId());
+        return baseMapper.list(MybatisUtil.wrap(user, queryPage), user, AuthUtil.getUserId());
     }
 
     @Override

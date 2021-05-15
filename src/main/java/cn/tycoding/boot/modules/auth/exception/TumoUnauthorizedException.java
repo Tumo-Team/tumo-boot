@@ -20,11 +20,11 @@ public class TumoUnauthorizedException extends TumoOAuth2Exception {
 
     @Override
     public String getOAuth2ErrorCode() {
-        return HttpCode.UN_AUTHORIZED.getMsg();
+        return HttpCode.AUTH_UN_AUTHORIZED.getMsg();
     }
 
     @Override
     public int getHttpErrorCode() {
-        return HttpCode.UN_AUTHORIZED.getCode();
+        return HttpCode.AUTH_UN_AUTHORIZED.getCode();
     }
 }

@@ -46,14 +46,8 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public List<SysRole> list(SysRole sysRole) {
-        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<>();
-        return baseMapper.selectList(queryWrapper);
-    }
-
-    @Override
     public List<Tree<Object>> tree() {
-        List<SysRole> list = this.list(new SysRole());
+        List<SysRole> list = this.list();
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         list.forEach(t -> {
@@ -71,7 +65,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public Dict baseTree() {
-        List<SysRole> list = this.list(new SysRole());
+        List<SysRole> list = this.list();
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         list.forEach(t -> nodeList.add(
@@ -108,15 +102,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void add(SysRole sysRole) {
-        if (sysRole.getParentId() == null) {
-            sysRole.setParentId(0L);
-        }
-        baseMapper.insert(sysRole);
-    }
-
-    @Override
     public void addPermission(List<Long> permissionList, Long id) {
         if (permissionList != null) {
             // 先删除原有的关联
@@ -129,12 +114,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                     .setRoleId(id)));
             sysRoleMenuService.saveBatch(sysRoleMenuList);
         }
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(SysRole sysRole) {
-        baseMapper.updateById(sysRole);
     }
 
     @Override

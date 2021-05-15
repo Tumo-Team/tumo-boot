@@ -26,7 +26,7 @@ public interface CaptchaConstant {
     /**
      * 验证码图片干扰线数量
      */
-    int CAPTCHA_CIRCLE_COUNT = 20;
+    int CAPTCHA_CIRCLE_COUNT = 10;
 
     /**
      * 验证码过期时间（分钟）

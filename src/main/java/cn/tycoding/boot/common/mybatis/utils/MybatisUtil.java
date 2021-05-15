@@ -1,10 +1,14 @@
 package cn.tycoding.boot.common.mybatis.utils;
 
 import cn.hutool.core.lang.Dict;
+import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.mybatis.constant.MybatisConstant;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
+ * Mybatis 相关工具类
+ *
  * @author tycoding
  * @since 2021/5/9
  */
@@ -20,4 +24,12 @@ public class MybatisUtil {
         return Dict.create().set(MybatisConstant.PAGE_ROWS, page.getRecords())
                 .set(MybatisConstant.PAGE_TOTAL, page.getTotal());
     }
+
+    /**
+     * QueryPage对象转换为Page对象
+     */
+    public static <T> IPage<T> wrap(T t, QueryPage query) {
+        return new Page<T>(query.getPage(), query.getLimit());
+    }
+
 }

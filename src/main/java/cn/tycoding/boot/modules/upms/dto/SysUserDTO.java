@@ -26,4 +26,9 @@ public class SysUserDTO extends SysUser {
      * 角色信息
      */
     private List<SysRole> roles;
+
+    /**
+     * 角色ID列表
+     */
+    private List<Long> roleIds;
 }

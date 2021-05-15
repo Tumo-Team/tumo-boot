@@ -36,7 +36,7 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 根据用户ID查询角色
      */
-    List<SysRole> roleList(Long id);
+    List<SysRole> roleList(Long userId);
 
     /**
      * 条件查询

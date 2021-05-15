@@ -22,11 +22,6 @@ public interface SysRoleService extends IService<SysRole> {
     List<SysRole> findRolesByUserId(Long id);
 
     /**
-     * 条件查询
-     */
-    List<SysRole> list(SysRole sysRole);
-
-    /**
      * 获取角色Tree集合
      */
     List<Tree<Object>> tree();
@@ -52,19 +47,9 @@ public interface SysRoleService extends IService<SysRole> {
     boolean checkName(SysRole sysRole);
 
     /**
-     * 新增
-     */
-    void add(SysRole sysRole);
-
-    /**
      * 分配权限
      */
     void addPermission(List<Long> permissionList, Long id);
-
-    /**
-     * 修改
-     */
-    void update(SysRole sysRole);
 
     /**
      * 删除
