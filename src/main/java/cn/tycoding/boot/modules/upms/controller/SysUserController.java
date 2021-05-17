@@ -73,8 +73,8 @@ public class SysUserController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页、条件查询")
-    public R<Dict> list(SysUserDTO user, QueryPage queryPage) {
-        return R.ok(MybatisUtil.getData(sysUserService.list(user, queryPage)));
+    public R<Dict> page(SysUserDTO user, QueryPage queryPage) {
+        return R.ok(MybatisUtil.getData(sysUserService.page(user, queryPage)));
     }
 
     @GetMapping("/{id}")

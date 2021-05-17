@@ -54,7 +54,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = baseMapper.selectById(id);
         SysUserDTO dto = BeanUtil.copy(sysUser, SysUserDTO.class);
         dto.setPassword(null);
-        dto.setRoleIds(roleList(id).stream().map(SysRole::getId).collect(Collectors.toList()));
+        dto.setRoleIds(roleList(id).stream().map(SysRole::getId).map(String::valueOf).collect(Collectors.toList()));
         return dto;
     }
 
@@ -104,8 +104,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public IPage<SysUserDTO> list(SysUserDTO user, QueryPage queryPage) {
-        return baseMapper.list(MybatisUtil.wrap(user, queryPage), user, AuthUtil.getUserId());
+    public IPage<SysUserDTO> page(SysUserDTO user, QueryPage queryPage) {
+        return baseMapper.page(MybatisUtil.wrap(user, queryPage), user, AuthUtil.getUserId());
     }
 
     @Override
@@ -122,19 +122,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public void add(SysUserDTO user) {
         user.setCreateTime(new Date());
         PASSWORD_ENCODER.encode(user.getPassword());
+
+        //设置角色
+        if (user.getRoleIds() == null || user.getRoleIds().size() == 0) {
+            throw new RuntimeException("用户角色不能为空");
+        }
         baseMapper.insert(user);
+        addRole(user.getRoleIds().stream().map(Long::valueOf).collect(Collectors.toList()), user.getId());
     }
 
     @Override
-    public void addRole(List<Long> roleList, Long id) {
+    public void addRole(List<Long> roleList, Long userId) {
         if (roleList != null) {
             // 删除之前用户与角色表之前的关联，并重新建立关联
-            sysUserRoleService.deleteUserRolesByUserId(id);
+            sysUserRoleService.deleteUserRolesByUserId(userId);
 
             // 新增用户角色关联
             List<SysUserRole> list = new ArrayList<>();
             roleList.forEach(roleId -> list.add(new SysUserRole()
-                    .setUserId(id)
+                    .setUserId(userId)
                     .setRoleId(roleId)));
             sysUserRoleService.saveBatch(list);
         }
@@ -143,6 +149,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysUserDTO user) {
+        //设置角色
+        if (user.getRoleIds() != null && user.getRoleIds().size() != 0) {
+            addRole(user.getRoleIds().stream().map(Long::valueOf).collect(Collectors.toList()), user.getId());
+        }
         user.setPassword(null);
         baseMapper.updateById(user);
     }

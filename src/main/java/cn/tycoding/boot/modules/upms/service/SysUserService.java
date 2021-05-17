@@ -46,7 +46,7 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 分页、条件查询
      */
-    IPage<SysUserDTO> list(SysUserDTO user, QueryPage queryPage);
+    IPage<SysUserDTO> page(SysUserDTO user, QueryPage queryPage);
 
     /**
      * 校验用户名是否存在
@@ -61,7 +61,7 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 分配角色
      */
-    void addRole(List<Long> roleList, Long id);
+    void addRole(List<Long> roleList, Long userId);
 
     /**
      * 修改

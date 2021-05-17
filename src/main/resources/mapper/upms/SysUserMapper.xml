@@ -20,7 +20,7 @@
     </resultMap>
 
     <!-- 分页、条件查询 -->
-    <select id="list" resultMap="UserMap">
+    <select id="page" resultMap="UserMap">
         SELECT `user`.*,
             sd.name AS deptName
         FROM sys_user AS `user`
@@ -30,7 +30,10 @@
             AND `user`.username LIKE CONCAT('%', #{user.username},  '%')
         </if>
         <if test="user.phone != null and user.phone != ''">
-            AND `user`.phone LIKE CONCAT('%', #{phone},  '%')
+            AND `user`.phone LIKE CONCAT('%', #{user.phone},  '%')
+        </if>
+        <if test="user.deptId != null and user.deptId != ''">
+            AND `user`.dept_id LIKE CONCAT('%', #{user.deptId},  '%')
         </if>
     </select>
 </mapper>

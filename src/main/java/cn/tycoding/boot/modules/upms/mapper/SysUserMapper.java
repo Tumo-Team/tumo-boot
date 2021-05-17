@@ -15,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
-    IPage<SysUserDTO> list(IPage<SysUser> page, SysUserDTO user, Long ignoreId);
+    IPage<SysUserDTO> page(IPage<SysUser> page, SysUserDTO user, Long ignoreId);
 }
