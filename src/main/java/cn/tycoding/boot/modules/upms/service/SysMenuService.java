@@ -19,7 +19,7 @@ public interface SysMenuService extends IService<SysMenu> {
     /**
      * 构建菜单Tree树
      */
-    List<MenuTree<SysMenu>> tree();
+    List<MenuTree<SysMenu>> tree(SysMenu sysMenu);
 
     /**
      * 获取菜单表基础数据

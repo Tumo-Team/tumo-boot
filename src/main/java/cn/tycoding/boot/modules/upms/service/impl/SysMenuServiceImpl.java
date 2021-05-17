@@ -37,14 +37,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     private final SysRoleMenuService sysRoleMenuService;
 
     @Override
-    public List<SysMenu> getUserMenuList(List<SysRole> sysRoleList) {
-        List<Long> roleIds = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList());
-        return baseMapper.build(roleIds, null);
-    }
-
-    @Override
-    public List<MenuTree<SysMenu>> tree() {
-        return MenuTreeUtil.build(this.list());
+    public List<MenuTree<SysMenu>> tree(SysMenu sysMenu) {
+        SysMenu menu = new SysMenu();
+        menu.setName(sysMenu.getName());
+        menu.setIsDisabled(menu.getIsDisabled());
+        return MenuTreeUtil.build(this.list(menu));
     }
 
     @Override
@@ -76,7 +73,13 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             roleIds.clear();
         }
         List<SysMenu> sysMenuList = baseMapper.build(roleIds, CommonConstant.MENU_TYPE_MENU);
-        return MenuTreeUtil.buildTree(sysMenuList);
+        return MenuTreeUtil.build(sysMenuList);
+    }
+
+    @Override
+    public List<SysMenu> getUserMenuList(List<SysRole> sysRoleList) {
+        List<Long> roleIds = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList());
+        return baseMapper.build(roleIds, null);
     }
 
     @Override
@@ -90,7 +93,10 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<SysMenu> list(SysMenu sysMenu) {
-        return baseMapper.selectList(new LambdaQueryWrapper<SysMenu>().like(sysMenu.getName() != null, SysMenu::getName, sysMenu.getName()));
+        return baseMapper.selectList(new LambdaQueryWrapper<SysMenu>()
+                .like(sysMenu.getName() != null, SysMenu::getName, sysMenu.getName())
+                .eq(sysMenu.getIsDisabled() != null, SysMenu::getIsDisabled, sysMenu.getIsDisabled())
+                .orderByAsc(SysMenu::getOrderNo));
     }
 
     @Override

@@ -54,15 +54,9 @@ public class MenuTree<T> implements Serializable {
     private String type;
 
     /**
-     * 重定向地址
+     * 组件路径
      */
-    @ApiModelProperty(value = "重定向地址")
-    private String redirect;
-
-    /**
-     * Vue组件地址
-     */
-    @ApiModelProperty(value = "Vue组件地址")
+    @ApiModelProperty(value = "组件路径")
     private String component;
 
     /**
@@ -72,22 +66,46 @@ public class MenuTree<T> implements Serializable {
     private String perms;
 
     /**
+     * 重定向地址
+     */
+    @ApiModelProperty(value = "重定向地址")
+    private String redirect;
+
+    /**
      * icon && title 信息
      */
     @ApiModelProperty(value = "icon && title 信息")
     private MenuMeta meta;
 
     /**
-     * 是否隐藏该节点
+     * 排序
      */
-    @ApiModelProperty(value = "是否隐藏该节点")
-    private Boolean hidden;
+    @ApiModelProperty(value = "排序")
+    private Integer orderNo;
 
     /**
-     * 是否是外链
+     * 是否禁用
      */
-    @ApiModelProperty(value = "是否是外链")
-    private Boolean frame;
+    @ApiModelProperty(value = "是否禁用")
+    private Boolean disabled;
+
+    /**
+     * 是否外链
+     */
+    @ApiModelProperty(value = "是否外链")
+    private Boolean isExt;
+
+    /**
+     * 是否缓存
+     */
+    @ApiModelProperty(value = "是否缓存")
+    private Boolean keepalive;
+
+    /**
+     * 是否缓存
+     */
+    @ApiModelProperty(value = "是否显示")
+    private Boolean show;
 
     /**
      * 子节点

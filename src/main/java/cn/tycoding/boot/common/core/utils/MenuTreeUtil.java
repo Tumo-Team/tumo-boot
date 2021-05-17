@@ -20,15 +20,18 @@ public class MenuTreeUtil {
         list.forEach(menu -> {
             MenuTree<SysMenu> tree = new MenuTree<>();
             tree.setId(menu.getId());
+            tree.setParentId(menu.getParentId());
             tree.setName(menu.getName());
             tree.setPath(menu.getPath());
             tree.setType(menu.getType());
-            tree.setMeta(new MenuMeta(menu.getName(), menu.getIcon()));
             tree.setComponent(menu.getComponent());
             tree.setPerms(menu.getPerms());
-            tree.setHidden(menu.getHidden());
-            tree.setFrame(menu.getFrame());
-            tree.setParentId(menu.getParentId());
+            tree.setMeta(new MenuMeta(menu.getName(), menu.getIcon()));
+            tree.setOrderNo(menu.getOrderNo());
+            tree.setDisabled(menu.getIsDisabled());
+            tree.setIsExt(menu.getIsExt());
+            tree.setKeepalive(menu.getIsKeepalive());
+            tree.setShow(menu.getIsShow());
             treeList.add(tree);
         });
         return treeList;
@@ -41,6 +44,12 @@ public class MenuTreeUtil {
         nodes.forEach(node -> {
             Long pid = node.getParentId();
             if (pid == null || pid.equals(0L)) {
+                // 父级节点
+                if (node.getIsExt()) {
+                    node.setComponent("IFrame");
+                } else {
+                    node.setComponent("Layout");
+                }
                 tree.add(node);
                 return;
             }
@@ -53,20 +62,5 @@ public class MenuTreeUtil {
             }
         });
         return tree;
-    }
-
-    public static List<MenuTree<SysMenu>> buildTree(List<SysMenu> list) {
-        List<MenuTree<SysMenu>> nodes = new ArrayList<>();
-        build(list).forEach(node -> {
-            MenuTree<SysMenu> child = BeanUtil.copy(node, new MenuTree<>());
-            if (node.getChildren().size() == 0) {
-                // 只有一级节点
-                nodes.add(child);
-            } else {
-                // 包含子节点
-                nodes.add(child.setComponent("Layout"));
-            }
-        });
-        return nodes;
     }
 }

@@ -45,9 +45,9 @@ public class SysMenu implements Serializable {
     private Long parentId;
 
     /**
-     * 菜单路径
+     * 路由地址
      */
-    @ApiModelProperty(value = "菜单路径")
+    @ApiModelProperty(value = "路由地址")
     private String path;
 
     /**
@@ -75,15 +75,33 @@ public class SysMenu implements Serializable {
     private String component;
 
     /**
-     * 是否隐藏
+     * 排序
      */
-    @ApiModelProperty(value = "是否隐藏")
-    private Boolean hidden;
+    @ApiModelProperty(value = "排序")
+    private Integer orderNo;
 
     /**
-     * 是否是外链
+     * 是否禁用
      */
-    @ApiModelProperty(value = "是否是外链")
-    private Boolean frame;
+    @ApiModelProperty(value = "是否禁用")
+    private Boolean isDisabled;
+
+    /**
+     * 是否外链
+     */
+    @ApiModelProperty(value = "是否外链")
+    private Boolean isExt;
+
+    /**
+     * 是否缓存
+     */
+    @ApiModelProperty(value = "是否缓存")
+    private Boolean isKeepalive;
+
+    /**
+     * 是否缓存
+     */
+    @ApiModelProperty(value = "是否显示")
+    private Boolean isShow;
 
 }
