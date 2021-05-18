@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 17/05/2021 22:42:09
+ Date: 18/05/2021 21:58:01
 */
 
 SET NAMES utf8mb4;
@@ -62,6 +62,7 @@ CREATE TABLE `sys_dept` (
 BEGIN;
 INSERT INTO `sys_dept` VALUES (1362597682681577273, 1362597682681577473, '测试部门1.1', '测试', '2021-05-15 07:51:32');
 INSERT INTO `sys_dept` VALUES (1362597682681577473, 0, '测试部门', '测试', '2021-05-14 07:51:37');
+INSERT INTO `sys_dept` VALUES (1394652452952887298, 0, '1', '1111', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -278,6 +279,19 @@ INSERT INTO `sys_log` VALUES (1394301669023641602, 1, 'tumo-boot', '修改菜单
 INSERT INTO `sys_log` VALUES (1394301669053001729, 1, 'tumo-boot', '修改菜单', '/tumo-boot/upms/menu', 33, 'cn.tycoding.boot.modules.upms.controller.SysMenuController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-17 22:39:57');
 INSERT INTO `sys_log` VALUES (1394301759020822529, 1, 'tumo-boot', '删除菜单', '/tumo-boot/upms/menu/1394298262342823937', 77, 'cn.tycoding.boot.modules.upms.controller.SysMenuController.delete()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-17 22:40:19');
 INSERT INTO `sys_log` VALUES (1394301759037599745, 1, 'tumo-boot', '删除菜单', '/tumo-boot/upms/menu/1394298262342823937', 83, 'cn.tycoding.boot.modules.upms.controller.SysMenuController.delete()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-17 22:40:19');
+INSERT INTO `sys_log` VALUES (1394593681624891394, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 43, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 18:00:19');
+INSERT INTO `sys_log` VALUES (1394593681650057218, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 71, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 18:00:19');
+INSERT INTO `sys_log` VALUES (1394593682216288258, 2, 'tumo-boot', '服务器异常', '/tumo-boot/upms/role/tree', NULL, NULL, 'page=%5B1%5D&limit=%5B10%5D&_t=%5B1621332018671%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 18:00:19');
+INSERT INTO `sys_log` VALUES (1394596026257596417, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 47, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 18:09:38');
+INSERT INTO `sys_log` VALUES (1394596026282762242, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 68, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 18:09:38');
+INSERT INTO `sys_log` VALUES (1394625069812113410, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 15, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:05:02');
+INSERT INTO `sys_log` VALUES (1394625069862445057, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 28, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:05:02');
+INSERT INTO `sys_log` VALUES (1394625097351913473, 1, 'tumo-boot', '删除角色', '/tumo-boot/upms/role/1394596026001743873', 30, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.delete()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:05:09');
+INSERT INTO `sys_log` VALUES (1394625097368690689, 1, 'tumo-boot', '删除角色', '/tumo-boot/upms/role/1394596026001743873', 34, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.delete()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:05:09');
+INSERT INTO `sys_log` VALUES (1394635789398323201, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 66, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:47:38');
+INSERT INTO `sys_log` VALUES (1394635789511569409, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 116, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:47:38');
+INSERT INTO `sys_log` VALUES (1394652453091299329, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 27, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 21:53:51');
+INSERT INTO `sys_log` VALUES (1394652453116465154, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 57, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 21:53:51');
 COMMIT;
 
 -- ----------------------------
@@ -322,16 +336,20 @@ CREATE TABLE `sys_role` (
   `parent_id` bigint(20) DEFAULT NULL COMMENT '上级节点',
   `name` varchar(20) NOT NULL COMMENT '角色名称',
   `alias` varchar(20) DEFAULT NULL COMMENT '角色别名',
+  `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
   `des` varchar(100) DEFAULT NULL COMMENT '描述',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', '超级管理员管理员，不受权限控制');
-INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', '仅拥有用户管理权限');
+INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', 1, '超级管理员管理员，不受权限控制');
+INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', 1, '仅拥有用户管理权限');
+INSERT INTO `sys_role` VALUES (1362597571041787916, 1362597571041787906, '用户管理员1', 'user-admin-1', 1, '仅拥有用户管理权限');
+INSERT INTO `sys_role` VALUES (1394593681369038850, 0, '1111', '1', 1, '1');
+INSERT INTO `sys_role` VALUES (1394635789033418753, 1394593681369038850, '1xxx', '1zzzz', 1, 'zzz');
 COMMIT;
 
 -- ----------------------------
@@ -348,6 +366,8 @@ CREATE TABLE `sys_role_menu` (
 -- Records of sys_role_menu
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_role_menu` VALUES (1394593681369038850, 1362601021230026753);
+INSERT INTO `sys_role_menu` VALUES (1394635789033418753, 1362601021230026753);
 COMMIT;
 
 -- ----------------------------

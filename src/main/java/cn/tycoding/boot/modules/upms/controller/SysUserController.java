@@ -10,7 +10,6 @@ import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
-import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysUserService;
 import io.swagger.annotations.Api;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * 用户表(User)表控制层
@@ -42,21 +40,6 @@ public class SysUserController {
         UserInfo userInfo = sysUserService.info(AuthUtil.getUsername());
         userInfo.getUser().setPassword(null);
         return R.ok(userInfo);
-    }
-
-    @GetMapping("/role/list/{id}")
-    @ApiOperation(value = "根据用户ID查询角色ID集合")
-    public R menuList(@PathVariable Long id) {
-        List<SysRole> sysRoleList = sysUserService.roleList(id);
-        List<String> ids = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList()).stream().map(String::valueOf).collect(Collectors.toList());
-        return R.ok(ids);
-    }
-
-    @PostMapping("/role/add/{id}")
-    @ApiOperation(value = "分配角色")
-    public R addRole(@RequestBody List<Long> roleList, @PathVariable Long id) {
-        sysUserService.addRole(roleList, id);
-        return R.ok();
     }
 
     @GetMapping("/checkName")

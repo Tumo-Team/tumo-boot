@@ -1,10 +1,5 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.lang.Dict;
-import cn.hutool.core.lang.tree.Tree;
-import cn.hutool.core.lang.tree.TreeNode;
-import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
@@ -42,24 +37,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         menu.setName(sysMenu.getName());
         menu.setIsDisabled(menu.getIsDisabled());
         return MenuTreeUtil.build(this.list(menu));
-    }
-
-    @Override
-    public Dict baseTree() {
-        List<SysMenu> list = this.list(new SysMenu());
-        // 构建树形结构
-        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
-        list.forEach(t -> nodeList.add(
-                new TreeNode<>(
-                        t.getId(),
-                        t.getParentId(),
-                        t.getName(),
-                        0
-                )
-        ));
-        List<Long> ids = list.stream().map(SysMenu::getId).collect(Collectors.toList());
-        List<Tree<Object>> tree = TreeUtil.build(nodeList, 0L);
-        return Dict.create().set("ids", ids).set("tree", tree);
     }
 
     @Override

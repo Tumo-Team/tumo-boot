@@ -13,6 +13,7 @@ import cn.tycoding.boot.modules.upms.service.SysDeptService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,8 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
 
     @Override
     public List<SysDept> list(SysDept sysDept) {
-        return baseMapper.selectList(new LambdaQueryWrapper<SysDept>().like(sysDept.getName() != null, SysDept::getName, sysDept.getName()));
+        return baseMapper.selectList(new LambdaQueryWrapper<SysDept>()
+                .like(StringUtils.isNotEmpty(sysDept.getName()), SysDept::getName, sysDept.getName()));
     }
 
     @Override
@@ -43,28 +45,20 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         sysDeptList.forEach(t -> {
             TreeNode<Object> node = new TreeNode<>(
-                    t.getId().toString(),
-                    t.getParentId().toString(),
+                    t.getId(),
+                    t.getParentId(),
                     t.getName(),
                     0
             );
             node.setExtra(Dict.create().set("des", t.getDes()));
             nodeList.add(node);
         });
-        return TreeUtil.build(nodeList, "0");
+        return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
     public List<SysUser> userList(Long id) {
-        return sysUserMapper.selectList(new LambdaQueryWrapper<SysUser>().eq(SysUser::getDeptId, id).select(
-                SysUser::getId,
-                SysUser::getUsername,
-                SysUser::getAvatar,
-                SysUser::getSex,
-                SysUser::getPhone,
-                SysUser::getEmail,
-                SysUser::getStatus
-        ));
+        return sysUserMapper.selectList(new LambdaQueryWrapper<SysUser>().eq(SysUser::getDeptId, id));
     }
 
     @Override
@@ -83,12 +77,6 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             sysDept.setParentId(0L);
         }
         baseMapper.insert(sysDept);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update(SysDept sysDept) {
-        baseMapper.updateById(sysDept);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package cn.tycoding.boot.modules.upms.controller;
 
-import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
+import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysRoleService;
@@ -39,20 +39,8 @@ public class SysRoleController {
 
     @GetMapping("/tree")
     @ApiOperation(value = "获取角色Tree")
-    public R<List<Tree<Object>>> tree() {
-        return R.ok(sysRoleService.tree());
-    }
-
-    @GetMapping("/base/tree")
-    @ApiOperation(value = "获取基础数据", notes = "此接口将获取角色表中id、name、ids等基础数据")
-    public R<Dict> baseTree() {
-        return R.ok(sysRoleService.baseTree());
-    }
-
-    @GetMapping("/menu/list/{id}")
-    @ApiOperation(value = "根据角色ID查询权限")
-    public R getMenuListByRoleId(@PathVariable Long id) {
-        return R.ok(sysRoleService.getMenuIdsByRoleId(id));
+    public R<List<Tree<Object>>> tree(SysRole sysRole) {
+        return R.ok(sysRoleService.tree(sysRole));
     }
 
     @GetMapping("/{id}/user/list")
@@ -69,31 +57,23 @@ public class SysRoleController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
-    public R<SysRole> findById(@PathVariable Long id) {
-        return R.ok(sysRoleService.getById(id));
+    public R<SysRoleDTO> findById(@PathVariable Long id) {
+        return R.ok(sysRoleService.findById(id));
     }
 
     @PostMapping
     @ApiLog("新增角色")
     @ApiOperation(value = "新增")
-    public R add(@RequestBody SysRole sysRole) {
-        sysRoleService.save(sysRole);
-        return R.ok();
-    }
-
-    @PostMapping("/permission/add/{id}")
-    @ApiLog("为角色分配权限")
-    @ApiOperation(value = "分配权限")
-    public R addPermission(@RequestBody List<Long> permissionList, @PathVariable Long id) {
-        sysRoleService.addPermission(permissionList, id);
+    public R add(@RequestBody SysRoleDTO sysRole) {
+        sysRoleService.add(sysRole);
         return R.ok();
     }
 
     @PutMapping
     @ApiLog("修改角色")
     @ApiOperation(value = "修改")
-    public R update(@RequestBody SysRole sysRole) {
-        sysRoleService.updateById(sysRole);
+    public R update(@RequestBody SysRoleDTO sysRole) {
+        sysRoleService.update(sysRole);
         return R.ok();
     }
 

@@ -6,6 +6,8 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
+import cn.tycoding.boot.common.core.utils.BeanUtil;
+import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysRoleMenu;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
@@ -18,6 +20,7 @@ import cn.tycoding.boot.modules.upms.service.SysUserRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,45 +49,23 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     }
 
     @Override
-    public List<Tree<Object>> tree() {
-        List<SysRole> list = this.list();
+    public List<Tree<Object>> tree(SysRole sysRole) {
+        List<SysRole> list = this.list(new LambdaQueryWrapper<SysRole>()
+                .like(StringUtils.isNotEmpty(sysRole.getName()), SysRole::getName, sysRole.getName())
+        );
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
         list.forEach(t -> {
             TreeNode<Object> node = new TreeNode<>(
-                    t.getId().toString(),
-                    t.getParentId().toString(),
+                    t.getId(),
+                    t.getParentId(),
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()));
+            node.setExtra(Dict.create().set("alias", t.getAlias()).set("des", t.getDes()).set("status", t.getStatus()));
             nodeList.add(node);
         });
-        return TreeUtil.build(nodeList, "0");
-    }
-
-    @Override
-    public Dict baseTree() {
-        List<SysRole> list = this.list();
-        // 构建树形结构
-        List<TreeNode<Object>> nodeList = CollUtil.newArrayList();
-        list.forEach(t -> nodeList.add(
-                new TreeNode<>(
-                        t.getId().toString(),
-                        t.getParentId().toString(),
-                        t.getName(),
-                        0
-                )
-        ));
-        List<String> ids = list.stream().map(SysRole::getId).collect(Collectors.toList()).stream().map(String::valueOf).collect(Collectors.toList());
-        List<Tree<Object>> tree = TreeUtil.build(nodeList, "0");
-        return Dict.create().set("ids", ids).set("tree", tree);
-    }
-
-    @Override
-    public List<Long> getMenuIdsByRoleId(Long roleId) {
-        List<SysRoleMenu> list = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
-        return list.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toList());
+        return TreeUtil.build(nodeList, 0L);
     }
 
     @Override
@@ -101,15 +82,47 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }
 
+    private List<Long> getMenuIdsByRoleId(Long roleId) {
+        List<SysRoleMenu> list = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
+        return list.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toList());
+    }
+
     @Override
-    public void addPermission(List<Long> permissionList, Long id) {
-        if (permissionList != null) {
+    public SysRoleDTO findById(Long roleId) {
+        SysRole role = this.getById(roleId);
+        SysRoleDTO sysRole = BeanUtil.copy(role, SysRoleDTO.class);
+        sysRole.setMenuIds(getMenuIdsByRoleId(roleId));
+        return sysRole;
+    }
+
+    @Override
+    public void add(SysRoleDTO sysRole) {
+        if (sysRole.getParentId() == null) {
+            sysRole.setParentId(0L);
+        }
+        this.save(sysRole);
+        addMenus(sysRole);
+    }
+
+    @Override
+    public void update(SysRoleDTO sysRole) {
+        if (sysRole.getParentId() == null) {
+            sysRole.setParentId(0L);
+        }
+        baseMapper.updateById(sysRole);
+        addMenus(sysRole);
+    }
+
+    private void addMenus(SysRoleDTO sysRole) {
+        List<Long> menuIds = sysRole.getMenuIds();
+        Long id = sysRole.getId();
+        if (menuIds != null) {
             // 先删除原有的关联
             sysRoleMenuService.deleteRoleMenusByRoleId(id);
 
             // 再新增关联
             List<SysRoleMenu> sysRoleMenuList = new ArrayList<>();
-            permissionList.forEach(menuId -> sysRoleMenuList.add(new SysRoleMenu()
+            menuIds.forEach(menuId -> sysRoleMenuList.add(new SysRoleMenu()
                     .setMenuId(menuId)
                     .setRoleId(id)));
             sysRoleMenuService.saveBatch(sysRoleMenuList);

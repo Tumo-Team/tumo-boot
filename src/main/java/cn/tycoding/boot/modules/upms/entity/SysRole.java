@@ -58,6 +58,12 @@ public class SysRole implements Serializable {
     @ApiModelProperty(value = "描述")
     private String des;
 
+    /**
+     * 状态
+     */
+    @ApiModelProperty(value = "状态")
+    private Boolean status;
+
     public void setParentId(Long parentId) {
         this.parentId = parentId == null ? 0 : parentId;
     }

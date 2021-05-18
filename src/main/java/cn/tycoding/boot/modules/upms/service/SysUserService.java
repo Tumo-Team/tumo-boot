@@ -3,7 +3,6 @@ package cn.tycoding.boot.modules.upms.service;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
-import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,17 +25,12 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 根据ID查询
      */
-    SysUserDTO findById(Long id);
+    SysUserDTO findById(Long userId);
 
     /**
      * 根据用户名封装：用户信息、角色、部门、权限
      */
     UserInfo info(String username);
-
-    /**
-     * 根据用户ID查询角色
-     */
-    List<SysRole> roleList(Long userId);
 
     /**
      * 条件查询
@@ -57,11 +51,6 @@ public interface SysUserService extends IService<SysUser> {
      * 新增
      */
     void add(SysUserDTO user);
-
-    /**
-     * 分配角色
-     */
-    void addRole(List<Long> roleList, Long userId);
 
     /**
      * 修改

@@ -41,11 +41,6 @@ public interface SysDeptService extends IService<SysDept> {
     void add(SysDept sysDept);
 
     /**
-     * 修改
-     */
-    void update(SysDept sysDept);
-
-    /**
      * 删除
      */
     void delete(Long id);

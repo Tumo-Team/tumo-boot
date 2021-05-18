@@ -1,6 +1,5 @@
 package cn.tycoding.boot.modules.upms.service;
 
-import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
@@ -20,11 +19,6 @@ public interface SysMenuService extends IService<SysMenu> {
      * 构建菜单Tree树
      */
     List<MenuTree<SysMenu>> tree(SysMenu sysMenu);
-
-    /**
-     * 获取菜单表基础数据
-     */
-    Dict baseTree();
 
     /**
      * 构建左侧权限菜单

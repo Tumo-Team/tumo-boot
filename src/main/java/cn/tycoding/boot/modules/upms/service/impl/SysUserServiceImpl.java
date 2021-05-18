@@ -9,7 +9,6 @@ import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
 import cn.tycoding.boot.modules.upms.entity.*;
 import cn.tycoding.boot.modules.upms.mapper.SysUserMapper;
-import cn.tycoding.boot.modules.upms.mapper.SysUserRoleMapper;
 import cn.tycoding.boot.modules.upms.service.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -42,7 +41,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     private final SysMenuService sysMenuService;
     private final SysDeptService sysDeptService;
     private final SysUserRoleService sysUserRoleService;
-    private final SysUserRoleMapper sysUserRoleMapper;
 
     @Override
     public SysUser findByName(String username) {
@@ -50,22 +48,18 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public SysUserDTO findById(Long id) {
-        SysUser sysUser = baseMapper.selectById(id);
+    public SysUserDTO findById(Long userId) {
+        SysUser sysUser = baseMapper.selectById(userId);
         SysUserDTO dto = BeanUtil.copy(sysUser, SysUserDTO.class);
         dto.setPassword(null);
-        dto.setRoleIds(roleList(id).stream().map(SysRole::getId).map(String::valueOf).collect(Collectors.toList()));
+        List<Long> roleIds = sysUserRoleService.getRoleListByUserId(userId).stream().map(SysRole::getId).collect(Collectors.toList());
+        dto.setRoleIds(roleIds);
         return dto;
     }
 
     @Override
     public UserInfo info(String username) {
         return this.build(new UserInfo().setUser(this.findByName(username)));
-    }
-
-    @Override
-    public List<SysRole> roleList(Long userId) {
-        return sysUserRoleMapper.getRoleListByUserId(userId);
     }
 
     /**
@@ -128,18 +122,19 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new RuntimeException("用户角色不能为空");
         }
         baseMapper.insert(user);
-        addRole(user.getRoleIds().stream().map(Long::valueOf).collect(Collectors.toList()), user.getId());
+        addRole(user);
     }
 
-    @Override
-    public void addRole(List<Long> roleList, Long userId) {
-        if (roleList != null) {
+    private void addRole(SysUserDTO user) {
+        List<Long> roleIds = user.getRoleIds();
+        Long userId = user.getId();
+        if (roleIds != null) {
             // 删除之前用户与角色表之前的关联，并重新建立关联
             sysUserRoleService.deleteUserRolesByUserId(userId);
 
             // 新增用户角色关联
             List<SysUserRole> list = new ArrayList<>();
-            roleList.forEach(roleId -> list.add(new SysUserRole()
+            roleIds.forEach(roleId -> list.add(new SysUserRole()
                     .setUserId(userId)
                     .setRoleId(roleId)));
             sysUserRoleService.saveBatch(list);
@@ -150,9 +145,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional(rollbackFor = Exception.class)
     public void update(SysUserDTO user) {
         //设置角色
-        if (user.getRoleIds() != null && user.getRoleIds().size() != 0) {
-            addRole(user.getRoleIds().stream().map(Long::valueOf).collect(Collectors.toList()), user.getId());
-        }
+        addRole(user);
         user.setPassword(null);
         baseMapper.updateById(user);
     }

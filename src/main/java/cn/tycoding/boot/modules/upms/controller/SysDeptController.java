@@ -30,9 +30,9 @@ public class SysDeptController {
 
     private final SysDeptService sysDeptService;
 
-    @PostMapping("/filter/list")
+    @GetMapping("/list")
     @ApiOperation(value = "条件查询")
-    public R<List<SysDept>> list(@RequestBody SysDept sysDept) {
+    public R<List<SysDept>> list(SysDept sysDept) {
         return R.ok(sysDeptService.list(sysDept));
     }
 
@@ -72,7 +72,7 @@ public class SysDeptController {
     @ApiLog("修改部门")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysDept sysDept) {
-        sysDeptService.update(sysDept);
+        sysDeptService.updateById(sysDept);
         return R.ok();
     }
 

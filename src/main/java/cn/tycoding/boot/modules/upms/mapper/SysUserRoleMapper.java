@@ -18,16 +18,12 @@ import java.util.List;
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {
 
     /**
-     * 根据Role ID查询User集合
-     *
-     * @param roleId 角色ID
+     * 根据RoleID查询User集合
      */
     List<SysUser> getUserListByRoleId(Long roleId);
 
     /**
-     * 根据User ID查询Role集合
-     *
-     * @param userId 用户ID
+     * 根据UserID查询Role集合
      */
     List<SysRole> getRoleListByUserId(Long userId);
 }

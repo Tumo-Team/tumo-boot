@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.upms.service;
 
-import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
+import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -24,17 +24,7 @@ public interface SysRoleService extends IService<SysRole> {
     /**
      * 获取角色Tree集合
      */
-    List<Tree<Object>> tree();
-
-    /**
-     * 此接口将获取角色表中id、name、ids等基础数据
-     */
-    Dict baseTree();
-
-    /**
-     * 获取指定角色ID下的所有菜单权限
-     */
-    List<Long> getMenuIdsByRoleId(Long roleId);
+    List<Tree<Object>> tree(SysRole sysRole);
 
     /**
      * 获取所属用户列表
@@ -47,13 +37,22 @@ public interface SysRoleService extends IService<SysRole> {
     boolean checkName(SysRole sysRole);
 
     /**
-     * 分配权限
+     * 根据ID查询
      */
-    void addPermission(List<Long> permissionList, Long id);
+    SysRoleDTO findById(Long roleId);
+
+    /**
+     * 新增角色
+     */
+    void add(SysRoleDTO sysRole);
+
+    /**
+     * 修改角色
+     */
+    void update(SysRoleDTO sysRole);
 
     /**
      * 删除
      */
     void delete(Long id);
-
 }

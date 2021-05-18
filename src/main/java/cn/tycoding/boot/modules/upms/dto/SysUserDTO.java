@@ -30,5 +30,5 @@ public class SysUserDTO extends SysUser {
     /**
      * 角色ID列表
      */
-    private List<String> roleIds;
+    private List<Long> roleIds;
 }
