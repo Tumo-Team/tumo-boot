@@ -10,7 +10,6 @@ import cn.tycoding.boot.common.core.utils.BeanUtil;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysRoleMenu;
-import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.mapper.SysRoleMapper;
 import cn.tycoding.boot.modules.upms.mapper.SysRoleMenuMapper;
 import cn.tycoding.boot.modules.upms.mapper.SysUserRoleMapper;
@@ -66,11 +65,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);
-    }
-
-    @Override
-    public List<SysUser> userList(Long id) {
-        return sysUserRoleMapper.getUserListByRoleId(id);
     }
 
     @Override

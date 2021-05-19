@@ -7,7 +7,6 @@ import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
-import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysRoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,12 +40,6 @@ public class SysRoleController {
     @ApiOperation(value = "获取角色Tree")
     public R<List<Tree<Object>>> tree(SysRole sysRole) {
         return R.ok(sysRoleService.tree(sysRole));
-    }
-
-    @GetMapping("/{id}/user/list")
-    @ApiOperation(value = "获取所属用户列表")
-    public R<List<SysUser>> userList(@PathVariable Long id) {
-        return R.ok(sysRoleService.userList(id));
     }
 
     @GetMapping("/checkName")

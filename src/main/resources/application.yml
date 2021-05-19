@@ -38,6 +38,7 @@ tumo-boot:
   auth:
     skip-url:
       - /favicon.ico
+      - /upload/**
       - /tumo-boot/auth/logout
       - /tumo-boot/auth/captcha
   # 日志配置

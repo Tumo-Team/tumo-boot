@@ -32,4 +32,9 @@ public interface CommonConstant {
      * 菜单：默认Icon图标
      */
     String MENU_ICON = "alert";
+
+    /**
+     * 默认用户头像路径
+     */
+    String DEFAULT_AVATAR = "/upload/avatar";
 }

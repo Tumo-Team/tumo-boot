@@ -6,9 +6,7 @@ import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.modules.upms.entity.SysDept;
-import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.mapper.SysDeptMapper;
-import cn.tycoding.boot.modules.upms.mapper.SysUserMapper;
 import cn.tycoding.boot.modules.upms.service.SysDeptService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -29,11 +27,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements SysDeptService {
 
-    private final SysUserMapper sysUserMapper;
-
     @Override
     public List<SysDept> list(SysDept sysDept) {
         return baseMapper.selectList(new LambdaQueryWrapper<SysDept>()
+                .orderByAsc(SysDept::getOrderNo)
                 .like(StringUtils.isNotEmpty(sysDept.getName()), SysDept::getName, sysDept.getName()));
     }
 
@@ -50,15 +47,10 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
                     t.getName(),
                     0
             );
-            node.setExtra(Dict.create().set("des", t.getDes()));
+            node.setExtra(Dict.create().set("orderNo", t.getOrderNo()).set("des", t.getDes()));
             nodeList.add(node);
         });
         return TreeUtil.build(nodeList, 0L);
-    }
-
-    @Override
-    public List<SysUser> userList(Long id) {
-        return sysUserMapper.selectList(new LambdaQueryWrapper<SysUser>().eq(SysUser::getDeptId, id));
     }
 
     @Override

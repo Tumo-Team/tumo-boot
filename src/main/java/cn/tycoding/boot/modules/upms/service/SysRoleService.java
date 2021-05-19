@@ -3,7 +3,6 @@ package cn.tycoding.boot.modules.upms.service;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
-import cn.tycoding.boot.modules.upms.entity.SysUser;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -25,11 +24,6 @@ public interface SysRoleService extends IService<SysRole> {
      * 获取角色Tree集合
      */
     List<Tree<Object>> tree(SysRole sysRole);
-
-    /**
-     * 获取所属用户列表
-     */
-    List<SysUser> userList(Long id);
 
     /**
      * 校验名称是否存在

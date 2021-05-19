@@ -2,7 +2,9 @@ package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.BeanUtil;
+import cn.tycoding.boot.common.core.utils.Is;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
@@ -117,8 +119,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         user.setCreateTime(new Date());
         PASSWORD_ENCODER.encode(user.getPassword());
 
-        //设置角色
-        if (user.getRoleIds() == null || user.getRoleIds().size() == 0) {
+        // 设置默认头像
+        if (StringUtils.isEmpty(user.getAvatar())) {
+            user.setAvatar(CommonConstant.DEFAULT_AVATAR);
+        }
+
+        // 设置角色
+        if (Is.isEmpty(user.getRoleIds())) {
             throw new RuntimeException("用户角色不能为空");
         }
         baseMapper.insert(user);
@@ -144,6 +151,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(SysUserDTO user) {
+        // 设置默认头像
+        if (StringUtils.isEmpty(user.getAvatar())) {
+            user.setAvatar(CommonConstant.DEFAULT_AVATAR);
+        }
+
         //设置角色
         addRole(user);
         user.setPassword(null);

@@ -3,14 +3,10 @@ package cn.tycoding.boot.modules.upms.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
@@ -34,7 +30,6 @@ public class SysUser implements Serializable {
      */
     @ApiModelProperty(value = "用户ID")
     @TableId(value = "id", type = IdType.ASSIGN_ID)
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long id;
 
     /**
@@ -74,7 +69,6 @@ public class SysUser implements Serializable {
      * 部门ID
      */
     @ApiModelProperty(value = "部门ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long deptId;
 
     /**
@@ -99,7 +93,5 @@ public class SysUser implements Serializable {
      * 创建时间
      */
     @ApiModelProperty(value = "创建时间")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 }

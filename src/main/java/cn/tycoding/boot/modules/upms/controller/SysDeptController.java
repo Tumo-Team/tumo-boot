@@ -6,7 +6,6 @@ import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.entity.SysDept;
-import cn.tycoding.boot.modules.upms.entity.SysUser;
 import cn.tycoding.boot.modules.upms.service.SysDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,12 +39,6 @@ public class SysDeptController {
     @ApiOperation(value = "获取部门Tree")
     public R<List<Tree<Object>>> tree() {
         return R.ok(sysDeptService.tree());
-    }
-
-    @GetMapping("/{id}/user/list")
-    @ApiOperation(value = "获取所属用户列表")
-    public R<List<SysUser>> userList(@PathVariable Long id) {
-        return R.ok(sysDeptService.userList(id));
     }
 
     @PostMapping("/checkName")

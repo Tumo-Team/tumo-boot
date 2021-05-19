@@ -6,6 +6,7 @@ import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.entity.SysLog;
+import io.lettuce.core.RedisConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -41,7 +42,7 @@ public class GlobalExceptionTranslator {
         return R.fail(e);
     }
 
-    @ExceptionHandler({RedisConnectionFailureException.class})
+    @ExceptionHandler({RedisConnectionFailureException.class, RedisConnectionException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleError(RedisConnectionFailureException e) {
         log.error("Redis连接异常", e);

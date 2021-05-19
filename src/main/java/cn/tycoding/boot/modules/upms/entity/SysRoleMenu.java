@@ -1,8 +1,6 @@
 package cn.tycoding.boot.modules.upms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -25,13 +23,11 @@ public class SysRoleMenu implements Serializable {
      * 角色ID
      */
     @ApiModelProperty(value = "角色ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long roleId;
 
     /**
      * 菜单ID
      */
     @ApiModelProperty(value = "菜单ID")
-    @JsonSerialize(using = ToStringSerializer.class)
     private Long menuId;
 }
