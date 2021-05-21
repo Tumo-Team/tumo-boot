@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -24,14 +23,13 @@ public class SysMenu implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "主键")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
      * 资源名称
      */
     @ApiModelProperty(value = "菜单名称")
-    @NotNull(message = "菜单名称不能为空")
     private String name;
 
     /**

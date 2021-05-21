@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -26,7 +25,7 @@ public class SysDept implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "部门ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -39,7 +38,6 @@ public class SysDept implements Serializable {
      * 部门名称
      */
     @ApiModelProperty(value = "部门名称")
-    @NotNull(message = "部门名称不能为空")
     private String name;
 
     /**

@@ -28,7 +28,7 @@ public class SysLog implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "编号")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**

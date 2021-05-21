@@ -1,9 +1,10 @@
 package cn.tycoding.boot.common.swagger.config;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.swagger.props.SwaggerProperties;
-import com.google.common.collect.Lists;
-import lombok.AllArgsConstructor;
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -13,6 +14,7 @@ import springfox.documentation.service.*;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,9 @@ import java.util.List;
  * @since 2020/10/15
  */
 @Configuration
-@AllArgsConstructor
+@EnableKnife4j
+@EnableSwagger2WebMvc
+@RequiredArgsConstructor
 public class SwaggerConfig {
 
     private final SwaggerProperties swagger;
@@ -40,8 +44,8 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public Docket settingDocket() {
-        return docket("设置模块", swagger.getBasePackage() + ".modules.setting.controller");
+    public Docket ossDocket() {
+        return docket("OSS模块", swagger.getBasePackage() + ".modules.oss.controller");
     }
 
     private Docket docket(String groupName, String basePackage) {
@@ -62,9 +66,9 @@ public class SwaggerConfig {
         });
 
         SecurityReference securityReference = new SecurityReference("oauth2", scopes.toArray(new AuthorizationScope[]{}));
-        return Lists.newArrayList(SecurityContext
+        return CollectionUtil.newArrayList(SecurityContext
                 .builder()
-                .securityReferences(Lists.newArrayList(securityReference))
+                .securityReferences(CollectionUtil.newArrayList(securityReference))
                 .build()
         );
     }
@@ -74,7 +78,7 @@ public class SwaggerConfig {
         ResourceOwnerPasswordCredentialsGrant resourceOwnerPasswordCredentialsGrant = new ResourceOwnerPasswordCredentialsGrant(ApiConstant.API_OAUTH_TOKEN);
         grantTypes.add(resourceOwnerPasswordCredentialsGrant);
         OAuth oAuth = new OAuthBuilder().name("oauth2").grantTypes(grantTypes).build();
-        return Lists.newArrayList(oAuth);
+        return CollectionUtil.newArrayList(oAuth);
     }
 
     private ApiInfo apiInfo(SwaggerProperties swagger) {

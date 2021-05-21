@@ -32,6 +32,10 @@ mybatis-plus:
 knife4j:
   enable: true
 
+logging:
+  level:
+    springfox: error
+
 # 系统自定义配置
 tumo-boot:
   # 权限配置

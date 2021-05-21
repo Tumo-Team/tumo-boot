@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -29,28 +28,25 @@ public class SysUser implements Serializable {
      * 主键
      */
     @ApiModelProperty(value = "用户ID")
-    @TableId(value = "id", type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
      * 用户名
      */
     @ApiModelProperty(value = "用户名")
-    @NotBlank(message = "用户名不能为空")
     private String username;
 
     /**
      * 密码
      */
     @ApiModelProperty(value = "密码")
-    @NotBlank(message = "密码不能为空")
     private String password;
 
     /**
      * 真实姓名
      */
     @ApiModelProperty(value = "真实姓名")
-    @NotBlank(message = "真实姓名")
     private String realName;
 
     /**
