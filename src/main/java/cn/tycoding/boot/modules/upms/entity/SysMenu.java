@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 菜单表(Menu)实体类
  *
  * @author tycoding
- * @since 2020-10-14 14:45:50
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_menu")

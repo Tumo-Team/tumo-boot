@@ -10,7 +10,7 @@ import java.util.Collection;
  * 扩展SpringSecurity User属性
  *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 public class TumoUser extends User {
     private static final long serialVersionUID = -1462618142392426177L;

@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 系统日志表(Log)表服务实现类
  *
  * @author tycoding
- * @since 2020-10-14 16:53:44
+ * @since 2021/5/21
  */
 @Service
 @RequiredArgsConstructor

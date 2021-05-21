@@ -13,7 +13,7 @@ import java.io.Serializable;
  * 部门表(Dept)实体类
  *
  * @author tycoding
- * @since 2020-10-14 14:47:25
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_dept")

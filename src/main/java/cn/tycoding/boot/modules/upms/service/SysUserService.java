@@ -13,7 +13,7 @@ import java.util.List;
  * 用户表(User)表服务接口
  *
  * @author tycoding
- * @since 2020-10-14 14:32:27
+ * @since 2021/5/21
  */
 public interface SysUserService extends IService<SysUser> {
 

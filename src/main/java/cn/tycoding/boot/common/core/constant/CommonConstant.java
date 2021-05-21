@@ -1,10 +1,10 @@
 package cn.tycoding.boot.common.core.constant;
 
 /**
- * 系统公共常量定义
+ * 系统公共常量
  *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 public interface CommonConstant {
 

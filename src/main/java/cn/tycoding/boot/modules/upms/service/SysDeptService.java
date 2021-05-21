@@ -10,7 +10,7 @@ import java.util.List;
  * 部门表(Dept)表服务接口
  *
  * @author tycoding
- * @since 2020-10-14 14:47:25
+ * @since 2021/5/21
  */
 public interface SysDeptService extends IService<SysDept> {
 

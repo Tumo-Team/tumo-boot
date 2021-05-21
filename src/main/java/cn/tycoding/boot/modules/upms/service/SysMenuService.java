@@ -11,7 +11,7 @@ import java.util.List;
  * 菜单表(Menu)表服务接口
  *
  * @author tycoding
- * @since 2020-10-14 14:45:51
+ * @since 2021/5/21
  */
 public interface SysMenuService extends IService<SysMenu> {
 

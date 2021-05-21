@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
  * 校验工具类
  *
  * @author tycoding
- * @since 2021/5/17
+ * @since 2021/5/21
  */
 public class Is {
 

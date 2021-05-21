@@ -1,10 +1,10 @@
 package cn.tycoding.boot.common.auth.constant;
 
 /**
- * 授权相关常量
+ * OAuth2 存储数据前缀
  *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 public interface AuthConstant {
 

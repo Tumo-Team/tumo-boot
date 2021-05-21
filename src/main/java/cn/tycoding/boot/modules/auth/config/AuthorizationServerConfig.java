@@ -21,10 +21,10 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import javax.sql.DataSource;
 
 /**
- * 认证服务器
+ * Oauth2 认证服务器配置（负责Token层面处理）
  *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 @Configuration
 @RequiredArgsConstructor

@@ -13,8 +13,10 @@ import org.springframework.http.HttpHeaders;
 import javax.servlet.http.HttpServletRequest;
 
 /**
+ * 全局拦截Controller接口，打印请求日志
+ *
  * @author tycoding
- * @since 2020/11/10
+ * @since 2021/5/21
  */
 @Slf4j
 @Aspect

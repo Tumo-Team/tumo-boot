@@ -11,10 +11,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
 /**
- * 资源服务器
+ * Oauth2 资源服务器配置（负责传递Token后接口层面处理）
  *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Configuration
 @RequiredArgsConstructor

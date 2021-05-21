@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 用户表(User)表数据库访问层
  *
  * @author tycoding
- * @since 2020-10-14 14:32:32
+ * @since 2021/5/21
  */
 @Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {

@@ -12,8 +12,10 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
+ * 自定义启动日志
+ *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 @Slf4j
 @Configuration

@@ -20,8 +20,10 @@ import java.lang.reflect.Proxy;
 import java.sql.Statement;
 
 /**
+ * SQL 拦截
+ *
  * @author tycoding
- * @since 2020/11/10
+ * @since 2021/5/21
  */
 @Intercepts({@Signature(
         type = StatementHandler.class,

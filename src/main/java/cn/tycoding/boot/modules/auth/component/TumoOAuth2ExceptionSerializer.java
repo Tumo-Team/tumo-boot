@@ -8,9 +8,11 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import java.io.IOException;
 
 /**
+ * 自定义Oauth2异常响应格式
+ *
  * @author tycoding
  * @see org.springframework.security.oauth2.common.exceptions.OAuth2ExceptionJackson2Serializer
- * @since 2020/10/16
+ * @since 2021/5/21
  */
 public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Exception> {
 

@@ -20,6 +20,8 @@ import java.io.File;
 import java.util.Date;
 
 /**
+ * 资源文件表（OssFile）服务实现类
+ *
  * @author tycoding
  * @since 2021/5/20
  */

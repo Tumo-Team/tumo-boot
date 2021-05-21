@@ -12,7 +12,7 @@ import java.util.List;
  * 用户角色关联表(UserRole)表数据库访问层
  *
  * @author tycoding
- * @since 2020-10-15 12:33:53
+ * @since 2021/5/21
  */
 @Mapper
 public interface SysUserRoleMapper extends BaseMapper<SysUserRole> {

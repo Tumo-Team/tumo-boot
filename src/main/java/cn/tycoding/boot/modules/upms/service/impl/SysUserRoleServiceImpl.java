@@ -16,7 +16,7 @@ import java.util.List;
  * 用户角色关联表(UserRole)表服务实现类
  *
  * @author tycoding
- * @since 2020-10-15 12:33:51
+ * @since 2021/5/21
  */
 @Service
 public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUserRole> implements SysUserRoleService {

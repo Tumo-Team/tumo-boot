@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 启动器
+ * SpringBoot启动器类
  *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 @SpringBootApplication
 public class TumoBootApp {

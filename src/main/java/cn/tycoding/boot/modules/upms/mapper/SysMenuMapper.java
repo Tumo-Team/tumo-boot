@@ -11,7 +11,7 @@ import java.util.List;
  * 菜单表(Menu)表数据库访问层
  *
  * @author tycoding
- * @since 2020-10-14 14:45:55
+ * @since 2021/5/21
  */
 @Mapper
 public interface SysMenuMapper extends BaseMapper<SysMenu> {

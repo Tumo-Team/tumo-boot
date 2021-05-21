@@ -4,10 +4,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Swagger配置
+ * 自定义Log模块 YML配置映射实体
  *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Data
 @ConfigurationProperties("tumo-boot.log")

@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 用户角色关联表(UserRole)实体类
  *
  * @author tycoding
- * @since 2020-10-14 14:44:42
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_user_role")

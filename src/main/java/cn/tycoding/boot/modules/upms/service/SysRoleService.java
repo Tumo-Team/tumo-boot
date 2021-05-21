@@ -11,7 +11,7 @@ import java.util.List;
  * 角色表(Role)表服务接口
  *
  * @author tycoding
- * @since 2020-10-14 14:45:23
+ * @since 2021/5/21
  */
 public interface SysRoleService extends IService<SysRole> {
 

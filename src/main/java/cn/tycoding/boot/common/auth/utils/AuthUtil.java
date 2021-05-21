@@ -17,10 +17,10 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 权限相关工具方法
+ * 权限相关方法
  *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 public class AuthUtil {
 

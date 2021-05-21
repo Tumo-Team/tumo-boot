@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 18/05/2021 21:58:01
+ Date: 21/05/2021 14:25:11
 */
 
 SET NAMES utf8mb4;
@@ -44,6 +44,29 @@ INSERT INTO `oauth_client_details` VALUES ('client', NULL, '$2a$10$22emI3a6/w3a4
 COMMIT;
 
 -- ----------------------------
+-- Table structure for oss_file
+-- ----------------------------
+DROP TABLE IF EXISTS `oss_file`;
+CREATE TABLE `oss_file` (
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `origin_name` varchar(255) DEFAULT NULL COMMENT '原始文件名称',
+  `target_name` varchar(255) DEFAULT NULL COMMENT '文件存储名称',
+  `url` varchar(255) DEFAULT NULL COMMENT '文件地址',
+  `type` varchar(255) DEFAULT NULL COMMENT '文件类型',
+  `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
+  `des` varchar(255) DEFAULT NULL COMMENT '文件描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源文件表';
+
+-- ----------------------------
+-- Records of oss_file
+-- ----------------------------
+BEGIN;
+INSERT INTO `oss_file` VALUES (1395613405435424770, 'tycoding.png', '20210521133219.png', 'static/upload/20210521133219.png', 'jpg', 29618, 'tycoding.png', '2021-05-21 13:32:20');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
@@ -51,18 +74,19 @@ CREATE TABLE `sys_dept` (
   `id` bigint(20) NOT NULL COMMENT '部门ID',
   `parent_id` bigint(20) NOT NULL COMMENT '上级部门ID',
   `name` varchar(20) NOT NULL COMMENT '部门名称',
+  `order_no` int(11) DEFAULT NULL COMMENT '排序',
   `des` varchar(100) DEFAULT NULL COMMENT '描述',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
 -- ----------------------------
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (1362597682681577273, 1362597682681577473, '测试部门1.1', '测试', '2021-05-15 07:51:32');
-INSERT INTO `sys_dept` VALUES (1362597682681577473, 0, '测试部门', '测试', '2021-05-14 07:51:37');
-INSERT INTO `sys_dept` VALUES (1394652452952887298, 0, '1', '1111', NULL);
+INSERT INTO `sys_dept` VALUES (1362597682681577273, 1362597682681577473, '测试部门1.1', 1, '测试');
+INSERT INTO `sys_dept` VALUES (1362597682681577473, 0, '测试部门', 2, '测试');
+INSERT INTO `sys_dept` VALUES (1394652452952887298, 0, '1', 3, '1111');
+INSERT INTO `sys_dept` VALUES (1394933284307267585, 1394652452952887298, '1111', 12, '1212');
 COMMIT;
 
 -- ----------------------------
@@ -292,6 +316,37 @@ INSERT INTO `sys_log` VALUES (1394635789398323201, 1, 'tumo-boot', '新增角色
 INSERT INTO `sys_log` VALUES (1394635789511569409, 1, 'tumo-boot', '新增角色', '/tumo-boot/upms/role', 116, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 20:47:38');
 INSERT INTO `sys_log` VALUES (1394652453091299329, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 27, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 21:53:51');
 INSERT INTO `sys_log` VALUES (1394652453116465154, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 57, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36', '2021-05-18 21:53:51');
+INSERT INTO `sys_log` VALUES (1394897544466743297, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1621404464600%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 14:07:45');
+INSERT INTO `sys_log` VALUES (1394933284407930882, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 27, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 16:29:46');
+INSERT INTO `sys_log` VALUES (1394933284428902401, 1, 'tumo-boot', '新增部门', '/tumo-boot/upms/dept', 46, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.add()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 16:29:46');
+INSERT INTO `sys_log` VALUES (1394933757609308161, 1, 'tumo-boot', '修改部门', '/tumo-boot/upms/dept', 20, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 16:31:39');
+INSERT INTO `sys_log` VALUES (1394933757651251201, 1, 'tumo-boot', '修改部门', '/tumo-boot/upms/dept', 30, 'cn.tycoding.boot.modules.upms.controller.SysDeptController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 16:31:39');
+INSERT INTO `sys_log` VALUES (1395010512575590402, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 10, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:36:39');
+INSERT INTO `sys_log` VALUES (1395010512617533442, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 18, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:36:39');
+INSERT INTO `sys_log` VALUES (1395012041076436993, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 16, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:42:43');
+INSERT INTO `sys_log` VALUES (1395012041093214210, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 20, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:42:43');
+INSERT INTO `sys_log` VALUES (1395012539212951554, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 13, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:44:42');
+INSERT INTO `sys_log` VALUES (1395012539225534465, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 17, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:44:42');
+INSERT INTO `sys_log` VALUES (1395012557680472065, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 14, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:44:46');
+INSERT INTO `sys_log` VALUES (1395012557705637890, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 20, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:44:46');
+INSERT INTO `sys_log` VALUES (1395013481832443906, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 9, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:48:27');
+INSERT INTO `sys_log` VALUES (1395013481849221121, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 13, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:48:27');
+INSERT INTO `sys_log` VALUES (1395013794865934338, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 11, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:49:41');
+INSERT INTO `sys_log` VALUES (1395013794891100162, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 17, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:49:41');
+INSERT INTO `sys_log` VALUES (1395013825207529473, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 8, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:49:49');
+INSERT INTO `sys_log` VALUES (1395013825257861121, 1, 'tumo-boot', '修改用户', '/tumo-boot/upms/user', 21, 'cn.tycoding.boot.modules.upms.controller.SysUserController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-19 21:49:49');
+INSERT INTO `sys_log` VALUES (1395187867506102274, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1621473682897%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-20 09:21:23');
+INSERT INTO `sys_log` VALUES (1395586705192407042, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 11:46:14');
+INSERT INTO `sys_log` VALUES (1395586870066302978, 2, 'tumo-boot', '服务器异常', '/tumo-boot/oss/local/page', NULL, NULL, 'page=%5B1%5D&size=%5B10%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 11:46:53');
+INSERT INTO `sys_log` VALUES (1395589926694703106, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 11:59:02');
+INSERT INTO `sys_log` VALUES (1395593526758113282, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:13:20');
+INSERT INTO `sys_log` VALUES (1395593745927258113, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:14:12');
+INSERT INTO `sys_log` VALUES (1395594998740709378, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:19:11');
+INSERT INTO `sys_log` VALUES (1395596195493081089, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:23:56');
+INSERT INTO `sys_log` VALUES (1395596744204505089, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:26:07');
+INSERT INTO `sys_log` VALUES (1395596977558802433, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:27:03');
+INSERT INTO `sys_log` VALUES (1395597834887122945, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:30:27');
+INSERT INTO `sys_log` VALUES (1395599010063982593, 2, NULL, '请求未授权', '/mode-Text.js', NULL, NULL, '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-21 12:35:07');
 COMMIT;
 
 -- ----------------------------
@@ -393,8 +448,8 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'tumo-boot', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '超级管理员', '男', '19809587839', 'tycoding@sina.com', 3, NULL, 1, '2019-01-01 00:00:00');
-INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, NULL, 1, '2021-02-19 11:02:08');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'tumo-boot', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '超级管理员', '女', '19809587839', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2021-02-19 11:02:08');
 COMMIT;
 
 -- ----------------------------

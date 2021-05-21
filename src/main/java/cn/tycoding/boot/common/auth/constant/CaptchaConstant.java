@@ -1,10 +1,10 @@
 package cn.tycoding.boot.common.auth.constant;
 
 /**
- * 图片验证码属性
+ * 图片验证码常量
  *
  * @author tycoding
- * @since 2021/1/24
+ * @since 2021/5/21
  */
 public interface CaptchaConstant {
 

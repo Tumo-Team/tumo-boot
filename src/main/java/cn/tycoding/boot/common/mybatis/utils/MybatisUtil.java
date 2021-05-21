@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 /**
- * Mybatis 相关工具类
+ * Mybatis 工具类
  *
  * @author tycoding
- * @since 2021/5/9
+ * @since 2021/5/21
  */
 public class MybatisUtil {
 

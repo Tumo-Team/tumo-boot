@@ -7,8 +7,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 封装前端路由所需的路径名称、图标格式
+ *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Data
 @AllArgsConstructor

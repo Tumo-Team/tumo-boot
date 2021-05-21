@@ -6,8 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 /**
+ * Mybatis配置注入
+ *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Order
 @Configuration

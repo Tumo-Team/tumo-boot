@@ -8,8 +8,10 @@ import lombok.SneakyThrows;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Servlet工具类
+ *
  * @author tycoding
- * @since 2021/2/21
+ * @since 2021/5/21
  */
 public class ServletUtil {
 

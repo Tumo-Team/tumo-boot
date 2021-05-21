@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 安装前端路由格式封装
+ *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Data
 @Accessors(chain = true)

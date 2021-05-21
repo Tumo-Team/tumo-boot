@@ -19,10 +19,10 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import java.io.IOException;
 
 /**
- * 重写OAuth2异常
+ * 重写Oauth2异常
  *
  * @author tycoding
- * @since 2020/10/16
+ * @since 2021/5/21
  */
 @Component
 public class TumoWebResponseExceptionTranslator implements WebResponseExceptionTranslator {

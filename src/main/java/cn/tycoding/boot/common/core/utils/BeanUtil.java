@@ -8,10 +8,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 对Orika Bean拷贝工具的简单封装
+ * Orika Bean拷贝工具的简单封装
  *
  * @author tycoding
- * @since 2021/2/2
+ * @since 2021/5/21
  */
 public class BeanUtil {
 

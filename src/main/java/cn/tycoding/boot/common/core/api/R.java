@@ -6,10 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 统一请求响应结果封装
+ * 统一定义请求响应数据格式
  *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 @Data
 public class R<T> implements Serializable {

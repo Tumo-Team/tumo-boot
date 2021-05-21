@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
+ * 资源文件表（OssFile）服务接口
+ *
  * @author tycoding
  * @since 2021/5/20
  */

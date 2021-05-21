@@ -22,8 +22,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
+ * 自定义资源服务器未授权异常
+ *
  * @author tycoding
- * @since 2020/11/24
+ * @since 2021/5/21
  */
 @Slf4j
 @Component

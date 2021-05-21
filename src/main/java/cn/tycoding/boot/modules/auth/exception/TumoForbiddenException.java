@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  *
  * @author tycoding
  * @see org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator
- * @since 2020/10/16
+ * @since 2021/5/21
  */
 @JsonSerialize(using = TumoOAuth2ExceptionSerializer.class)
 public class TumoForbiddenException extends TumoOAuth2Exception {

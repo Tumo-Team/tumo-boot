@@ -11,10 +11,10 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 
 /**
- * Redis配置
+ * 自定义Redis配置
  *
  * @author tycoding
- * @since 2021/1/25
+ * @since 2021/5/21
  */
 @Component
 @EnableCaching

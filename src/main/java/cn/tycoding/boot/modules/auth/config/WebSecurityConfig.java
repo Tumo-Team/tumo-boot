@@ -15,8 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
+ * 安全配置（配合Oauth2 授权服务器层面）
+ *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 @Configuration
 @RequiredArgsConstructor

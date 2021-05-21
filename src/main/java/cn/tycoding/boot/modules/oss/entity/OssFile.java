@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 本地资源表（LocalOss）实体类
+ * 资源文件表（OssFile）实体类
  *
  * @author tycoding
- * @since 2021/5/20
+ * @since 2021/5/21
  */
 @Data
 @TableName("oss_file")

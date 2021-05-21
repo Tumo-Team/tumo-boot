@@ -9,6 +9,8 @@ import org.springframework.util.ResourceUtils;
 import java.util.Date;
 
 /**
+ * 资源文件工具类
+ *
  * @author tycoding
  * @since 2021/5/20
  */

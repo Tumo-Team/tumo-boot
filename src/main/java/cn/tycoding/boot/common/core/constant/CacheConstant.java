@@ -4,7 +4,7 @@ package cn.tycoding.boot.common.core.constant;
  * 缓存常量
  *
  * @author tycoding
- * @since 2021/1/24
+ * @since 2021/5/21
  */
 public interface CacheConstant {
 

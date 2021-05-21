@@ -12,8 +12,10 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
 /**
+ * 自定义日志记录切面
+ *
  * @author tycoding
- * @since 2020/10/31
+ * @since 2021/5/21
  */
 @Slf4j
 @Aspect

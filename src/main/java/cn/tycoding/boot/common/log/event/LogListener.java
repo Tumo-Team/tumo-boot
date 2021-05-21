@@ -8,8 +8,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 
 /**
+ * 监听自定义Log 事件
+ *
  * @author tycoding
- * @since 2020/10/31
+ * @since 2021/5/21
  */
 @RequiredArgsConstructor
 public class LogListener {

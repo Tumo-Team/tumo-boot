@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * 本地文件资源管理
+ * 资源文件表（OssFile）控制器
  *
  * @author tycoding
- * @since 2021/5/20
+ * @since 2021/5/21
  */
 @RestController
 @RequiredArgsConstructor

@@ -6,10 +6,10 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 统一定义分页查询参数
+ * 统一定义分页查询接口分页格式
  *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 @Data
 @AllArgsConstructor

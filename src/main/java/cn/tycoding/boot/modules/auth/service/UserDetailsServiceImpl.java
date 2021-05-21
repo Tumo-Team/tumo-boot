@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 封装授权时如何加载用户信息
+ *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 @Slf4j
 @Service

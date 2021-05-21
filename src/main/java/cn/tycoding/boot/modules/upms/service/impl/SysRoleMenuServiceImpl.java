@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 角色资源关联表(RoleMenu)表服务实现类
  *
  * @author tycoding
- * @since 2020-10-15 12:34:09
+ * @since 2021/5/21
  */
 @Service
 public class SysRoleMenuServiceImpl extends ServiceImpl<SysRoleMenuMapper, SysRoleMenu> implements SysRoleMenuService {

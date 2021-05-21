@@ -3,8 +3,9 @@ package cn.tycoding.boot.common.log.event;
 import org.springframework.context.ApplicationEvent;
 
 /**
+ * 自定义定义 Log事件
  * @author tycoding
- * @since 2020/10/31
+ * @since 2021/5/21
  */
 public class LogEvent extends ApplicationEvent {
 

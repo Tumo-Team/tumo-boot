@@ -15,8 +15,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import javax.servlet.Servlet;
 
 /**
+ * 自定义Rest请求异常
+ *
  * @author tycoding
- * @since 2020/11/24
+ * @since 2021/5/21
  */
 @Slf4j
 @Configuration

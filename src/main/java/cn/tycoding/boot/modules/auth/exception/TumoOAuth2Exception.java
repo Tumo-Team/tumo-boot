@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @author tycoding
- * @since 2020/10/16
+ * @since 2021/5/21
  */
 @JsonSerialize(using = TumoOAuth2ExceptionSerializer.class)
 public class TumoOAuth2Exception extends OAuth2Exception {

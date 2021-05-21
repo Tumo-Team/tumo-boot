@@ -22,8 +22,10 @@ import org.springframework.web.servlet.DispatcherServlet;
 import javax.servlet.Servlet;
 
 /**
+ * 全局异常拦截（注意：这种方式只能拦截经过Controller的异常，未经过Controller的异常拦截不到）
+ *
  * @author tycoding
- * @since 2020/11/23
+ * @since 2021/5/21
  */
 @Slf4j
 @Order

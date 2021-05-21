@@ -11,7 +11,7 @@ import java.io.Serializable;
  * 角色资源关联表(RoleMenu)实体类
  *
  * @author tycoding
- * @since 2020-10-14 14:45:06
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_role_menu")

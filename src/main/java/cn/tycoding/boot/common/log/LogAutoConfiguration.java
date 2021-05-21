@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * Log模块配置注入
+ *
  * @author tycoding
- * @since 2020/10/31
+ * @since 2021/5/21
  */
 @Configuration
 @RequiredArgsConstructor

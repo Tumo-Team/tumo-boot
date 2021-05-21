@@ -1,10 +1,10 @@
 package cn.tycoding.boot.common.core.api;
 
 /**
- * 统一请求响应状态信息封装
+ * 统一定义请求响应状态码
  *
  * @author tycoding
- * @since 2020/10/9
+ * @since 2021/5/21
  */
 @SuppressWarnings("all")
 public enum HttpCode {

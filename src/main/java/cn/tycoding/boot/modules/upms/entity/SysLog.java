@@ -15,7 +15,7 @@ import java.util.Date;
  * 系统日志表(Log)实体类
  *
  * @author tycoding
- * @since 2020-10-14 16:53:40
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_log")

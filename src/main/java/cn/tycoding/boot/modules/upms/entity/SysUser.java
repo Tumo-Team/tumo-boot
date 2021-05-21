@@ -15,7 +15,7 @@ import java.util.Date;
  * 用户表(User)实体类
  *
  * @author tycoding
- * @since 2020-10-14 14:32:26
+ * @since 2021/5/21
  */
 @Data
 @TableName("sys_user")

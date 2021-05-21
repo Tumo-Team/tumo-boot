@@ -8,8 +8,10 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 对RedisTemplate的简单封装
+ *
  * @author tycoding
- * @since 2021/1/25
+ * @since 2021/5/21
  */
 public class TumoRedis {
 

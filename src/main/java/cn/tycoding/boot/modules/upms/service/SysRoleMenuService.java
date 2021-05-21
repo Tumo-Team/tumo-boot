@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 角色资源关联表(RoleMenu)表服务接口
  *
  * @author tycoding
- * @since 2020-10-15 12:34:08
+ * @since 2021/5/21
  */
 public interface SysRoleMenuService extends IService<SysRoleMenu> {
 

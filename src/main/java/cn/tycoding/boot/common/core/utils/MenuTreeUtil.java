@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 用于构建Menu Tree的工具类
+ * 自定义封装Menu Tree
  *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 public class MenuTreeUtil {
 

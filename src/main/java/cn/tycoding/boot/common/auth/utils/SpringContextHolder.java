@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 /**
+ * 自定义Spring事件监听
+ *
  * @author tycoding
- * @since 2020/10/31
+ * @since 2021/5/21
  */
 @Service
 @Lazy(value = false)

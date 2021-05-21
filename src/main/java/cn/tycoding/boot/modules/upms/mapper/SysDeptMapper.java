@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 部门表(Dept)表数据库访问层
  *
  * @author tycoding
- * @since 2020-10-14 14:47:30
+ * @since 2021/5/21
  */
 @Mapper
 public interface SysDeptMapper extends BaseMapper<SysDept> {

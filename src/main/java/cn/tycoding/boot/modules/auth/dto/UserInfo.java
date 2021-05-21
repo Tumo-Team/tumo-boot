@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 自定义Oauth2 授权成功后存储的用户数据
+ *
  * @author tycoding
- * @since 2020/10/14
+ * @since 2021/5/21
  */
 @Data
 @Accessors(chain = true)

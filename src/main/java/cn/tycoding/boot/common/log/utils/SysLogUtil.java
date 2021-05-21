@@ -13,8 +13,10 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
+ * 构建Log实体类信息
+ *
  * @author tycoding
- * @since 2021/2/20
+ * @since 2021/5/21
  */
 public class SysLogUtil {
 

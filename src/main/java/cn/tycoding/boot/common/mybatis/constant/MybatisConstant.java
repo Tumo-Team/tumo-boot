@@ -1,8 +1,10 @@
 package cn.tycoding.boot.common.mybatis.constant;
 
 /**
+ * 针对MybatisPlus的常量
+ *
  * @author tycoding
- * @since 2021/5/9
+ * @since 2021/5/21
  */
 public interface MybatisConstant {
 

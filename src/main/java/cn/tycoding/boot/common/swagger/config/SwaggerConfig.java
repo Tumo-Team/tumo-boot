@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Swagger 配置
+ * Swagger配置
  *
  * @author tycoding
- * @since 2020/10/15
+ * @since 2021/5/21
  */
 @Configuration
 @EnableKnife4j

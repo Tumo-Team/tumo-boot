@@ -25,7 +25,7 @@ import java.util.TimeZone;
  * 全局配置Jackson序列化
  *
  * @author tycoding
- * @since 2021/5/18
+ * @since 2021/5/21
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(ObjectMapper.class)

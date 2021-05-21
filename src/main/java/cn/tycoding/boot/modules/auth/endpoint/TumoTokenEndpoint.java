@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import java.time.Duration;
 
 /**
- * 自定义令牌端点
+ * 自定义授权相关的接口
  *
  * @author tycoding
- * @since 2020/10/18
+ * @since 2021/5/21
  */
 @RestController
 @RequiredArgsConstructor

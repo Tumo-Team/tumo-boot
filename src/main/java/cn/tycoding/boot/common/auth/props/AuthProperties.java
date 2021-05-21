@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 自定义Auth模块 YML配置映射实体
+ *
  * @author tycoding
- * @since 2020/11/9
+ * @since 2021/5/21
  */
 @Data
 @ConfigurationProperties("tumo-boot.auth")

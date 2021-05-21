@@ -1,10 +1,10 @@
 package cn.tycoding.boot.common.auth.constant;
 
 /**
- * API接口相关常量
+ * API接口常量值
  *
  * @author tycoding
- * @since 2020/10/18
+ * @since 2021/5/21
  */
 public interface ApiConstant {
 
