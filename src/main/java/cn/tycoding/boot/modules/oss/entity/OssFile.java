@@ -51,7 +51,7 @@ public class OssFile implements Serializable {
     private Long size;
 
     /**
-     * 描述类型
+     * 文件描述
      */
     private String des;
 

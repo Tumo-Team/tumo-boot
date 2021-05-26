@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2021/5/20
  */
 @Mapper
-public interface LocalOssMapper extends BaseMapper<OssFile> {
+public interface OssFileMapper extends BaseMapper<OssFile> {
 }

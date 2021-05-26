@@ -19,5 +19,6 @@
                 </foreach>
                 )
         </if>
+            ORDER BY sm.order_no ASC
     </select>
 </mapper>

@@ -22,7 +22,7 @@ public class MybatisUtil {
      */
     public static Dict getData(IPage<?> page) {
         return Dict.create().set(MybatisConstant.PAGE_ROWS, page.getRecords())
-                .set(MybatisConstant.PAGE_TOTAL, page.getTotal());
+                .set(MybatisConstant.PAGE_TOTAL, (int) page.getTotal());
     }
 
     /**
