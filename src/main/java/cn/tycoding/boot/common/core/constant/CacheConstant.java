@@ -14,12 +14,22 @@ public interface CacheConstant {
     String REDIS_KEY_PREFIX = "tumo-boot:";
 
     /**
-     * OAuth Redis Key
+     * OAuth Cache Key
      */
-    String OAUTH_REDIS_KEY = REDIS_KEY_PREFIX + "oauth:";
+    String OAUTH_KEY = REDIS_KEY_PREFIX + "auth:oauth:";
 
     /**
-     * Captcha Redis Key
+     * Captcha Cache Key
      */
-    String CAPTCHA_REDIS_KEY = REDIS_KEY_PREFIX + "auth:captcha:";
+    String CAPTCHA_KEY = REDIS_KEY_PREFIX + "auth:captcha:";
+
+    /**
+     * User Cache LKey
+     */
+    String USER_DETAIL_KEY = REDIS_KEY_PREFIX + "user_details:";
+
+    /**
+     * Menu Cache LKey
+     */
+    String MENU_DETAIL_KEY = REDIS_KEY_PREFIX + "menu_details:";
 }

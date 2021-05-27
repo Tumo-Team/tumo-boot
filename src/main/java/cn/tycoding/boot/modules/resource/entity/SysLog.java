@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.upms.entity;
+package cn.tycoding.boot.modules.resource.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -32,16 +32,16 @@ public class SysLog implements Serializable {
     private Long id;
 
     /**
-     * 日志类型
-     */
-    @ApiModelProperty(value = "日志类型")
-    private Integer type;
-
-    /**
      * 操作用户
      */
     @ApiModelProperty(value = "操作用户")
     private String username;
+
+    /**
+     * 日志类型
+     */
+    @ApiModelProperty(value = "日志类型")
+    private Integer type;
 
     /**
      * 操作描述

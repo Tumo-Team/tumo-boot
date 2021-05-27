@@ -1,11 +1,11 @@
-package cn.tycoding.boot.modules.oss.utils;
+package cn.tycoding.boot.modules.resource.utils;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.tycoding.boot.common.core.utils.IpUtil;
-import cn.tycoding.boot.modules.oss.entity.OssFile;
+import cn.tycoding.boot.modules.resource.entity.OssFile;
 import lombok.SneakyThrows;
 import org.springframework.core.env.Environment;
 import org.springframework.util.ResourceUtils;

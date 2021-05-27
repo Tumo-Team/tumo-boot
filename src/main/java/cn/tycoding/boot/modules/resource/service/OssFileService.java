@@ -1,7 +1,7 @@
-package cn.tycoding.boot.modules.oss.service;
+package cn.tycoding.boot.modules.resource.service;
 
 import cn.tycoding.boot.common.core.api.QueryPage;
-import cn.tycoding.boot.modules.oss.entity.OssFile;
+import cn.tycoding.boot.modules.resource.entity.OssFile;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 

@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.upms.controller;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
@@ -38,7 +39,7 @@ public class SysMenuController {
     @GetMapping("/build")
     @ApiOperation(value = "加载左侧菜单", notes = "根据用户角色获取允许访问的菜单")
     public R<List<MenuTree<SysMenu>>> build() {
-        return R.ok(sysMenuService.build());
+        return R.ok(sysMenuService.build(AuthUtil.getUserId()));
     }
 
     @PostMapping("/checkName")

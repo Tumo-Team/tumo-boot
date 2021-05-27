@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.auth.service;
 
 import cn.tycoding.boot.common.auth.constant.AuthConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
+import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
@@ -9,6 +10,8 @@ import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -33,6 +36,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     /**
      * 加载用户信息，在这里可做登录用户的权限、角色判断
      *
@@ -42,6 +48,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Cache cache = cacheManager.getCache(CacheConstant.USER_DETAIL_KEY);
+        if (cache != null && cache.get(username) != null) {
+            UserInfo info = (UserInfo) cache.get(username).get();
+            return getUserDetails(info);
+        }
         UserInfo info = sysUserService.info(username);
         return getUserDetails(info);
     }

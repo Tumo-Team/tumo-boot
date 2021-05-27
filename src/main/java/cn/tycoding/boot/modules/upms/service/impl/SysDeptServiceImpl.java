@@ -64,15 +64,6 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(SysDept sysDept) {
-        if (sysDept.getParentId() == null) {
-            sysDept.setParentId(0L);
-        }
-        baseMapper.insert(sysDept);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         List<SysDept> list = baseMapper.selectList(new LambdaQueryWrapper<SysDept>().eq(SysDept::getParentId, id));
         if (list.size() > 0) {

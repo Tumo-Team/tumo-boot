@@ -97,8 +97,4 @@ public class SysMenu implements Serializable {
      */
     @ApiModelProperty(value = "是否显示")
     private Boolean isShow;
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId == null ? 0 : parentId;
-    }
 }

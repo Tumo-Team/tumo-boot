@@ -1,11 +1,11 @@
-package cn.tycoding.boot.modules.oss.controller;
+package cn.tycoding.boot.modules.resource.controller;
 
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
-import cn.tycoding.boot.modules.oss.entity.OssFile;
-import cn.tycoding.boot.modules.oss.service.OssFileService;
+import cn.tycoding.boot.modules.resource.entity.OssFile;
+import cn.tycoding.boot.modules.resource.service.OssFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "资源文件管理接口", tags = "资源文件管理接口")
-@RequestMapping(ApiConstant.API_OSS_PREFIX)
+@RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/oss")
 public class OssFileController {
 
     private final OssFileService ossFileService;

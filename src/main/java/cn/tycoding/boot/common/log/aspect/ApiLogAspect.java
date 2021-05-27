@@ -3,7 +3,7 @@ package cn.tycoding.boot.common.log.aspect;
 import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
-import cn.tycoding.boot.modules.upms.entity.SysLog;
+import cn.tycoding.boot.modules.resource.entity.SysLog;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -45,7 +45,7 @@ public class TumoTokenEndpoint {
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(CaptchaConstant.CAPTCHA_WIDTH, CaptchaConstant.CAPTCHA_HEIGHT, CaptchaConstant.CAPTCHA_COUNT, CaptchaConstant.CAPTCHA_CIRCLE_COUNT);
         String code = captcha.getCode().toLowerCase();
         String key = RedisCatchUtil.getKey();
-        tumoRedis.set(CacheConstant.CAPTCHA_REDIS_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
+        tumoRedis.set(CacheConstant.CAPTCHA_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
         return R.ok(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
     }
 

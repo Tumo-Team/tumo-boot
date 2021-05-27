@@ -43,7 +43,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
             }
 
             String code = ServletRequestUtils.getStringParameter(request, AuthUtil.CAPTCHA_FORM_KEY);
-            String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_REDIS_KEY + headerKey);
+            String redisCode = (String) tumoRedis.get(CacheConstant.CAPTCHA_KEY + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
                 ServletUtil.write(response, new R<>(400, AuthUtil.CAPTCHA_ERROR_INFO));
                 return;

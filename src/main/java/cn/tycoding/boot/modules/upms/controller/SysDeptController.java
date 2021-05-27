@@ -57,7 +57,8 @@ public class SysDeptController {
     @ApiLog("新增部门")
     @ApiOperation(value = "新增")
     public R add(@RequestBody SysDept sysDept) {
-        sysDeptService.add(sysDept);
+        sysDept.setParentId(sysDept.getParentId() == null ? 0L : sysDept.getParentId());
+        sysDeptService.save(sysDept);
         return R.ok();
     }
 
@@ -65,6 +66,7 @@ public class SysDeptController {
     @ApiLog("修改部门")
     @ApiOperation(value = "修改")
     public R update(@RequestBody SysDept sysDept) {
+        sysDept.setParentId(sysDept.getParentId() == null ? 0L : sysDept.getParentId());
         sysDeptService.updateById(sysDept);
         return R.ok();
     }

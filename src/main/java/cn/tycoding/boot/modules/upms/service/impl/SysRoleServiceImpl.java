@@ -91,18 +91,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
 
     @Override
     public void add(SysRoleDTO sysRole) {
-        if (sysRole.getParentId() == null) {
-            sysRole.setParentId(0L);
-        }
+        sysRole.setParentId(sysRole.getParentId() == null ? 0L : sysRole.getParentId());
         this.save(sysRole);
         addMenus(sysRole);
     }
 
     @Override
     public void update(SysRoleDTO sysRole) {
-        if (sysRole.getParentId() == null) {
-            sysRole.setParentId(0L);
-        }
+        sysRole.setParentId(sysRole.getParentId() == null ? 0L : sysRole.getParentId());
         baseMapper.updateById(sysRole);
         addMenus(sysRole);
     }

@@ -1,6 +1,6 @@
-package cn.tycoding.boot.modules.oss.mapper;
+package cn.tycoding.boot.modules.resource.mapper;
 
-import cn.tycoding.boot.modules.oss.entity.OssFile;
+import cn.tycoding.boot.modules.resource.entity.OssFile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

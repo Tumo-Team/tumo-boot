@@ -23,7 +23,7 @@ public interface SysMenuService extends IService<SysMenu> {
     /**
      * 构建左侧权限菜单
      */
-    List<MenuTree<SysMenu>> build();
+    List<MenuTree<SysMenu>> build(Long userId);
 
     /**
      * 根据用户ID查询权限信息

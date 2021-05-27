@@ -57,8 +57,4 @@ public class SysRole implements Serializable {
      */
     @ApiModelProperty(value = "状态")
     private Boolean status;
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId == null ? 0 : parentId;
-    }
 }

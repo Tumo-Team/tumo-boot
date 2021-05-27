@@ -30,11 +30,6 @@ public interface SysDeptService extends IService<SysDept> {
     boolean checkName(SysDept sysDept);
 
     /**
-     * 新增
-     */
-    void add(SysDept sysDept);
-
-    /**
      * 删除
      */
     void delete(Long id);

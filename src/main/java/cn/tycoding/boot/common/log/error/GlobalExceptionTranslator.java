@@ -5,7 +5,7 @@ import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
-import cn.tycoding.boot.modules.upms.entity.SysLog;
+import cn.tycoding.boot.modules.resource.entity.SysLog;
 import io.lettuce.core.RedisConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;

@@ -2,6 +2,7 @@ package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.BeanUtil;
 import cn.tycoding.boot.common.core.utils.Is;
@@ -17,6 +18,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -60,6 +63,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
+    @Cacheable(value = CacheConstant.USER_DETAIL_KEY, key = "#username")
     public UserInfo info(String username) {
         return this.build(new UserInfo().setUser(this.findByName(username)));
     }
@@ -117,7 +121,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional(rollbackFor = Exception.class)
     public void add(SysUserDTO user) {
         user.setCreateTime(new Date());
-        PASSWORD_ENCODER.encode(user.getPassword());
+        user.setPassword(PASSWORD_ENCODER.encode(user.getPassword()));
 
         // 设置默认头像
         if (StringUtils.isEmpty(user.getAvatar())) {
@@ -150,13 +154,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#user.username")
     public void update(SysUserDTO user) {
         // 设置默认头像
         if (StringUtils.isEmpty(user.getAvatar())) {
             user.setAvatar(CommonConstant.DEFAULT_AVATAR);
         }
 
-        //设置角色
+        // 设置角色
         addRole(user);
         user.setPassword(null);
         baseMapper.updateById(user);
@@ -164,6 +169,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#user.username")
     public void delete(Long id) {
         baseMapper.deleteById(id);
         sysUserRoleService.deleteUserRolesByUserId(id);

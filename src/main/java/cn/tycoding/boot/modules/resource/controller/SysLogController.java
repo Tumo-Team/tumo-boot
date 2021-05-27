@@ -1,4 +1,4 @@
-package cn.tycoding.boot.modules.upms.controller;
+package cn.tycoding.boot.modules.resource.controller;
 
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
@@ -6,8 +6,8 @@ import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
-import cn.tycoding.boot.modules.upms.entity.SysLog;
-import cn.tycoding.boot.modules.upms.service.SysLogService;
+import cn.tycoding.boot.modules.resource.entity.SysLog;
+import cn.tycoding.boot.modules.resource.service.SysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,15 +24,15 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(ApiConstant.API_UPMS_PREFIX + "/log")
+@RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/log")
 @Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class SysLogController {
 
     private final SysLogService sysLogService;
 
-    @PostMapping("/list")
-    @ApiOperation(value = "分页、条件查询")
-    public R<Dict> list(@RequestBody SysLog sysLog, QueryPage queryPage) {
+    @GetMapping("/page")
+    @ApiOperation(value = "分页查询")
+    public R<Dict> list(SysLog sysLog, QueryPage queryPage) {
         return R.ok(MybatisUtil.getData(sysLogService.list(sysLog, queryPage)));
     }
 

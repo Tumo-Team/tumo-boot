@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.upms.service.impl;
 
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
+import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
@@ -13,6 +14,8 @@ import cn.tycoding.boot.modules.upms.service.SysRoleMenuService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +43,8 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     @Override
-    public List<MenuTree<SysMenu>> build() {
+    @Cacheable(value = CacheConstant.MENU_DETAIL_KEY, key = "#userId")
+    public List<MenuTree<SysMenu>> build(Long userId) {
         List<Long> roleIds = AuthUtil.getRoleIds();
         if (roleIds.size() == 0) {
             throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
@@ -84,18 +88,18 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     private void format(SysMenu sysMenu) {
-        if (sysMenu.getParentId() == null) {
-            sysMenu.setParentId(0L);
-        } else {
-            if (sysMenu.getPath().startsWith("/")) {
-                sysMenu.setPath(sysMenu.getPath().substring(1));
-            }
-        }
+        sysMenu.setParentId(sysMenu.getParentId() == null ? 0L : sysMenu.getParentId());
         if (CommonConstant.MENU_TYPE_MENU.equals(sysMenu.getType())) {
+            if (sysMenu.getPath() == null) {
+                throw new RuntimeException("[path]参数不能为空");
+            }
             if (sysMenu.getIcon() == null) {
                 sysMenu.setIcon(CommonConstant.MENU_ICON);
             }
-            if (sysMenu.getComponent() != null && !sysMenu.getComponent().startsWith("/")) {
+            if (!sysMenu.getPath().startsWith("/")) {
+                sysMenu.setPath("/" + sysMenu.getPath());
+            }
+            if (!sysMenu.getComponent().startsWith("/")) {
                 sysMenu.setComponent("/" + sysMenu.getComponent());
             }
         }
@@ -108,6 +112,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstant.MENU_DETAIL_KEY, allEntries = true)
     public void update(SysMenu sysMenu) {
         this.format(sysMenu);
         baseMapper.updateById(sysMenu);
@@ -115,6 +120,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstant.MENU_DETAIL_KEY, allEntries = true)
     public void delete(Long id) {
         List<SysMenu> list = baseMapper.selectList(new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getParentId, id));
         if (list.size() > 0) {
