@@ -8,6 +8,7 @@ import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.service.SysRoleService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +34,7 @@ public class SysRoleController {
     @GetMapping("/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysRole>> list(SysRole sysRole) {
-        return R.ok(sysRoleService.list());
+        return R.ok(sysRoleService.list(new LambdaQueryWrapper<SysRole>().eq(SysRole::getStatus, true)));
     }
 
     @GetMapping("/tree")

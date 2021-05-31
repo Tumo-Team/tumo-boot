@@ -6,6 +6,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.tycoding.boot.common.core.utils.IpUtil;
 import cn.tycoding.boot.modules.resource.entity.OssFile;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import lombok.SneakyThrows;
 import org.springframework.core.env.Environment;
 import org.springframework.util.ResourceUtils;
@@ -35,6 +36,12 @@ public class OssUtil {
         return path + getBucket();
     }
 
+    @SneakyThrows
+    public static String getPath(String bucket) {
+        String path = ResourceUtils.getURL(ResourceUtils.CLASSPATH_URL_PREFIX).getPath() + DEFAULT_UPLOAD_PATH;
+        return path + bucket;
+    }
+
     /**
      * 获取文件相对路径
      */
@@ -54,23 +61,23 @@ public class OssUtil {
     /**
      * 获取文件绝对路径
      */
-    public static String getAbsolutePath(String fileName) {
-        return getPath() + "/" + fileName;
+    public static String getAbsolutePath(String bucket, String fileName) {
+        return getPath(bucket) + "/" + fileName;
     }
 
     /**
      * 获取`yyyyMMddHHmmss`格式的时间戳
      */
     public static String getName() {
-        return DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN);
+        return IdWorker.getIdStr();
     }
 
     /**
-     * 根据原始文件格式拼接新文件名称
+     * 根据原始文件格式拼接新文件名称x
      */
     public static String getName(String name) {
         String suffix = FileUtil.getSuffix(name);
-        return DateUtil.format(new Date(), DatePattern.PURE_DATETIME_PATTERN) + "." + suffix;
+        return getName() + "." + suffix;
     }
 
     /**
@@ -97,14 +104,15 @@ public class OssUtil {
         // 写入文件
         file.transferTo(targetFile);
 
-        // 写入数据库
+        // 写入数据
         OssFile ossFile = new OssFile();
         ossFile.setOriginName(file.getOriginalFilename());
         ossFile.setTargetName(targetName);
-        ossFile.setDes(file.getOriginalFilename());
+        ossFile.setBucket(getBucket());
         ossFile.setUrl(getFileUrl(targetName, environment));
         ossFile.setSize(file.getSize());
         ossFile.setType(FileUtil.getType(targetFile));
+        ossFile.setDes(file.getOriginalFilename());
         ossFile.setCreateTime(new Date());
         return ossFile;
     }

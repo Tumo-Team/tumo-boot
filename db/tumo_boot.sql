@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 27/05/2021 23:25:12
+ Date: 31/05/2021 17:09:12
 */
 
 SET NAMES utf8mb4;
@@ -51,6 +51,7 @@ CREATE TABLE `oss_file` (
   `id` bigint(20) NOT NULL COMMENT '主键',
   `origin_name` varchar(255) DEFAULT NULL COMMENT '原始文件名称',
   `target_name` varchar(255) DEFAULT NULL COMMENT '文件存储名称',
+  `bucket` varchar(255) DEFAULT NULL COMMENT '桶路径',
   `url` varchar(255) DEFAULT NULL COMMENT '文件地址',
   `type` varchar(255) DEFAULT NULL COMMENT '文件类型',
   `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
@@ -63,9 +64,6 @@ CREATE TABLE `oss_file` (
 -- Records of oss_file
 -- ----------------------------
 BEGIN;
-INSERT INTO `oss_file` VALUES (1397558349310074881, 'test.jpg', '20210526222048.jpg', 'http://192.168.124.16:8010/upload/20210526/20210526222048.jpg', 'jpg', 1876506, '这是测试文件', '2021-05-26 22:20:48');
-INSERT INTO `oss_file` VALUES (1397558349339435010, 'DKix6Un55mw.jpg', '20210526222048.jpg', 'http://192.168.124.16:8010/upload/20210526/20210526222048.jpg', 'jpg', 913006, 'DKix6Un55mw.jpg', '2021-05-26 22:20:48');
-INSERT INTO `oss_file` VALUES (1397558349343629313, 'eSvZ3HkPFQ8.jpg', '20210526222048.jpg', 'http://192.168.124.16:8010/upload/20210526/20210526222048.jpg', 'jpg', 1988522, 'eSvZ3HkPFQ8.jpg', '2021-05-26 22:20:48');
 COMMIT;
 
 -- ----------------------------
@@ -114,6 +112,14 @@ CREATE TABLE `sys_log` (
 -- Records of sys_log
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_log` VALUES (1398092001940934657, 2, 'anonymousUser', 'Redis连接异常', '/tumo-boot/auth/captcha', NULL, NULL, '_t=%5B1622166079600%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 09:41:23');
+INSERT INTO `sys_log` VALUES (1398095251809308673, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622166857750%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 09:54:18');
+INSERT INTO `sys_log` VALUES (1398148294542192641, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 40, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:04');
+INSERT INTO `sys_log` VALUES (1398148294596718593, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 69, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:04');
+INSERT INTO `sys_log` VALUES (1398148328478306305, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 23, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:13');
+INSERT INTO `sys_log` VALUES (1398148328499277826, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 33, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:13');
+INSERT INTO `sys_log` VALUES (1398878836290183169, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622353673952%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-30 13:47:57');
+INSERT INTO `sys_log` VALUES (1399174316924559362, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622424127131%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-31 09:22:07');
 COMMIT;
 
 -- ----------------------------
@@ -174,8 +180,8 @@ BEGIN;
 INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', 1, '超级管理员管理员，不受权限控制');
 INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', 1, '仅拥有用户管理权限');
 INSERT INTO `sys_role` VALUES (1362597571041787916, 1362597571041787906, '用户管理员1', 'user-admin-1', 1, '仅拥有用户管理权限');
-INSERT INTO `sys_role` VALUES (1394593681369038850, 0, '1111', '1', 1, '1');
-INSERT INTO `sys_role` VALUES (1394635789033418753, 1394593681369038850, '1xxx', '1zzzz', 1, 'zzz');
+INSERT INTO `sys_role` VALUES (1394593681369038850, 0, '1111', '1', 0, '1');
+INSERT INTO `sys_role` VALUES (1394635789033418753, 1394593681369038850, '1xxx', '1zzzz', 0, 'zzz');
 COMMIT;
 
 -- ----------------------------

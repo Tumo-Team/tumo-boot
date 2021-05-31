@@ -38,11 +38,11 @@ public class OssFileServiceImpl extends ServiceImpl<OssFileMapper, OssFile> impl
     public void delete(Long id) {
         OssFile ossFile = baseMapper.selectById(id);
         if (ossFile != null) {
-            // 删除本地磁盘文件
-            String path = OssUtil.getAbsolutePath(ossFile.getTargetName());
-            FileUtil.del(new File(path));
             // 删除数据库
             baseMapper.deleteById(id);
+            // 删除本地磁盘文件
+            String path = OssUtil.getAbsolutePath(ossFile.getBucket(), ossFile.getTargetName());
+            FileUtil.del(new File(path));
         }
     }
 }

@@ -36,6 +36,11 @@ public class OssFile implements Serializable {
     private String targetName;
 
     /**
+     * 桶路径
+     */
+    private String bucket;
+
+    /**
      * 文件地址
      */
     private String url;
