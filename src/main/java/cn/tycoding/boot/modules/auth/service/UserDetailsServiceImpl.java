@@ -70,9 +70,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         sysRoles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
 
-        Set<String> permissions = userInfo.getPermissions();
-        if (permissions != null && permissions.size() > 0) {
-            authSet.addAll(permissions);
+        Set<String> perms = userInfo.getPerms();
+        if (perms != null && perms.size() > 0) {
+            authSet.addAll(perms);
         }
 
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authSet.toArray(new String[0]));

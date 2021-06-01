@@ -25,10 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -82,17 +79,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         //获取用户权限列表
-        List<SysMenu> sysMenuList = sysMenuService.getUserMenuList(sysRoleList);
-        Set<String> menuSet = sysMenuList
+        List<SysMenu> menuList = new ArrayList<>();
+        long isAdmin = sysRoleList.stream().filter(role -> AuthUtil.ADMINISTRATOR.equals(role.getAlias())).count();
+        if (isAdmin > 0) {
+            // 包含了超级管理员角色，拥有所有权限
+            menuList = sysMenuService.list();
+        } else {
+            // 根据角色筛选权限
+            menuList = sysMenuService.getUserMenuList(sysRoleList);
+        }
+        Set<String> perms = menuList
                 .stream()
-                .filter(perm -> (perm.getPerms() != null && !"".equals(perm.getPerms())))
                 .map(SysMenu::getPerms)
+                .filter(StringUtils::isNotEmpty)
                 .collect(Collectors.toSet());
 
         //获取用户部门信息
         SysDept sysDept = sysDeptService.getById(userInfo.getUser().getDeptId());
 
-        return userInfo.setRoles(sysRoleList).setPermissions(menuSet).setDept(sysDept);
+        return userInfo.setRoles(sysRoleList).setPerms(perms).setDept(sysDept);
     }
 
     @Override

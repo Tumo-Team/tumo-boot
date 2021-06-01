@@ -1,6 +1,5 @@
 package cn.tycoding.boot.common.redis.config;
 
-import ch.qos.logback.core.util.TimeUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
@@ -39,4 +38,7 @@ public class TumoRedis {
         return this.valueOps.get(key);
     }
 
+    public void delete(String key) {
+        redisTemplate.delete(key);
+    }
 }

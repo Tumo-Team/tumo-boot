@@ -5,6 +5,7 @@ import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.constant.CaptchaConstant;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.redis.config.TumoRedis;
@@ -13,6 +14,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;
@@ -35,6 +37,7 @@ public class TumoTokenEndpoint {
 
     private final TokenStore tokenStore;
     private final TumoRedis tumoRedis;
+    private final CacheManager cacheManager;
 
     /**
      * 获取验证码
@@ -45,7 +48,7 @@ public class TumoTokenEndpoint {
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(CaptchaConstant.CAPTCHA_WIDTH, CaptchaConstant.CAPTCHA_HEIGHT, CaptchaConstant.CAPTCHA_COUNT, CaptchaConstant.CAPTCHA_CIRCLE_COUNT);
         String code = captcha.getCode().toLowerCase();
         String key = RedisCatchUtil.getKey();
-        tumoRedis.set(CacheConstant.CAPTCHA_KEY + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
+        tumoRedis.set(CacheConstant.CAPTCHA_PREFIX + key, code, Duration.ofMinutes(CaptchaConstant.CAPTCHA_TIMEOUT));
         return R.ok(Dict.create().set("key", key).set("image", captcha.getImageBase64()));
     }
 
@@ -67,6 +70,11 @@ public class TumoTokenEndpoint {
         // 清空refresh_token
         OAuth2RefreshToken refreshToken = accessToken.getRefreshToken();
         tokenStore.removeRefreshToken(refreshToken);
+
+        // 清空User Details
+        cacheManager.getCache(CacheConstant.USER_DETAIL_KEY).evict(AuthUtil.getUsername());
+        // 清空Menu Details
+        cacheManager.getCache(CacheConstant.MENU_DETAIL_KEY).evict(AuthUtil.getUserId());
         return R.ok();
     }
 }

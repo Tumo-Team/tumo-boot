@@ -44,5 +44,5 @@ public class UserInfo implements Serializable {
      * 用户权限标识
      */
     @ApiModelProperty(value = "用户权限标识")
-    private Set<String> permissions;
+    private Set<String> perms;
 }
