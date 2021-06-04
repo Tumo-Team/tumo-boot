@@ -3,10 +3,10 @@ package cn.tycoding.boot.modules.resource.service.impl;
 import cn.hutool.core.io.FileUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
+import cn.tycoding.boot.common.oss.props.LocalFileProperties;
 import cn.tycoding.boot.modules.resource.entity.OssFile;
 import cn.tycoding.boot.modules.resource.mapper.OssFileMapper;
 import cn.tycoding.boot.modules.resource.service.OssFileService;
-import cn.tycoding.boot.modules.resource.utils.OssUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -27,6 +27,8 @@ import java.io.File;
 @RequiredArgsConstructor
 public class OssFileServiceImpl extends ServiceImpl<OssFileMapper, OssFile> implements OssFileService {
 
+    private final LocalFileProperties properties;
+
     @Override
     public IPage<OssFile> page(OssFile ossFile, QueryPage queryPage) {
         return baseMapper.selectPage(MybatisUtil.wrap(ossFile, queryPage), new LambdaQueryWrapper<OssFile>()
@@ -40,8 +42,8 @@ public class OssFileServiceImpl extends ServiceImpl<OssFileMapper, OssFile> impl
         if (ossFile != null) {
             // 删除数据库
             baseMapper.deleteById(id);
-            // 删除本地磁盘文件
-            String path = OssUtil.getAbsolutePath(ossFile.getBucket(), ossFile.getTargetName());
+            // 删除磁盘文件
+            String path = properties.getUploadPath() + ossFile.getBucket() + "/" + ossFile.getOriginName();
             FileUtil.del(new File(path));
         }
     }

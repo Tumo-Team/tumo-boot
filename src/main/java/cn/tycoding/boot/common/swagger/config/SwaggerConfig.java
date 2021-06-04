@@ -45,7 +45,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket ossDocket() {
-        return docket("OSS模块", swagger.getBasePackage() + ".modules.oss.controller");
+        return docket("资源模块", swagger.getBasePackage() + ".modules.resource");
     }
 
     private Docket docket(String groupName, String basePackage) {

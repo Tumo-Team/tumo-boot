@@ -9,3 +9,11 @@ spring:
   redis:
     port: 6379
     host: tumo-boot-redis
+
+# 自定义配置
+tumo-boot:
+  # Oss配置
+  file:
+    remote-path: http://127.0.0.1:8010/
+    # 生产环境下，文件上传的地址应该是Web容器映射的可访问的地址
+    upload-path: /usr/share/nginx/html

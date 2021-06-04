@@ -24,8 +24,8 @@ import java.util.List;
  */
 @RestController
 @RequiredArgsConstructor
+@Api(value = "系统日志表管理接口", tags = "系统日志表管理接口")
 @RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/log")
-@Api(value = "系统日志表接口", tags = "系统日志表接口")
 public class SysLogController {
 
     private final SysLogService sysLogService;
