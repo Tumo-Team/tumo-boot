@@ -38,7 +38,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<MenuTree<SysMenu>> tree(SysMenu sysMenu) {
         SysMenu menu = new SysMenu();
         menu.setName(sysMenu.getName());
-        menu.setIsDisabled(menu.getIsDisabled());
+        menu.setIsDisabled(sysMenu.getIsDisabled());
         return MenuTreeUtil.build(this.list(menu));
     }
 
