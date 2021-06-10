@@ -57,6 +57,10 @@ public class R<T> implements Serializable {
         return new R<>(HttpCode.FAILURE.getCode(), msg);
     }
 
+    public static <T> R<T> fail(int code, String msg) {
+        return new R<>(code, msg);
+    }
+
     public static <T> R<T> fail(HttpCode httpCode) {
         return new R<>(httpCode);
     }

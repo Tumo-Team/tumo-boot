@@ -4,6 +4,7 @@ import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
@@ -88,19 +89,29 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     }
 
     private void format(SysMenu sysMenu) {
-        sysMenu.setParentId(sysMenu.getParentId() == null ? 0L : sysMenu.getParentId());
         if (CommonConstant.MENU_TYPE_MENU.equals(sysMenu.getType())) {
             if (sysMenu.getPath() == null) {
-                throw new RuntimeException("[path]参数不能为空");
+                throw new ServiceException("[path]参数不能为空");
             }
             if (sysMenu.getIcon() == null) {
                 sysMenu.setIcon(CommonConstant.MENU_ICON);
             }
-            if (!sysMenu.getPath().startsWith("/")) {
-                sysMenu.setPath("/" + sysMenu.getPath());
-            }
-            if (!sysMenu.getComponent().startsWith("/")) {
-                sysMenu.setComponent("/" + sysMenu.getComponent());
+            if (sysMenu.getParentId() == null || sysMenu.getParentId() == 0) {
+                // 父级节点
+                if (sysMenu.getComponent() == null) {
+                    sysMenu.setComponent("Layout");
+                }
+                if (!sysMenu.getPath().toLowerCase().startsWith("http") && !sysMenu.getPath().startsWith("/")) {
+                    sysMenu.setPath("/" + sysMenu.getPath());
+                }
+            } else {
+                // 子节点
+                if (!sysMenu.getComponent().startsWith("/")) {
+                    sysMenu.setComponent("/" + sysMenu.getComponent());
+                }
+                if (sysMenu.getPath().startsWith("/")) {
+                    sysMenu.setPath(sysMenu.getPath().substring(1));
+                }
             }
         }
         if (CommonConstant.MENU_TYPE_BUTTON.equals(sysMenu.getType())) {
@@ -124,7 +135,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public void delete(Long id) {
         List<SysMenu> list = baseMapper.selectList(new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getParentId, id));
         if (list.size() > 0) {
-            throw new RuntimeException("该菜单包含子节点，不能删除");
+            throw new ServiceException("该菜单包含子节点，不能删除");
         }
         sysRoleMenuService.deleteRoleMenusByMenuId(id);
         baseMapper.deleteById(id);

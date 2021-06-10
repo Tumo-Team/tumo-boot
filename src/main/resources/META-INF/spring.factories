@@ -1,4 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     cn.tycoding.boot.common.log.LogAutoConfiguration,\
-    cn.tycoding.boot.common.log.error.GlobalExceptionTranslator,\
-    cn.tycoding.boot.common.log.error.RestExceptionTranslator
+    cn.tycoding.boot.common.log.exception.RestExceptionTranslator

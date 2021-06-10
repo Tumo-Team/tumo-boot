@@ -5,6 +5,7 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.tree.Tree;
 import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.upms.entity.SysDept;
 import cn.tycoding.boot.modules.upms.mapper.SysDeptMapper;
 import cn.tycoding.boot.modules.upms.service.SysDeptService;
@@ -67,7 +68,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     public void delete(Long id) {
         List<SysDept> list = baseMapper.selectList(new LambdaQueryWrapper<SysDept>().eq(SysDept::getParentId, id));
         if (list.size() > 0) {
-            throw new RuntimeException("该部门包含子节点，不能删除");
+            throw new ServiceException("该部门包含子节点，不能删除");
         }
         baseMapper.deleteById(id);
     }

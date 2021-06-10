@@ -1,4 +1,4 @@
-package cn.tycoding.boot.common.log.error;
+package cn.tycoding.boot.common.log.exception;
 
 import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;

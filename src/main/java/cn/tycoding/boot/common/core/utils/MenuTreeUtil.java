@@ -47,8 +47,6 @@ public class MenuTreeUtil {
                 // 父级节点
                 if (node.getIsExt()) {
                     node.setComponent("IFrame");
-                } else {
-                    node.setComponent("Layout");
                 }
                 tree.add(node);
                 return;

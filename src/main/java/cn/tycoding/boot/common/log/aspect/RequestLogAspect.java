@@ -26,7 +26,6 @@ public class RequestLogAspect {
 
     @Around("(@within(org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint)) || (execution(!static cn.tycoding.boot.common.core.api.R *(..)) && (@within(org.springframework.stereotype.Controller) || @within(org.springframework.web.bind.annotation.RestController)))")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        Object result = point.proceed();
         HttpServletRequest request = AuthUtil.getRequest();
         String beforeLog = "\n\n================  Request Start  ================" +
                 "\n===General=== Request URL: " + request.getRequestURL() +
@@ -41,6 +40,6 @@ public class RequestLogAspect {
                 // "\n\n===Result=== " + new JSONObject(result).toString() +
                 "\n================  Request End  ================\n";
         log.info(beforeLog);
-        return result;
+        return point.proceed();
     }
 }

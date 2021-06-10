@@ -7,6 +7,7 @@ import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.utils.BeanUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.entity.SysRoleMenu;
@@ -124,7 +125,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public void delete(Long id) {
         SysRole sysRole = this.getById(id);
         if (AuthUtil.ADMINISTRATOR.equals(sysRole.getAlias())) {
-            throw new RuntimeException("[超级管理员]角色不可删除");
+            throw new ServiceException("[超级管理员]角色不可删除");
         }
         baseMapper.deleteById(id);
         sysRoleMenuService.deleteRoleMenusByRoleId(id);

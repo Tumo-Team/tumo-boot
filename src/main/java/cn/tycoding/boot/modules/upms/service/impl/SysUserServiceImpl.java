@@ -6,6 +6,7 @@ import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
 import cn.tycoding.boot.common.core.utils.BeanUtil;
 import cn.tycoding.boot.common.core.utils.Is;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
@@ -70,7 +71,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     private UserInfo build(UserInfo userInfo) {
         if (userInfo == null || userInfo.getUser() == null) {
-            throw new RuntimeException("没有查询用用户信息");
+            throw new ServiceException("没有查询用用户信息");
         }
         //获取用户角色列表
         List<SysRole> sysRoleList = sysRoleService.findRolesByUserId(userInfo.getUser().getId());
@@ -135,7 +136,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         // 设置角色
         if (Is.isEmpty(user.getRoleIds())) {
-            throw new RuntimeException("用户角色不能为空");
+            throw new ServiceException("用户角色不能为空");
         }
         baseMapper.insert(user);
         addRole(user);
