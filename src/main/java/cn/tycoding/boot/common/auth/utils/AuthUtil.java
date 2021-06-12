@@ -57,8 +57,18 @@ public class AuthUtil {
     /**
      * 获取Authentication对象
      */
-    protected static Authentication getAuthentication() {
+    public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    /**
+     * 截取前端Token字符串中不包含`Bearer`的部分
+     */
+    public static String getToken(String token) {
+        if (token != null && token.toLowerCase().startsWith("bearer")) {
+            return token.replace("bearer", "").trim();
+        }
+        return token;
     }
 
     /**

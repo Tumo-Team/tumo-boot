@@ -74,6 +74,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     @Transactional(rollbackFor = Exception.class)
+    @CacheEvict(value = CacheConstant.MENU_DETAIL_KEY, allEntries = true)
     public void add(SysMenu sysMenu) {
         this.format(sysMenu);
         baseMapper.insert(sysMenu);

@@ -1,6 +1,5 @@
 package cn.tycoding.boot.common.redis.component;
 
-import cn.tycoding.boot.common.redis.config.TumoRedis;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -30,10 +29,5 @@ public class RedisComponent {
         redisTemplate.setValueSerializer(new JdkSerializationRedisSerializer());
         redisTemplate.setConnectionFactory(connectionFactory);
         return redisTemplate;
-    }
-
-    @Bean
-    public TumoRedis tumoRedis(RedisTemplate<String, Object> redisTemplate) {
-        return new TumoRedis(redisTemplate);
     }
 }
