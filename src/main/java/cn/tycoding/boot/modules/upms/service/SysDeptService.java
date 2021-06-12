@@ -25,11 +25,6 @@ public interface SysDeptService extends IService<SysDept> {
     List<Tree<Object>> tree();
 
     /**
-     * 校验名称是否存在
-     */
-    boolean checkName(SysDept sysDept);
-
-    /**
      * 删除
      */
     void delete(Long id);

@@ -5,7 +5,6 @@ import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
@@ -15,9 +14,9 @@ import cn.tycoding.boot.modules.upms.service.SysUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -68,7 +67,8 @@ public class SysUserController {
 
     @PostMapping
     @ApiLog("新增用户")
-    @ApiOperation(value = "新增")
+    @ApiOperation(value = "新增用户")
+    @PreAuthorize("@auth.hasAuth('upms:user:add')")
     public R<SysUser> add(@RequestBody SysUserDTO user) {
         sysUserService.add(user);
         return R.ok();
@@ -76,7 +76,8 @@ public class SysUserController {
 
     @PutMapping
     @ApiLog("修改用户")
-    @ApiOperation(value = "修改")
+    @ApiOperation(value = "修改用户")
+    @PreAuthorize("@auth.hasAuth('upms:user:update')")
     public R update(@RequestBody SysUserDTO user) {
         sysUserService.update(user);
         return R.ok();
@@ -84,7 +85,8 @@ public class SysUserController {
 
     @DeleteMapping("/{id}")
     @ApiLog("删除用户")
-    @ApiOperation(value = "根据ID删除")
+    @ApiOperation(value = "删除用户")
+    @PreAuthorize("@auth.hasAuth('upms:user:delete')")
     public R delete(@PathVariable Long id) {
         sysUserService.delete(id);
         return R.ok();
@@ -96,12 +98,5 @@ public class SysUserController {
     public R resetPass(@RequestBody SysUser sysUser) {
         sysUserService.resetPass(sysUser);
         return R.ok();
-    }
-
-    @GetMapping("/export")
-    @ApiOperation(value = "导出Excel")
-    public void export(HttpServletResponse response) {
-        List<SysUser> list = sysUserService.list();
-        ExcelUtil.export(response, "用户数据", "用户数据", SysUser.class, list);
     }
 }

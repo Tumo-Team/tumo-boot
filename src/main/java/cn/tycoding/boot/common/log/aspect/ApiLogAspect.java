@@ -28,7 +28,7 @@ public class ApiLogAspect {
         long time = System.currentTimeMillis() - beginTime;
 
         String method = className + "." + methodName + "()";
-        SysLog sysLog = SysLogUtil.build(1, apiLog.value(), method, time);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_OK, apiLog.value(), method, time);
 
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
         return point.proceed();

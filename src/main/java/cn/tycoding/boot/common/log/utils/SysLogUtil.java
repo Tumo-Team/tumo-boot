@@ -20,6 +20,11 @@ import java.util.Objects;
  */
 public class SysLogUtil {
 
+    /* 成功日志类型 */
+    public static final int TYPE_OK = 1;
+    /* 错误日志类型 */
+    public static final int TYPE_FAIL = 2;
+
     /**
      * 构建日志Log类信息
      *

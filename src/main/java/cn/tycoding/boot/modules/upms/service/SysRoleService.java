@@ -26,11 +26,6 @@ public interface SysRoleService extends IService<SysRole> {
     List<Tree<Object>> tree(SysRole sysRole);
 
     /**
-     * 校验名称是否存在
-     */
-    boolean checkName(SysRole sysRole);
-
-    /**
      * 根据ID查询
      */
     SysRoleDTO findById(Long roleId);

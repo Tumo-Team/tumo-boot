@@ -1,6 +1,7 @@
 package cn.tycoding.boot.common.log.exception;
 
 import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
+import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
@@ -10,6 +11,7 @@ import io.lettuce.core.RedisConnectionException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -29,9 +31,19 @@ public class GlobalExceptionTranslator {
     public R handleError(ServiceException e) {
         log.error("----------业务异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(2, "业务异常", null, null);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "业务异常", null, null);
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
         return R.fail(e.getHttpCode().getCode(), e.getMessage());
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public R handleError(AccessDeniedException e) {
+        log.error("----------没有访问权限----------");
+        e.printStackTrace();
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "没有访问权限", null, null);
+        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        return R.fail(HttpCode.FORBIDDEN);
     }
 
     @ExceptionHandler({TumoOAuth2Exception.class})
@@ -39,7 +51,7 @@ public class GlobalExceptionTranslator {
     public R handleError(TumoOAuth2Exception e) {
         log.error("----------认证异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(2, "认证异常", null, null);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "认证异常", null, null);
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
         return R.fail(e);
     }
@@ -49,7 +61,7 @@ public class GlobalExceptionTranslator {
     public R handleError(RedisConnectionFailureException e) {
         log.error("----------Redis连接异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(2, "Redis连接异常", null, null);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "Redis连接异常", null, null);
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
         return R.fail("Redis连接异常");
     }
@@ -59,7 +71,7 @@ public class GlobalExceptionTranslator {
     public R handleError(Throwable e) {
         log.error("----------服务器异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(2, "服务器异常", null, null);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "服务器异常", null, null);
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
         return R.fail(e);
     }

@@ -3,16 +3,15 @@ package cn.tycoding.boot.modules.upms.controller;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.entity.SysDept;
 import cn.tycoding.boot.modules.upms.service.SysDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -41,12 +40,6 @@ public class SysDeptController {
         return R.ok(sysDeptService.tree());
     }
 
-    @PostMapping("/checkName")
-    @ApiOperation(value = "校验名称是否已存在")
-    public R<Boolean> checkName(@RequestBody SysDept sysDept) {
-        return R.ok(sysDeptService.checkName(sysDept));
-    }
-
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysDept> findById(@PathVariable Long id) {
@@ -55,7 +48,8 @@ public class SysDeptController {
 
     @PostMapping
     @ApiLog("新增部门")
-    @ApiOperation(value = "新增")
+    @ApiOperation(value = "新增部门")
+    @PreAuthorize("@auth.hasAuth('upms:dept:update')")
     public R add(@RequestBody SysDept sysDept) {
         sysDept.setParentId(sysDept.getParentId() == null ? 0L : sysDept.getParentId());
         sysDeptService.save(sysDept);
@@ -64,7 +58,8 @@ public class SysDeptController {
 
     @PutMapping
     @ApiLog("修改部门")
-    @ApiOperation(value = "修改")
+    @ApiOperation(value = "修改部门")
+    @PreAuthorize("@auth.hasAuth('upms:dept:update')")
     public R update(@RequestBody SysDept sysDept) {
         sysDept.setParentId(sysDept.getParentId() == null ? 0L : sysDept.getParentId());
         sysDeptService.updateById(sysDept);
@@ -73,16 +68,10 @@ public class SysDeptController {
 
     @DeleteMapping("/{id}")
     @ApiLog("删除部门")
-    @ApiOperation(value = "根据ID删除")
+    @ApiOperation(value = "删除部门")
+    @PreAuthorize("@auth.hasAuth('upms:dept:update')")
     public R delete(@PathVariable Long id) {
         sysDeptService.delete(id);
         return R.ok();
-    }
-
-    @GetMapping("/export")
-    @ApiOperation(value = "导出Excel")
-    public void export(HttpServletResponse response) {
-        List<SysDept> list = sysDeptService.list();
-        ExcelUtil.export(response, "部门数据", "部门数据", SysDept.class, list);
     }
 }

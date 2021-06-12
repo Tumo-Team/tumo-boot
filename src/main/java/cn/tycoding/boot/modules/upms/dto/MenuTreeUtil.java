@@ -1,14 +1,12 @@
-package cn.tycoding.boot.common.core.utils;
+package cn.tycoding.boot.modules.upms.dto;
 
-import cn.tycoding.boot.modules.upms.dto.MenuMeta;
-import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 自定义封装Menu Tree
+ * 自定义封装Menu Tree 工具类
  *
  * @author tycoding
  * @since 2021/5/21

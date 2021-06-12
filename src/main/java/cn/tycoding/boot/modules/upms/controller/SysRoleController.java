@@ -3,7 +3,6 @@ package cn.tycoding.boot.modules.upms.controller;
 import cn.hutool.core.lang.tree.Tree;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
@@ -12,9 +11,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -43,12 +42,6 @@ public class SysRoleController {
         return R.ok(sysRoleService.tree(sysRole));
     }
 
-    @GetMapping("/checkName")
-    @ApiOperation(value = "校验名称是否已存在")
-    public R<Boolean> checkName(SysRole sysRole) {
-        return R.ok(sysRoleService.checkName(sysRole));
-    }
-
     @GetMapping("/{id}")
     @ApiOperation(value = "根据ID查询")
     public R<SysRoleDTO> findById(@PathVariable Long id) {
@@ -57,7 +50,8 @@ public class SysRoleController {
 
     @PostMapping
     @ApiLog("新增角色")
-    @ApiOperation(value = "新增")
+    @ApiOperation(value = "新增角色")
+    @PreAuthorize("@auth.hasAuth('upms:role:add')")
     public R add(@RequestBody SysRoleDTO sysRole) {
         sysRoleService.add(sysRole);
         return R.ok();
@@ -65,7 +59,8 @@ public class SysRoleController {
 
     @PutMapping
     @ApiLog("修改角色")
-    @ApiOperation(value = "修改")
+    @ApiOperation(value = "修改角色")
+    @PreAuthorize("@auth.hasAuth('upms:role:update')")
     public R update(@RequestBody SysRoleDTO sysRole) {
         sysRoleService.update(sysRole);
         return R.ok();
@@ -73,16 +68,10 @@ public class SysRoleController {
 
     @DeleteMapping("/{id}")
     @ApiLog("删除角色")
-    @ApiOperation(value = "根据ID删除")
+    @ApiOperation(value = "删除角色")
+    @PreAuthorize("@auth.hasAuth('upms:role:delete')")
     public R delete(@PathVariable Long id) {
         sysRoleService.delete(id);
         return R.ok();
-    }
-
-    @GetMapping("/export")
-    @ApiOperation(value = "导出Excel")
-    public void export(HttpServletResponse response) {
-        List<SysRole> list = sysRoleService.list();
-        ExcelUtil.export(response, "角色数据", "角色数据", SysRole.class, list);
     }
 }

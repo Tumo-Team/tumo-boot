@@ -46,7 +46,7 @@ public class ResourceAuthExceptionEntryPoint implements AuthenticationEntryPoint
         log.error(HttpCode.UN_AUTHORIZED.getMsg() + ", URL: {}", URLUtil.getPath(request.getRequestURI()));
         writer.append(objectMapper.writeValueAsString(result));
 
-        SysLog sysLog = SysLogUtil.build(2, HttpCode.UN_AUTHORIZED.getMsg(), null, null);
+        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, HttpCode.UN_AUTHORIZED.getMsg(), null, null);
         SpringContextHolder.publishEvent(new LogEvent(sysLog));
     }
 }

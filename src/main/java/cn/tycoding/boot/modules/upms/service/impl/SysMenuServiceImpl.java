@@ -3,7 +3,7 @@ package cn.tycoding.boot.modules.upms.service.impl;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
-import cn.tycoding.boot.common.core.utils.MenuTreeUtil;
+import cn.tycoding.boot.modules.upms.dto.MenuTreeUtil;
 import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
@@ -62,15 +62,6 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<SysMenu> getUserMenuList(List<SysRole> sysRoleList) {
         List<Long> roleIds = sysRoleList.stream().map(SysRole::getId).collect(Collectors.toList());
         return baseMapper.build(roleIds, null);
-    }
-
-    @Override
-    public boolean checkName(SysMenu sysMenu) {
-        LambdaQueryWrapper<SysMenu> queryWrapper = new LambdaQueryWrapper<SysMenu>().eq(SysMenu::getName, sysMenu.getName());
-        if (sysMenu.getId() != null && sysMenu.getId() != 0) {
-            queryWrapper.ne(SysMenu::getId, sysMenu.getId());
-        }
-        return baseMapper.selectList(queryWrapper).size() <= 0;
     }
 
     @Override

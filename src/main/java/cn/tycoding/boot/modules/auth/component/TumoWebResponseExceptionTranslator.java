@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.common.exceptions.InvalidGrantExcepti
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.web.util.ThrowableAnalyzer;
-import org.springframework.stereotype.Component;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 
 import java.io.IOException;
@@ -24,8 +23,8 @@ import java.io.IOException;
  * @author tycoding
  * @since 2021/5/21
  */
-@Component
 public class TumoWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
+
     private ThrowableAnalyzer throwableAnalyzer = new DefaultThrowableAnalyzer();
 
     /**

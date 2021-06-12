@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 31/05/2021 17:09:12
+ Date: 11/06/2021 10:40:03
 */
 
 SET NAMES utf8mb4;
@@ -83,10 +83,7 @@ CREATE TABLE `sys_dept` (
 -- Records of sys_dept
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_dept` VALUES (1362597682681577273, 1362597682681577473, '测试部门1.1', 1, '测试');
-INSERT INTO `sys_dept` VALUES (1362597682681577473, 0, '测试部门', 2, '测试');
-INSERT INTO `sys_dept` VALUES (1394652452952887298, 0, '1', 3, '1111');
-INSERT INTO `sys_dept` VALUES (1394933284307267585, 1394652452952887298, '1111', 12, '1212');
+INSERT INTO `sys_dept` VALUES (1362597682681577273, 0, '测试部门', 1, '测试');
 COMMIT;
 
 -- ----------------------------
@@ -112,14 +109,6 @@ CREATE TABLE `sys_log` (
 -- Records of sys_log
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_log` VALUES (1398092001940934657, 2, 'anonymousUser', 'Redis连接异常', '/tumo-boot/auth/captcha', NULL, NULL, '_t=%5B1622166079600%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 09:41:23');
-INSERT INTO `sys_log` VALUES (1398095251809308673, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622166857750%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 09:54:18');
-INSERT INTO `sys_log` VALUES (1398148294542192641, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 40, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:04');
-INSERT INTO `sys_log` VALUES (1398148294596718593, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 69, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:04');
-INSERT INTO `sys_log` VALUES (1398148328478306305, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 23, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:13');
-INSERT INTO `sys_log` VALUES (1398148328499277826, 1, 'tumo-boot', '修改角色', '/tumo-boot/upms/role', 33, 'cn.tycoding.boot.modules.upms.controller.SysRoleController.update()', '', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-28 13:25:13');
-INSERT INTO `sys_log` VALUES (1398878836290183169, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622353673952%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-30 13:47:57');
-INSERT INTO `sys_log` VALUES (1399174316924559362, 2, NULL, '请求未授权', '/tumo-boot/upms/menu/build', NULL, NULL, '_t=%5B1622424127131%5D', '127.0.0.1', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36', '2021-05-31 09:22:07');
 COMMIT;
 
 -- ----------------------------
@@ -147,16 +136,31 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (1362304631325192191, '权限模块', 0, '/upms', NULL, 'menu', 1, 'ant-design:setting-outlined', NULL, 0, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1362304631325192192, '用户管理', 1362304631325192191, 'user', 'user:list', 'menu', 11, 'carbon:user-multiple', '/modules/upms/user/index', 0, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1362304631325192193, '菜单管理', 1362304631325192191, 'menu', 'menu:list', 'menu', 22, 'bi:menu-button-wide', '/modules/upms/menu/index', 0, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1362314451879096321, '角色管理', 1362304631325192191, 'role', 'role:list', 'menu', 33, 'ant-design:solution-outlined', '/modules/upms/role/index', 0, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1362316746228355073, '部门管理', 1362304631325192191, 'dept', 'dept:list', 'menu', 44, 'ant-design:audit-outlined', '/modules/upms/dept/index', 0, 0, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1362601021230026753, 'API文档', 0, 'https://vvbin.cn/doc-next/', 'doc:list', 'menu', 55, 'carbon:document-attachment', NULL, 0, 1, NULL, NULL);
-INSERT INTO `sys_menu` VALUES (1395758993001025537, '资源模块', 0, '/resource', 'resource:list', 'menu', 22, 'ant-design:send-outlined', '/', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1395759263542022145, '文件管理', 1395758993001025537, 'oss', 'oss:list', 'menu', 23, 'ant-design:folder-open-twotone', '/modules/resource/oss/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1397909459826774017, '系统日志', 1395758993001025537, 'log', 'log:view', 'menu', 20, 'ant-design:rocket-filled', '/modules/resource/log/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1397921420912353282, '222', 0, '/222', NULL, 'menu', 222, 'ant-design:android-filled', '/222', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402556566351122433, '权限模块', 0, '/upms', 'upms:view', 'menu', 100, 'ant-design:setting-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402557067260071938, '用户管理', 1402556566351122433, 'user', 'user:view', 'menu', 101, 'ant-design:user-switch-outlined', '/modules/upms/user/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402562175471669250, '用户新增', 1402557067260071938, NULL, 'user:add', 'button', 102, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402563862928248833, '用户修改', 1402557067260071938, NULL, 'user:update', 'button', 103, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402564440660070402, '用户删除', 1402557067260071938, NULL, 'user:delete', 'button', 104, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402891854378217473, '角色管理', 1402556566351122433, 'role', 'role:view', 'menu', 110, 'ant-design:user-switch-outlined', '/modules/upms/role/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402895826841288705, '角色新增', 1402891854378217473, NULL, 'role:add', 'button', 111, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402895916096077825, '角色修改', 1402891854378217473, NULL, 'role:update', 'button', 112, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896004537171970, '角色删除', 1402891854378217473, NULL, 'role:delete', 'button', 113, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896397505708033, '部门管理', 1402556566351122433, 'dept', 'dept:view', 'menu', 120, 'ant-design:audit-outlined', '/modules/upms/dept/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896819314278401, '部门新增', 1402896397505708033, NULL, 'dept:add', 'button', 121, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896925455335425, '部门修改', 1402896397505708033, NULL, 'dept:update', 'button', 122, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897035325128705, '部门删除', 1402896397505708033, NULL, 'dept:delete', 'button', 123, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897356944359426, '菜单管理', 1402556566351122433, 'menu', 'menu:view', 'menu', 130, 'ant-design:unordered-list-outlined', '/modules/upms/menu/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897461059567617, '菜单新增', 1402897356944359426, NULL, 'menu:add', 'button', 131, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897607436582914, '菜单修改', 1402897356944359426, NULL, 'menu:update', 'button', 132, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897754488881153, '菜单删除', 1402897356944359426, NULL, 'menu:delete', 'button', 133, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402900711645126657, '资源模块', NULL, '/resource', 'resource:view', 'menu', 200, 'ant-design:fork-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402901682110603265, '系统日志', 1402900711645126657, 'log', 'log:view', 'menu', 210, 'ant-design:thunderbolt-filled', '/modules/resource/log/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902022428041217, '日志删除', 1402901682110603265, NULL, 'log:delete', 'button', 211, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902525295730689, '文件管理', 1402900711645126657, 'file', 'oss:view', 'menu', 220, 'ant-design:folder-open-twotone', '/modules/resource/oss/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902709501173762, '文件新增', 1402902525295730689, NULL, 'oss:add', 'button', 221, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902826891354113, '文件修改', 1402902525295730689, NULL, 'oss:update', 'button', 222, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402903214973526017, '文件删除', 1402902525295730689, NULL, 'oss:delete', 'button', 223, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402904047832276993, 'API文档', NULL, 'http://127.0.0.1:8010/doc.html', 'api:view', 'menu', 300, 'ant-design:rocket-outlined', 'Layout', 0, 1, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -179,9 +183,6 @@ CREATE TABLE `sys_role` (
 BEGIN;
 INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', 1, '超级管理员管理员，不受权限控制');
 INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', 1, '仅拥有用户管理权限');
-INSERT INTO `sys_role` VALUES (1362597571041787916, 1362597571041787906, '用户管理员1', 'user-admin-1', 1, '仅拥有用户管理权限');
-INSERT INTO `sys_role` VALUES (1394593681369038850, 0, '1111', '1', 0, '1');
-INSERT INTO `sys_role` VALUES (1394635789033418753, 1394593681369038850, '1xxx', '1zzzz', 0, 'zzz');
 COMMIT;
 
 -- ----------------------------
@@ -198,8 +199,6 @@ CREATE TABLE `sys_role_menu` (
 -- Records of sys_role_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role_menu` VALUES (1394593681369038850, 1362601021230026753);
-INSERT INTO `sys_role_menu` VALUES (1394635789033418753, 1362601021230026753);
 COMMIT;
 
 -- ----------------------------
@@ -225,7 +224,7 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'tumo-boot', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '超级管理员', '女', '19809587839', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '超级管理员', '女', '19809587839', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
 INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2021-02-19 11:02:08');
 COMMIT;
 
@@ -244,7 +243,6 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` VALUES (1362304631325102103, 1362304631325192103);
-INSERT INTO `sys_user_role` VALUES (1362598312234024962, 1362597571041787906);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

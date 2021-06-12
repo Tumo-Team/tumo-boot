@@ -68,15 +68,6 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return TreeUtil.build(nodeList, 0L);
     }
 
-    @Override
-    public boolean checkName(SysRole sysRole) {
-        LambdaQueryWrapper<SysRole> queryWrapper = new LambdaQueryWrapper<SysRole>().eq(SysRole::getName, sysRole.getName());
-        if (sysRole.getId() != null && sysRole.getId() != 0) {
-            queryWrapper.ne(SysRole::getId, sysRole.getId());
-        }
-        return baseMapper.selectList(queryWrapper).size() <= 0;
-    }
-
     private List<Long> getMenuIdsByRoleId(Long roleId) {
         List<SysRoleMenu> list = sysRoleMenuMapper.selectList(new LambdaQueryWrapper<SysRoleMenu>().eq(SysRoleMenu::getRoleId, roleId));
         return list.stream().map(SysRoleMenu::getMenuId).collect(Collectors.toList());

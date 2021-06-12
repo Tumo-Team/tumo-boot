@@ -31,11 +31,6 @@ public interface SysMenuService extends IService<SysMenu> {
     List<SysMenu> getUserMenuList(List<SysRole> sysRoleList);
 
     /**
-     * 校验名称是否存在
-     */
-    boolean checkName(SysMenu sysMenu);
-
-    /**
      * 条件查询
      */
     List<SysMenu> list(SysMenu sysMenu);

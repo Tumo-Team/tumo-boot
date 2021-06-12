@@ -55,15 +55,6 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     }
 
     @Override
-    public boolean checkName(SysDept sysDept) {
-        LambdaQueryWrapper<SysDept> queryWrapper = new LambdaQueryWrapper<SysDept>().eq(SysDept::getName, sysDept.getName());
-        if (sysDept.getId() != null && sysDept.getId() != 0) {
-            queryWrapper.ne(SysDept::getId, sysDept.getId());
-        }
-        return baseMapper.selectList(queryWrapper).size() <= 0;
-    }
-
-    @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         List<SysDept> list = baseMapper.selectList(new LambdaQueryWrapper<SysDept>().eq(SysDept::getParentId, id));

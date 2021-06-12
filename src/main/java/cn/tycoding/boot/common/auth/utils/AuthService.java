@@ -1,0 +1,36 @@
+package cn.tycoding.boot.common.auth.utils;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.PatternMatchUtils;
+import org.springframework.util.StringUtils;
+
+import java.util.Collection;
+
+/**
+ * 接口权限校验
+ *
+ * @author tycoding
+ * @since 2021/6/11
+ */
+public class AuthService {
+
+    /**
+     * 校验当前登录的用户是否拥有指定权限
+     *
+     * @param perms 需要校验权限列表
+     * @return 校验结果
+     */
+    public boolean hasAuth(String... perms) {
+        if (perms.length == 0) {
+            return false;
+        }
+        Authentication authentication = AuthUtil.getAuthentication();
+        if (authentication == null) {
+            return false;
+        }
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        return authorities.stream().map(GrantedAuthority::getAuthority).filter(StringUtils::hasText)
+                .anyMatch(p -> PatternMatchUtils.simpleMatch(perms, p));
+    }
+}

@@ -1,7 +1,9 @@
 package cn.tycoding.boot.common.auth;
 
 import cn.tycoding.boot.common.auth.props.AuthProperties;
+import cn.tycoding.boot.common.auth.utils.AuthService;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -14,4 +16,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties({AuthProperties.class})
 public class AuthAutoConfiguration {
 
+    @Bean("auth")
+    public AuthService authService() {
+        return new AuthService();
+    }
 }

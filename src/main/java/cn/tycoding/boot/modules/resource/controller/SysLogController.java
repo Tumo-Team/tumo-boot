@@ -4,17 +4,14 @@ import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.core.utils.ExcelUtil;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.resource.entity.SysLog;
 import cn.tycoding.boot.modules.resource.service.SysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * 系统日志表(Log)表控制层
@@ -42,24 +39,11 @@ public class SysLogController {
         return R.ok(sysLogService.getById(id));
     }
 
-    @PostMapping
-    @ApiOperation(value = "新增")
-    public R add(@RequestBody SysLog sysLog) {
-        sysLogService.add(sysLog);
-        return R.ok();
-    }
-
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
+    @PreAuthorize("@auth.hasAuth('resource:log:delete')")
     public R delete(@PathVariable Long id) {
         sysLogService.delete(id);
         return R.ok();
-    }
-
-    @GetMapping("/export")
-    @ApiOperation(value = "导出Excel")
-    public void export(HttpServletResponse response) {
-        List<SysLog> list = sysLogService.list();
-        ExcelUtil.export(response, "日志数据", "日志数据", SysLog.class, list);
     }
 }

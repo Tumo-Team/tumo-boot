@@ -23,8 +23,8 @@ public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Excep
     @Override
     public void serialize(TumoOAuth2Exception e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
-        jsonGenerator.writeNumberField("code", e.getCode());
-        jsonGenerator.writeStringField("msg", e.getMessage());
+        jsonGenerator.writeNumberField("code", e.getHttpErrorCode());
+        jsonGenerator.writeStringField("msg", e.getOAuth2ErrorCode());
         jsonGenerator.writeStringField("data", null);
         jsonGenerator.writeEndObject();
     }

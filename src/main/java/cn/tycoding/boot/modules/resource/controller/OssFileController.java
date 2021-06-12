@@ -9,6 +9,7 @@ import cn.tycoding.boot.modules.resource.service.OssFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class OssFileController {
 
     @PostMapping
     @ApiOperation(value = "新增文件信息")
+    @PreAuthorize("@auth.hasAuth('resource:oss:add')")
     public R add(@RequestBody OssFile ossFile) {
         ossFileService.save(ossFile);
         return R.ok();
@@ -48,6 +50,7 @@ public class OssFileController {
 
     @PostMapping("/put-list")
     @ApiOperation(value = "新增文件信息（批量）")
+    @PreAuthorize("@auth.hasAuth('resource:oss:add')")
     public R addList(@RequestBody List<OssFile> list) {
         ossFileService.saveBatch(list);
         return R.ok();
@@ -55,6 +58,7 @@ public class OssFileController {
 
     @PutMapping
     @ApiOperation(value = "修改文件信息")
+    @PreAuthorize("@auth.hasAuth('resource:oss:update')")
     public R update(@RequestBody OssFile ossFile) {
         ossFileService.updateById(ossFile);
         return R.ok();
@@ -62,6 +66,7 @@ public class OssFileController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除文件")
+    @PreAuthorize("@auth.hasAuth('resource:oss:delete')")
     public R delete(@PathVariable Long id) {
         ossFileService.delete(id);
         return R.ok();

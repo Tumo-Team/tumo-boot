@@ -40,7 +40,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket upmsDocket() {
-        return docket("系统模块", swagger.getBasePackage() + ".modules.upms.controller");
+        return docket("权限模块", swagger.getBasePackage() + ".modules.upms.controller");
     }
 
     @Bean
