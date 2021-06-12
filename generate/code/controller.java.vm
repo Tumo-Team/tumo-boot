@@ -17,9 +17,10 @@ import cn.hutool.core.lang.Dict;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.api.QueryPage;
-import cn.tycoding.boot.common.core.controller.BaseController;
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,58 +35,41 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/$!{TumoBootLowerCaseEntity}")
-public class $!{tableName} extends BaseController {
+public class $!{tableName} {
 
     private final $!{TumoBootService} $!{TumoBootLowerCaseService};
 
-    /**
-    * 条件查询
-    */
-    @PostMapping("/filter/list")
-    public R<List<$!{TumoBootEntity}>> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        return R.ok($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}));
+    @GetMapping("/list")
+    public R<List<$!{TumoBootEntity}>> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
+        return R.ok($!{TumoBootLowerCaseService}.list());
     }
 
-    /**
-    * 分页、条件查询
-    */
-    @PostMapping("/list")
-    public R<Dict> list(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
-        return R.ok(super.getData($!{TumoBootLowerCaseService}.list($!{TumoBootLowerCaseEntity}, queryPage)));
+    @GetMapping("/page")
+    public R list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
+        Page<$!{TumoBootEntity}> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
+        return R.ok($!{TumoBootLowerCaseService}.page(page, Wrappers.<$!{TumoBootEntity}>query().lambda()));
     }
 
-    /**
-    * 根据ID查询
-    */
     @GetMapping("/{id}")
     public R<$!{TumoBootEntity}> findById(@PathVariable $!pk.shortType id) {
         return R.ok($!{TumoBootLowerCaseService}.getById(id));
     }
 
-    /**
-    * 新增
-    */
     @PostMapping
     public R add(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        $!{TumoBootLowerCaseService}.add($!{TumoBootLowerCaseEntity});
+        $!{TumoBootLowerCaseService}.save($!{TumoBootLowerCaseEntity});
         return R.ok();
     }
 
-    /**
-    * 修改
-    */
     @PutMapping
     public R update(@RequestBody $!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        $!{TumoBootLowerCaseService}.update($!{TumoBootLowerCaseEntity});
+        $!{TumoBootLowerCaseService}.updateById($!{TumoBootLowerCaseEntity});
         return R.ok();
     }
 
-    /**
-    * 根据ID删除
-    */
     @DeleteMapping("/{id}")
     public R delete(@PathVariable $!pk.shortType id) {
-        $!{TumoBootLowerCaseService}.delete(id);
+        $!{TumoBootLowerCaseService}.removeById(id);
         return R.ok();
     }
 }

@@ -15,10 +15,7 @@ $!callback.setSavePath($tool.append($tableInfo.savePath, "/service"))
 #if($tableInfo.savePackageName)package $!{tableInfo.savePackageName}.#{end}service;
 
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.core.api.QueryPage;
 import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
-
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -31,28 +28,4 @@ import java.util.List;
  */
 public interface $!{tableName} extends IService<$!{TumoBootEntity}> {
 
-    /**
-    * 条件查询
-    */
-    List<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity});
-
-    /**
-    * 分页、条件查询
-    */
-    IPage<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage);
-
-    /**
-    * 新增
-    */
-    void add($!{TumoBootEntity} $!{TumoBootLowerCaseEntity});
-
-    /**
-    * 修改
-    */
-    void update($!{TumoBootEntity} $!{TumoBootLowerCaseEntity});
-
-    /**
-    * 删除
-    */
-    void delete($!pk.shortType id);
 }

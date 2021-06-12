@@ -7,6 +7,7 @@
     </a>
 </p>
 
+> 一套基于SpringBoot2.4.x 和 Vue3.x & TypeScript 的基础RBAC权限项目模板。
 
 - Tumo-Boot演示地址：[http://boot.tycoding.cn](http://boot.tycoding.cn)
 - Tumo-Boot在线文档：[http://docs.boot.tycoding.cn](http://docs.boot.tycoding.cn)
@@ -159,7 +160,7 @@
 
 - **扩展阅读**
     - [部署文档](docs/other/deploy.md)
-    
+
 
 ## License
 

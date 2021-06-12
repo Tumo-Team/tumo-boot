@@ -18,14 +18,9 @@ import $!{tableInfo.savePackageName}.entity.$!{tableInfo.name};
 import $!{tableInfo.savePackageName}.mapper.$!{tableInfo.name}Mapper;
 import $!{tableInfo.savePackageName}.service.$!{tableInfo.name}Service;
 ##以下`cn.tycoding`开头的都是我自定义的类，请根据情况做相应修改
-import cn.tycoding.boot.common.core.api.QueryPage;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -41,35 +36,4 @@ public class $!{tableName} extends ServiceImpl<$!{TumoBootMapper}, $!{TumoBootEn
 
     private final $!{TumoBootMapper} $!{TumoBootLowerCaseMapper};
 
-    @Override
-    public List<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        LambdaQueryWrapper<$!{TumoBootEntity}> queryWrapper = new LambdaQueryWrapper<>();
-        return baseMapper.selectList(queryWrapper);
-    }
-
-    @Override
-    public IPage<$!{TumoBootEntity}> list($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}, QueryPage queryPage) {
-        IPage<$!{TumoBootEntity}> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<$!{TumoBootEntity}> queryWrapper = new LambdaQueryWrapper<>();
-        //queryWrapper.like(StringUtils.isNotBlank($!{TumoBootLowerCaseEntity}.getName()), $!{TumoBootEntity}::getName, $!{TumoBootLowerCaseEntity}.getName());
-        return baseMapper.selectPage(page, queryWrapper);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void add($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        baseMapper.insert($!{TumoBootLowerCaseEntity});
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void update($!{TumoBootEntity} $!{TumoBootLowerCaseEntity}) {
-        baseMapper.updateById($!{TumoBootLowerCaseEntity});
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete($!pk.shortType id) {
-        baseMapper.deleteById(id);
-    }
 }
