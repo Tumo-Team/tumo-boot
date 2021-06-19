@@ -16,5 +16,13 @@ import java.util.List;
 @ConfigurationProperties("tumo-boot.auth")
 public class AuthProperties {
 
+    /**
+     * 默认忽略拦截的URL集合
+     */
     private List<String> skipUrl = new ArrayList();
+
+    /**
+     * 是否开启演示环境
+     */
+    private Boolean isDemoEnv;
 }

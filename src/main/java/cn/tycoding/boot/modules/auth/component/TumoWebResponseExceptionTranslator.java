@@ -77,6 +77,7 @@ public class TumoWebResponseExceptionTranslator implements WebResponseExceptionT
         if (code == HttpStatus.UNAUTHORIZED.value() || e instanceof InsufficientScopeException) {
             headers.set("WWW-Authenticate", String.format("%s %s", "Bearer", e.getSummary()));
         }
-        return new ResponseEntity<>(new TumoOAuth2Exception(e.getOAuth2ErrorCode(), code), headers, HttpStatus.valueOf(code));
+        TumoOAuth2Exception auth2Exception = new TumoOAuth2Exception(e.getMessage(), e.getCause(), code);
+        return new ResponseEntity<>(auth2Exception, headers, HttpStatus.valueOf(code));
     }
 }

@@ -4,6 +4,8 @@ import cn.hutool.core.util.URLUtil;
 import cn.hutool.extra.servlet.ServletUtil;
 import cn.hutool.http.HttpUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
+import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
+import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.modules.resource.entity.SysLog;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -49,5 +51,16 @@ public class SysLogUtil {
                 .setParams(HttpUtil.toParams(request.getParameterMap()))
                 .setUserAgent(request.getHeader("user-agent"))
                 .setTime(time);
+    }
+
+    /**
+     * Spring事件发布：发布日志，写入到数据库
+     *
+     * @param type      日志类型
+     * @param operation 描述
+     */
+    public static void publish(int type, String operation) {
+        SysLog sysLog = SysLogUtil.build(type, operation, null, null);
+        SpringContextHolder.publishEvent(new LogEvent(sysLog));
     }
 }

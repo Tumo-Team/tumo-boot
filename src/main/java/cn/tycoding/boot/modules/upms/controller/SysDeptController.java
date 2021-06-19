@@ -49,7 +49,7 @@ public class SysDeptController {
     @PostMapping
     @ApiLog("新增部门")
     @ApiOperation(value = "新增部门")
-    @PreAuthorize("@auth.hasAuth('upms:dept:update')")
+    @PreAuthorize("@auth.hasAuth('upms:dept:add')")
     public R add(@RequestBody SysDept sysDept) {
         sysDept.setParentId(sysDept.getParentId() == null ? 0L : sysDept.getParentId());
         sysDeptService.save(sysDept);
@@ -69,7 +69,7 @@ public class SysDeptController {
     @DeleteMapping("/{id}")
     @ApiLog("删除部门")
     @ApiOperation(value = "删除部门")
-    @PreAuthorize("@auth.hasAuth('upms:dept:update')")
+    @PreAuthorize("@auth.hasAuth('upms:dept:delete')")
     public R delete(@PathVariable Long id) {
         sysDeptService.delete(id);
         return R.ok();

@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class AuthAutoConfiguration {
 
     @Bean("auth")
-    public AuthService authService() {
-        return new AuthService();
+    public AuthService authService(AuthProperties authProperties) {
+        return new AuthService(authProperties);
     }
 }

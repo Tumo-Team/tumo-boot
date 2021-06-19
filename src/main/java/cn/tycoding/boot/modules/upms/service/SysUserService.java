@@ -45,7 +45,7 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 校验用户名是否存在
      */
-    boolean checkName(SysUser sysUser);
+    boolean checkName(SysUserDTO sysUser);
 
     /**
      * 新增
@@ -60,10 +60,10 @@ public interface SysUserService extends IService<SysUser> {
     /**
      * 删除
      */
-    void delete(Long id);
+    void delete(Long id, String username);
 
     /**
      * 重置密码
      */
-    void resetPass(SysUser sysUser);
+    void reset(Long id, String password, String username);
 }

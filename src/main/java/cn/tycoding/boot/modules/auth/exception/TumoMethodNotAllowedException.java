@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.auth.exception;
 
 import cn.tycoding.boot.common.core.api.HttpCode;
-import cn.tycoding.boot.modules.auth.component.TumoOAuth2ExceptionSerializer;
+import cn.tycoding.boot.modules.auth.component.TumoAuth2ExceptionSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * @see org.springframework.web.server.MethodNotAllowedException
  * @since 2021/5/21
  */
-@JsonSerialize(using = TumoOAuth2ExceptionSerializer.class)
+@JsonSerialize(using = TumoAuth2ExceptionSerializer.class)
 public class TumoMethodNotAllowedException extends TumoOAuth2Exception {
 
     public TumoMethodNotAllowedException(String msg, Throwable e) {

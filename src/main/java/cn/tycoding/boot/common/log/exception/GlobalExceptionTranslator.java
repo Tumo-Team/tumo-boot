@@ -1,13 +1,13 @@
 package cn.tycoding.boot.common.log.exception;
 
-import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
+import cn.tycoding.boot.common.auth.props.AuthProperties;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
 import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
-import cn.tycoding.boot.modules.resource.entity.SysLog;
 import io.lettuce.core.RedisConnectionException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.http.HttpStatus;
@@ -23,16 +23,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * @since 2021/5/21
  */
 @Slf4j
+@RequiredArgsConstructor
 @RestControllerAdvice
 public class GlobalExceptionTranslator {
+
+    private final AuthProperties authProperties;
 
     @ExceptionHandler({ServiceException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public R handleError(ServiceException e) {
         log.error("----------业务异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "业务异常", null, null);
-        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "业务异常");
         return R.fail(e.getHttpCode().getCode(), e.getMessage());
     }
 
@@ -41,8 +43,11 @@ public class GlobalExceptionTranslator {
     public R handleError(AccessDeniedException e) {
         log.error("----------没有访问权限----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "没有访问权限", null, null);
-        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        if (authProperties.getIsDemoEnv() && AuthUtil.getRoleNames().contains(AuthUtil.DEMO_ENV)) {
+            SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "演示环境，请勿操作!");
+            return R.fail(HttpCode.FORBIDDEN.getCode(), "演示环境，请勿操作!");
+        }
+        SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "没有访问权限");
         return R.fail(HttpCode.FORBIDDEN);
     }
 
@@ -51,8 +56,7 @@ public class GlobalExceptionTranslator {
     public R handleError(TumoOAuth2Exception e) {
         log.error("----------认证异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "认证异常", null, null);
-        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "认证异常");
         return R.fail(e);
     }
 
@@ -61,8 +65,7 @@ public class GlobalExceptionTranslator {
     public R handleError(RedisConnectionFailureException e) {
         log.error("----------Redis连接异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "Redis连接异常", null, null);
-        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "Redis连接异常");
         return R.fail("Redis连接异常");
     }
 
@@ -71,8 +74,7 @@ public class GlobalExceptionTranslator {
     public R handleError(Throwable e) {
         log.error("----------服务器异常----------");
         e.printStackTrace();
-        SysLog sysLog = SysLogUtil.build(SysLogUtil.TYPE_FAIL, "服务器异常", null, null);
-        SpringContextHolder.publishEvent(new LogEvent(sysLog));
+        SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "服务器异常");
         return R.fail(e);
     }
 

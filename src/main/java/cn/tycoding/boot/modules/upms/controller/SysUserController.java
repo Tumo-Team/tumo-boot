@@ -43,7 +43,7 @@ public class SysUserController {
 
     @GetMapping("/checkName")
     @ApiOperation(value = "校验名称是否已存在")
-    public R<Boolean> checkName(SysUser sysUser) {
+    public R<Boolean> checkName(SysUserDTO sysUser) {
         return R.ok(sysUserService.checkName(sysUser));
     }
 
@@ -88,15 +88,22 @@ public class SysUserController {
     @ApiOperation(value = "删除用户")
     @PreAuthorize("@auth.hasAuth('upms:user:delete')")
     public R delete(@PathVariable Long id) {
-        sysUserService.delete(id);
+        SysUser user = sysUserService.getById(id);
+        if (user != null) {
+            sysUserService.delete(id, user.getUsername());
+        }
         return R.ok();
     }
 
-    @DeleteMapping("/resetPass")
+    @GetMapping("/reset")
     @ApiLog("重置密码")
     @ApiOperation(value = "重置密码")
-    public R resetPass(@RequestBody SysUser sysUser) {
-        sysUserService.resetPass(sysUser);
+    @PreAuthorize("@auth.hasAuth('upms:user:reset')")
+    public R reset(@RequestParam Long id, String password) {
+        SysUser user = sysUserService.getById(id);
+        if (user != null) {
+            sysUserService.reset(id, password, user.getUsername());
+        }
         return R.ok();
     }
 }

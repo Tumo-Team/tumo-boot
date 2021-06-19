@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -25,11 +26,17 @@ import java.util.Objects;
 public class AuthUtil {
 
     /**
-     * 系统预制固定超级管理员角色
+     * 系统预制固定超级管理员角色别名
      * 作用：提供一个角色摆脱权限体系的控制，允许词角色访问所有菜单权限
      * 使用：所有涉及根据角色查询的地方都排除对此角色的限制
      */
     public static final String ADMINISTRATOR = "administrator";
+
+    /**
+     * 系统默认演示环境角色别名
+     * 作用：在 tumo-boot.auth.isDemoEnv 配置开启后，将会对所有按钮级权限拦截并提示前端
+     */
+    public static final String DEMO_ENV = "demo_env";
 
     /* 登录表单验证码Key标识 */
     public static final String CAPTCHA_FORM_KEY = "captcha";
@@ -126,7 +133,7 @@ public class AuthUtil {
     }
 
     /**
-     * 获取用户角色Name集合
+     * 获取用户角色Alias集合
      */
     public static List<String> getRoleNames() {
         List<String> roleNames = new ArrayList<>();
@@ -140,5 +147,18 @@ public class AuthUtil {
             roleNames.add(name);
         });
         return roleNames;
+    }
+
+    /**
+     * 密码加密
+     *
+     * @param password password为空则用默认密码加密
+     */
+    public static String encode(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if (password == null || password.isEmpty()) {
+            return passwordEncoder.encode(AuthConstant.DEFAULT_PASS);
+        }
+        return passwordEncoder.encode(password);
     }
 }

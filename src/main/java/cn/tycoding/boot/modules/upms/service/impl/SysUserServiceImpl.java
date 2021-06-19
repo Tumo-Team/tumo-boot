@@ -21,12 +21,13 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -38,7 +39,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
-    private static final PasswordEncoder PASSWORD_ENCODER = new BCryptPasswordEncoder();
 
     private final SysRoleService sysRoleService;
     private final SysMenuService sysMenuService;
@@ -115,7 +115,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public boolean checkName(SysUser sysUser) {
+    public boolean checkName(SysUserDTO sysUser) {
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, sysUser.getUsername());
         if (sysUser.getId() != null && sysUser.getId() != 0) {
             queryWrapper.ne(sysUser.getId() != null, SysUser::getId, sysUser.getId());
@@ -126,8 +126,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void add(SysUserDTO user) {
+        if (!checkName(user)) {
+            throw new ServiceException("该用户名已存在，请重新输入！");
+        }
+
         user.setCreateTime(new Date());
-        user.setPassword(PASSWORD_ENCODER.encode(user.getPassword()));
+        user.setPassword(AuthUtil.encode(user.getPassword()));
 
         // 设置默认头像
         if (StringUtils.isEmpty(user.getAvatar())) {
@@ -162,30 +166,34 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional(rollbackFor = Exception.class)
     @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#user.username")
     public void update(SysUserDTO user) {
+        if (!checkName(user)) {
+            throw new ServiceException("该用户名已存在，请重新输入！");
+        }
+
         // 设置默认头像
         if (StringUtils.isEmpty(user.getAvatar())) {
             user.setAvatar(CommonConstant.DEFAULT_AVATAR);
         }
-
-        // 设置角色
-        addRole(user);
         user.setPassword(null);
         baseMapper.updateById(user);
+        addRole(user);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#user.username")
-    public void delete(Long id) {
+    @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#username")
+    public void delete(Long id, String username) {
         baseMapper.deleteById(id);
         sysUserRoleService.deleteUserRolesByUserId(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void resetPass(SysUser sysUser) {
-        baseMapper.updateById(new SysUser()
-                .setId(sysUser.getId())
-                .setPassword(PASSWORD_ENCODER.encode(sysUser.getPassword())));
+    @CacheEvict(value = CacheConstant.USER_DETAIL_KEY, key = "#username")
+    public void reset(Long id, String password, String username) {
+        SysUser user = new SysUser();
+        user.setId(id);
+        user.setPassword(AuthUtil.encode(password));
+        baseMapper.updateById(user);
     }
 }

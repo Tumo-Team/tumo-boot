@@ -14,9 +14,10 @@ import java.io.IOException;
  * @see org.springframework.security.oauth2.common.exceptions.OAuth2ExceptionJackson2Serializer
  * @since 2021/5/21
  */
-public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Exception> {
+public class TumoAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Exception> {
+    private static final long serialVersionUID = 2241320471807860252L;
 
-    protected TumoOAuth2ExceptionSerializer() {
+    protected TumoAuth2ExceptionSerializer() {
         super(TumoOAuth2Exception.class);
     }
 
@@ -24,7 +25,7 @@ public class TumoOAuth2ExceptionSerializer extends StdSerializer<TumoOAuth2Excep
     public void serialize(TumoOAuth2Exception e, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeStartObject();
         jsonGenerator.writeNumberField("code", e.getHttpErrorCode());
-        jsonGenerator.writeStringField("msg", e.getOAuth2ErrorCode());
+        jsonGenerator.writeStringField("msg", e.getMessage());
         jsonGenerator.writeStringField("data", null);
         jsonGenerator.writeEndObject();
     }

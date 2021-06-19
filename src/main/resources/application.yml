@@ -50,6 +50,9 @@ logging:
 tumo-boot:
   # 权限配置
   auth:
+    # 是否开启演示环境
+    is-demo-env: true
+    # 默认忽略拦截的URL
     skip-url:
       - /favicon.ico
       - /upload/**

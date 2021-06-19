@@ -36,5 +36,5 @@ public interface CommonConstant {
     /**
      * 默认用户头像路径
      */
-    String DEFAULT_AVATAR = "/upload/avatar";
+    String DEFAULT_AVATAR = "/upload/default.png";
 }

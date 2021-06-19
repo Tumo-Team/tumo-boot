@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,7 +19,6 @@ import java.util.Date;
 @Data
 @TableName("sys_user")
 @ApiModel(value = "用户表实体")
-@Accessors(chain = true)
 public class SysUser implements Serializable {
     private static final long serialVersionUID = -94827981963832107L;
 

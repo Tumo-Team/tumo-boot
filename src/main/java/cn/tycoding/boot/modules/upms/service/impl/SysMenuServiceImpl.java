@@ -98,11 +98,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
                 }
             } else {
                 // 子节点
-                if (!sysMenu.getComponent().startsWith("/")) {
-                    sysMenu.setComponent("/" + sysMenu.getComponent());
-                }
                 if (sysMenu.getPath().startsWith("/")) {
                     sysMenu.setPath(sysMenu.getPath().substring(1));
+                }
+                if (!sysMenu.getIsExt() && !sysMenu.getComponent().startsWith("/")) {
+                    sysMenu.setComponent("/" + sysMenu.getComponent());
                 }
             }
         }
