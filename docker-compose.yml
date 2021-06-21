@@ -1,6 +1,17 @@
 version: "3.5"
 
 services:
+  tumo-boot-mysql:
+    image: mysql:5.7.34
+    build:
+      context: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    restart: always
+    container_name: tumo-boot-mysql
+    ports:
+      - 3306:3306
+
   tumo-boot-redis:
     image: redis:6.0
     restart: always

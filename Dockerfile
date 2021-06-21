@@ -5,7 +5,7 @@ WORKDIR /build
 
 ADD ./target/tumo-boot.jar ./app.jar
 
-EXPOSE 8090
+EXPOSE 8010
 
 ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "app.jar"]
 

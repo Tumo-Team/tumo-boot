@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 11/06/2021 10:40:03
+ Date: 19/06/2021 09:46:38
 */
 
 SET NAMES utf8mb4;
@@ -92,7 +92,7 @@ COMMIT;
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
   `id` bigint(20) NOT NULL COMMENT '编号',
-  `type` int(10) DEFAULT NULL COMMENT '日志类型',
+  `type` int(10) DEFAULT NULL COMMENT '日志类型，1正常 2异常 ',
   `username` varchar(20) DEFAULT NULL COMMENT '操作用户',
   `operation` varchar(20) DEFAULT NULL COMMENT '操作描述',
   `url` varchar(255) DEFAULT NULL COMMENT '请求URL',
@@ -104,12 +104,6 @@ CREATE TABLE `sys_log` (
   `create_time` datetime DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
-
--- ----------------------------
--- Records of sys_log
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -136,31 +130,45 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (1402556566351122433, '权限模块', 0, '/upms', 'upms:view', 'menu', 100, 'ant-design:setting-outlined', 'Layout', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402557067260071938, '用户管理', 1402556566351122433, 'user', 'user:view', 'menu', 101, 'ant-design:user-switch-outlined', '/modules/upms/user/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402562175471669250, '用户新增', 1402557067260071938, NULL, 'user:add', 'button', 102, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402563862928248833, '用户修改', 1402557067260071938, NULL, 'user:update', 'button', 103, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402564440660070402, '用户删除', 1402557067260071938, NULL, 'user:delete', 'button', 104, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402891854378217473, '角色管理', 1402556566351122433, 'role', 'role:view', 'menu', 110, 'ant-design:user-switch-outlined', '/modules/upms/role/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402895826841288705, '角色新增', 1402891854378217473, NULL, 'role:add', 'button', 111, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402895916096077825, '角色修改', 1402891854378217473, NULL, 'role:update', 'button', 112, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402896004537171970, '角色删除', 1402891854378217473, NULL, 'role:delete', 'button', 113, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402896397505708033, '部门管理', 1402556566351122433, 'dept', 'dept:view', 'menu', 120, 'ant-design:audit-outlined', '/modules/upms/dept/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402896819314278401, '部门新增', 1402896397505708033, NULL, 'dept:add', 'button', 121, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402896925455335425, '部门修改', 1402896397505708033, NULL, 'dept:update', 'button', 122, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402897035325128705, '部门删除', 1402896397505708033, NULL, 'dept:delete', 'button', 123, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402897356944359426, '菜单管理', 1402556566351122433, 'menu', 'menu:view', 'menu', 130, 'ant-design:unordered-list-outlined', '/modules/upms/menu/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402897461059567617, '菜单新增', 1402897356944359426, NULL, 'menu:add', 'button', 131, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402897607436582914, '菜单修改', 1402897356944359426, NULL, 'menu:update', 'button', 132, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402897754488881153, '菜单删除', 1402897356944359426, NULL, 'menu:delete', 'button', 133, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402900711645126657, '资源模块', NULL, '/resource', 'resource:view', 'menu', 200, 'ant-design:fork-outlined', 'Layout', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402901682110603265, '系统日志', 1402900711645126657, 'log', 'log:view', 'menu', 210, 'ant-design:thunderbolt-filled', '/modules/resource/log/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902022428041217, '日志删除', 1402901682110603265, NULL, 'log:delete', 'button', 211, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902525295730689, '文件管理', 1402900711645126657, 'file', 'oss:view', 'menu', 220, 'ant-design:folder-open-twotone', '/modules/resource/oss/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902709501173762, '文件新增', 1402902525295730689, NULL, 'oss:add', 'button', 221, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902826891354113, '文件修改', 1402902525295730689, NULL, 'oss:update', 'button', 222, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402903214973526017, '文件删除', 1402902525295730689, NULL, 'oss:delete', 'button', 223, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402904047832276993, 'API文档', NULL, 'http://127.0.0.1:8010/doc.html', 'api:view', 'menu', 300, 'ant-design:rocket-outlined', 'Layout', 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402556566351122433, '权限模块', 0, '/upms', '', 'menu', 100, 'ant-design:setting-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402557067260071938, '用户管理', 1402556566351122433, 'user', '', 'menu', 101, 'ant-design:user-switch-outlined', '/modules/upms/user/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402557067260071948, '用户查看', 1402557067260071938, NULL, 'upms:user:view', 'button', 102, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402562175471669250, '用户新增', 1402557067260071938, NULL, 'upms:user:add', 'button', 103, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402563862928248833, '用户修改', 1402557067260071938, NULL, 'upms:user:update', 'button', 104, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402564440660070202, '重置密码', 1402557067260071938, NULL, 'upms:user:reset', 'button', 106, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402564440660070402, '用户删除', 1402557067260071938, NULL, 'upms:user:delete', 'button', 105, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402891854378217473, '角色管理', 1402556566351122433, 'role', '', 'menu', 110, 'ant-design:user-switch-outlined', '/modules/upms/role/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402891854378217483, '角色查看', 1402891854378217473, NULL, 'upms:role:view', 'button', 111, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402895826841288705, '角色新增', 1402891854378217473, NULL, 'upms:role:add', 'button', 112, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402895916096077825, '角色修改', 1402891854378217473, NULL, 'upms:role:update', 'button', 113, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896004537171970, '角色删除', 1402891854378217473, NULL, 'upms:role:delete', 'button', 114, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896397505708033, '部门管理', 1402556566351122433, 'dept', '', 'menu', 120, 'ant-design:audit-outlined', '/modules/upms/dept/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896397505708133, '部门查看', 1402896397505708033, NULL, 'upms:dept:view', 'button', 121, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896819314278401, '部门新增', 1402896397505708033, NULL, 'upms:dept:add', 'button', 122, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402896925455335425, '部门修改', 1402896397505708033, NULL, 'upms:dept:update', 'button', 123, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897035325128705, '部门删除', 1402896397505708033, NULL, 'upms:dept:delete', 'button', 124, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897356944359426, '菜单管理', 1402556566351122433, 'menu', '', 'menu', 130, 'ant-design:unordered-list-outlined', '/modules/upms/menu/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897356944359526, '菜单查看', 1402897356944359426, NULL, 'upms:menu:view', 'button', 131, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897461059567617, '菜单新增', 1402897356944359426, NULL, 'upms:menu:add', 'button', 132, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897607436582914, '菜单修改', 1402897356944359426, NULL, 'upms:menu:update', 'button', 133, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402897754488881153, '菜单删除', 1402897356944359426, NULL, 'upms:menu:delete', 'button', 134, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402900711645126657, '资源模块', NULL, '/resource', '', 'menu', 200, 'ant-design:fork-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402901682110603265, '系统日志', 1402900711645126657, 'log', '', 'menu', 210, 'ant-design:thunderbolt-filled', '/modules/resource/log/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402901682110603365, '日志查看', 1402901682110603265, NULL, 'resource:log:view', 'button', 211, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902022428041217, '日志删除', 1402901682110603265, NULL, 'resource:log:delete', 'button', 212, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902525295730689, '文件管理', 1402900711645126657, 'file', '', 'menu', 220, 'ant-design:folder-open-twotone', '/modules/resource/oss/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902525295730789, '文件查看', 1402902525295730689, NULL, 'resource:oss:view', 'button', 221, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902709501173762, '文件新增', 1402902525295730689, NULL, 'resource:oss:add', 'button', 222, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902826891354113, '文件修改', 1402902525295730689, NULL, 'resource:oss:update', 'button', 223, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402903214973526017, '文件删除', 1402902525295730689, NULL, 'resource:oss:delete', 'button', 224, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561086978, '令牌管理', 1402900711645126657, 'token', '', 'menu', 201, 'ant-design:property-safety-outlined', '/modules/resource/token/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561087978, '令牌查看', 1403542523561086978, NULL, 'resource:token:view', 'button', 202, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561187978, '令牌详情', 1403542523561086978, NULL, 'resource:token:info', 'button', 203, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542705811984386, '令牌删除', 1403542523561086978, NULL, 'resource:token:delete', 'button', 204, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403549005811984386, '项目文档', NULL, '/doc', 'doc:view', 'menu', 300, 'ant-design:rocket-outlined', '', 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1406057138559782913, 'API文档', 1403549005811984386, 'http://127.0.0.1:8010/doc.html', 'doc:api:view', 'menu', 301, 'ant-design:tag-outlined', NULL, 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1406058379956326402, '开发文档', 1403549005811984386, 'http://docs.boot.tycoding.cn/', 'doc:dev:view', 'menu', 302, 'ant-design:star-outlined', NULL, 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1406058753513623553, '开源地址', 1403549005811984386, 'https://github.com/Tumo-Team/Tumo-Boot', 'doc:git:view', 'menu', 303, 'ant-design:github-filled', NULL, 0, 1, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -181,8 +189,8 @@ CREATE TABLE `sys_role` (
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员管理员', 'administrator', 1, '超级管理员管理员，不受权限控制');
-INSERT INTO `sys_role` VALUES (1362597571041787906, 0, '用户管理员', 'user-admin', 1, '仅拥有用户管理权限');
+INSERT INTO `sys_role` VALUES (1362304631325192103, 0, '超级管理员', 'administrator', 1, '超级管理员管理员，不受权限控制');
+INSERT INTO `sys_role` VALUES (1404805390442635266, 0, '演示环境角色', 'demo_env', 1, '演示环境使用角色，没有页面操作权限');
 COMMIT;
 
 -- ----------------------------
@@ -199,6 +207,41 @@ CREATE TABLE `sys_role_menu` (
 -- Records of sys_role_menu
 -- ----------------------------
 BEGIN;
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402556566351122433);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402557067260071938);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402557067260071948);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402562175471669250);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402563862928248833);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402564440660070402);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402891854378217473);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402891854378217483);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402895826841288705);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402895916096077825);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402896004537171970);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402896397505708033);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402896397505708133);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402896819314278401);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402896925455335425);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897035325128705);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897356944359426);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897356944359526);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897461059567617);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897607436582914);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402897754488881153);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402900711645126657);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402901682110603265);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402901682110603365);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902022428041217);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902525295730689);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902525295730789);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902709501173762);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402902826891354113);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1402903214973526017);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561086978);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561087978);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542523561187978);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403542705811984386);
+INSERT INTO `sys_role_menu` VALUES (1404805390442635266, 1403549005811984386);
 COMMIT;
 
 -- ----------------------------
@@ -224,8 +267,9 @@ CREATE TABLE `sys_user` (
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '超级管理员', '女', '19809587839', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
-INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$TlSIkPzm5QqkSMhtP0nFQ.fx864TTT6meypBChmMCcGrkq.5RLh0K', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2021-02-19 11:02:08');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$ax1tsaE7fqB03iMQ/zeV8OAQ4bcTu5ik92XUfzUsP2XVrEXsFO/pS', '超级管理员', '女', '19809587830', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$KBNb3GXoL4KKy55reaxnq.y0SgPWy2C6GT5yDqUuCSzCpqVBBGORK', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, '/upload/default.png', 1, '2021-02-19 11:02:08');
+INSERT INTO `sys_user` VALUES (1404807635385069569, 'demo', '$2a$10$/07tXYxlTY/iJfVZOU.8AeeZiQLX3MIQWUGwV9/N3wH6nMUbYFpl2', '演示环境账号', '男', '18929809812', 'ty@qq.com', 1362597682681577273, '/upload/default.png', 1, '2021-06-15 22:26:55');
 COMMIT;
 
 -- ----------------------------
@@ -243,6 +287,7 @@ CREATE TABLE `sys_user_role` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` VALUES (1362304631325102103, 1362304631325192103);
+INSERT INTO `sys_user_role` VALUES (1404807635385069569, 1404805390442635266);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
