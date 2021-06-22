@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.auth.component;
 
 import cn.hutool.core.util.URLUtil;
-import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
+import cn.tycoding.boot.common.log.utils.SpringContextHolder;
 import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CommonConstant;

@@ -1,6 +1,6 @@
 package cn.tycoding.boot.common.auth.filter;
 
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.core.constant.CacheConstant;

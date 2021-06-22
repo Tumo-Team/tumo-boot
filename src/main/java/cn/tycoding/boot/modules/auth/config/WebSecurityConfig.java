@@ -1,6 +1,5 @@
 package cn.tycoding.boot.modules.auth.config;
 
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.filter.CaptchaFilter;
 import cn.tycoding.boot.modules.auth.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -56,9 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-
-                .antMatchers(ApiConstant.API_AUTH_PREFIX + "/logout/**")
-                .permitAll()
 
                 .anyRequest()
                 .authenticated()

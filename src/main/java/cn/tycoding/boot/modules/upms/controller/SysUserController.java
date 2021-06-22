@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.upms.controller;
 
 import cn.hutool.core.lang.Dict;
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;

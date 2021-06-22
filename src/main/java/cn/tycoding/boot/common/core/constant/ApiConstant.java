@@ -1,4 +1,4 @@
-package cn.tycoding.boot.common.auth.constant;
+package cn.tycoding.boot.common.core.constant;
 
 /**
  * API接口常量值

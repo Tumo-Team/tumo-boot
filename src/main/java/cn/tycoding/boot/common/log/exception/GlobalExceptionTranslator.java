@@ -5,7 +5,7 @@ import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
-import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
+import cn.tycoding.boot.modules.auth.exception.TumoAuth2Exception;
 import io.lettuce.core.RedisConnectionException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,9 +51,9 @@ public class GlobalExceptionTranslator {
         return R.fail(HttpCode.FORBIDDEN);
     }
 
-    @ExceptionHandler({TumoOAuth2Exception.class})
+    @ExceptionHandler({TumoAuth2Exception.class})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public R handleError(TumoOAuth2Exception e) {
+    public R handleError(TumoAuth2Exception e) {
         log.error("----------认证异常----------");
         e.printStackTrace();
         SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "认证异常");

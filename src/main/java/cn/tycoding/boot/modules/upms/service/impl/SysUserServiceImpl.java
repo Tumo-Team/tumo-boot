@@ -9,7 +9,7 @@ import cn.tycoding.boot.common.core.utils.Is;
 import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
-import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
+import cn.tycoding.boot.modules.auth.exception.TumoAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.SysUserDTO;
 import cn.tycoding.boot.modules.upms.entity.*;
 import cn.tycoding.boot.modules.upms.mapper.SysUserMapper;
@@ -76,7 +76,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         //获取用户角色列表
         List<SysRole> sysRoleList = sysRoleService.findRolesByUserId(userInfo.getUser().getId());
         if (sysRoleList.size() == 0) {
-            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
+            throw new TumoAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
         }
 
         //获取用户权限列表

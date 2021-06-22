@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 安装前端路由格式封装
+ * 按照前端路由格式封装
  *
  * @author tycoding
  * @since 2021/5/21

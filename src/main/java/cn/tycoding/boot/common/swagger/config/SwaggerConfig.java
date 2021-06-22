@@ -1,7 +1,7 @@
 package cn.tycoding.boot.common.swagger.config;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.swagger.props.SwaggerProperties;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import lombok.RequiredArgsConstructor;

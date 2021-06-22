@@ -1,11 +1,11 @@
 package cn.tycoding.boot.modules.auth.service;
 
-import cn.tycoding.boot.common.auth.constant.AuthConstant;
+import cn.tycoding.boot.common.core.constant.AuthConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import cn.tycoding.boot.modules.auth.dto.UserInfo;
-import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
+import cn.tycoding.boot.modules.auth.exception.TumoAuth2Exception;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +66,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         List<SysRole> sysRoles = userInfo.getRoles();
         if (sysRoles == null || sysRoles.size() == 0) {
-            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
+            throw new TumoAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
         }
         sysRoles.forEach(role -> authSet.add(AuthConstant.ROLE_PREFIX + role.getId() + AuthConstant.ROLE_SUFFIX + role.getAlias()));
 

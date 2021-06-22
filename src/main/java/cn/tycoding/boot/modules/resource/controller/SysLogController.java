@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.resource.controller;
 
 import cn.hutool.core.lang.Dict;
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;

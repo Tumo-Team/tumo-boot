@@ -1,4 +1,4 @@
-package cn.tycoding.boot.common.auth.constant;
+package cn.tycoding.boot.common.core.constant;
 
 /**
  * 图片验证码常量

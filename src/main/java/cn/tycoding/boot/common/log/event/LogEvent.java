@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationEvent;
 
 /**
  * 自定义定义 Log事件
+ *
  * @author tycoding
  * @since 2021/5/21
  */

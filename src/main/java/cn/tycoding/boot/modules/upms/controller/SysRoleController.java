@@ -1,7 +1,7 @@
 package cn.tycoding.boot.modules.upms.controller;
 
 import cn.hutool.core.lang.tree.Tree;
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
 import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;

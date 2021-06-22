@@ -3,8 +3,8 @@ package cn.tycoding.boot.modules.auth.endpoint;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import cn.hutool.core.lang.Dict;
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
-import cn.tycoding.boot.common.auth.constant.CaptchaConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.CaptchaConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
@@ -41,7 +41,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_AUTH_PREFIX)
 @Api(value = "Token端点接口", tags = "Token端点接口")
-public class TumoTokenEndpoint {
+public class AuthTokenEndpoint {
 
     private final TokenStore tokenStore;
     private final RedisTemplate redisTemplate;

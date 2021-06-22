@@ -1,6 +1,6 @@
 package cn.tycoding.boot.modules.auth.config;
 
-import cn.tycoding.boot.common.auth.constant.ApiConstant;
+import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.modules.auth.component.TumoWebResponseExceptionTranslator;
 import lombok.RequiredArgsConstructor;

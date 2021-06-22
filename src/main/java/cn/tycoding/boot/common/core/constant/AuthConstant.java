@@ -1,4 +1,4 @@
-package cn.tycoding.boot.common.auth.constant;
+package cn.tycoding.boot.common.core.constant;
 
 /**
  * OAuth2 存储数据前缀

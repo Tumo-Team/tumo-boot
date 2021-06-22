@@ -1,3 +1,5 @@
+package cn.tycoding.boot;
+
 import org.junit.Test;
 
 /**

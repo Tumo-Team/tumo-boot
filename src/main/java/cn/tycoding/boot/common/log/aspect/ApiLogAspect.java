@@ -1,6 +1,6 @@
 package cn.tycoding.boot.common.log.aspect;
 
-import cn.tycoding.boot.common.auth.utils.SpringContextHolder;
+import cn.tycoding.boot.common.log.utils.SpringContextHolder;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.common.log.utils.SysLogUtil;
 import cn.tycoding.boot.modules.resource.entity.SysLog;

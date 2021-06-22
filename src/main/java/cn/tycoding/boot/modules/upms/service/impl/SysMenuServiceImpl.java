@@ -3,9 +3,9 @@ package cn.tycoding.boot.modules.upms.service.impl;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.CacheConstant;
 import cn.tycoding.boot.common.core.constant.CommonConstant;
+import cn.tycoding.boot.modules.auth.exception.TumoAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTreeUtil;
 import cn.tycoding.boot.common.log.exception.ServiceException;
-import cn.tycoding.boot.modules.auth.exception.TumoOAuth2Exception;
 import cn.tycoding.boot.modules.upms.dto.MenuTree;
 import cn.tycoding.boot.modules.upms.entity.SysMenu;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
@@ -48,7 +48,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<MenuTree<SysMenu>> build(Long userId) {
         List<Long> roleIds = AuthUtil.getRoleIds();
         if (roleIds.size() == 0) {
-            throw new TumoOAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
+            throw new TumoAuth2Exception(AuthUtil.NOT_ROLE_ERROR);
         }
         if (AuthUtil.getRoleNames().contains(AuthUtil.ADMINISTRATOR)) {
             // 超级管理员，不做权限过滤
