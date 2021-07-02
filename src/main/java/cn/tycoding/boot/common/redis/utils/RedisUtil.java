@@ -7,7 +7,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
 import org.springframework.data.redis.serializer.RedisSerializer;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -66,12 +65,7 @@ public class RedisUtil {
             flagIndex++;
             cursor.next();
         }
-
-        try {
-            cursor.close();
-        } catch (IOException e) {
-            log.error("cursor关闭失败");
-        }
+        cursor.close();
         return list;
     }
 }
