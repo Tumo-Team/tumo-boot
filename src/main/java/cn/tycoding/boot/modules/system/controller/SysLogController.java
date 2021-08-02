@@ -1,12 +1,12 @@
-package cn.tycoding.boot.modules.resource.controller;
+package cn.tycoding.boot.modules.system.controller;
 
 import cn.hutool.core.lang.Dict;
 import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
-import cn.tycoding.boot.modules.resource.entity.SysLog;
-import cn.tycoding.boot.modules.resource.service.SysLogService;
+import cn.tycoding.boot.modules.system.entity.SysLog;
+import cn.tycoding.boot.modules.system.service.SysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "系统日志表管理接口", tags = "系统日志表管理接口")
-@RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/log")
+@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/log")
 public class SysLogController {
 
     private final SysLogService sysLogService;
@@ -41,7 +41,7 @@ public class SysLogController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据ID删除")
-    @PreAuthorize("@auth.hasAuth('resource:log:delete')")
+    @PreAuthorize("@auth.hasAuth('system:log:delete')")
     public R delete(@PathVariable Long id) {
         sysLogService.delete(id);
         return R.ok();

@@ -1,12 +1,12 @@
-package cn.tycoding.boot.modules.resource.service.impl;
+package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.common.oss.props.LocalFileProperties;
-import cn.tycoding.boot.modules.resource.entity.OssFile;
-import cn.tycoding.boot.modules.resource.mapper.OssFileMapper;
-import cn.tycoding.boot.modules.resource.service.OssFileService;
+import cn.tycoding.boot.modules.system.entity.OssFile;
+import cn.tycoding.boot.modules.system.mapper.OssFileMapper;
+import cn.tycoding.boot.modules.system.service.OssFileService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

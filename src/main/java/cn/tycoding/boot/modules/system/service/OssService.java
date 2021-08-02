@@ -1,6 +1,6 @@
-package cn.tycoding.boot.modules.resource.service;
+package cn.tycoding.boot.modules.system.service;
 
-import cn.tycoding.boot.modules.resource.entity.OssFile;
+import cn.tycoding.boot.modules.system.entity.OssFile;
 import org.springframework.web.multipart.MultipartFile;
 
 /**

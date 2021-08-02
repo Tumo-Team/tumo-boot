@@ -1,11 +1,11 @@
-package cn.tycoding.boot.modules.resource.controller;
+package cn.tycoding.boot.modules.system.controller;
 
 import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.QueryPage;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
-import cn.tycoding.boot.modules.resource.entity.OssFile;
-import cn.tycoding.boot.modules.resource.service.OssFileService;
+import cn.tycoding.boot.modules.system.entity.OssFile;
+import cn.tycoding.boot.modules.system.service.OssFileService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api(value = "资源文件管理接口", tags = "资源文件管理接口")
-@RequestMapping(ApiConstant.API_RESOURCE_PREFIX + "/oss")
+@RequestMapping(ApiConstant.API_SYSTEM_PREFIX + "/oss")
 public class OssFileController {
 
     private final OssFileService ossFileService;
@@ -42,7 +42,7 @@ public class OssFileController {
 
     @PostMapping
     @ApiOperation(value = "新增文件信息")
-    @PreAuthorize("@auth.hasAuth('resource:oss:add')")
+    @PreAuthorize("@auth.hasAuth('system:oss:add')")
     public R add(@RequestBody OssFile ossFile) {
         ossFileService.save(ossFile);
         return R.ok();
@@ -50,7 +50,7 @@ public class OssFileController {
 
     @PostMapping("/put-list")
     @ApiOperation(value = "新增文件信息（批量）")
-    @PreAuthorize("@auth.hasAuth('resource:oss:add')")
+    @PreAuthorize("@auth.hasAuth('system:oss:add')")
     public R addList(@RequestBody List<OssFile> list) {
         ossFileService.saveBatch(list);
         return R.ok();
@@ -58,7 +58,7 @@ public class OssFileController {
 
     @PutMapping
     @ApiOperation(value = "修改文件信息")
-    @PreAuthorize("@auth.hasAuth('resource:oss:update')")
+    @PreAuthorize("@auth.hasAuth('system:oss:update')")
     public R update(@RequestBody OssFile ossFile) {
         ossFileService.updateById(ossFile);
         return R.ok();
@@ -66,7 +66,7 @@ public class OssFileController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除文件")
-    @PreAuthorize("@auth.hasAuth('resource:oss:delete')")
+    @PreAuthorize("@auth.hasAuth('system:oss:delete')")
     public R delete(@PathVariable Long id) {
         ossFileService.delete(id);
         return R.ok();

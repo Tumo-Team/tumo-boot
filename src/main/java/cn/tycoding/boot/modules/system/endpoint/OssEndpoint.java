@@ -1,7 +1,7 @@
-package cn.tycoding.boot.modules.resource.endpoint;
+package cn.tycoding.boot.modules.system.endpoint;
 
 import cn.tycoding.boot.common.core.api.R;
-import cn.tycoding.boot.modules.resource.service.OssService;
+import cn.tycoding.boot.modules.system.service.OssService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

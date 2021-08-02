@@ -11,7 +11,7 @@
  Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 19/06/2021 09:46:38
+ Date: 02/08/2021 23:50:26
 */
 
 SET NAMES utf8mb4;
@@ -64,6 +64,14 @@ CREATE TABLE `oss_file` (
 -- Records of oss_file
 -- ----------------------------
 BEGIN;
+INSERT INTO `oss_file` VALUES (1406806797079207938, 'Tumo-Boot.png', '1406806773846958081.png', '/20210621', 'http://127.0.0.1:8010/upload/20210621/1406806773846958081.png', 'png', 6204, 'Tumo-Boot.png', '2021-06-21 10:50:46');
+INSERT INTO `oss_file` VALUES (1406806797087596545, 'tycoding.png', '1406806773855346690.png', '/20210621', 'http://127.0.0.1:8010/upload/20210621/1406806773855346690.png', 'jpg', 29618, 'tycoding.png', '2021-06-21 10:50:46');
+INSERT INTO `oss_file` VALUES (1406807093503254530, '-IMlv9Jlb24.jpg', '1406807084368060418.jpg', '/20210621', 'http://127.0.0.1:8010/upload/20210621/1406807084368060418.jpg', 'jpg', 1068588, '-IMlv9Jlb24.jpg', '2021-06-21 10:52:00');
+INSERT INTO `oss_file` VALUES (1406807206313254913, '4vnhzDmeemc.jpg', '1406807200369926145.jpg', '/20210621', 'http://127.0.0.1:8010/upload/20210621/1406807200369926145.jpg', 'jpg', 1378665, '4vnhzDmeemc.jpg', '2021-06-21 10:52:28');
+INSERT INTO `oss_file` VALUES (1406807907709935617, '6XwGBplrZH4.jpg', '1406807869264945154.jpg', '/20210621', 'http://127.0.0.1:8010/upload/20210621/1406807869264945154.jpg', 'jpg', 524543, '6XwGBplrZH4.jpg', '2021-06-21 10:55:07');
+INSERT INTO `oss_file` VALUES (1409750560495648769, '6XwGBplrZH4.jpg', '1409750554866892802.jpg', '/20210629', 'http://127.0.0.1:8010/upload/20210629/1409750554866892802.jpg', 'jpg', 524543, '6XwGBplrZH4.jpg', '2021-06-29 13:48:18');
+INSERT INTO `oss_file` VALUES (1409753365675524097, '7yqyQQXgOT8.jpg', '1409753360579444737.jpg', '/20210629', 'http://127.0.0.1:8010/upload/20210629/1409753360579444737.jpg', 'jpg', 1493188, '7yqyQQXgOT8.jpg', '2021-06-29 13:59:27');
+INSERT INTO `oss_file` VALUES (1409753729724334082, '4vnhzDmeemc.jpg', '1409753724791832578.jpg', '/20210629', 'http://127.0.0.1:8010/upload/20210629/1409753724791832578.jpg', 'jpg', 1378665, '4vnhzDmeemc.jpg', '2021-06-29 14:00:54');
 COMMIT;
 
 -- ----------------------------
@@ -106,6 +114,12 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
 
 -- ----------------------------
+-- Records of sys_log
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -130,7 +144,7 @@ CREATE TABLE `sys_menu` (
 -- Records of sys_menu
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_menu` VALUES (1402556566351122433, '权限模块', 0, '/upms', '', 'menu', 100, 'ant-design:setting-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402556566351122433, '权限管理', 0, '/upms', '', 'menu', 100, 'ant-design:setting-outlined', 'Layout', 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1402557067260071938, '用户管理', 1402556566351122433, 'user', '', 'menu', 101, 'ant-design:user-switch-outlined', '/modules/upms/user/index', 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1402557067260071948, '用户查看', 1402557067260071938, NULL, 'upms:user:view', 'button', 102, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1402562175471669250, '用户新增', 1402557067260071938, NULL, 'upms:user:add', 'button', 103, NULL, NULL, 0, 0, 1, 1);
@@ -152,19 +166,19 @@ INSERT INTO `sys_menu` VALUES (1402897356944359526, '菜单查看', 140289735694
 INSERT INTO `sys_menu` VALUES (1402897461059567617, '菜单新增', 1402897356944359426, NULL, 'upms:menu:add', 'button', 132, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1402897607436582914, '菜单修改', 1402897356944359426, NULL, 'upms:menu:update', 'button', 133, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1402897754488881153, '菜单删除', 1402897356944359426, NULL, 'upms:menu:delete', 'button', 134, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402900711645126657, '资源模块', NULL, '/resource', '', 'menu', 200, 'ant-design:fork-outlined', 'Layout', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402901682110603265, '系统日志', 1402900711645126657, 'log', '', 'menu', 210, 'ant-design:thunderbolt-filled', '/modules/resource/log/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402901682110603365, '日志查看', 1402901682110603265, NULL, 'resource:log:view', 'button', 211, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902022428041217, '日志删除', 1402901682110603265, NULL, 'resource:log:delete', 'button', 212, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902525295730689, '文件管理', 1402900711645126657, 'file', '', 'menu', 220, 'ant-design:folder-open-twotone', '/modules/resource/oss/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902525295730789, '文件查看', 1402902525295730689, NULL, 'resource:oss:view', 'button', 221, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902709501173762, '文件新增', 1402902525295730689, NULL, 'resource:oss:add', 'button', 222, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402902826891354113, '文件修改', 1402902525295730689, NULL, 'resource:oss:update', 'button', 223, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1402903214973526017, '文件删除', 1402902525295730689, NULL, 'resource:oss:delete', 'button', 224, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1403542523561086978, '令牌管理', 1402900711645126657, 'token', '', 'menu', 201, 'ant-design:property-safety-outlined', '/modules/resource/token/index', 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1403542523561087978, '令牌查看', 1403542523561086978, NULL, 'resource:token:view', 'button', 202, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1403542523561187978, '令牌详情', 1403542523561086978, NULL, 'resource:token:info', 'button', 203, NULL, NULL, 0, 0, 1, 1);
-INSERT INTO `sys_menu` VALUES (1403542705811984386, '令牌删除', 1403542523561086978, NULL, 'resource:token:delete', 'button', 204, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402900711645126657, '系统管理', NULL, '/system', '', 'menu', 200, 'ant-design:fork-outlined', 'Layout', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402901682110603265, '系统日志', 1402900711645126657, 'log', '', 'menu', 210, 'ant-design:thunderbolt-filled', '/modules/system/log/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402901682110603365, '日志查看', 1402901682110603265, NULL, 'system:log:view', 'button', 211, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902022428041217, '日志删除', 1402901682110603265, NULL, 'system:log:delete', 'button', 212, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902525295730689, '文件管理', 1402900711645126657, 'file', '', 'menu', 220, 'ant-design:folder-open-twotone', '/modules/system/oss/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902525295730789, '文件查看', 1402902525295730689, NULL, 'system:oss:view', 'button', 221, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902709501173762, '文件新增', 1402902525295730689, NULL, 'system:oss:add', 'button', 222, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402902826891354113, '文件修改', 1402902525295730689, NULL, 'system:oss:update', 'button', 223, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1402903214973526017, '文件删除', 1402902525295730689, NULL, 'system:oss:delete', 'button', 224, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561086978, '令牌管理', 1402900711645126657, 'token', '', 'menu', 201, 'ant-design:property-safety-outlined', '/modules/system/token/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561087978, '令牌查看', 1403542523561086978, NULL, 'system:token:view', 'button', 202, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542523561187978, '令牌详情', 1403542523561086978, NULL, 'system:token:info', 'button', 203, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1403542705811984386, '令牌删除', 1403542523561086978, NULL, 'system:token:delete', 'button', 204, NULL, NULL, 0, 0, 1, 1);
 INSERT INTO `sys_menu` VALUES (1403549005811984386, '项目文档', NULL, '/doc', 'doc:view', 'menu', 300, 'ant-design:rocket-outlined', '', 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1406057138559782913, 'API文档', 1403549005811984386, 'http://127.0.0.1:8010/doc.html', 'doc:api:view', 'menu', 301, 'ant-design:tag-outlined', NULL, 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1406058379956326402, '开发文档', 1403549005811984386, 'http://docs.boot.tycoding.cn/', 'doc:dev:view', 'menu', 302, 'ant-design:star-outlined', NULL, 0, 1, 1, 1);

@@ -1,10 +1,10 @@
-package cn.tycoding.boot.modules.resource.service.impl;
+package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.io.FileUtil;
 import cn.tycoding.boot.common.oss.props.LocalFileProperties;
 import cn.tycoding.boot.common.oss.utils.OssUtil;
-import cn.tycoding.boot.modules.resource.entity.OssFile;
-import cn.tycoding.boot.modules.resource.service.OssService;
+import cn.tycoding.boot.modules.system.entity.OssFile;
+import cn.tycoding.boot.modules.system.service.OssService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
