@@ -2,12 +2,13 @@ version: "3.5"
 
 services:
   tumo-boot-mysql:
-    image: mysql:5.7.34
+    image: registry.cn-hangzhou.aliyuncs.com/tumo/tumo-boot-mysql
     environment:
-      - TZ=Asia/Shanghai
       MYSQL_ROOT_PASSWORD: root
     restart: always
     container_name: tumo-boot-mysql
+    volumes:
+      - ./mysql_data:/var/lib/mysql
     ports:
       - 3306:3306
     networks:
@@ -20,18 +21,22 @@ services:
     container_name: tumo-boot-redis
     privileged: true
     command: "redis-server --appendonly yes"
+    volumes:
+      - ./redis_data:/data
     environment:
       - TZ=Asia/Shanghai
     ports:
-      - 8101:6379
+      - 6379:6379
     networks:
       - tumo_boot_net
 
   tumo-boot:
-    image: registry.cn-hangzhou.aliyuncs.com/tumo/tumo_boot:test-v1
+    image: registry.cn-hangzhou.aliyuncs.com/tumo/tumo-boot
     restart: always
     container_name: tumo-boot
     hostname: tumo-boot
+    volumes:
+      - ./logs:/build/logs
     ports:
       - 8090:8090
     environment:
@@ -41,7 +46,7 @@ services:
         ipv4_address: 172.30.0.80
 
   tumo-boot-ui:
-    image: registry.cn-hangzhou.aliyuncs.com/tumo/tumo_boot_ui:test-v1
+    image: registry.cn-hangzhou.aliyuncs.com/tumo/tumo-boot-ui
     restart: always
     container_name: tumo-boot-ui
     ports:

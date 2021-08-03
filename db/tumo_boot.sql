@@ -1,21 +1,10 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 127.0.0.1
- Source Server Type    : MySQL
- Source Server Version : 50729
- Source Host           : 127.0.0.1:3306
- Source Schema         : tumo_boot
-
- Target Server Type    : MySQL
- Target Server Version : 50729
- File Encoding         : 65001
-
- Date: 02/08/2021 23:50:26
-*/
+DROP DATABASE IF EXISTS `tumo_boot`;
+CREATE DATABASE `tumo_boot` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+USE `tumo_boot`;
 
 -- ----------------------------
 -- Table structure for oauth_client_details

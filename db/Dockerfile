@@ -1,5 +1,7 @@
 FROM mysql:5.7.34
 
-COPY utf8mb4.cnf /etc/mysql/conf.d/utf8mb4.cnf
+ENV TZ=Asia/Shanghai
+
+RUN ln -sf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 COPY ./tumo_boot.sql /docker-entrypoint-initdb.d
