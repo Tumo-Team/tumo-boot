@@ -1,5 +1,8 @@
 ##自定义一些全局变量。引用方式，直接在code中用`$!define`方式引入即可
 
+##定义基础包名
+#set($BasePackage = "cn.tycoding.boot")
+
 ##定义Entity名称
 #set($TumoBootEntity = $tableInfo.name)
 ##定义首字母小写Entity名称
