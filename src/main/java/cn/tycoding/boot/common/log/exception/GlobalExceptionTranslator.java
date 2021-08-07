@@ -15,6 +15,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
  * 全局异常拦截（注意：这种方式只能拦截经过Controller的异常，未经过Controller的异常拦截不到）
@@ -64,17 +65,24 @@ public class GlobalExceptionTranslator {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public R handleError(RedisConnectionFailureException e) {
         log.error("----------Redis连接异常----------");
-        e.printStackTrace();
         SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "Redis连接异常");
         return R.fail("Redis连接异常");
     }
 
-    @ExceptionHandler({Throwable.class})
+    @ExceptionHandler({Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public R handleError(Throwable e) {
+    public R handleError(Exception e) {
         log.error("----------服务器异常----------");
         e.printStackTrace();
         SysLogUtil.publish(SysLogUtil.TYPE_FAIL, "服务器异常");
+        return R.fail(e);
+    }
+
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public R handleError(MethodArgumentTypeMismatchException e) {
+        log.error("----------参数类型不匹配异常----------");
+        e.printStackTrace();
         return R.fail(e);
     }
 

@@ -6,6 +6,7 @@ import cn.hutool.http.HttpUtil;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.log.event.LogEvent;
 import cn.tycoding.boot.modules.system.entity.SysLog;
+import lombok.SneakyThrows;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -21,9 +22,17 @@ import java.util.Objects;
  */
 public class SysLogUtil {
 
-    /* 成功日志类型 */
+    /**
+     * 字典表类型标识
+     */
+    public static final String DICT_TYPE = "sys_type";
+    /**
+     * 成功日志类型
+     */
     public static final int TYPE_OK = 1;
-    /* 错误日志类型 */
+    /**
+     * 错误日志类型
+     */
     public static final int TYPE_FAIL = 2;
 
     /**
@@ -35,6 +44,7 @@ public class SysLogUtil {
      * @param time      耗时
      * @return Log类
      */
+    @SneakyThrows
     public static SysLog build(Integer type, String operation, String method, Long time) {
         HttpServletRequest request = ((ServletRequestAttributes)
                 Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();

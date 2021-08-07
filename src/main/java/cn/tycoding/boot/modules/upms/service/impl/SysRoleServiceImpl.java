@@ -51,6 +51,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     @Override
     public List<Tree<Object>> tree(SysRole sysRole) {
         List<SysRole> list = this.list(new LambdaQueryWrapper<SysRole>()
+                .ne(SysRole::getAlias, AuthUtil.ADMINISTRATOR)
                 .like(StringUtils.isNotEmpty(sysRole.getName()), SysRole::getName, sysRole.getName())
         );
         // 构建树形结构

@@ -6,6 +6,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 USE `tumo_boot`;
 
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- ----------------------------
 -- Table structure for oauth_client_details
 -- ----------------------------
@@ -73,6 +77,52 @@ CREATE TABLE `sys_dept` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_dept` VALUES (1362597682681577273, 0, '测试部门', 1, '测试');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_dict
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict`;
+CREATE TABLE `sys_dict` (
+                            `id` bigint(20) NOT NULL COMMENT '主键',
+                            `type` varchar(255) DEFAULT NULL COMMENT '类型',
+                            `name` varchar(255) DEFAULT NULL COMMENT '名称',
+                            `sort` int(20) DEFAULT NULL COMMENT '排序',
+                            `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+                            `des` varchar(255) DEFAULT NULL COMMENT '描述',
+                            PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典表';
+
+-- ----------------------------
+-- Records of sys_dict
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict` VALUES (1423646158364020738, 'log_type', '系统日志', 1, 1, '日志类型字典，不可删除');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_dict_item
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_dict_item`;
+CREATE TABLE `sys_dict_item` (
+                                 `id` bigint(20) NOT NULL COMMENT '主键',
+                                 `dict_id` bigint(20) NOT NULL COMMENT '字典表主键',
+                                 `value` varchar(255) DEFAULT NULL COMMENT '字典项值',
+                                 `label` varchar(255) DEFAULT NULL COMMENT '字典项名称',
+                                 `type` varchar(255) DEFAULT NULL COMMENT '字典项类型',
+                                 `sort` int(20) DEFAULT NULL COMMENT '排序',
+                                 `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+                                 `des` varchar(255) DEFAULT NULL COMMENT '描述',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典项表';
+
+-- ----------------------------
+-- Records of sys_dict_item
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_dict_item` VALUES (1423905893285801986, 1, '1', '1', '1', 1, NULL, '111');
+INSERT INTO `sys_dict_item` VALUES (1423906599338160129, 1423646158364020738, '1', '正常', 'log_type', 1, 1, '请求正常的日志');
+INSERT INTO `sys_dict_item` VALUES (1423910288618598401, 1423646158364020738, '2', '异常', 'log_type', 2, 1, '请求异常的日志');
 COMMIT;
 
 -- ----------------------------
@@ -164,6 +214,14 @@ INSERT INTO `sys_menu` VALUES (1403549005811984386, '项目文档', NULL, '/doc'
 INSERT INTO `sys_menu` VALUES (1406057138559782913, 'API文档', 1403549005811984386, 'http://127.0.0.1:8010/doc.html', 'doc:api:view', 'menu', 301, 'ant-design:tag-outlined', NULL, 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1406058379956326402, '开发文档', 1403549005811984386, 'http://docs.boot.tycoding.cn/', 'doc:dev:view', 'menu', 302, 'ant-design:star-outlined', NULL, 0, 1, 1, 1);
 INSERT INTO `sys_menu` VALUES (1406058753513623553, '开源地址', 1403549005811984386, 'https://github.com/Tumo-Team/tumo-boot', 'doc:git:view', 'menu', 303, 'ant-design:github-filled', NULL, 0, 1, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423636580482088961, '字典管理', 1402900711645126657, 'dict', NULL, 'menu', 230, 'ant-design:exception-outlined', '/modules/system/dict/index', 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423638875592654849, '字典新增', 1423636580482088961, NULL, 'system:dict:add', 'button', 231, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639000616468481, '字典修改', 1423636580482088961, NULL, 'system:dict:update', 'button', 232, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639102978457602, '字典删除', 1423636580482088961, NULL, 'system:dict:delete', 'button', 233, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639365697077249, '字典项查看', 1423636580482088961, NULL, 'system:dict:item:view', 'button', 234, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639486551752706, '字典项新增', 1423636580482088961, NULL, 'system:dict:item:add', 'button', 235, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423639588704026626, '字典项修改', 1423636580482088961, NULL, 'system:dict:item:update', 'button', 236, NULL, NULL, 0, 0, 1, 1);
+INSERT INTO `sys_menu` VALUES (1423640622671265793, '字典项删除', 1423636580482088961, NULL, 'system:dict:item:delete', 'button', 237, NULL, NULL, 0, 0, 1, 1);
 COMMIT;
 
 -- ----------------------------
@@ -288,39 +346,5 @@ BEGIN;
 INSERT INTO `sys_user_role` VALUES (1362304631325102103, 1362304631325192103);
 INSERT INTO `sys_user_role` VALUES (1404807635385069569, 1404805390442635266);
 COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-
--- ----------------------------
--- Table structure for sys_dict
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict`;
-CREATE TABLE `sys_dict`  (
-  `id` bigint(20) NOT NULL COMMENT '主键',
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '类型',
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '名称',
-  `des` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `sort` int(20) NULL DEFAULT NULL COMMENT '排序',
-  `is_system` tinyint(1) NULL DEFAULT NULL COMMENT '是否是系统内置',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for sys_dict_item
--- ----------------------------
-DROP TABLE IF EXISTS `sys_dict_item`;
-CREATE TABLE `sys_dict_item`  (
-  `id` bigint(20) NOT NULL COMMENT '主键',
-  `dict_id` bigint(20) NULL DEFAULT NULL COMMENT '字典表主键',
-  `value` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典值',
-  `label` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '显示名称',
-  `type` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '字典类型',
-  `des` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
-  `sort` int(20) NULL DEFAULT NULL COMMENT '排序',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典项表' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

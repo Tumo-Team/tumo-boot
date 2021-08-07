@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.upms.controller;
 
 import cn.hutool.core.lang.tree.Tree;
+import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.core.api.R;
 import cn.tycoding.boot.common.log.annotation.ApiLog;
@@ -33,7 +34,9 @@ public class SysRoleController {
     @GetMapping("/list")
     @ApiOperation(value = "条件查询")
     public R<List<SysRole>> list(SysRole sysRole) {
-        return R.ok(sysRoleService.list(new LambdaQueryWrapper<SysRole>().eq(SysRole::getStatus, true)));
+        return R.ok(sysRoleService.list(new LambdaQueryWrapper<SysRole>()
+                .ne(SysRole::getAlias, AuthUtil.ADMINISTRATOR)
+                .eq(SysRole::getStatus, true)));
     }
 
     @GetMapping("/tree")
