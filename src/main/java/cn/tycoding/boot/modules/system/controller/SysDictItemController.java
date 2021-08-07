@@ -13,6 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class SysDictItemController {
 
     @PostMapping
     @ApiOperation(value = "新增")
+    @PreAuthorize("@auth.hasAuth('system:dict:item:add')")
     public R add(@RequestBody SysDictItem sysDictItem) {
         sysDictItemService.addDictItem(sysDictItem);
         return R.ok();
@@ -62,6 +64,7 @@ public class SysDictItemController {
 
     @PutMapping
     @ApiOperation(value = "修改")
+    @PreAuthorize("@auth.hasAuth('system:dict:item:update')")
     public R update(@RequestBody SysDictItem sysDictItem) {
         sysDictItemService.updateById(sysDictItem);
         return R.ok();
@@ -69,6 +72,7 @@ public class SysDictItemController {
 
     @DeleteMapping("/{id}")
     @ApiOperation(value = "删除")
+    @PreAuthorize("@auth.hasAuth('system:dict:item:delete')")
     public R delete(@PathVariable Long id) {
         SysDictItem sysDictItem = sysDictItemService.getById(id);
         if (sysDictItem != null && sysDictItem.getIsSystem()) {
