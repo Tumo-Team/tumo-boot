@@ -9,14 +9,9 @@ package cn.tycoding.boot.common.core.constant;
 public interface ApiConstant {
 
     /**
-     * 自定义授权登录页面
+     * 基础API接口前缀
      */
-    String API_LOGIN_PAGE = "/tumo-boot/auth/login";
-
-    /**
-     * 自定义授权登录接口
-     */
-    String API_LOGIN_FORM = "/tumo-boot/auth/form";
+    String API_BASE = "/tumo-boot";
 
     /**
      * 自定义OAuth Token端点地址

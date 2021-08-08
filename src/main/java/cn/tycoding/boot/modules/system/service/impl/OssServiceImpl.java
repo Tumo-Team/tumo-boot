@@ -1,6 +1,7 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.hutool.core.io.FileUtil;
+import cn.tycoding.boot.common.log.exception.ServiceException;
 import cn.tycoding.boot.common.oss.props.LocalFileProperties;
 import cn.tycoding.boot.common.oss.utils.OssUtil;
 import cn.tycoding.boot.modules.system.entity.OssFile;
@@ -27,6 +28,9 @@ public class OssServiceImpl implements OssService {
 
     @Override
     public OssFile put(MultipartFile file) {
+        if (file == null) {
+            throw new ServiceException("文件列表为空");
+        }
         return transfer(file);
     }
 
@@ -46,8 +50,6 @@ public class OssServiceImpl implements OssService {
         String targetName = OssUtil.getName(file.getOriginalFilename());
         // 目标文件
         File targetFile = new File(targetPath, targetName);
-        // 写入文件
-        file.transferTo(targetFile);
 
         // 写入数据
         OssFile ossFile = new OssFile();
@@ -56,9 +58,12 @@ public class OssServiceImpl implements OssService {
         ossFile.setBucket(bucket);
         ossFile.setUrl(OssUtil.getUrl(properties.getRemotePath(), bucket, targetName));
         ossFile.setSize(file.getSize());
-        ossFile.setType(FileUtil.getType(targetFile));
+        ossFile.setType(FileUtil.getSuffix(targetName));
         ossFile.setDes(file.getOriginalFilename());
         ossFile.setCreateTime(new Date());
+
+        // 写入文件
+        file.transferTo(targetFile);
         return ossFile;
     }
 }

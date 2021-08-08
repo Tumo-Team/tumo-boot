@@ -21,5 +21,5 @@ public class LocalFileProperties {
     /**
      * 文件访问地址
      */
-    private String remotePath = "http://127.0.0.1:8010/upload";
+    private String remotePath = "http://127.0.0.1:8090/upload";
 }
