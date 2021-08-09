@@ -6,7 +6,6 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 USE `tumo_boot`;
 
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -15,18 +14,18 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `oauth_client_details`;
 CREATE TABLE `oauth_client_details` (
-                                        `client_id` varchar(256) NOT NULL,
-                                        `resource_ids` varchar(256) DEFAULT NULL,
-                                        `client_secret` varchar(256) DEFAULT NULL,
-                                        `scope` varchar(256) DEFAULT NULL,
-                                        `authorized_grant_types` varchar(256) DEFAULT NULL,
-                                        `web_server_redirect_uri` varchar(256) DEFAULT NULL,
-                                        `authorities` varchar(256) DEFAULT NULL,
-                                        `access_token_validity` int(11) DEFAULT NULL,
-                                        `refresh_token_validity` int(11) DEFAULT NULL,
-                                        `additional_information` varchar(4096) DEFAULT NULL,
-                                        `autoapprove` varchar(256) DEFAULT NULL,
-                                        PRIMARY KEY (`client_id`)
+  `client_id` varchar(256) NOT NULL,
+  `resource_ids` varchar(256) DEFAULT NULL,
+  `client_secret` varchar(256) DEFAULT NULL,
+  `scope` varchar(256) DEFAULT NULL,
+  `authorized_grant_types` varchar(256) DEFAULT NULL,
+  `web_server_redirect_uri` varchar(256) DEFAULT NULL,
+  `authorities` varchar(256) DEFAULT NULL,
+  `access_token_validity` int(11) DEFAULT NULL,
+  `refresh_token_validity` int(11) DEFAULT NULL,
+  `additional_information` varchar(4096) DEFAULT NULL,
+  `autoapprove` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -41,16 +40,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `oss_file`;
 CREATE TABLE `oss_file` (
-                            `id` bigint(20) NOT NULL COMMENT '主键',
-                            `origin_name` varchar(255) DEFAULT NULL COMMENT '原始文件名称',
-                            `target_name` varchar(255) DEFAULT NULL COMMENT '文件存储名称',
-                            `bucket` varchar(255) DEFAULT NULL COMMENT '桶路径',
-                            `url` varchar(255) DEFAULT NULL COMMENT '文件地址',
-                            `type` varchar(255) DEFAULT NULL COMMENT '文件类型',
-                            `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
-                            `des` varchar(255) DEFAULT NULL COMMENT '文件描述',
-                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-                            PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `origin_name` varchar(255) DEFAULT NULL COMMENT '原始文件名称',
+  `target_name` varchar(255) DEFAULT NULL COMMENT '文件存储名称',
+  `bucket` varchar(255) DEFAULT NULL COMMENT '桶路径',
+  `url` varchar(255) DEFAULT NULL COMMENT '文件地址',
+  `type` varchar(255) DEFAULT NULL COMMENT '文件类型',
+  `size` bigint(20) DEFAULT NULL COMMENT '文件大小',
+  `des` varchar(255) DEFAULT NULL COMMENT '文件描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='资源文件表';
 
 -- ----------------------------
@@ -64,12 +63,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE `sys_dept` (
-                            `id` bigint(20) NOT NULL COMMENT '部门ID',
-                            `parent_id` bigint(20) NOT NULL COMMENT '上级部门ID',
-                            `name` varchar(20) NOT NULL COMMENT '部门名称',
-                            `order_no` int(11) DEFAULT NULL COMMENT '排序',
-                            `des` varchar(100) DEFAULT NULL COMMENT '描述',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL COMMENT '部门ID',
+  `parent_id` bigint(20) NOT NULL COMMENT '上级部门ID',
+  `name` varchar(20) NOT NULL COMMENT '部门名称',
+  `order_no` int(11) DEFAULT NULL COMMENT '排序',
+  `des` varchar(100) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
 -- ----------------------------
@@ -84,13 +83,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict`;
 CREATE TABLE `sys_dict` (
-                            `id` bigint(20) NOT NULL COMMENT '主键',
-                            `type` varchar(255) DEFAULT NULL COMMENT '类型',
-                            `name` varchar(255) DEFAULT NULL COMMENT '名称',
-                            `sort` int(20) DEFAULT NULL COMMENT '排序',
-                            `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
-                            `des` varchar(255) DEFAULT NULL COMMENT '描述',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `type` varchar(255) DEFAULT NULL COMMENT '类型',
+  `name` varchar(255) DEFAULT NULL COMMENT '名称',
+  `sort` int(20) DEFAULT NULL COMMENT '排序',
+  `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+  `des` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
@@ -105,15 +104,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_item`;
 CREATE TABLE `sys_dict_item` (
-                                 `id` bigint(20) NOT NULL COMMENT '主键',
-                                 `dict_id` bigint(20) NOT NULL COMMENT '字典表主键',
-                                 `value` varchar(255) DEFAULT NULL COMMENT '字典项值',
-                                 `label` varchar(255) DEFAULT NULL COMMENT '字典项名称',
-                                 `type` varchar(255) DEFAULT NULL COMMENT '字典项类型',
-                                 `sort` int(20) DEFAULT NULL COMMENT '排序',
-                                 `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
-                                 `des` varchar(255) DEFAULT NULL COMMENT '描述',
-                                 PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `dict_id` bigint(20) NOT NULL COMMENT '字典表主键',
+  `value` varchar(255) DEFAULT NULL COMMENT '字典项值',
+  `label` varchar(255) DEFAULT NULL COMMENT '字典项名称',
+  `type` varchar(255) DEFAULT NULL COMMENT '字典项类型',
+  `sort` int(20) DEFAULT NULL COMMENT '排序',
+  `is_system` tinyint(1) DEFAULT NULL COMMENT '是否系统内置',
+  `des` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='字典项表';
 
 -- ----------------------------
@@ -130,18 +129,18 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_log`;
 CREATE TABLE `sys_log` (
-                           `id` bigint(20) NOT NULL COMMENT '编号',
-                           `type` int(10) DEFAULT NULL COMMENT '日志类型，1正常 2异常 ',
-                           `username` varchar(20) DEFAULT NULL COMMENT '操作用户',
-                           `operation` varchar(20) DEFAULT NULL COMMENT '操作描述',
-                           `url` varchar(255) DEFAULT NULL COMMENT '请求URL',
-                           `time` bigint(20) DEFAULT NULL COMMENT '耗时(毫秒)',
-                           `method` varchar(100) DEFAULT NULL COMMENT '操作方法',
-                           `params` varchar(255) DEFAULT NULL COMMENT '操作参数',
-                           `ip` varchar(20) DEFAULT NULL COMMENT 'IP地址',
-                           `user_agent` varchar(255) DEFAULT NULL COMMENT '用户代理',
-                           `create_time` datetime DEFAULT NULL COMMENT '操作时间',
-                           PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL COMMENT '编号',
+  `type` int(10) DEFAULT NULL COMMENT '日志类型，1正常 2异常 ',
+  `username` varchar(20) DEFAULT NULL COMMENT '操作用户',
+  `operation` varchar(20) DEFAULT NULL COMMENT '操作描述',
+  `url` varchar(255) DEFAULT NULL COMMENT '请求URL',
+  `time` bigint(20) DEFAULT NULL COMMENT '耗时(毫秒)',
+  `method` varchar(100) DEFAULT NULL COMMENT '操作方法',
+  `params` varchar(255) DEFAULT NULL COMMENT '操作参数',
+  `ip` varchar(20) DEFAULT NULL COMMENT 'IP地址',
+  `user_agent` varchar(255) DEFAULT NULL COMMENT '用户代理',
+  `create_time` datetime DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
 
 -- ----------------------------
@@ -155,20 +154,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
-                            `id` bigint(20) NOT NULL COMMENT '主键',
-                            `name` varchar(100) NOT NULL COMMENT '菜单名称',
-                            `parent_id` bigint(20) DEFAULT NULL COMMENT '父级ID',
-                            `path` varchar(255) DEFAULT NULL COMMENT '菜单路径',
-                            `perms` varchar(255) DEFAULT NULL COMMENT '权限标识',
-                            `type` varchar(20) DEFAULT NULL COMMENT '菜单类型',
-                            `order_no` int(11) DEFAULT NULL COMMENT '排序',
-                            `icon` varchar(100) DEFAULT NULL COMMENT '菜单图标',
-                            `component` varchar(255) DEFAULT NULL COMMENT '组件路径',
-                            `is_disabled` tinyint(1) DEFAULT NULL COMMENT '是否禁用',
-                            `is_ext` tinyint(1) DEFAULT NULL COMMENT '是否外链',
-                            `is_keepalive` tinyint(1) DEFAULT NULL COMMENT '是否缓存',
-                            `is_show` tinyint(1) DEFAULT NULL COMMENT '是否显示',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `name` varchar(100) NOT NULL COMMENT '菜单名称',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '父级ID',
+  `path` varchar(255) DEFAULT NULL COMMENT '菜单路径',
+  `perms` varchar(255) DEFAULT NULL COMMENT '权限标识',
+  `type` varchar(20) DEFAULT NULL COMMENT '菜单类型',
+  `order_no` int(11) DEFAULT NULL COMMENT '排序',
+  `icon` varchar(100) DEFAULT NULL COMMENT '菜单图标',
+  `component` varchar(255) DEFAULT NULL COMMENT '组件路径',
+  `is_disabled` tinyint(1) DEFAULT NULL COMMENT '是否禁用',
+  `is_ext` tinyint(1) DEFAULT NULL COMMENT '是否外链',
+  `is_keepalive` tinyint(1) DEFAULT NULL COMMENT '是否缓存',
+  `is_show` tinyint(1) DEFAULT NULL COMMENT '是否显示',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 -- ----------------------------
@@ -228,13 +227,13 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE `sys_role` (
-                            `id` bigint(20) NOT NULL COMMENT '主键',
-                            `parent_id` bigint(20) DEFAULT NULL COMMENT '上级节点',
-                            `name` varchar(20) NOT NULL COMMENT '角色名称',
-                            `alias` varchar(20) DEFAULT NULL COMMENT '角色别名',
-                            `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
-                            `des` varchar(100) DEFAULT NULL COMMENT '描述',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) NOT NULL COMMENT '主键',
+  `parent_id` bigint(20) DEFAULT NULL COMMENT '上级节点',
+  `name` varchar(20) NOT NULL COMMENT '角色名称',
+  `alias` varchar(20) DEFAULT NULL COMMENT '角色别名',
+  `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
+  `des` varchar(100) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 -- ----------------------------
@@ -250,9 +249,9 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-                                 `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-                                 `menu_id` bigint(20) NOT NULL COMMENT '菜单/按钮ID',
-                                 PRIMARY KEY (`role_id`,`menu_id`)
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `menu_id` bigint(20) NOT NULL COMMENT '菜单/按钮ID',
+  PRIMARY KEY (`role_id`,`menu_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色资源关联表';
 
 -- ----------------------------
@@ -312,27 +311,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
-                            `id` bigint(20) NOT NULL COMMENT '用户ID',
-                            `username` varchar(50) NOT NULL COMMENT '用户名',
-                            `password` varchar(100) NOT NULL COMMENT '密码',
-                            `real_name` varchar(255) DEFAULT NULL COMMENT '真实姓名',
-                            `sex` varchar(10) DEFAULT NULL COMMENT '性别',
-                            `phone` varchar(20) DEFAULT NULL COMMENT '手机',
-                            `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
-                            `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
-                            `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
-                            `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
-                            `create_time` datetime NOT NULL COMMENT '创建时间',
-                            PRIMARY KEY (`id`)
+  `id` bigint(20) NOT NULL COMMENT '用户ID',
+  `username` varchar(50) NOT NULL COMMENT '用户名',
+  `password` varchar(100) NOT NULL COMMENT '密码',
+  `real_name` varchar(255) DEFAULT NULL COMMENT '真实姓名',
+  `sex` varchar(10) DEFAULT NULL COMMENT '性别',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `avatar` varchar(100) DEFAULT NULL COMMENT '头像',
+  `status` tinyint(1) DEFAULT '0' COMMENT '状态 0锁定 1有效',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$ax1tsaE7fqB03iMQ/zeV8OAQ4bcTu5ik92XUfzUsP2XVrEXsFO/pS', '超级管理员', '女', '19809587830', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2019-01-01 00:00:00');
-INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$KBNb3GXoL4KKy55reaxnq.y0SgPWy2C6GT5yDqUuCSzCpqVBBGORK', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2021-02-19 11:02:08');
-INSERT INTO `sys_user` VALUES (1404807635385069569, 'demo', '$2a$10$/07tXYxlTY/iJfVZOU.8AeeZiQLX3MIQWUGwV9/N3wH6nMUbYFpl2', '演示环境账号', '男', '18929809812', 'ty@qq.com', 1362597682681577273, 'http://cdn.tycoding.cn/MIK-WxRzP9.png', 1, '2021-06-15 22:26:55');
+INSERT INTO `sys_user` VALUES (1362304631325102103, 'administrator', '$2a$10$ax1tsaE7fqB03iMQ/zeV8OAQ4bcTu5ik92XUfzUsP2XVrEXsFO/pS', '超级管理员', '女', '19809587831', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2019-01-01 00:00:00');
+INSERT INTO `sys_user` VALUES (1362598312234024962, 'tycoding', '$2a$10$KBNb3GXoL4KKy55reaxnq.y0SgPWy2C6GT5yDqUuCSzCpqVBBGORK', '涂陌', '男', '19823879128', 'tycoding@sina.com', 1362597682681577473, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2021-02-19 11:02:08');
+INSERT INTO `sys_user` VALUES (1404807635385069569, 'demo', '$2a$10$/07tXYxlTY/iJfVZOU.8AeeZiQLX3MIQWUGwV9/N3wH6nMUbYFpl2', '演示环境账号', '男', '18929809812', 'ty@qq.com', 1362597682681577273, 'http://cdn.tycoding.cn/20210808171248.png', 1, '2021-06-15 22:26:55');
 COMMIT;
 
 -- ----------------------------
@@ -340,9 +339,9 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE `sys_user_role` (
-                                 `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-                                 `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-                                 PRIMARY KEY (`user_id`,`role_id`)
+  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  PRIMARY KEY (`user_id`,`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户角色关联表';
 
 -- ----------------------------
