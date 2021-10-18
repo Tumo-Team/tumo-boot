@@ -54,6 +54,22 @@
 
 详细的文档请看：[http://docs.boot.tycoding.cn](http://docs.boot.tycoding.cn)
 
+## 图片预览
+
+
+![image-20211019010331915](imgs/image-20211019010331915.png)
+
+![image-20211019010617453](imgs/image-20211019010617453.png)
+
+![image-20211019010644809](imgs/image-20211019010644809.png)
+
+![image-20211019010703801](imgs/image-20211019010703801.png)
+
+![image-20211019010720167](imgs/image-20211019010720167.png)
+
+![image-20211019010743832](imgs/image-20211019010743832.png)
+
+
 ## License
 
 [MIT](https://github.com/Tumo-Team/tumo-boot/blob/master/LICENSE)
