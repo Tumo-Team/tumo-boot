@@ -25,7 +25,7 @@
             sd.name AS deptName
         FROM sys_user AS `user`
             LEFT JOIN sys_dept AS sd on `user`.dept_id = sd.id
-        WHERE `user`.id != #{ignoreId}
+        WHERE `user`.id != #{ignoreId} AND `user`.username != #{ignoreName}
         <if test="user.username != null and user.username != ''">
             AND `user`.username LIKE CONCAT('%', #{user.username},  '%')
         </if>

@@ -55,7 +55,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         SysUser sysUser = baseMapper.selectById(userId);
         SysUserDTO dto = BeanUtil.copy(sysUser, SysUserDTO.class);
         dto.setPassword(null);
-        List<Long> roleIds = sysUserRoleService.getRoleListByUserId(userId).stream().map(SysRole::getId).collect(Collectors.toList());
+        List<Long> roleIds =
+                sysUserRoleService.getRoleListByUserId(userId).stream().map(SysRole::getId).collect(Collectors.toList());
         dto.setRoleIds(roleIds);
         return dto;
     }
@@ -89,11 +90,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             // 根据角色筛选权限
             menuList = sysMenuService.getUserMenuList(sysRoleList);
         }
-        Set<String> perms = menuList
-                .stream()
-                .map(SysMenu::getPerms)
-                .filter(StringUtils::isNotEmpty)
-                .collect(Collectors.toSet());
+        Set<String> perms =
+                menuList.stream().map(SysMenu::getPerms).filter(StringUtils::isNotEmpty).collect(Collectors.toSet());
 
         //获取用户部门信息
         SysDept sysDept = sysDeptService.getById(userInfo.getUser().getDeptId());
@@ -103,20 +101,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public List<SysUser> list(SysUser sysUser) {
-        List<SysUser> list = baseMapper.selectList(new LambdaQueryWrapper<SysUser>()
-                .like(StringUtils.isNotEmpty(sysUser.getUsername()), SysUser::getUsername, sysUser.getUsername()));
+        List<SysUser> list = baseMapper.selectList(new LambdaQueryWrapper<SysUser>().ne(SysUser::getUsername,
+                AuthUtil.ADMINISTRATOR).like(StringUtils.isNotEmpty(sysUser.getUsername()), SysUser::getUsername,
+                sysUser.getUsername()));
         list.forEach(i -> i.setPassword(null));
         return list;
     }
 
     @Override
     public IPage<SysUserDTO> page(SysUserDTO user, QueryPage queryPage) {
-        return baseMapper.page(MybatisUtil.wrap(user, queryPage), user, AuthUtil.getUserId());
+        return baseMapper.page(MybatisUtil.wrap(user, queryPage), user, AuthUtil.getUserId(), AuthUtil.ADMINISTRATOR);
     }
 
     @Override
     public boolean checkName(SysUserDTO sysUser) {
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername, sysUser.getUsername());
+        if (AuthUtil.ADMINISTRATOR.equals(sysUser.getUsername())) {
+            return false;
+        }
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername,
+                sysUser.getUsername());
         if (sysUser.getId() != null && sysUser.getId() != 0) {
             queryWrapper.ne(sysUser.getId() != null, SysUser::getId, sysUser.getId());
         }
@@ -155,9 +158,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
             // 新增用户角色关联
             List<SysUserRole> list = new ArrayList<>();
-            roleIds.forEach(roleId -> list.add(new SysUserRole()
-                    .setUserId(userId)
-                    .setRoleId(roleId)));
+            roleIds.forEach(roleId -> list.add(new SysUserRole().setUserId(userId).setRoleId(roleId)));
             sysUserRoleService.saveBatch(list);
         }
     }

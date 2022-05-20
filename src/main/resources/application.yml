@@ -55,6 +55,7 @@ tumo-boot:
     # 默认忽略拦截的URL
     skip-url:
       - /favicon.ico
+      - /upload/**
       - /tumo-boot/oss/put
       - /tumo-boot/auth/logout
       - /tumo-boot/auth/captcha
