@@ -1,6 +1,5 @@
 package cn.tycoding.boot.common.core.api;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,13 +14,10 @@ import java.io.Serializable;
 public class R<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty("状态码")
     private int code = HttpCode.SUCCESS.code;
 
-    @ApiModelProperty("返回消息")
     private String msg = HttpCode.SUCCESS.msg;
 
-    @ApiModelProperty("承载数据")
     private T data;
 
     public R() {

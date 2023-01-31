@@ -3,7 +3,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://tumo-boot-mysql:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://tumo-boot-mysql:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
 
   # Redis配置
   redis:

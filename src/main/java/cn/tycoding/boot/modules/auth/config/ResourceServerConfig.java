@@ -22,8 +22,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-    private final String[] swagger_ignores = new String[]{"/swagger-ui.html", "/doc.html/**", "/swagger-ui/**", "/swagger-resources/**", "/v2/api-docs", "/v3/api-docs", "/webjars/**"};
-
     private final AuthProperties authProperties;
     private final ResourceAuthExceptionEntryPoint resourceAuthExceptionEntryPoint;
 
@@ -36,9 +34,6 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, swagger_ignores)
-                .permitAll()
-
                 .antMatchers(authProperties.getSkipUrl().toArray(new String[0]))
                 .permitAll()
 

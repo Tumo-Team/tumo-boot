@@ -121,7 +121,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<SysUser>().eq(SysUser::getUsername,
                 sysUser.getUsername());
         if (sysUser.getId() != null && sysUser.getId() != 0) {
-            queryWrapper.ne(sysUser.getId() != null, SysUser::getId, sysUser.getId());
+            queryWrapper.ne(SysUser::getId, sysUser.getId());
         }
         return baseMapper.selectList(queryWrapper).size() <= 0;
     }

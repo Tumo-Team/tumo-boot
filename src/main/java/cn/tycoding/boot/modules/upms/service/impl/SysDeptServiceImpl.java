@@ -12,7 +12,6 @@ import cn.tycoding.boot.modules.upms.service.SysDeptService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,13 +30,13 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     @Override
     public List<SysDept> list(SysDept sysDept) {
         return baseMapper.selectList(new LambdaQueryWrapper<SysDept>()
-                .orderByAsc(SysDept::getOrderNo)
-                .like(StringUtils.isNotEmpty(sysDept.getName()), SysDept::getName, sysDept.getName()));
+                .orderByAsc(SysDept::getOrderNo));
     }
 
     @Override
-    public List<Tree<Object>> tree() {
-        List<SysDept> sysDeptList = this.list();
+    public List<Tree<Object>> tree(SysDept sysDept) {
+        List<SysDept> sysDeptList = baseMapper.selectList(new LambdaQueryWrapper<SysDept>()
+                .ne(sysDept.getId() != null, SysDept::getId, sysDept.getId()));
 
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();

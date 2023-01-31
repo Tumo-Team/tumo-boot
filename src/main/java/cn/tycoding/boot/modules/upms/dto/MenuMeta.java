@@ -1,6 +1,5 @@
 package cn.tycoding.boot.modules.upms.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,12 +19,10 @@ public class MenuMeta implements Serializable {
     /**
      * 标题
      */
-    @ApiModelProperty(value = "标题")
     private String title;
 
     /**
      * 图标名称
      */
-    @ApiModelProperty(value = "图标名称")
     private String icon;
 }

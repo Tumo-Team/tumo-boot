@@ -22,4 +22,12 @@ public class ServletUtil {
         response.setCharacterEncoding(CommonConstant.UTF_8);
         response.getWriter().write(JSONUtil.toJsonStr(data));
     }
+
+    @SneakyThrows
+    public static void write(HttpServletResponse response, int status, R data) {
+        response.setStatus(status);
+        response.setHeader("Content-type", "application/json;charset=" + CommonConstant.UTF_8);
+        response.setCharacterEncoding(CommonConstant.UTF_8);
+        response.getWriter().write(JSONUtil.toJsonStr(data));
+    }
 }

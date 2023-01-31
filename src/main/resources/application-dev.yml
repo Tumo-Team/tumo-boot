@@ -3,7 +3,7 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://tumo-boot-mysql:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://tumo-boot-mysql:3306/tumo_boot?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
 
   # Redis配置
   redis:
@@ -15,5 +15,5 @@ tumo-boot:
   # Oss配置
   file:
     remote-path: http://127.0.0.1:80/upload
-    # 生产环境下，文件上传的地址应该是Web容器映射的可访问的地址
+    # 生产环境下，文件上传的地址应该是Web容器映射的可访问的地址，这里设置为nginx默认映射地址
     upload-path: /usr/local/var/www/upload

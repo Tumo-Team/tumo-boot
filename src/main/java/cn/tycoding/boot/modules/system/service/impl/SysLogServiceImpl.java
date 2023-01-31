@@ -1,14 +1,15 @@
 package cn.tycoding.boot.modules.system.service.impl;
 
 import cn.tycoding.boot.common.core.api.QueryPage;
+import cn.tycoding.boot.common.mybatis.utils.MybatisUtil;
 import cn.tycoding.boot.modules.system.entity.SysLog;
 import cn.tycoding.boot.modules.system.mapper.SysLogMapper;
 import cn.tycoding.boot.modules.system.service.SysLogService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,10 +25,12 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
 
     @Override
     public IPage<SysLog> list(SysLog sysLog, QueryPage queryPage) {
-        IPage<SysLog> page = new Page<>(queryPage.getPage(), queryPage.getLimit());
-        LambdaQueryWrapper<SysLog> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(sysLog.getType() != null, SysLog::getType, sysLog.getType());
-        return baseMapper.selectPage(page, queryWrapper);
+        return baseMapper.selectPage(MybatisUtil.wrap(sysLog, queryPage),
+                Wrappers.<SysLog>lambdaQuery()
+                        .eq(sysLog.getType() != null, SysLog::getType, sysLog.getType())
+                        .like(StringUtils.isNotEmpty(sysLog.getOperation()), SysLog::getOperation, sysLog.getOperation())
+                        .orderByDesc(SysLog::getCreateTime)
+        );
     }
 
     @Override

@@ -9,8 +9,6 @@ import cn.tycoding.boot.modules.upms.dto.SysRoleDTO;
 import cn.tycoding.boot.modules.upms.entity.SysRole;
 import cn.tycoding.boot.modules.upms.service.SysRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +24,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_UPMS_PREFIX + "/role")
-@Api(value = "角色表接口", tags = "角色表接口")
 public class SysRoleController {
 
     private final SysRoleService sysRoleService;
 
     @GetMapping("/list")
-    @ApiOperation(value = "条件查询")
     public R<List<SysRole>> list(SysRole sysRole) {
         return R.ok(sysRoleService.list(new LambdaQueryWrapper<SysRole>()
                 .ne(SysRole::getAlias, AuthUtil.ADMINISTRATOR)
@@ -40,20 +36,17 @@ public class SysRoleController {
     }
 
     @GetMapping("/tree")
-    @ApiOperation(value = "获取角色Tree")
     public R<List<Tree<Object>>> tree(SysRole sysRole) {
         return R.ok(sysRoleService.tree(sysRole));
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "根据ID查询")
     public R<SysRoleDTO> findById(@PathVariable Long id) {
         return R.ok(sysRoleService.findById(id));
     }
 
     @PostMapping
     @ApiLog("新增角色")
-    @ApiOperation(value = "新增角色")
     @PreAuthorize("@auth.hasAuth('upms:role:add')")
     public R add(@RequestBody SysRoleDTO sysRole) {
         sysRoleService.add(sysRole);
@@ -62,7 +55,6 @@ public class SysRoleController {
 
     @PutMapping
     @ApiLog("修改角色")
-    @ApiOperation(value = "修改角色")
     @PreAuthorize("@auth.hasAuth('upms:role:update')")
     public R update(@RequestBody SysRoleDTO sysRole) {
         sysRoleService.update(sysRole);
@@ -71,7 +63,6 @@ public class SysRoleController {
 
     @DeleteMapping("/{id}")
     @ApiLog("删除角色")
-    @ApiOperation(value = "删除角色")
     @PreAuthorize("@auth.hasAuth('upms:role:delete')")
     public R delete(@PathVariable Long id) {
         sysRoleService.delete(id);

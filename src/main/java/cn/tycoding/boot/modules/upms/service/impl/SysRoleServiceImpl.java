@@ -20,7 +20,6 @@ import cn.tycoding.boot.modules.upms.service.SysUserRoleService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,7 +51,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public List<Tree<Object>> tree(SysRole sysRole) {
         List<SysRole> list = this.list(new LambdaQueryWrapper<SysRole>()
                 .ne(SysRole::getAlias, AuthUtil.ADMINISTRATOR)
-                .like(StringUtils.isNotEmpty(sysRole.getName()), SysRole::getName, sysRole.getName())
+                .ne(sysRole.getId() != null, SysRole::getId, sysRole.getId())
         );
         // 构建树形结构
         List<TreeNode<Object>> nodeList = CollUtil.newArrayList();

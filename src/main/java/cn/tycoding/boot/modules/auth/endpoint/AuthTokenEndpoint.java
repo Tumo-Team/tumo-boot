@@ -15,8 +15,6 @@ import cn.tycoding.boot.common.redis.utils.RedisUtil;
 import cn.tycoding.boot.common.redis.utils.TokenInfo;
 import cn.tycoding.boot.modules.auth.dto.TumoUser;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.CacheManager;
@@ -40,7 +38,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(ApiConstant.API_AUTH_PREFIX)
-@Api(value = "Token端点接口", tags = "Token端点接口")
 public class AuthTokenEndpoint {
 
     private final TokenStore tokenStore;
@@ -51,7 +48,6 @@ public class AuthTokenEndpoint {
      * 获取验证码
      */
     @GetMapping("/captcha")
-    @ApiOperation(value = "获取验证码")
     public R<Dict> getCaptcha() {
         CircleCaptcha captcha = CaptchaUtil.createCircleCaptcha(CaptchaConstant.CAPTCHA_WIDTH, CaptchaConstant.CAPTCHA_HEIGHT, CaptchaConstant.CAPTCHA_COUNT, CaptchaConstant.CAPTCHA_CIRCLE_COUNT);
         String code = captcha.getCode().toLowerCase();
@@ -64,7 +60,6 @@ public class AuthTokenEndpoint {
      * 注销登录并清除Token
      */
     @DeleteMapping("/logout")
-    @ApiOperation(value = "注销接口")
     public R<Boolean> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String token) {
         clear(AuthUtil.getToken(token));
         return R.ok();
@@ -92,7 +87,6 @@ public class AuthTokenEndpoint {
      * 强制下线
      */
     @DeleteMapping("/token/{token}")
-    @ApiOperation(value = "强制下线")
     public R tokenDel(@PathVariable String token) {
         clear(token);
         return R.ok();
@@ -102,7 +96,6 @@ public class AuthTokenEndpoint {
      * 分页获取在线Token
      */
     @GetMapping("/token/page")
-    @ApiOperation(value = "获取令牌")
     public R tokenPage(QueryPage queryPage) {
         String key = String.format("%sauth_to_access:*", CacheConstant.OAUTH_PREFIX);
         List<String> keysPage = RedisUtil.getKeysPage(redisTemplate, key, 1, 10);

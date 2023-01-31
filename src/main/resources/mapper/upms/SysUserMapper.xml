@@ -21,7 +21,17 @@
 
     <!-- 分页、条件查询 -->
     <select id="page" resultMap="UserMap">
-        SELECT `user`.*,
+        SELECT `user`.id,
+            `user`.username,
+            `user`.real_name,
+            `user`.sex,
+            `user`.email,
+            `user`.dept_id,
+            `user`.avatar,
+            `user`.phone,
+            `user`.dept_id,
+            `user`.status,
+            `user`.create_time,
             sd.name AS deptName
         FROM sys_user AS `user`
             LEFT JOIN sys_dept AS sd on `user`.dept_id = sd.id

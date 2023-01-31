@@ -21,7 +21,6 @@
         <druid.version>1.2.15</druid.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
-        <knife4j.version>3.0.3</knife4j.version>
         <hutool.version>5.8.11</hutool.version>
         <orika.version>1.5.4</orika.version>
     </properties>
@@ -90,13 +89,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
-        <!-- 基于Swagger的文档工具 Knife4j -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>${knife4j.version}</version>
         </dependency>
 
         <!-- Hutool工具类 -->

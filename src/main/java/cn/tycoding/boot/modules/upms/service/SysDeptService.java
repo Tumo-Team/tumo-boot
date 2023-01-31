@@ -22,7 +22,7 @@ public interface SysDeptService extends IService<SysDept> {
     /**
      * 获取部门Tree
      */
-    List<Tree<Object>> tree();
+    List<Tree<Object>> tree(SysDept sysDept);
 
     /**
      * 删除

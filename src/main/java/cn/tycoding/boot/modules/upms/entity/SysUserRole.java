@@ -1,7 +1,6 @@
 package cn.tycoding.boot.modules.upms.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -22,12 +21,10 @@ public class SysUserRole implements Serializable {
     /**
      * 用户ID
      */
-    @ApiModelProperty(value = "用户ID")
     private Long userId;
 
     /**
      * 角色ID
      */
-    @ApiModelProperty(value = "角色ID")
     private Long roleId;
 }

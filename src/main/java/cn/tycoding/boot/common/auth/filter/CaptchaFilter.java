@@ -1,5 +1,6 @@
 package cn.tycoding.boot.common.auth.filter;
 
+import cn.tycoding.boot.common.core.api.HttpCode;
 import cn.tycoding.boot.common.core.constant.ApiConstant;
 import cn.tycoding.boot.common.auth.utils.AuthUtil;
 import cn.tycoding.boot.common.core.api.R;
@@ -45,7 +46,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
             String code = ServletRequestUtils.getStringParameter(request, AuthUtil.CAPTCHA_FORM_KEY);
             String redisCode = (String) redisTemplate.opsForValue().get(CacheConstant.CAPTCHA_PREFIX + headerKey);
             if (code == null || !code.toLowerCase().equals(redisCode)) {
-                ServletUtil.write(response, new R<>(400, AuthUtil.CAPTCHA_ERROR_INFO));
+                ServletUtil.write(response, new R<>(HttpCode.FAILURE.getCode(), AuthUtil.CAPTCHA_ERROR_INFO));
                 return;
             }
         }

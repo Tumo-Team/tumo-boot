@@ -37,10 +37,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
     @Override
     public List<MenuTree<SysMenu>> tree(SysMenu sysMenu) {
-        SysMenu menu = new SysMenu();
-        menu.setName(sysMenu.getName());
-        menu.setIsDisabled(sysMenu.getIsDisabled());
-        return MenuTreeUtil.build(this.list(menu));
+        List<SysMenu> list = baseMapper.selectList(new LambdaQueryWrapper<SysMenu>()
+                .ne(sysMenu.getId() != null, SysMenu::getId, sysMenu.getId())
+                .eq(sysMenu.getIsDisabled() != null, SysMenu::getIsDisabled, sysMenu.getIsDisabled())
+        );
+        return MenuTreeUtil.build(list);
     }
 
     @Override

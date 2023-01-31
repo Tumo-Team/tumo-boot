@@ -8,6 +8,7 @@ import cn.tycoding.boot.modules.system.entity.OssFile;
 import cn.tycoding.boot.modules.system.service.OssService;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,6 +21,7 @@ import java.util.Date;
  * @author tycoding
  * @since 2021/5/25
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OssServiceImpl implements OssService {
@@ -64,6 +66,7 @@ public class OssServiceImpl implements OssService {
 
         // 写入文件
         file.transferTo(targetFile);
+        log.info("[OSS 文件写入成功，文件路径：{}，访问地址：{}", targetFile.getPath(), ossFile.getUrl());
         return ossFile;
     }
 }
