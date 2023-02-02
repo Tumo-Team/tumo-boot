@@ -171,8 +171,13 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>cn.tycoding.boot.TumoBootApp</mainClass>
+                        </manifest>
+                    </archive>
                     <descriptors>
-                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                        <descriptor>/script/assembly/assembly.xml</descriptor>
                     </descriptors>
                 </configuration>
                 <executions>
