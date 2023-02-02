@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -87,6 +88,7 @@ public class AuthTokenEndpoint {
      * 强制下线
      */
     @DeleteMapping("/token/{token}")
+    @PreAuthorize("@auth.hasAuth('system:token:delete')")
     public R tokenDel(@PathVariable String token) {
         clear(token);
         return R.ok();
