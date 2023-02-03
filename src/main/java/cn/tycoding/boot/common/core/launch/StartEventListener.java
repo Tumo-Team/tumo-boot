@@ -1,6 +1,5 @@
 package cn.tycoding.boot.common.core.launch;
 
-import cn.tycoding.boot.common.core.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.context.WebServerInitializedEvent;
 import org.springframework.context.annotation.Configuration;
@@ -30,9 +29,7 @@ public class StartEventListener {
         Environment environment = event.getApplicationContext().getEnvironment();
         String appName = environment.getProperty("spring.application.name");
         int port = event.getWebServer().getPort();
-        String host = IpUtil.getAddress().getHostAddress();
         String profile = StringUtils.arrayToCommaDelimitedString(environment.getActiveProfiles());
         log.info("----[{}]----启动完成。当前使用端口：[{}]，环境变量：[{}]", appName, port, profile);
-        log.info("----[{}]----查看项目接口文档，访问：http://{}:{}/doc.html", appName, host, port);
     }
 }
