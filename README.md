@@ -9,7 +9,7 @@
 
 ## 项目介绍
 
-**[Tumo-Boot](https://github.com/Tumo-Team/tumo-boot)** 是基于SpringBoot2.5.x、SpringSecurity的RBAC项目脚手架，前端基于Node、Vue3.x、Ant-Design-Vue2.x、Vite、TypeScript。
+**[Tumo-Boot](https://github.com/Tumo-Team/tumo-boot)** 是基于SpringBoot2.x、SpringSecurity的RBAC项目脚手架，前端基于Node、Vue3.x、Ant-Design-Vue2.x、Vite、TypeScript。
 
 如果你已经熟悉了RBAC单体项目开发，你可以学习 **Tumo-Cloud：** [https://github.com/Tumo-Team/tumo-cloud](https://github.com/Tumo-Team/tumo-cloud)。
 
@@ -67,6 +67,12 @@
 
 ![image-20211019010743832](imgs/image-20211019010743832.png)
 
+# 联系
+
+- 个人博客：[http://tycoding.cn](http://tycoding.cn/)
+- GitHub：https://github.com/tycoding
+- 微信公众号：程序员涂陌
+- QQ交流群：866685601
 
 ## License
 
